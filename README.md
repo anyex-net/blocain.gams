@@ -1,2 +1,2 @@
 # blocain.gams
-gams
+gams asset ib
