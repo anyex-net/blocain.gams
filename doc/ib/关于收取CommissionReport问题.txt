@@ -1,0 +1,2 @@
+Should Use Master ClientID.
+If you are executing trades under a non-master ClientID then only that ClientID will receive the commissionReport.  If you call reqExecutions with the Master ClientID then you will receive commissionReport for all trades on the account regardless what ClientID was used to execute the trade.  You can set the Master ClientID in global configurations/settings.  

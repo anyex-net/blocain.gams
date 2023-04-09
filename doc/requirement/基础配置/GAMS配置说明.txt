@@ -1,0 +1,82 @@
+GAMS开发、测试环境配置说明
+
+目的：
+	解决各个环境中因跨域引起的诸多问题，现给出统一域名的解决办法。
+
+域名说明：
+
+	开发环境：
+		交易平台：
+			域名：www.devgams.com
+		认证中心：
+			域名：auth.devgams.com
+		运营平台：
+			域名：boss.devgams.com
+	测试环境：
+		交易平台：
+			域名：www.testgams.com
+		认证中心：
+			域名：auth.testgams.com
+		运营平台：
+			域名：boss.testgams.com
+
+开发环境说明：
+	1、修改本地HOSTS，将开发环境和测试环境的域名与IP对应条目配置好。
+        127.0.0.1 devgams.com
+		127.0.0.1 www.devgams.com
+		127.0.0.1 auth.devgams.com
+		127.0.0.1 boss.devgams.com
+	
+	2、安装并配置NGINX，将交易平台和认证中心的反向代理映射地址配置好。
+	server {
+        listen       80;
+        server_name  devgams.com www.devgams.com;
+		#交易平台
+        location /
+        {
+            proxy_pass http://127.0.0.1:8091;
+            #交易平台前端地址
+        }
+
+        location /dev {
+            proxy_pass http://127.0.0.1:8081/api/;
+            #交易平台后端地址
+        }
+
+        location /api {
+            proxy_pass http://127.0.0.1:8081;
+            #交易平台后端地址
+        }
+    }
+
+    server {
+        listen       80;
+        server_name  boss.devgams.com;
+        #运营系统
+        location /
+        {
+            proxy_pass http://127.0.0.1:8090;
+            #运营系统前端地址
+        }
+
+        location /dev {
+            proxy_pass http://127.0.0.1:8080/api/;
+            #运营系统后端地址
+        }
+
+        location /api {
+            proxy_pass http://127.0.0.1:8080;
+            #运营系统后端地址
+        }
+    }
+
+    server {
+        listen       80;
+        server_name  auth.devgams.com;
+        #认证中心
+        location /
+        {
+            proxy_pass http://127.0.0.1:9000;
+            #认证中心地址
+        }
+    }

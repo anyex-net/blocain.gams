@@ -1,0 +1,13 @@
+生产账户：
+盈透的账户：mapc2017   密码：2017mapc
+
+IB
+账户名：mof201908  密码：dfjl2019  
+
+
+子账户是可以查询的，这是一个可以在线交易的子账户，你们可以看一下，登录可以和XX要验证码mof201809dfjl2018
+
+https://www.interactivebrokers.com.hk/sso/Login?RL=1
+
+
+IB模拟环境测试账户信息：

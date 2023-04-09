@@ -1,0 +1,53 @@
+mkdir -p /mnt/products/oracle12c
+chown -R oracle:oinstall /mnt/products
+chmod -R 775 /mnt/products
+ 
+./runInstaller -ignoreSysPrereqs -ignorePrereq -waitforcompletion \
+-showProgress -silent -responseFile /mnt/database/database/response/db_install.rsp \
+oracle.install.option=INSTALL_DB_SWONLY \
+UNIX_GROUP_NAME=oinstall \
+INVENTORY_LOCATION=/mnt/products/oracle12c/oraInventory \
+ORACLE_HOME=/mnt/products/oracle12c \
+ORACLE_BASE=/mnt/products \
+oracle.install.db.InstallEdition=EE \
+oracle.install.db.OSDBA_GROUP=dba \
+oracle.install.db.OSBACKUPDBA_GROUP=dba \
+oracle.install.db.OSDGDBA_GROUP=dba \
+oracle.install.db.OSKMDBA_GROUP=dba \
+oracle.install.db.OSRACDBA_GROUP=dba
+
+
+
+ dbca -silent -createDatabase \
+ -templateName /mnt/products/oracle12c/assistants/dbca/templates/General_Purpose.dbc \
+ -gdbname orcl -sid orcl -responseFile /mnt/database/database/response/dbca.rsp \
+ -characterSet AL32UTF8 \
+ -sysPassword oracle12c \
+ -systemPassword oracle12c \
+ -automaticMemoryManagement false \
+ -ignorePreReqs \
+ -createAsContainerDatabase false \
+ -numberOfPDBs 0
+
+
+ -----------------------------------------------------------------
+CREATE TABLESPACE gams DATAFILE '/mnt/products/oradata/orcl/gams01.dbf'
+SIZE 512M AUTOEXTEND ON NEXT 512M MAXSIZE UNLIMITED
+EXTENT MANAGEMENT LOCAL;
+
+CREATE USER gamsGWTest IDENTIFIED BY gamsGWTest DEFAULT TABLESPACE gams TEMPORARY TABLESPACE temp;
+
+--删除用户
+DROP USER gamsGWTest CASCADE;
+
+CREATE USER gamsGWTest IDENTIFIED BY gamsGWTest DEFAULT TABLESPACE gams TEMPORARY TABLESPACE temp;
+
+ALTER USER gamsGWTest QUOTA UNLIMITED ON gams;
+
+--赋予权限
+GRANT CONNECT, RESOURCE TO gamsGWTest;
+GRANT DEBUG CONNECT SESSION TO gamsGWTest;
+GRANT EXECUTE ANY PROCEDURE TO gamsGWTest;
+GRANT create view to gamsGWTest;
+--revoke connect,resource,DEBUG CONNECT SESSION from gamsGWTest;
+--grant connect,resource,dba to gamsGWTest;
