@@ -1,0 +1,263 @@
+.help {
+  margin: 60px 100px 80px 100px;
+
+  .helpTitle {
+    width: 1000px;
+    margin-bottom: 50px;
+  }
+
+  .main {
+    padding: 0;
+  }
+}
+
+.help {
+  .chatAll {
+    display: flex;
+  }
+
+  .problem {
+    flex: 111;
+    margin-left: 20px;
+
+    div {
+      width: 500px;
+      min-height: 100px;
+      border: 1px solid #eee;
+      padding: 15px;
+    }
+
+    .el-button {
+      margin-left: 431px;
+      margin-top: 20px;
+      text-align: right;
+    }
+  }
+
+  .el-container {
+    width: 800px;
+    min-height: 600px;
+
+    .el-aside {
+      border: 1px solid rgb(205, 207, 210);
+      border-right: 0px solid rgb(205, 207, 210);
+      display: flex;
+      flex-direction: column;
+      color: #333;
+      text-align: center;
+      background-color: rgb(238, 234, 232);
+
+      .el-main {
+        border-top: 0px solid #000;
+        overflow-x: hidden;
+        flex: 1;
+
+        .changeBgc {
+          background-color: rgb(198, 197, 196);
+        }
+      }
+
+      .el-header {
+        color: #333;
+        text-align: center;
+        height: 40px !important;
+        line-height: 40px;
+        display: block;
+      }
+
+      .messageNum {
+        position: relative;
+        height: 50px;
+        line-height: 38px;
+        background-color: rgb(232, 230, 229);
+        width: 200px;
+        &:hover {
+          background-color: rgb(223, 221, 219);
+        }
+        .el-icon-error{
+          position: absolute;
+          right: 10px;
+          bottom: 10px;
+        }
+        a {
+          display: inline-block;
+          padding-left: 30px;
+          height: 50px;
+          line-height: 50px;
+          width: 200px;
+        }
+
+        .noticeNum {
+          text-align: center;
+          font-size: 12px;
+          color: #fff;
+          position: absolute;
+          width: 21px;
+          height: 21px;
+          line-height: 22px;
+          border-radius: 21px;
+          right: 40px;
+          top: 0;
+          background-color: red;
+        }
+      }
+    }
+
+    .el-main {
+      color: #333;
+      text-align: left;
+      border-left: 0px solid #000;
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+
+      .el-header {
+        border-bottom: 0.5px solid rgb(231, 231, 231);
+        border-top: 1px solid rgb(205, 207, 210);
+        border-right: 1px solid rgb(205, 207, 210);
+        color: #333;
+        text-align: center;
+        height: 40px !important;
+        line-height: 40px;
+        display: block;
+        text-align: left;
+        padding: 0 10px;
+        background-color: rgb(245, 245, 245);
+
+        .changeBgc {
+          background-color: rgb(198, 197, 196);
+        }
+
+        .message {
+          margin-right: 5px;
+          height: 20px;
+          line-height: 20px;
+          padding: 0 5px;
+        }
+      }
+
+      .el-main {
+        border-bottom: 1px solid rgb(205, 207, 210);
+        border-right: 1px solid rgb(205, 207, 210);
+        flex: 1;
+
+        .chatContent {
+          background-color: rgb(246, 247, 250);
+          height: 400px;
+          padding: 20px 12px 0 12px;
+          overflow: auto;
+
+          img {
+            vertical-align: bottom;
+          }
+        }
+
+        .chating {
+          position: relative;
+          padding: 8px 20px;
+          background-color: #fff;
+
+          .emotion {
+            position: absolute;
+            top: -138px;
+            left: 0;
+
+            .emotion-box {
+              width: 360px;
+              border-color: #eee;
+              box-shadow: 0px 0px 7px -1px #ddd;
+              background-color: #fff;
+            }
+          }
+
+          .textarea {
+            height: 60px;
+            width: 100%;
+            margin-bottom: 20px;
+            overflow: auto;
+            padding: 5px 0px;
+          }
+
+          .upload {
+            display: inline-block;
+
+            ul {
+              display: none;
+            }
+          }
+
+          .emtionImg {
+            margin-right: 9px;
+          }
+
+          textarea {
+            resize: none;
+            border: none;
+            display: block;
+            margin-top: 12px;
+            width: 100%;
+            height: 34px;
+
+            &:focus {
+              outline: none;
+            }
+          }
+
+          .chatBtn {
+            text-align: right;
+
+            .el-button {
+              padding: 8px 16px;
+            }
+
+            span {
+              margin-right: 0;
+            }
+
+            .chatBtn_1 {
+              &:hover {
+                background-color: #fff;
+                border-color: #DCDFE6;
+                color: #606266;
+              }
+            }
+
+            .chatBtn_2 {
+              background-color: rgb(22, 155, 213);
+              color: #fff;
+
+              // border-color: #ff2222;
+              &:hover {
+                background-color: #ff4e4e;
+                border-color: #ff4e4e;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .answerDialog {
+    .content {
+      .el-form-item__content {
+        height: 250px !important;
+
+        .quill-editor {
+          height: 180px !important;
+        }
+      }
+    }
+  }
+
+  .problemCollection {
+    .el-dialog__header {
+      border-bottom: 1px solid #dbdce0;
+
+      .el-dialog__title {
+        font-size: 14px;
+        font-weight: 700;
+      }
+    }
+  }
+}

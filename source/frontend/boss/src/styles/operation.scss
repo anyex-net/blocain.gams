@@ -1,0 +1,107 @@
+#app-operationbox {
+  padding: 20px;
+
+  .bottom-table {
+    margin-top: 20px;
+  }
+
+  .modalbox-preview { // 预览
+    ul { 
+      padding: 0px;
+      margin: 0px;
+      margin-bottom: 18px;
+      li {
+        float: left;
+        list-style: none;
+        font-size: 14px;
+        word-wrap: break-word;
+      }
+      li:first-child {
+        min-width: 50px;
+        margin-right: 10px;
+        font-weight: bold;
+      }
+      li:last-child {
+        // max-width: 400px;
+        width: 380px;
+      }
+    }
+    ul.content {
+      li:last-child {
+        height: 200px;
+        border: 1px solid rgb(185, 185, 185);
+        padding: 10px;
+        box-sizing: border-box;
+        overflow-y: auto;
+      }
+    }
+    .quitBtn {
+      float: right;
+      margin-right: 20px;
+    }
+  }
+  .modalbox-compileOrAdd { // 编辑-添加
+    ul { 
+      padding: 0px;
+      margin: 0px;
+      li {
+        float: left;
+        list-style: none;
+        font-size: 14px;
+        word-wrap: break-word;
+      }
+      li:first-child {
+        min-width: 60px;
+        margin-right: 10px;
+        font-weight: bold;
+        line-height: 28px;
+      }
+      li:last-child {
+        // max-width: 400px;
+        width: 370px;
+      }
+    }
+    .modalbox-content-helpCenter { // 帮助模块 模态框li width加大
+      li:first-child {
+        min-width: 70px;
+      }
+      .ql-tooltip {
+        z-index: 1;
+      }
+    }
+    .ql-container.ql-snow { //富文本高度
+      height: 100px;
+    }
+    .el-modalbox-layout {
+      width: 100%;
+      .el-form-item__content {
+        width: 100%;
+      }
+    }
+  }
+  .goHalves { // 左右平分布局
+    float: right;
+  }
+  .btn {
+    float: right;
+    margin-right: 20px;
+    button:last-child {
+      margin-right: 0px;
+    }
+  }
+}
+
+/*css为clearfix，清除浮动*/
+.clearfix::before,
+.clearfix::after{
+    content: "";
+    height: 0;
+    line-height: 0;
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+.clearfix:after{clear:both;}
+.clearfix{
+    *zoom:1;/*IE/7/6*/
+}
