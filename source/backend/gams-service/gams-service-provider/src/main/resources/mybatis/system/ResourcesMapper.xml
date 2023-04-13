@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.system.mapper.ResourcesMapper">
+    <!-- 基础列 -->
+    <sql id="resourcesColumns">
+        a.ID as id,
+        a.PARENT_ID as parentId,
+        a.RES_CODE as resCode,
+        a.RES_NAME as resName,
+        a.RES_DEST as resDest,
+        a.RES_TYPE as resType,
+        a.RES_ICON as resIcon,
+        a.SORT_NUM as sortNum,
+        a.RES_URL as resUrl,
+        a.CREATE_BY as createBy,
+        a.CREATE_DATE as createDate,
+        a.UPDATE_BY as updateBy,
+        a.UPDATE_DATE as updateDate,
+        a.DEL_FLAG as delFlag
+    </sql>
+
+    <sql id="resourcesJoinColumns">
+        a.ID as id,
+        a.PARENT_ID as parentId,
+        a.RES_CODE as resCode,
+        a.RES_NAME as resName,
+        a.RES_DEST as resDest,
+        a.RES_TYPE as resType,
+        a.RES_ICON as resIcon,
+        a.SORT_NUM as sortNum,
+        a.RES_URL as resUrl,
+        a.CREATE_BY as createBy,
+        b.USER_NAME as createByName,
+        a.UPDATE_BY as updateBy,
+        c.USER_NAME as updateByName,
+        a.CREATE_DATE as createDate,
+        a.UPDATE_DATE as updateDate,
+        a.DEL_FLAG as delFlag
+    </sql>
+
+    <resultMap id="resourcesResultMap" type="com.fintech.gams.system.entity.Resources">
+        <id column="ID" property="id" />
+        <result column="PARENT_ID" property="parentId"/>
+        <result column="RES_CODE" property="resCode"/>
+        <result column="RES_NAME" property="resName"/>
+        <result column="RES_DEST" property="resDest"/>
+        <result column="RES_TYPE" property="resType"/>
+        <result column="RES_ICON" property="resIcon"/>
+        <result column="SORT_NUM" property="sortNum"/>
+        <result column="RES_URL" property="resUrl"/>
+        <result column="CREATE_BY" property="createBy"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="UPDATE_BY" property="updateBy"/>
+        <result column="UPDATE_DATE" property="updateDate"/>
+        <result column="DEL_FLAG" property="delFlag"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.system.entity.Resources">
+        INSERT INTO RESOURCES(
+            ID ,
+            PARENT_ID ,
+            RES_CODE ,
+            RES_NAME ,
+            RES_DEST ,
+            RES_TYPE ,
+            RES_ICON ,
+            SORT_NUM ,
+            RES_URL ,
+            CREATE_BY ,
+            CREATE_DATE ,
+            UPDATE_BY ,
+            UPDATE_DATE ,
+            DEL_FLAG 
+        ) VALUES (
+            #{id} ,
+            #{parentId} ,
+            #{resCode} ,
+            #{resName} ,
+            #{resDest} ,
+            #{resType} ,
+            #{resIcon} ,
+            #{sortNum} ,
+            #{resUrl} ,
+            #{createBy} ,
+            #{createDate} ,
+            #{updateBy} ,
+            #{updateDate} ,
+            #{delFlag} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM RESOURCES WHERE ID = #{id}
+    </delete>
+
+    <!-- 根据主键逻辑删除 -->
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE RESOURCES SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.system.entity.Resources">
+        INSERT INTO RESOURCES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="parentId != null">
+                PARENT_ID ,
+        </if>
+        <if test="resCode != null">
+                RES_CODE ,
+        </if>
+        <if test="resName != null">
+                RES_NAME ,
+        </if>
+        <if test="resDest != null">
+                RES_DEST ,
+        </if>
+        <if test="resType != null">
+                RES_TYPE ,
+        </if>
+        <if test="resIcon != null">
+                RES_ICON ,
+        </if>
+        <if test="sortNum != null">
+                SORT_NUM ,
+        </if>
+        <if test="resUrl != null">
+                RES_URL ,
+        </if>
+        <if test="createBy != null">
+                CREATE_BY ,
+        </if>
+        <if test="createDate != null">
+                CREATE_DATE ,
+        </if>
+        <if test="updateBy != null">
+                UPDATE_BY ,
+        </if>
+        <if test="updateDate != null">
+                UPDATE_DATE ,
+        </if>
+        <if test="delFlag != null">
+                DEL_FLAG 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="parentId != null">
+                #{parentId} ,
+        </if>
+        <if test="resCode != null">
+                #{resCode} ,
+        </if>
+        <if test="resName != null">
+                #{resName} ,
+        </if>
+        <if test="resDest != null">
+                #{resDest} ,
+        </if>
+        <if test="resType != null">
+                #{resType} ,
+        </if>
+        <if test="resIcon != null">
+                #{resIcon} ,
+        </if>
+        <if test="sortNum != null">
+                #{sortNum} ,
+        </if>
+        <if test="resUrl != null">
+                #{resUrl} ,
+        </if>
+        <if test="createBy != null">
+                #{createBy} ,
+        </if>
+        <if test="createDate != null">
+                #{createDate} ,
+        </if>
+        <if test="updateBy != null">
+                #{updateBy} ,
+        </if>
+        <if test="updateDate != null">
+                #{updateDate} ,
+        </if>
+        <if test="delFlag != null">
+                #{delFlag} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.system.entity.Resources">
+        UPDATE RESOURCES
+           <set>
+            <if test="parentId != null">
+                PARENT_ID = #{parentId} ,
+            </if>
+            <if test="resCode != null">
+                RES_CODE = #{resCode} ,
+            </if>
+            <if test="resName != null">
+                RES_NAME = #{resName} ,
+            </if>
+            <if test="resDest != null">
+                RES_DEST = #{resDest} ,
+            </if>
+            <if test="resType != null">
+                RES_TYPE = #{resType} ,
+            </if>
+            <if test="resIcon != null">
+                RES_ICON = #{resIcon} ,
+            </if>
+            <if test="sortNum != null">
+                SORT_NUM = #{sortNum} ,
+            </if>
+            <if test="resUrl != null">
+                RES_URL = #{resUrl} ,
+            </if>
+            <if test="createBy != null">
+                CREATE_BY = #{createBy} ,
+            </if>
+            <if test="createDate != null">
+                CREATE_DATE = #{createDate} ,
+            </if>
+            <if test="updateBy != null">
+                UPDATE_BY = #{updateBy} ,
+            </if>
+            <if test="updateDate != null">
+                UPDATE_DATE = #{updateDate} ,
+            </if>
+            <if test="delFlag != null">
+                DEL_FLAG = #{delFlag} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO RESOURCES(
+            ID ,
+            PARENT_ID ,
+            RES_CODE ,
+            RES_NAME ,
+            RES_DEST ,
+            RES_TYPE ,
+            RES_ICON ,
+            SORT_NUM ,
+            RES_URL ,
+            CREATE_BY ,
+            CREATE_DATE ,
+            UPDATE_BY ,
+            UPDATE_DATE ,
+            DEL_FLAG 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.parentId} ,
+            #{item.resCode} ,
+            #{item.resName} ,
+            #{item.resDest} ,
+            #{item.resType} ,
+            #{item.resIcon} ,
+            #{item.sortNum} ,
+            #{item.resUrl} ,
+            #{item.createBy} ,
+            #{item.createDate} ,
+            #{item.updateBy} ,
+            #{item.updateDate} ,
+            #{item.delFlag} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE RESOURCES SET
+            PARENT_ID = #{item.parentId} ,
+            RES_CODE = #{item.resCode} ,
+            RES_NAME = #{item.resName} ,
+            RES_DEST = #{item.resDest} ,
+            RES_TYPE = #{item.resType} ,
+            RES_ICON = #{item.resIcon} ,
+            SORT_NUM = #{item.sortNum} ,
+            RES_URL = #{item.resUrl} ,
+            CREATE_BY = #{item.createBy} ,
+            CREATE_DATE = #{item.createDate} ,
+            UPDATE_BY = #{item.updateBy} ,
+            UPDATE_DATE = #{item.updateDate} ,
+            DEL_FLAG = #{item.delFlag} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.system.entity.Resources">
+        UPDATE RESOURCES SET
+            PARENT_ID = #{parentId} ,
+            RES_CODE = #{resCode} ,
+            RES_NAME = #{resName} ,
+            RES_DEST = #{resDest} ,
+            RES_TYPE = #{resType} ,
+            RES_ICON = #{resIcon} ,
+            SORT_NUM = #{sortNum} ,
+            RES_URL = #{resUrl} ,
+            CREATE_BY = #{createBy} ,
+            CREATE_DATE = #{createDate} ,
+            UPDATE_BY = #{updateBy} ,
+            UPDATE_DATE = #{updateDate} ,
+            DEL_FLAG = #{delFlag} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.system.entity.Resources">
+        SELECT <include refid="resourcesColumns"/> FROM RESOURCES a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.system.entity.Resources">
+        SELECT
+        <include refid="resourcesJoinColumns"/>
+        FROM RESOURCES a
+            LEFT JOIN USER_INFO b on a.CREATE_BY = b.ID
+            LEFT JOIN USER_INFO c on a.UPDATE_BY = c.ID
+        WHERE a.DEL_FLAG = 0
+        <if test="parentId != null">
+            AND a.PARENT_ID = #{parentId}
+        </if>
+        <if test="resCode != null">
+            AND a.RES_CODE LIKE '%'||#{resCode}||'%'
+        </if>
+        <if test="resName != null">
+            AND a.RES_NAME LIKE '%'||#{resName}||'%'
+        </if>
+        <if test="resType != null">
+            AND a.RES_TYPE = #{resType}
+        </if>
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.system.entity.Resources">
+        SELECT
+        <include refid="resourcesColumns"/>
+        FROM RESOURCES a WHERE a.DEL_FLAG = 0
+    </select>
+
+    <select id="findByRoleId" resultType="com.fintech.gams.system.entity.Resources">
+        SELECT
+        <include refid="resourcesColumns"/>
+        FROM Resources a, ROLE_RES b
+        WHERE a.ID = b.RES_ID
+        AND b.ROLE_ID = #{roleId}
+        AND a.DEL_FLAG = 0
+        order by a.SORT_NUM
+    </select>
+
+    <select id="findByParentId" resultType="com.fintech.gams.system.entity.Resources">
+        SELECT
+        <include refid="resourcesColumns"/>
+        FROM Resources a
+        WHERE a.DEL_FLAG = 0
+        <if test="parentId != null and parentId != ''">
+            AND a.PARENT_ID =  #{parentId}
+        </if>
+    </select>
+
+</mapper>
+

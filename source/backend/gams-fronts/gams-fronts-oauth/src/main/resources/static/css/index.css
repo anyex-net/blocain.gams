@@ -1,0 +1,206 @@
+.app-header {
+    width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+    line-height: 60px;
+}
+
+.app-header .logo {
+    width: 138px;
+}
+
+.app-header .tab-wrapper {
+    float: right;
+    color: #999999;
+    font-size: 14px;
+}
+
+.app-header .tab-wrapper .register {
+    color: #FF3E4D;
+    cursor: pointer;
+}
+
+.app-header .tab-wrapper .divide {
+    padding: 0 10px;
+}
+
+.app-header .tab-wrapper .return {
+    cursor: pointer;
+    color: #999999;
+}
+
+.app-container {
+    background: url("../images/background.png") no-repeat;
+    background-size: cover;
+}
+
+.app-content {
+    width: 1200px;
+    padding-top: 150px;
+    margin: 0 auto;
+    text-align: right;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.app-content .left-wrapper {
+    float: left;
+    text-align: left;
+    padding-top: 100px;
+    padding-left: 60px;
+    position: relative;
+    overflow: visible;
+}
+
+.app-content .left-wrapper .title-border {
+    position: absolute;
+    top: 50px;
+    left: 0;
+}
+
+.app-content .left-wrapper .left-txt {
+    font-size: 55px;
+    color: #FFFFFF;
+    font-family: AlibabaPuHuiTiR;
+    letter-spacing: 2px;
+}
+
+.app-content .left-wrapper .left-button {
+    margin-top: 10px;
+    border-radius: 2px;
+    font-size: 20px;
+    color: #FFFFFF;
+    width: 295px;
+}
+
+.app-content .right-wrapper {
+    display: inline-block;
+    border-radius: 5px;
+    border-top: 5px solid #FF3E4D;
+    width: 350px;
+    height: 420px;
+    position: relative;
+    text-align: center;
+    background-color: #FFFFFF;
+}
+
+.app-content .right-wrapper .btn-approval {
+    margin-top: 70px;
+    margin-bottom: 20px;
+    width: 200px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 5px;
+    outline: none;
+}
+
+.app-content .right-wrapper .btn-deny {
+    width: 200px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 5px;
+    outline: none;
+}
+
+.app-content .right-wrapper .login-title {
+    text-align: left;
+    padding-left: 50px;
+    color: #434343;
+    margin-top: 50px;
+    font-size: 24px;
+}
+
+.app-content .right-wrapper .login-form {
+    padding: 20px 50px;
+}
+
+.app-content .right-wrapper .login-form .login-alert {
+    color: #FF3E4D;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+.app-content .right-wrapper .login-form .code {
+    width: 185px;
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    margin-bottom: 22px;
+}
+
+.app-content .right-wrapper .login-form .sendCode {
+    width: 60px;
+    display: inline-block;
+    background-color: #FF3E4D;
+    border-color: #FF3E4D;
+    color: #FFFFFF;
+    text-align: center;
+    cursor: pointer;
+    height: 40px;
+    margin-bottom: 22px;
+}
+
+.app-content .right-wrapper .login-form .sendCode[disabled] {
+    opacity: 0.6;
+}
+
+.app-content .right-wrapper .login-form .login-submit {
+    width: 100%;
+    background-color: #FF3E4D;
+    border: 1px solid #FF3E4D;
+    color: #FFFFFF;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    outline: none;
+}
+
+.app-content .right-wrapper .login-form .forgetPwd-txt {
+    color: #999999;
+    float: right;
+    text-decoration: none;
+}
+
+.app-content .right-wrapper .login-form .login-item {
+    height: 40px;
+    line-height: 40px;
+    margin-bottom: 22px;
+    outline: none;
+    border: none;
+    box-shadow: none;
+    border-bottom: 1px solid #ccc;
+}
+
+.app-footer {
+    position: absolute;
+    bottom: 0;
+    color: #FFFFFF;
+    font-size: 14px;
+    width: 100%;
+}
+
+.app-footer .app-introduce {
+    width: 1200px;
+    margin: 20px auto;
+}
+
+/*404*/
+.error-content {
+    margin: 150px auto;
+    text-align: center;
+}
+.error-content .error-txt {
+    font-size: 2.6rem;
+    color: #acadaf;
+    margin-top: -55px;
+}
+.error-content .error-btn {
+    background-color: #FF4057;
+    margin-top: 30px;
+    padding: 10px 25px;
+    border-radius: 2px;
+    color: #ffffff;
+    display: inline-block;
+    text-decoration: none;
+}

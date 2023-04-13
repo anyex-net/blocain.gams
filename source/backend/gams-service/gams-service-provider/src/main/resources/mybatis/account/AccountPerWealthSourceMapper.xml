@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.account.mapper.AccountPerWealthSourceMapper">
+    <!-- 基础列 -->
+    <sql id="accountPerWealthSourceColumns">
+        a.ID as id,
+        a.ACCOUNT_ID as accountId,
+        a.INCOME_TYPE as incomeType,
+        a.IS_CAPITAL_INJECTION as isCapitalInjection,
+        a.PERCENTAGE_OF_FUNDS as percentageOfFunds,
+        a.SOURCE_DESC as sourceDesc,
+        a.CREATED_BY as createdBy,
+        a.CREATED_DATE as createdDate,
+        a.UPDATED_BY as updatedBy,
+        a.UPDATED_DATE as updatedDate
+    </sql>
+
+    <resultMap id="accountPerWealthSourceResultMap" type="com.fintech.gams.account.entity.AccountPerWealthSource">
+        <id column="ID" property="id" />
+        <result column="ACCOUNT_ID" property="accountId"/>
+        <result column="INCOME_TYPE" property="incomeType"/>
+        <result column="IS_CAPITAL_INJECTION" property="isCapitalInjection"/>
+        <result column="PERCENTAGE_OF_FUNDS" property="percentageOfFunds"/>
+        <result column="SOURCE_DESC" property="sourceDesc"/>
+        <result column="CREATED_BY" property="createdBy"/>
+        <result column="CREATED_DATE" property="createdDate"/>
+        <result column="UPDATED_BY" property="updatedBy"/>
+        <result column="UPDATED_DATE" property="updatedDate"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.account.entity.AccountPerWealthSource">
+        INSERT INTO ACCOUNT_PER_WEALTH_SOURCE(
+            ID ,
+            ACCOUNT_ID ,
+            INCOME_TYPE ,
+            IS_CAPITAL_INJECTION ,
+            PERCENTAGE_OF_FUNDS ,
+            SOURCE_DESC ,
+            CREATED_BY ,
+            CREATED_DATE ,
+            UPDATED_BY ,
+            UPDATED_DATE 
+        ) VALUES (
+            #{id} ,
+            #{accountId} ,
+            #{incomeType} ,
+            #{isCapitalInjection} ,
+            #{percentageOfFunds} ,
+            #{sourceDesc} ,
+            #{createdBy} ,
+            #{createdDate} ,
+            #{updatedBy} ,
+            #{updatedDate} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM ACCOUNT_PER_WEALTH_SOURCE WHERE ID = #{id}
+    </delete>
+
+    <!-- 根据主键逻辑删除 -->
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE ACCOUNT_PER_WEALTH_SOURCE SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.account.entity.AccountPerWealthSource">
+        INSERT INTO ACCOUNT_PER_WEALTH_SOURCE
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="accountId != null">
+                ACCOUNT_ID ,
+        </if>
+        <if test="incomeType != null">
+                INCOME_TYPE ,
+        </if>
+        <if test="isCapitalInjection != null">
+                IS_CAPITAL_INJECTION ,
+        </if>
+        <if test="percentageOfFunds != null">
+                PERCENTAGE_OF_FUNDS ,
+        </if>
+        <if test="sourceDesc != null">
+                SOURCE_DESC ,
+        </if>
+        <if test="createdBy != null">
+                CREATED_BY ,
+        </if>
+        <if test="createdDate != null">
+                CREATED_DATE ,
+        </if>
+        <if test="updatedBy != null">
+                UPDATED_BY ,
+        </if>
+        <if test="updatedDate != null">
+                UPDATED_DATE 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="accountId != null">
+                #{accountId} ,
+        </if>
+        <if test="incomeType != null">
+                #{incomeType} ,
+        </if>
+        <if test="isCapitalInjection != null">
+                #{isCapitalInjection} ,
+        </if>
+        <if test="percentageOfFunds != null">
+                #{percentageOfFunds} ,
+        </if>
+        <if test="sourceDesc != null">
+                #{sourceDesc} ,
+        </if>
+        <if test="createdBy != null">
+                #{createdBy} ,
+        </if>
+        <if test="createdDate != null">
+                #{createdDate} ,
+        </if>
+        <if test="updatedBy != null">
+                #{updatedBy} ,
+        </if>
+        <if test="updatedDate != null">
+                #{updatedDate} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.account.entity.AccountPerWealthSource">
+        UPDATE ACCOUNT_PER_WEALTH_SOURCE
+           <set>
+            <if test="accountId != null">
+                ACCOUNT_ID = #{accountId} ,
+            </if>
+            <if test="incomeType != null">
+                INCOME_TYPE = #{incomeType} ,
+            </if>
+            <if test="isCapitalInjection != null">
+                IS_CAPITAL_INJECTION = #{isCapitalInjection} ,
+            </if>
+            <if test="percentageOfFunds != null">
+                PERCENTAGE_OF_FUNDS = #{percentageOfFunds} ,
+            </if>
+            <if test="sourceDesc != null">
+                SOURCE_DESC = #{sourceDesc} ,
+            </if>
+            <if test="createdBy != null">
+                CREATED_BY = #{createdBy} ,
+            </if>
+            <if test="createdDate != null">
+                CREATED_DATE = #{createdDate} ,
+            </if>
+            <if test="updatedBy != null">
+                UPDATED_BY = #{updatedBy} ,
+            </if>
+            <if test="updatedDate != null">
+                UPDATED_DATE = #{updatedDate} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO ACCOUNT_PER_WEALTH_SOURCE(
+            ID ,
+            ACCOUNT_ID ,
+            INCOME_TYPE ,
+            IS_CAPITAL_INJECTION ,
+            PERCENTAGE_OF_FUNDS ,
+            SOURCE_DESC ,
+            CREATED_BY ,
+            CREATED_DATE ,
+            UPDATED_BY ,
+            UPDATED_DATE 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.accountId} ,
+            #{item.incomeType} ,
+            #{item.isCapitalInjection} ,
+            #{item.percentageOfFunds} ,
+            #{item.sourceDesc} ,
+            #{item.createdBy} ,
+            #{item.createdDate} ,
+            #{item.updatedBy} ,
+            #{item.updatedDate} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE ACCOUNT_PER_WEALTH_SOURCE SET
+            ACCOUNT_ID = #{item.accountId} ,
+            INCOME_TYPE = #{item.incomeType} ,
+            IS_CAPITAL_INJECTION = #{item.isCapitalInjection} ,
+            PERCENTAGE_OF_FUNDS = #{item.percentageOfFunds} ,
+            SOURCE_DESC = #{item.sourceDesc} ,
+            CREATED_BY = #{item.createdBy} ,
+            CREATED_DATE = #{item.createdDate} ,
+            UPDATED_BY = #{item.updatedBy} ,
+            UPDATED_DATE = #{item.updatedDate} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.account.entity.AccountPerWealthSource">
+        UPDATE ACCOUNT_PER_WEALTH_SOURCE SET
+            ACCOUNT_ID = #{accountId} ,
+            INCOME_TYPE = #{incomeType} ,
+            IS_CAPITAL_INJECTION = #{isCapitalInjection} ,
+            PERCENTAGE_OF_FUNDS = #{percentageOfFunds} ,
+            SOURCE_DESC = #{sourceDesc} ,
+            CREATED_BY = #{createdBy} ,
+            CREATED_DATE = #{createdDate} ,
+            UPDATED_BY = #{updatedBy} ,
+            UPDATED_DATE = #{updatedDate} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.account.entity.AccountPerWealthSource">
+        SELECT <include refid="accountPerWealthSourceColumns"/> FROM ACCOUNT_PER_WEALTH_SOURCE a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.account.entity.AccountPerWealthSource">
+        SELECT
+        <include refid="accountPerWealthSourceColumns"/>
+        FROM ACCOUNT_PER_WEALTH_SOURCE a WHERE 1 = 1
+        <if test="accountId != null">
+            AND a.ACCOUNT_ID = #{accountId}
+        </if>
+        <if test="incomeType != null">
+            AND a.INCOME_TYPE LIKE '%'||#{incomeType}||'%'
+        </if>
+        <if test="isCapitalInjection != null">
+            AND a.IS_CAPITAL_INJECTION = #{isCapitalInjection}
+        </if>
+        <if test="percentageOfFunds != null">
+            AND a.PERCENTAGE_OF_FUNDS = #{percentageOfFunds}
+        </if>
+        <if test="sourceDesc != null">
+            AND a.SOURCE_DESC LIKE '%'||#{sourceDesc}||'%'
+        </if>
+        <if test="createdBy != null">
+            AND a.CREATED_BY = #{createdBy}
+        </if>
+        <if test="createdDate != null">
+            AND a.CREATED_DATE = #{createdDate}
+        </if>
+        <if test="updatedBy != null">
+            AND a.UPDATED_BY = #{updatedBy}
+        </if>
+        <if test="updatedDate != null">
+            AND a.UPDATED_DATE = #{updatedDate}
+        </if>
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.account.entity.AccountPerWealthSource">
+        SELECT
+        <include refid="accountPerWealthSourceColumns"/>
+        FROM ACCOUNT_PER_WEALTH_SOURCE a WHERE a.DEL_FLAG = 0
+    </select>
+
+
+</mapper>
+

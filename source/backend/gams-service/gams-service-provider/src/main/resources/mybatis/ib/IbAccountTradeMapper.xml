@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.ib.mapper.IbAccountTradeMapper">
+    <!-- 基础列 -->
+    <sql id="ibAccountTradeColumns">
+        a.ID as id,
+        a.ACCOUNT_ID as accountId,
+        a.ACCOUNT_CODE as accountCode,
+        a.SYMBOL as symbol,
+        a.SEC_TYPE as secType,
+        a.CURRENCY as currency,
+        a.EXCHANGE as exchange,
+        a.EXEC_ID as execId,
+        a.ORDER_ID as orderId,
+        a.SIDE as side,
+        a.PRICE as price,
+        a.SHARES as shares,
+        a.AVG_PRICE as avgPrice,
+        a.EXEC_TIME as execTime,
+        a.REMARK as remark,
+        a.CREATE_DATE as createDate,
+        a.UPDATE_DATE as updateDate
+    </sql>
+
+    <resultMap id="ibAccountTradeResultMap" type="com.fintech.gams.ib.entity.IbAccountTrade">
+        <id column="ID" property="id" />
+        <result column="ACCOUNT_ID" property="accountId"/>
+        <result column="ACCOUNT_CODE" property="accountCode"/>
+        <result column="SYMBOL" property="symbol"/>
+        <result column="SEC_TYPE" property="secType"/>
+        <result column="CURRENCY" property="currency"/>
+        <result column="EXCHANGE" property="exchange"/>
+        <result column="EXEC_ID" property="execId"/>
+        <result column="ORDER_ID" property="orderId"/>
+        <result column="SIDE" property="side"/>
+        <result column="PRICE" property="price"/>
+        <result column="SHARES" property="shares"/>
+        <result column="AVG_PRICE" property="avgPrice"/>
+        <result column="EXEC_TIME" property="execTime"/>
+        <result column="REMARK" property="remark"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="UPDATE_DATE" property="updateDate"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.ib.entity.IbAccountTrade">
+        INSERT INTO IB_ACCOUNT_TRADE(
+            ID ,
+            ACCOUNT_ID ,
+            ACCOUNT_CODE ,
+            SYMBOL ,
+            SEC_TYPE ,
+            CURRENCY ,
+            EXCHANGE ,
+            EXEC_ID ,
+            ORDER_ID ,
+            SIDE ,
+            PRICE ,
+            SHARES ,
+            AVG_PRICE ,
+            EXEC_TIME ,
+            REMARK ,
+            CREATE_DATE ,
+            UPDATE_DATE 
+        ) VALUES (
+            #{id} ,
+            #{accountId} ,
+            #{accountCode} ,
+            #{symbol} ,
+            #{secType} ,
+            #{currency} ,
+            #{exchange} ,
+            #{execId} ,
+            #{orderId} ,
+            #{side} ,
+            #{price} ,
+            #{shares} ,
+            #{avgPrice} ,
+            #{execTime} ,
+            #{remark} ,
+            #{createDate} ,
+            #{updateDate} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM IB_ACCOUNT_TRADE WHERE ID = #{id}
+    </delete>
+
+    <!-- 根据主键逻辑删除
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE IB_ACCOUNT_TRADE SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+    -->
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.ib.entity.IbAccountTrade">
+        INSERT INTO IB_ACCOUNT_TRADE
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="accountId != null">
+                ACCOUNT_ID ,
+        </if>
+        <if test="accountCode != null">
+                ACCOUNT_CODE ,
+        </if>
+        <if test="symbol != null">
+                SYMBOL ,
+        </if>
+        <if test="secType != null">
+                SEC_TYPE ,
+        </if>
+        <if test="currency != null">
+                CURRENCY ,
+        </if>
+        <if test="exchange != null">
+                EXCHANGE ,
+        </if>
+        <if test="execId != null">
+                EXEC_ID ,
+        </if>
+        <if test="orderId != null">
+                ORDER_ID ,
+        </if>
+        <if test="side != null">
+                SIDE ,
+        </if>
+        <if test="price != null">
+                PRICE ,
+        </if>
+        <if test="shares != null">
+                SHARES ,
+        </if>
+        <if test="avgPrice != null">
+                AVG_PRICE ,
+        </if>
+        <if test="execTime != null">
+                EXEC_TIME ,
+        </if>
+        <if test="remark != null">
+                REMARK ,
+        </if>
+        <if test="createDate != null">
+                CREATE_DATE ,
+        </if>
+        <if test="updateDate != null">
+                UPDATE_DATE 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="accountId != null">
+                #{accountId} ,
+        </if>
+        <if test="accountCode != null">
+                #{accountCode} ,
+        </if>
+        <if test="symbol != null">
+                #{symbol} ,
+        </if>
+        <if test="secType != null">
+                #{secType} ,
+        </if>
+        <if test="currency != null">
+                #{currency} ,
+        </if>
+        <if test="exchange != null">
+                #{exchange} ,
+        </if>
+        <if test="execId != null">
+                #{execId} ,
+        </if>
+        <if test="orderId != null">
+                #{orderId} ,
+        </if>
+        <if test="side != null">
+                #{side} ,
+        </if>
+        <if test="price != null">
+                #{price} ,
+        </if>
+        <if test="shares != null">
+                #{shares} ,
+        </if>
+        <if test="avgPrice != null">
+                #{avgPrice} ,
+        </if>
+        <if test="execTime != null">
+                #{execTime} ,
+        </if>
+        <if test="remark != null">
+                #{remark} ,
+        </if>
+        <if test="createDate != null">
+                #{createDate} ,
+        </if>
+        <if test="updateDate != null">
+                #{updateDate} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.ib.entity.IbAccountTrade">
+        UPDATE IB_ACCOUNT_TRADE
+           <set>
+            <if test="accountId != null">
+                ACCOUNT_ID = #{accountId} ,
+            </if>
+            <if test="accountCode != null">
+                ACCOUNT_CODE = #{accountCode} ,
+            </if>
+            <if test="symbol != null">
+                SYMBOL = #{symbol} ,
+            </if>
+            <if test="secType != null">
+                SEC_TYPE = #{secType} ,
+            </if>
+            <if test="currency != null">
+                CURRENCY = #{currency} ,
+            </if>
+            <if test="exchange != null">
+                EXCHANGE = #{exchange} ,
+            </if>
+            <if test="execId != null">
+                EXEC_ID = #{execId} ,
+            </if>
+            <if test="orderId != null">
+                ORDER_ID = #{orderId} ,
+            </if>
+            <if test="side != null">
+                SIDE = #{side} ,
+            </if>
+            <if test="price != null">
+                PRICE = #{price} ,
+            </if>
+            <if test="shares != null">
+                SHARES = #{shares} ,
+            </if>
+            <if test="avgPrice != null">
+                AVG_PRICE = #{avgPrice} ,
+            </if>
+            <if test="execTime != null">
+                EXEC_TIME = #{execTime} ,
+            </if>
+            <if test="remark != null">
+                REMARK = #{remark} ,
+            </if>
+            <if test="createDate != null">
+                CREATE_DATE = #{createDate} ,
+            </if>
+            <if test="updateDate != null">
+                UPDATE_DATE = #{updateDate} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO IB_ACCOUNT_TRADE(
+            ID ,
+            ACCOUNT_ID ,
+            ACCOUNT_CODE ,
+            SYMBOL ,
+            SEC_TYPE ,
+            CURRENCY ,
+            EXCHANGE ,
+            EXEC_ID ,
+            ORDER_ID ,
+            SIDE ,
+            PRICE ,
+            SHARES ,
+            AVG_PRICE ,
+            EXEC_TIME ,
+            REMARK ,
+            CREATE_DATE ,
+            UPDATE_DATE 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.accountId} ,
+            #{item.accountCode} ,
+            #{item.symbol} ,
+            #{item.secType} ,
+            #{item.currency} ,
+            #{item.exchange} ,
+            #{item.execId} ,
+            #{item.orderId} ,
+            #{item.side} ,
+            #{item.price} ,
+            #{item.shares} ,
+            #{item.avgPrice} ,
+            #{item.execTime} ,
+            #{item.remark} ,
+            #{item.createDate} ,
+            #{item.updateDate} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE IB_ACCOUNT_TRADE SET
+            ACCOUNT_ID = #{item.accountId} ,
+            ACCOUNT_CODE = #{item.accountCode} ,
+            SYMBOL = #{item.symbol} ,
+            SEC_TYPE = #{item.secType} ,
+            CURRENCY = #{item.currency} ,
+            EXCHANGE = #{item.exchange} ,
+            EXEC_ID = #{item.execId} ,
+            ORDER_ID = #{item.orderId} ,
+            SIDE = #{item.side} ,
+            PRICE = #{item.price} ,
+            SHARES = #{item.shares} ,
+            AVG_PRICE = #{item.avgPrice} ,
+            EXEC_TIME = #{item.execTime} ,
+            REMARK = #{item.remark} ,
+            CREATE_DATE = #{item.createDate} ,
+            UPDATE_DATE = #{item.updateDate} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.ib.entity.IbAccountTrade">
+        UPDATE IB_ACCOUNT_TRADE SET
+            ACCOUNT_ID = #{accountId} ,
+            ACCOUNT_CODE = #{accountCode} ,
+            SYMBOL = #{symbol} ,
+            SEC_TYPE = #{secType} ,
+            CURRENCY = #{currency} ,
+            EXCHANGE = #{exchange} ,
+            EXEC_ID = #{execId} ,
+            ORDER_ID = #{orderId} ,
+            SIDE = #{side} ,
+            PRICE = #{price} ,
+            SHARES = #{shares} ,
+            AVG_PRICE = #{avgPrice} ,
+            EXEC_TIME = #{execTime} ,
+            REMARK = #{remark} ,
+            CREATE_DATE = #{createDate} ,
+            UPDATE_DATE = #{updateDate} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.ib.entity.IbAccountTrade">
+        SELECT <include refid="ibAccountTradeColumns"/> FROM IB_ACCOUNT_TRADE a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.ib.entity.IbAccountTrade">
+        SELECT <include refid="ibAccountTradeColumns"/>, b.ACCOUNT_NAME as accountName
+        FROM IB_ACCOUNT_TRADE a
+        LEFT JOIN ACCOUNT b ON a.ACCOUNT_ID = b.ID
+        WHERE 1 = 1
+        <if test="accountId != null">
+            AND a.ACCOUNT_ID = #{accountId}
+        </if>
+        <if test="accountCode != null">
+            AND a.ACCOUNT_CODE LIKE '%'||#{accountCode}||'%'
+        </if>
+        <if test="symbol != null">
+            AND a.SYMBOL LIKE '%'||#{symbol}||'%'
+        </if>
+        <if test="secType != null">
+            AND a.SEC_TYPE LIKE '%'||#{secType}||'%'
+        </if>
+        <if test="currency != null">
+            AND a.CURRENCY LIKE '%'||#{currency}||'%'
+        </if>
+        <if test="exchange != null">
+            AND a.EXCHANGE LIKE '%'||#{exchange}||'%'
+        </if>
+        <if test="execId != null">
+            AND a.EXEC_ID LIKE '%'||#{execId}||'%'
+        </if>
+        <if test="orderId != null">
+            AND a.ORDER_ID LIKE '%'||#{orderId}||'%'
+        </if>
+        <if test="side != null">
+            AND a.SIDE LIKE '%'||#{side}||'%'
+        </if>
+        <if test="price != null">
+            AND a.PRICE = #{price}
+        </if>
+        <if test="shares != null">
+            AND a.SHARES = #{shares}
+        </if>
+        <if test="avgPrice != null">
+            AND a.AVG_PRICE = #{avgPrice}
+        </if>
+        <if test="execTime != null">
+            AND a.EXEC_TIME LIKE '%'||#{execTime}||'%'
+        </if>
+        <if test="remark != null">
+            AND a.REMARK LIKE '%'||#{remark}||'%'
+        </if>
+        <if test="createDate != null">
+            AND a.CREATE_DATE = #{createDate}
+        </if>
+        <if test="updateDate != null">
+            AND a.UPDATE_DATE = #{updateDate}
+        </if>
+        <if test="execTimeStart != null">
+            AND TO_NUMBER(
+            TO_CHAR(TO_DATE(a.EXEC_TIME, 'YYYY-MM-DD HH24:MI:SS'), 'YYYYMMDDHH24MISS')
+            ) &gt;= TO_NUMBER(
+            TO_CHAR(#{execTimeStart}/ (1000 * 60 * 60 * 24) + TO_DATE('1970-01-01 08:00:00', 'YYYY/MM/DD HH:MI:SS'), 'YYYYMMDDHH24MISS')
+            )
+        </if>
+        <if test="execTimeEnd != null">
+            AND TO_NUMBER(
+            TO_CHAR(TO_DATE(a.EXEC_TIME, 'YYYY-MM-DD HH24:MI:SS'), 'YYYYMMDDHH24MISS')
+            ) &lt;= TO_NUMBER(
+            TO_CHAR(#{execTimeEnd}/ (1000 * 60 * 60 * 24) + TO_DATE('1970-01-01 08:00:00', 'YYYY/MM/DD HH:MI:SS'), 'YYYYMMDDHH24MISS')
+            )
+        </if>
+        order by a.ACCOUNT_ID,a.Account_Code,a.Currency,a.CREATE_DATE
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.ib.entity.IbAccountTrade">
+        SELECT
+        <include refid="ibAccountTradeColumns"/>
+        FROM IB_ACCOUNT_TRADE a <!--WHERE a.DEL_FLAG = 0-->
+    </select>
+
+</mapper>
+

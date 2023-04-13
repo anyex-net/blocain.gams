@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.oauth2.mapper.ClientDetailsMapper">
+    <!-- 基础列 -->
+    <sql id="clientDetailsColumns">
+        a.ID as id,
+        a.CLIENT_ID as clientId,
+        a.CLIENT_SECRET as clientSecret,
+        a.CLIENT_NAME as clientName,
+        a.CLIENT_URI as clientUri,
+        a.CLIENT_ICON_URI as clientIconUri,
+        a.RESOURCE_IDS as resourceIds,
+        a.SCOPE as scope,
+        a.GRANT_TYPES as grantTypes,
+        a.REDIRECT_URI as redirectUri,
+        a.LOGOUT_URI as logoutUri,
+        a.ACCESS_TOKEN_VALIDITY as accessTokenValidity,
+        a.REFRESH_TOKEN_VALIDITY as refreshTokenValidity,
+        a.DESCRIPTION as description,
+        a.CREATE_TIME as createTime,
+        a.TRUSTED as trusted
+    </sql>
+
+    <resultMap id="clientDetailsResultMap" type="com.fintech.gams.oauth2.entity.ClientDetails">
+        <id column="ID" property="id" />
+        <result column="CLIENT_ID" property="clientId"/>
+        <result column="CLIENT_SECRET" property="clientSecret"/>
+        <result column="CLIENT_NAME" property="clientName"/>
+        <result column="CLIENT_URI" property="clientUri"/>
+        <result column="CLIENT_ICON_URI" property="clientIconUri"/>
+        <result column="RESOURCE_IDS" property="resourceIds"/>
+        <result column="SCOPE" property="scope"/>
+        <result column="GRANT_TYPES" property="grantTypes"/>
+        <result column="REDIRECT_URI" property="redirectUri"/>
+        <result column="LOGOUT_URI" property="logoutUri"/>
+        <result column="ACCESS_TOKEN_VALIDITY" property="accessTokenValidity"/>
+        <result column="REFRESH_TOKEN_VALIDITY" property="refreshTokenValidity"/>
+        <result column="DESCRIPTION" property="description"/>
+        <result column="CREATE_TIME" property="createTime"/>
+        <result column="TRUSTED" property="trusted"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.oauth2.entity.ClientDetails">
+        INSERT INTO OAUTH_CLIENT_DETAILS(
+            ID ,
+            CLIENT_ID ,
+            CLIENT_SECRET ,
+            CLIENT_NAME ,
+            CLIENT_URI ,
+            CLIENT_ICON_URI ,
+            RESOURCE_IDS ,
+            SCOPE ,
+            GRANT_TYPES ,
+            REDIRECT_URI ,
+            LOGOUT_URI ,
+            ACCESS_TOKEN_VALIDITY ,
+            REFRESH_TOKEN_VALIDITY ,
+            DESCRIPTION ,
+            CREATE_TIME ,
+            TRUSTED
+        ) VALUES (
+             #{id} ,
+             #{clientId} ,
+             #{clientSecret} ,
+             #{clientName} ,
+             #{clientUri} ,
+             #{clientIconUri} ,
+             #{resourceIds} ,
+             #{scope} ,
+             #{grantTypes} ,
+             #{redirectUri} ,
+             #{logoutUri} ,
+             #{accessTokenValidity} ,
+             #{refreshTokenValidity} ,
+             #{description} ,
+             #{createTime} ,
+             #{trusted}
+         )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM OAUTH_CLIENT_DETAILS WHERE ID = #{id}
+    </delete>
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.oauth2.entity.ClientDetails">
+        INSERT INTO OAUTH_CLIENT_DETAILS
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID ,
+            </if>
+            <if test="clientId != null">
+                CLIENT_ID ,
+            </if>
+            <if test="clientSecret != null">
+                CLIENT_SECRET ,
+            </if>
+            <if test="clientName != null">
+                CLIENT_NAME ,
+            </if>
+            <if test="clientUri != null">
+                CLIENT_URI ,
+            </if>
+            <if test="clientIconUri != null">
+                CLIENT_ICON_URI ,
+            </if>
+            <if test="resourceIds != null">
+                RESOURCE_IDS ,
+            </if>
+            <if test="scope != null">
+                SCOPE ,
+            </if>
+            <if test="grantTypes != null">
+                GRANT_TYPES ,
+            </if>
+            <if test="redirectUri != null">
+                REDIRECT_URI ,
+            </if>
+            <if test="redirectUri != null">
+                LOGOUT_URI ,
+            </if>
+            <if test="accessTokenValidity != null">
+                ACCESS_TOKEN_VALIDITY ,
+            </if>
+            <if test="refreshTokenValidity != null">
+                REFRESH_TOKEN_VALIDITY ,
+            </if>
+            <if test="description != null">
+                DESCRIPTION ,
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME ,
+            </if>
+            <if test="archived != null">
+                ARCHIVED ,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id} ,
+            </if>
+            <if test="clientId != null">
+                #{clientId} ,
+            </if>
+            <if test="clientSecret != null">
+                #{clientSecret} ,
+            </if>
+            <if test="clientName != null">
+                #{clientName} ,
+            </if>
+            <if test="clientUri != null">
+                #{clientUri} ,
+            </if>
+            <if test="clientIconUri != null">
+                #{clientIconUri} ,
+            </if>
+            <if test="resourceIds != null">
+                #{resourceIds} ,
+            </if>
+            <if test="scope != null">
+                #{scope} ,
+            </if>
+            <if test="grantTypes != null">
+                #{grantTypes} ,
+            </if>
+            <if test="redirectUri != null">
+                #{redirectUri} ,
+            </if>
+            <if test="logoutUri != null">
+                #{logoutUri}
+            </if>
+            <if test="accessTokenValidity != null">
+                #{accessTokenValidity} ,
+            </if>
+            <if test="refreshTokenValidity != null">
+                #{refreshTokenValidity} ,
+            </if>
+            <if test="description != null">
+                #{description} ,
+            </if>
+            <if test="createTime != null">
+                #{createTime} ,
+            </if>
+            <if test="trusted != null">
+                #{trusted}
+            </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.oauth2.entity.ClientDetails">
+        UPDATE OAUTH_CLIENT_DETAILS
+        <set>
+            <if test="clientId != null">
+                CLIENT_ID = #{clientId} ,
+            </if>
+            <if test="clientSecret != null">
+                CLIENT_SECRET = #{clientSecret} ,
+            </if>
+            <if test="clientName != null">
+                CLIENT_NAME = #{clientName} ,
+            </if>
+            <if test="clientUri != null">
+                CLIENT_URI = #{clientUri} ,
+            </if>
+            <if test="clientIconUri != null">
+                CLIENT_ICON_URI = #{clientIconUri} ,
+            </if>
+            <if test="resourceIds != null">
+                RESOURCE_IDS = #{resourceIds} ,
+            </if>
+            <if test="scope != null">
+                SCOPE = #{scope} ,
+            </if>
+            <if test="grantTypes != null">
+                GRANT_TYPES = #{grantTypes} ,
+            </if>
+            <if test="redirectUri != null">
+                REDIRECT_URI = #{redirectUri} ,
+            </if>
+            <if test="logoutUri != null">
+                LOGOUT_URI = #{logoutUri} ,
+            </if>
+            <if test="accessTokenValidity != null">
+                ACCESS_TOKEN_VALIDITY = #{accessTokenValidity} ,
+            </if>
+            <if test="refreshTokenValidity != null">
+                REFRESH_TOKEN_VALIDITY = #{refreshTokenValidity} ,
+            </if>
+            <if test="description != null">
+                DESCRIPTION = #{description} ,
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME = #{createTime} ,
+            </if>
+            <if test="trusted != null">
+                TRUSTED = #{trusted}
+            </if>
+        </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO OAUTH_CLIENT_DETAILS(
+        ID ,
+        CLIENT_ID ,
+        CLIENT_SECRET ,
+        CLIENT_NAME ,
+        CLIENT_URI ,
+        CLIENT_ICON_URI ,
+        RESOURCE_IDS ,
+        SCOPE ,
+        GRANT_TYPES ,
+        REDIRECT_URI ,
+        LOGOUT_URI ,
+        ACCESS_TOKEN_VALIDITY ,
+        REFRESH_TOKEN_VALIDITY ,
+        DESCRIPTION ,
+        CREATE_TIME ,
+        TRUSTED
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.clientId} ,
+            #{item.clientSecret} ,
+            #{item.clientName} ,
+            #{item.clientUri} ,
+            #{item.clientIconUri} ,
+            #{item.resourceIds} ,
+            #{item.scope} ,
+            #{item.grantTypes} ,
+            #{item.redirectUri} ,
+            #{item.logoutUri} ,
+            #{item.accessTokenValidity} ,
+            #{item.refreshTokenValidity} ,
+            #{item.description} ,
+            #{item.createTime} ,
+            #{item.trusted}
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE OAUTH_CLIENT_DETAILS SET
+            CLIENT_ID = #{item.clientId} ,
+            CLIENT_SECRET = #{item.clientSecret} ,
+            CLIENT_NAME = #{item.clientName} ,
+            CLIENT_URI = #{item.clientUri} ,
+            CLIENT_ICON_URI = #{item.clientIconUri} ,
+            RESOURCE_IDS = #{item.resourceIds} ,
+            SCOPE = #{item.scope} ,
+            GRANT_TYPES = #{item.grantTypes} ,
+            REDIRECT_URI = #{item.redirectUri} ,
+            LOGOUT_URI = #{item.logoutUri} ,
+            ACCESS_TOKEN_VALIDITY = #{item.accessTokenValidity} ,
+            REFRESH_TOKEN_VALIDITY = #{item.refreshTokenValidity} ,
+            DESCRIPTION = #{item.description} ,
+            CREATE_TIME = #{item.createTime} ,
+            TRUSTED = #{item.trusted}
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.oauth2.entity.ClientDetails">
+        UPDATE OAUTH_CLIENT_DETAILS SET
+            CLIENT_ID = #{clientId} ,
+            CLIENT_SECRET = #{clientSecret} ,
+            CLIENT_NAME = #{clientName} ,
+            CLIENT_URI = #{clientUri} ,
+            CLIENT_ICON_URI = #{clientIconUri} ,
+            RESOURCE_IDS = #{resourceIds} ,
+            SCOPE = #{scope} ,
+            GRANT_TYPES = #{grantTypes} ,
+            REDIRECT_URI = #{redirectUri} ,
+            LOGOUT_URI = #{logoutUri} ,
+            ACCESS_TOKEN_VALIDITY = #{accessTokenValidity} ,
+            REFRESH_TOKEN_VALIDITY = #{refreshTokenValidity} ,
+            DESCRIPTION = #{description} ,
+            CREATE_TIME = #{createTime} ,
+            TRUSTED = #{trusted}
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.oauth2.entity.ClientDetails">
+        SELECT <include refid="clientDetailsColumns"/> FROM OAUTH_CLIENT_DETAILS a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.oauth2.entity.ClientDetails">
+        SELECT
+        <include refid="clientDetailsColumns"/>
+        FROM OAUTH_CLIENT_DETAILS a WHERE 1 = 1 <!-- and a.DEL_FLAG = 0-->
+        <if test="clientId != null">
+            AND a.CLIENT_ID = #{clientId}
+        </if>
+        <if test="clientName != null">
+            AND a.CLIENT_NAME = #{clientName}
+        </if>
+        <if test="scope != null">
+            AND a.SCOPE = #{scope}
+        </if>
+        <if test="grantTypes != null">
+            AND a.GRANT_TYPES = #{grantTypes}
+        </if>
+        <if test="description != null">
+            AND a.DESCRIPTION = #{description}
+        </if>
+        <if test="trusted != null">
+            AND a.TRUSTED = #{trusted}
+        </if>
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.oauth2.entity.ClientDetails">
+        SELECT
+        <include refid="clientDetailsColumns"/>
+        FROM OAUTH_CLIENT_DETAILS a <!--WHERE a.DEL_FLAG = 0-->
+    </select>
+
+    <select id="loadClientDetails" resultType="com.fintech.gams.oauth2.entity.ClientDetails">
+        SELECT
+        <include refid="clientDetailsColumns"/>
+        FROM OAUTH_CLIENT_DETAILS a WHERE a.CLIENT_ID = #{clientId}
+    </select>
+
+
+</mapper>
+

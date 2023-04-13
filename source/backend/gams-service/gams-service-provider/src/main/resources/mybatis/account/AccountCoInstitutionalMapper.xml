@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.account.mapper.AccountCoInstitutionalMapper">
+    <!-- 基础列 -->
+    <sql id="accountCoInstitutionalColumns">
+        a.ID as id,
+        a.ACCOUNT_ID as accountId,
+        a.INSTITUTIONAL_NAME as institutionalName,
+        a.BSINESS_DESCRIPTION as bsinessDescription,
+        a.BUSINESS_NAME as businessName,
+        a.WEBSITE_URL as websiteUrl,
+        a.ISTITUTIONAL_NATURE as istitutionalNature,
+        a.CREATED_BY as createdBy,
+        a.CREATED_DATE as createdDate,
+        a.UPDATED_BY as updatedBy,
+        a.UPDATED_DATE as updatedDate
+    </sql>
+
+    <resultMap id="accountCoInstitutionalResultMap" type="com.fintech.gams.account.entity.AccountCoInstitutional">
+        <id column="ID" property="id" />
+        <result column="ACCOUNT_ID" property="accountId"/>
+        <result column="INSTITUTIONAL_NAME" property="institutionalName"/>
+        <result column="BSINESS_DESCRIPTION" property="bsinessDescription"/>
+        <result column="BUSINESS_NAME" property="businessName"/>
+        <result column="WEBSITE_URL" property="websiteUrl"/>
+        <result column="ISTITUTIONAL_NATURE" property="istitutionalNature"/>
+        <result column="CREATED_BY" property="createdBy"/>
+        <result column="CREATED_DATE" property="createdDate"/>
+        <result column="UPDATED_BY" property="updatedBy"/>
+        <result column="UPDATED_DATE" property="updatedDate"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.account.entity.AccountCoInstitutional">
+        INSERT INTO ACCOUNT_CO_INSTITUTIONAL(
+            ID ,
+            ACCOUNT_ID ,
+            INSTITUTIONAL_NAME ,
+            BSINESS_DESCRIPTION ,
+            BUSINESS_NAME ,
+            WEBSITE_URL ,
+            ISTITUTIONAL_NATURE ,
+            CREATED_BY ,
+            CREATED_DATE ,
+            UPDATED_BY ,
+            UPDATED_DATE 
+        ) VALUES (
+            #{id} ,
+            #{accountId} ,
+            #{institutionalName} ,
+            #{bsinessDescription} ,
+            #{businessName} ,
+            #{websiteUrl} ,
+            #{istitutionalNature} ,
+            #{createdBy} ,
+            #{createdDate} ,
+            #{updatedBy} ,
+            #{updatedDate} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM ACCOUNT_CO_INSTITUTIONAL WHERE ID = #{id}
+    </delete>
+
+    <!-- 根据主键逻辑删除 -->
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE ACCOUNT_CO_INSTITUTIONAL SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.account.entity.AccountCoInstitutional">
+        INSERT INTO ACCOUNT_CO_INSTITUTIONAL
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="accountId != null">
+                ACCOUNT_ID ,
+        </if>
+        <if test="institutionalName != null">
+                INSTITUTIONAL_NAME ,
+        </if>
+        <if test="bsinessDescription != null">
+                BSINESS_DESCRIPTION ,
+        </if>
+        <if test="businessName != null">
+                BUSINESS_NAME ,
+        </if>
+        <if test="websiteUrl != null">
+                WEBSITE_URL ,
+        </if>
+        <if test="istitutionalNature != null">
+                ISTITUTIONAL_NATURE ,
+        </if>
+        <if test="createdBy != null">
+                CREATED_BY ,
+        </if>
+        <if test="createdDate != null">
+                CREATED_DATE ,
+        </if>
+        <if test="updatedBy != null">
+                UPDATED_BY ,
+        </if>
+        <if test="updatedDate != null">
+                UPDATED_DATE 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="accountId != null">
+                #{accountId} ,
+        </if>
+        <if test="institutionalName != null">
+                #{institutionalName} ,
+        </if>
+        <if test="bsinessDescription != null">
+                #{bsinessDescription} ,
+        </if>
+        <if test="businessName != null">
+                #{businessName} ,
+        </if>
+        <if test="websiteUrl != null">
+                #{websiteUrl} ,
+        </if>
+        <if test="istitutionalNature != null">
+                #{istitutionalNature} ,
+        </if>
+        <if test="createdBy != null">
+                #{createdBy} ,
+        </if>
+        <if test="createdDate != null">
+                #{createdDate} ,
+        </if>
+        <if test="updatedBy != null">
+                #{updatedBy} ,
+        </if>
+        <if test="updatedDate != null">
+                #{updatedDate} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.account.entity.AccountCoInstitutional">
+        UPDATE ACCOUNT_CO_INSTITUTIONAL
+           <set>
+            <if test="accountId != null">
+                ACCOUNT_ID = #{accountId} ,
+            </if>
+            <if test="institutionalName != null">
+                INSTITUTIONAL_NAME = #{institutionalName} ,
+            </if>
+            <if test="bsinessDescription != null">
+                BSINESS_DESCRIPTION = #{bsinessDescription} ,
+            </if>
+            <if test="businessName != null">
+                BUSINESS_NAME = #{businessName} ,
+            </if>
+            <if test="websiteUrl != null">
+                WEBSITE_URL = #{websiteUrl} ,
+            </if>
+            <if test="istitutionalNature != null">
+                ISTITUTIONAL_NATURE = #{istitutionalNature} ,
+            </if>
+            <if test="createdBy != null">
+                CREATED_BY = #{createdBy} ,
+            </if>
+            <if test="createdDate != null">
+                CREATED_DATE = #{createdDate} ,
+            </if>
+            <if test="updatedBy != null">
+                UPDATED_BY = #{updatedBy} ,
+            </if>
+            <if test="updatedDate != null">
+                UPDATED_DATE = #{updatedDate} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO ACCOUNT_CO_INSTITUTIONAL(
+            ID ,
+            ACCOUNT_ID ,
+            INSTITUTIONAL_NAME ,
+            BSINESS_DESCRIPTION ,
+            BUSINESS_NAME ,
+            WEBSITE_URL ,
+            ISTITUTIONAL_NATURE ,
+            CREATED_BY ,
+            CREATED_DATE ,
+            UPDATED_BY ,
+            UPDATED_DATE 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.accountId} ,
+            #{item.institutionalName} ,
+            #{item.bsinessDescription} ,
+            #{item.businessName} ,
+            #{item.websiteUrl} ,
+            #{item.istitutionalNature} ,
+            #{item.createdBy} ,
+            #{item.createdDate} ,
+            #{item.updatedBy} ,
+            #{item.updatedDate} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE ACCOUNT_CO_INSTITUTIONAL SET
+            ACCOUNT_ID = #{item.accountId} ,
+            INSTITUTIONAL_NAME = #{item.institutionalName} ,
+            BSINESS_DESCRIPTION = #{item.bsinessDescription} ,
+            BUSINESS_NAME = #{item.businessName} ,
+            WEBSITE_URL = #{item.websiteUrl} ,
+            ISTITUTIONAL_NATURE = #{item.istitutionalNature} ,
+            CREATED_BY = #{item.createdBy} ,
+            CREATED_DATE = #{item.createdDate} ,
+            UPDATED_BY = #{item.updatedBy} ,
+            UPDATED_DATE = #{item.updatedDate} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.account.entity.AccountCoInstitutional">
+        UPDATE ACCOUNT_CO_INSTITUTIONAL SET
+            ACCOUNT_ID = #{accountId} ,
+            INSTITUTIONAL_NAME = #{institutionalName} ,
+            BSINESS_DESCRIPTION = #{bsinessDescription} ,
+            BUSINESS_NAME = #{businessName} ,
+            WEBSITE_URL = #{websiteUrl} ,
+            ISTITUTIONAL_NATURE = #{istitutionalNature} ,
+            CREATED_BY = #{createdBy} ,
+            CREATED_DATE = #{createdDate} ,
+            UPDATED_BY = #{updatedBy} ,
+            UPDATED_DATE = #{updatedDate} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.account.entity.AccountCoInstitutional">
+        SELECT <include refid="accountCoInstitutionalColumns"/> FROM ACCOUNT_CO_INSTITUTIONAL a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.account.entity.AccountCoInstitutional">
+        SELECT
+        <include refid="accountCoInstitutionalColumns"/>
+        FROM ACCOUNT_CO_INSTITUTIONAL a WHERE 1=1
+        <if test="accountId != null">
+            AND a.ACCOUNT_ID = #{accountId}
+        </if>
+        <if test="institutionalName != null">
+            AND a.INSTITUTIONAL_NAME LIKE '%'||#{institutionalName}||'%'
+        </if>
+        <if test="bsinessDescription != null">
+            AND a.BSINESS_DESCRIPTION LIKE '%'||#{bsinessDescription}||'%'
+        </if>
+        <if test="businessName != null">
+            AND a.BUSINESS_NAME LIKE '%'||#{businessName}||'%'
+        </if>
+        <if test="websiteUrl != null">
+            AND a.WEBSITE_URL LIKE '%'||#{websiteUrl}||'%'
+        </if>
+        <if test="istitutionalNature != null">
+            AND a.ISTITUTIONAL_NATURE LIKE '%'||#{istitutionalNature}||'%'
+        </if>
+        <if test="createdBy != null">
+            AND a.CREATED_BY = #{createdBy}
+        </if>
+        <if test="createdDate != null">
+            AND a.CREATED_DATE = #{createdDate}
+        </if>
+        <if test="updatedBy != null">
+            AND a.UPDATED_BY = #{updatedBy}
+        </if>
+        <if test="updatedDate != null">
+            AND a.UPDATED_DATE = #{updatedDate}
+        </if>
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.account.entity.AccountCoInstitutional">
+        SELECT
+        <include refid="accountCoInstitutionalColumns"/>
+        FROM ACCOUNT_CO_INSTITUTIONAL a WHERE a.DEL_FLAG = 0
+    </select>
+
+    <!-- 根据accountId取数据 -->
+    <select id="findByAccountId"  parameterType="java.lang.Long" resultType="com.fintech.gams.account.entity.AccountCoInstitutional">
+        SELECT <include refid="accountCoInstitutionalColumns"/> FROM ACCOUNT_CO_INSTITUTIONAL a WHERE a.ACCOUNT_ID = #{accountId}
+    </select>
+
+</mapper>
+

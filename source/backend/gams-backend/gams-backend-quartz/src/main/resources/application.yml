@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: GamsQuartzServer
+com:
+  alipay:
+    sofa:
+      rpc:
+        registry-address: @zookeeper.address@
+logging:
+  path: logs/quartz
+  level:
+    com.fintech: info
+    com.alipay: info
+    org.apache: info
+    springfox: error
+  pattern:
+    console: "[%d{yyyy-MM-dd HH:mm:ss:SSS}] [%p] - %pid - %l - %m%n"

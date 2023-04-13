@@ -1,0 +1,923 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.account.mapper.AccountMapper">
+    <!-- 基础列 -->
+    <sql id="accountColumns">
+        a.ID as id,
+        a.UNID as unid,
+        a.ACCOUNT_TYPE as accountType,
+        a.ACCOUNT_NAME as accountName,
+        a.NICK_NAME as nickName,
+        a.EMAIL as email,
+        a.MOBILE as mobile,
+        a.LOCATION as location,
+        a.COUNTRY as country,
+        a.REGION as region,
+        a.NATIONALITY as nationality,
+        a.LANG as lang,
+        a.LOGIN_PWD as loginPwd,
+        a.FUND_PWD as fundPwd,
+        a.STATUS as status,
+        a.AUTH_KEY as authKey,
+        a.SECURITY_POLICY as securityPolicy,
+        a.TRADE_POLICY as tradePolicy,
+        a.ACTIVATION_CODE as activationCode,
+        a.UNFORZEN_DATE as unforzenDate,
+        a.REGISTER_STATUS as registerStatus,
+        a.REMARK as remark,
+        a.SIGN as sign,
+        a.RANDOM_KEY as randomKey,
+        a.CREATE_DATE as createDate,
+        a.UPDATE_DATE as updateDate,
+        a.DEL_FLAG as delFlag
+    </sql>
+
+    <resultMap id="accountResultMap" type="com.fintech.gams.account.entity.Account">
+        <id column="ID" property="id" />
+        <result column="UNID" property="unid"/>
+        <result column="ACCOUNT_TYPE" property="accountType"/>
+        <result column="ACCOUNT_NAME" property="accountName"/>
+        <result column="NICK_NAME" property="nickName"/>
+        <result column="EMAIL" property="email"/>
+        <result column="MOBILE" property="mobile"/>
+        <result column="LOCATION" property="location"/>
+        <result column="COUNTRY" property="country"/>
+        <result column="REGION" property="region"/>
+        <result column="NATIONALITY" property="nationality"/>
+        <result column="LANG" property="lang"/>
+        <result column="LOGIN_PWD" property="loginPwd"/>
+        <result column="FUND_PWD" property="fundPwd"/>
+        <result column="STATUS" property="status"/>
+        <result column="AUTH_KEY" property="authKey"/>
+        <result column="SECURITY_POLICY" property="securityPolicy"/>
+        <result column="TRADE_POLICY" property="tradePolicy"/>
+        <result column="ACTIVATION_CODE" property="activationCode"/>
+        <result column="UNFORZEN_DATE" property="unforzenDate"/>
+        <result column="REGISTER_STATUS" property="registerStatus"/>
+        <result column="REMARK" property="remark"/>
+        <result column="SIGN" property="sign"/>
+        <result column="RANDOM_KEY" property="randomKey"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="UPDATE_DATE" property="updateDate"/>
+        <result column="DEL_FLAG" property="delFlag"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.account.entity.Account">
+        INSERT INTO ACCOUNT(
+            ID ,
+            UNID ,
+            ACCOUNT_TYPE ,
+            ACCOUNT_NAME ,
+            NICK_NAME ,
+            EMAIL ,
+            MOBILE ,
+            LOCATION ,
+            COUNTRY ,
+            REGION ,
+            NATIONALITY ,
+            LANG ,
+            LOGIN_PWD ,
+            FUND_PWD ,
+            STATUS ,
+            AUTH_KEY ,
+            SECURITY_POLICY ,
+            TRADE_POLICY ,
+            ACTIVATION_CODE ,
+            UNFORZEN_DATE ,
+            REGISTER_STATUS ,
+            REMARK ,
+            SIGN ,
+            RANDOM_KEY ,
+            CREATE_DATE ,
+            UPDATE_DATE ,
+            DEL_FLAG 
+        ) VALUES (
+            #{id} ,
+            #{unid} ,
+            #{accountType} ,
+            #{accountName} ,
+            #{nickName} ,
+            #{email} ,
+            #{mobile} ,
+            #{location} ,
+            #{country} ,
+            #{region} ,
+            #{nationality} ,
+            #{lang} ,
+            #{loginPwd} ,
+            #{fundPwd} ,
+            #{status} ,
+            #{authKey} ,
+            #{securityPolicy} ,
+            #{tradePolicy} ,
+            #{activationCode} ,
+            #{unforzenDate} ,
+            #{registerStatus} ,
+            #{remark} ,
+            #{sign} ,
+            #{randomKey} ,
+            #{createDate} ,
+            #{updateDate} ,
+            #{delFlag} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM ACCOUNT WHERE ID = #{id}
+    </delete>
+
+    <!-- 根据主键逻辑删除 -->
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE ACCOUNT SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.account.entity.Account">
+        INSERT INTO ACCOUNT
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="unid != null">
+                UNID ,
+        </if>
+        <if test="accountType != null">
+                ACCOUNT_TYPE ,
+        </if>
+        <if test="accountName != null">
+                ACCOUNT_NAME ,
+        </if>
+        <if test="nickName != null">
+                NICK_NAME ,
+        </if>
+        <if test="email != null">
+                EMAIL ,
+        </if>
+        <if test="mobile != null">
+                MOBILE ,
+        </if>
+        <if test="location != null">
+                LOCATION ,
+        </if>
+        <if test="country != null">
+                COUNTRY ,
+        </if>
+        <if test="region != null">
+                REGION ,
+        </if>
+        <if test="nationality != null">
+                NATIONALITY ,
+        </if>
+        <if test="lang != null">
+                LANG ,
+        </if>
+        <if test="loginPwd != null">
+                LOGIN_PWD ,
+        </if>
+        <if test="fundPwd != null">
+                FUND_PWD ,
+        </if>
+        <if test="status != null">
+                STATUS ,
+        </if>
+        <if test="authKey != null">
+                AUTH_KEY ,
+        </if>
+        <if test="securityPolicy != null">
+                SECURITY_POLICY ,
+        </if>
+        <if test="tradePolicy != null">
+                TRADE_POLICY ,
+        </if>
+        <if test="activationCode != null">
+                ACTIVATION_CODE ,
+        </if>
+        <if test="unforzenDate != null">
+                UNFORZEN_DATE ,
+        </if>
+        <if test="registerStatus != null">
+                REGISTER_STATUS ,
+        </if>
+        <if test="remark != null">
+                REMARK ,
+        </if>
+        <if test="sign != null">
+                SIGN ,
+        </if>
+        <if test="randomKey != null">
+                RANDOM_KEY ,
+        </if>
+        <if test="createDate != null">
+                CREATE_DATE ,
+        </if>
+        <if test="updateDate != null">
+                UPDATE_DATE ,
+        </if>
+        <if test="delFlag != null">
+                DEL_FLAG 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="unid != null">
+                #{unid} ,
+        </if>
+        <if test="accountType != null">
+                #{accountType} ,
+        </if>
+        <if test="accountName != null">
+                #{accountName} ,
+        </if>
+        <if test="nickName != null">
+                #{nickName} ,
+        </if>
+        <if test="email != null">
+                #{email} ,
+        </if>
+        <if test="mobile != null">
+                #{mobile} ,
+        </if>
+        <if test="location != null">
+                #{location} ,
+        </if>
+        <if test="country != null">
+                #{country} ,
+        </if>
+        <if test="nationality != null">
+                #{nationality} ,
+        </if>
+        <if test="lang != null">
+                #{lang} ,
+        </if>
+        <if test="loginPwd != null">
+                #{loginPwd} ,
+        </if>
+        <if test="fundPwd != null">
+                #{fundPwd} ,
+        </if>
+        <if test="status != null">
+                #{status} ,
+        </if>
+        <if test="authKey != null">
+                #{authKey} ,
+        </if>
+        <if test="securityPolicy != null">
+                #{securityPolicy} ,
+        </if>
+        <if test="tradePolicy != null">
+                #{tradePolicy} ,
+        </if>
+        <if test="activationCode != null">
+                #{activationCode} ,
+        </if>
+        <if test="unforzenDate != null">
+                #{unforzenDate} ,
+        </if>
+        <if test="registerStatus != null">
+                #{registerStatus} ,
+        </if>
+        <if test="remark != null">
+                #{remark} ,
+        </if>
+        <if test="sign != null">
+                #{sign} ,
+        </if>
+        <if test="randomKey != null">
+                #{randomKey} ,
+        </if>
+        <if test="createDate != null">
+                #{createDate} ,
+        </if>
+        <if test="updateDate != null">
+                #{updateDate} ,
+        </if>
+        <if test="delFlag != null">
+                #{delFlag} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.account.entity.Account">
+        UPDATE ACCOUNT
+           <set>
+            <if test="unid != null">
+                UNID = #{unid} ,
+            </if>
+            <if test="accountType != null">
+                ACCOUNT_TYPE = #{accountType} ,
+            </if>
+            <if test="accountName != null">
+                ACCOUNT_NAME = #{accountName} ,
+            </if>
+            <if test="nickName != null">
+                NICK_NAME = #{nickName} ,
+            </if>
+            <if test="email != null">
+                EMAIL = #{email} ,
+            </if>
+            <if test="mobile != null">
+                MOBILE = #{mobile} ,
+            </if>
+            <if test="location != null">
+                LOCATION = #{location} ,
+            </if>
+            <if test="country != null">
+                COUNTRY = #{country} ,
+            </if>
+            <if test="region != null">
+                REGION = #{region} ,
+            </if>
+            <if test="nationality != null">
+                NATIONALITY = #{nationality} ,
+            </if>
+            <if test="lang != null">
+                LANG = #{lang} ,
+            </if>
+            <if test="loginPwd != null">
+                LOGIN_PWD = #{loginPwd} ,
+            </if>
+            <if test="fundPwd != null">
+                FUND_PWD = #{fundPwd} ,
+            </if>
+            <if test="status != null">
+                STATUS = #{status} ,
+            </if>
+            <if test="authKey != null">
+                AUTH_KEY = #{authKey} ,
+            </if>
+            <if test="securityPolicy != null">
+                SECURITY_POLICY = #{securityPolicy} ,
+            </if>
+            <if test="tradePolicy != null">
+                TRADE_POLICY = #{tradePolicy} ,
+            </if>
+            <if test="activationCode != null">
+                ACTIVATION_CODE = #{activationCode} ,
+            </if>
+            <if test="unforzenDate != null">
+                UNFORZEN_DATE = #{unforzenDate} ,
+            </if>
+            <if test="registerStatus != null">
+                REGISTER_STATUS = #{registerStatus} ,
+            </if>
+            <if test="remark != null">
+                REMARK = #{remark} ,
+            </if>
+            <if test="sign != null">
+                SIGN = #{sign} ,
+            </if>
+            <if test="randomKey != null">
+                RANDOM_KEY = #{randomKey} ,
+            </if>
+            <if test="createDate != null">
+                CREATE_DATE = #{createDate} ,
+            </if>
+            <if test="updateDate != null">
+                UPDATE_DATE = #{updateDate} ,
+            </if>
+            <if test="delFlag != null">
+                DEL_FLAG = #{delFlag} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO ACCOUNT(
+            ID ,
+            UNID ,
+            ACCOUNT_TYPE ,
+            ACCOUNT_NAME ,
+            NICK_NAME ,
+            EMAIL ,
+            MOBILE ,
+            LOCATION ,
+            COUNTRY ,
+            REGION ,
+            NATIONALITY ,
+            LANG ,
+            LOGIN_PWD ,
+            FUND_PWD ,
+            STATUS ,
+            AUTH_KEY ,
+            SECURITY_POLICY ,
+            TRADE_POLICY ,
+            ACTIVATION_CODE ,
+            UNFORZEN_DATE ,
+            REGISTER_STATUS ,
+            REMARK ,
+            SIGN ,
+            RANDOM_KEY ,
+            CREATE_DATE ,
+            UPDATE_DATE ,
+            DEL_FLAG 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.unid} ,
+            #{item.accountType} ,
+            #{item.accountName} ,
+            #{item.nickName} ,
+            #{item.email} ,
+            #{item.mobile} ,
+            #{item.location} ,
+            #{item.country} ,
+            #{item.region} ,
+            #{item.nationality} ,
+            #{item.lang} ,
+            #{item.loginPwd} ,
+            #{item.fundPwd} ,
+            #{item.status} ,
+            #{item.authKey} ,
+            #{item.securityPolicy} ,
+            #{item.tradePolicy} ,
+            #{item.activationCode} ,
+            #{item.unforzenDate} ,
+            #{item.registerStatus} ,
+            #{item.remark} ,
+            #{item.sign} ,
+            #{item.randomKey} ,
+            #{item.createDate} ,
+            #{item.updateDate} ,
+            #{item.delFlag} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE ACCOUNT SET
+            UNID = #{item.unid} ,
+            ACCOUNT_TYPE = #{item.accountType} ,
+            ACCOUNT_NAME = #{item.accountName} ,
+            NICK_NAME = #{item.nickName} ,
+            EMAIL = #{item.email} ,
+            MOBILE = #{item.mobile} ,
+            LOCATION = #{item.location} ,
+            COUNTRY = #{item.country} ,
+            REGION = #{item.region} ,
+            NATIONALITY = #{item.nationality} ,
+            LANG = #{item.lang} ,
+            LOGIN_PWD = #{item.loginPwd} ,
+            FUND_PWD = #{item.fundPwd} ,
+            STATUS = #{item.status} ,
+            AUTH_KEY = #{item.authKey} ,
+            SECURITY_POLICY = #{item.securityPolicy} ,
+            TRADE_POLICY = #{item.tradePolicy} ,
+            ACTIVATION_CODE = #{item.activationCode} ,
+            UNFORZEN_DATE = #{item.unforzenDate} ,
+            REGISTER_STATUS = #{item.registerStatus} ,
+            REMARK = #{item.remark} ,
+            SIGN = #{item.sign} ,
+            RANDOM_KEY = #{item.randomKey} ,
+            CREATE_DATE = #{item.createDate} ,
+            UPDATE_DATE = #{item.updateDate} ,
+            DEL_FLAG = #{item.delFlag} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.account.entity.Account">
+        UPDATE ACCOUNT SET
+            UNID = #{unid} ,
+            ACCOUNT_TYPE = #{accountType} ,
+            ACCOUNT_NAME = #{accountName} ,
+            NICK_NAME = #{nickName} ,
+            EMAIL = #{email} ,
+            MOBILE = #{mobile} ,
+            LOCATION = #{location} ,
+            COUNTRY = #{country} ,
+            REGION = #{region} ,
+            NATIONALITY = #{nationality} ,
+            LANG = #{lang} ,
+            LOGIN_PWD = #{loginPwd} ,
+            FUND_PWD = #{fundPwd} ,
+            STATUS = #{status} ,
+            AUTH_KEY = #{authKey} ,
+            SECURITY_POLICY = #{securityPolicy} ,
+            TRADE_POLICY = #{tradePolicy} ,
+            ACTIVATION_CODE = #{activationCode} ,
+            UNFORZEN_DATE = #{unforzenDate} ,
+            REGISTER_STATUS = #{registerStatus} ,
+            REMARK = #{remark} ,
+            SIGN = #{sign} ,
+            RANDOM_KEY = #{randomKey} ,
+            CREATE_DATE = #{createDate} ,
+            UPDATE_DATE = #{updateDate} ,
+            DEL_FLAG = #{delFlag} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.account.entity.Account">
+        SELECT <include refid="accountColumns"/> FROM ACCOUNT a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.account.entity.Account">
+        SELECT
+        <include refid="accountColumns"/>
+        FROM ACCOUNT a WHERE 1=1
+        <if test="unid != null">
+            AND a.UNID = #{unid}
+        </if>
+        <if test="accountType != null">
+            AND a.ACCOUNT_TYPE LIKE '%'||#{accountType}||'%'
+        </if>
+        <if test="accountName != null">
+            AND a.ACCOUNT_NAME = #{accountName}
+        </if>
+        <if test="nickName != null">
+            AND a.NICK_NAME = #{nickName}
+        </if>
+        <if test="email != null">
+            AND a.EMAIL = #{email}
+        </if>
+        <if test="mobile != null">
+            AND a.MOBILE = #{mobile}
+        </if>
+        <if test="location != null">
+            AND a.LOCATION = #{location}
+        </if>
+        <if test="country != null">
+            AND a.COUNTRY = #{country}
+        </if>
+        <if test="region != null">
+            AND a.REGION = #{region}
+        </if>
+        <if test="nationality != null">
+            AND a.NATIONALITY = #{nationality}
+        </if>
+        <if test="lang != null">
+            AND a.LANG = #{lang}
+        </if>
+        <if test="status != null">
+            AND a.STATUS = #{status}
+        </if>
+        <if test="activationCode != null">
+            AND a.ACTIVATION_CODE = #{activationCode}
+        </if>
+        <if test="registerStatus != null">
+            AND a.REGISTER_STATUS = #{registerStatus}
+        </if>
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.account.entity.Account">
+        SELECT
+        <include refid="accountColumns"/>
+        FROM ACCOUNT a WHERE a.DEL_FLAG = 0
+    </select>
+
+    <select id="findByName" resultType="com.fintech.gams.account.entity.Account">
+        SELECT
+        <include refid="accountColumns"/>
+        FROM ACCOUNT a WHERE a.DEL_FLAG = 0 AND a.STATUS = 0
+        AND a.ACCOUNT_NAME = #{accountName}
+    </select>
+
+    <select id="findByUnid" resultType="com.fintech.gams.account.entity.Account">
+        SELECT
+        <include refid="accountColumns"/>
+        FROM ACCOUNT a WHERE a.DEL_FLAG = 0
+        AND a.UNID = #{unid}
+    </select>
+
+    <select id="getMaxUNID" resultType="java.lang.Long">
+        SELECT MAX(a.UNID) FROM ACCOUNT a
+    </select>
+
+    <select id="findByPhone" resultType="com.fintech.gams.account.entity.Account">
+        SELECT
+        <include refid="accountColumns"/>
+        FROM ACCOUNT a WHERE a.DEL_FLAG = 0
+        AND a.MOBILE = #{mobile}
+        <if test="region != null">
+            AND a.REGION = #{region}
+        </if>
+    </select>
+
+    <select id="findByEmail" resultType="com.fintech.gams.account.entity.Account">
+        SELECT
+        <include refid="accountColumns"/>
+        FROM ACCOUNT a WHERE a.DEL_FLAG = 0
+        AND a.EMAIL = #{email}
+    </select>
+
+    <!-- 查询个人账户信息 -->
+    <select id="findPersonalInfo" parameterType="java.lang.Long" resultType="com.fintech.gams.account.model.AccountInfoModel">
+        SELECT
+         a.UNID as unid,
+         a.ACCOUNT_NAME as accountName,
+         a.ACCOUNT_TYPE as accountType,
+         a.EMAIL as email,
+         a.REGION as region,
+         a.MOBILE as mobile,
+         a.SECURITY_POLICY as securityPolicy,
+         b.LAST_NAME || b.FIRST_NAME as name,
+         c.IB_ACCOUNT_CODE as ibAccountCode,
+         d.BASE_CURRENCY as baseCurrency,
+         d.ACCOUNT_PORTFOLIO_TYPE as accountPortfolioType,
+         e.COUNTRY as country,
+         e.CITY as city,
+         e.ROVINCE as rovince
+        FROM
+          ACCOUNT a LEFT JOIN
+          ACCOUNT_PER_INFO b ON a.ID = b.ACCOUNT_ID LEFT JOIN
+          IB_ACCOUNT_FAMILY c ON a.ID = c.ACCOUNT_ID LEFT JOIN
+          ACCOUNT_PER_PORTFOLIO d ON a.ID = d.ACCOUNT_ID LEFT JOIN
+          (SELECT * FROM ACCOUNT_PER_ADDRESS
+          WHERE ACCOUNT_ID = #{id} AND ADDRESS_TYPE = 'personalAddress') e
+          ON a.ID = e.ACCOUNT_ID
+        WHERE a.ACCOUNT_TYPE = 'personal' AND a.ID = #{id}
+        ORDER BY a.UNID
+    </select>
+
+    <!-- 查询有限公司信息 -->
+    <select id="findLimitedLiablityInfo" parameterType="java.lang.Long" resultType="com.fintech.gams.account.model.AccountInfoModel">
+        SELECT
+         a.UNID as unid,
+         a.ACCOUNT_NAME as accountName,
+         a.ACCOUNT_TYPE as accountType,
+         a.EMAIL as email,
+         a.REGION as region,
+         a.MOBILE as mobile,
+         a.SECURITY_POLICY as securityPolicy,
+         b.INSTITUTIONAL_NAME as name,
+         c.IB_ACCOUNT_CODE as ibAccountCode,
+         d.BASE_CURRENCY as baseCurrency,
+         d.ACCOUNT_PORTFOLIO_TYPE as accountPortfolioType,
+         e.COUNTRY as country,
+         e.CITY as city,
+         e.ROVINCE as rovince
+        FROM
+          ACCOUNT a LEFT JOIN
+          ACCOUNT_CO_INSTITUTIONAL b ON a.ID = b.ACCOUNT_ID LEFT JOIN
+          IB_ACCOUNT_FAMILY c ON a.ID = c.ACCOUNT_ID LEFT JOIN
+          ACCOUNT_CO_ACCOUNT_PORTFOLIO d ON a.ID = d.ACCOUNT_ID LEFT JOIN
+          (SELECT * FROM ACCOUNT_CO_ADDRESS
+          WHERE ACCOUNT_ID = #{id} AND ADDRESS_TYPE = 'personalAddress') e
+          ON a.ID = e.ACCOUNT_ID AND b.ID = e.CO_PERSONAL_ID
+        WHERE a.ACCOUNT_TYPE = 'limitedLiablity' AND a.ID = #{id}
+        ORDER BY a.UNID
+    </select>
+
+    <!-- 查询合伙企业信息 -->
+    <select id="findPartnerShipInfo" parameterType="java.lang.Long" resultType="com.fintech.gams.account.model.AccountInfoModel">
+        SELECT
+         a.UNID as unid,
+         a.ACCOUNT_NAME as accountName,
+         a.ACCOUNT_TYPE as accountType,
+         a.EMAIL as email,
+         a.REGION as region,
+         a.MOBILE as mobile,
+         a.SECURITY_POLICY as securityPolicy,
+         b.INSTITUTIONAL_NAME as name,
+         c.IB_ACCOUNT_CODE as ibAccountCode,
+         d.BASE_CURRENCY as baseCurrency,
+         d.ACCOUNT_PORTFOLIO_TYPE as accountPortfolioType,
+         e.COUNTRY as country,
+         e.CITY as city,
+         e.ROVINCE as rovince
+        FROM
+         ACCOUNT a LEFT JOIN
+         ACCOUNT_PAR_INSTITUTIONAL b on a.ID = b.ACCOUNT_ID LEFT JOIN
+         IB_ACCOUNT_FAMILY c ON a.ID = c.ACCOUNT_ID LEFT JOIN
+         ACCOUNT_PAR_ACCOUNT_PORTFOLIO d ON a.ID = d.ACCOUNT_ID LEFT JOIN
+         (SELECT * FROM ACCOUNT_PAR_ADDRESS
+         WHERE ACCOUNT_ID = #{id} AND ADDRESS_TYPE = 'personalAddress') e
+         ON a.ID = e.ACCOUNT_ID AND b.ID = e.PAR_PERSONAL_ID
+        WHERE a.ACCOUNT_TYPE = 'partnerShip' AND a.ID = #{id}
+        ORDER BY a.UNID
+    </select>
+
+    <select id="findAccountList" resultType="com.fintech.gams.account.entity.Account">
+        SELECT
+        <include refid="accountColumns"/>
+        FROM ACCOUNT a WHERE a.DEL_FLAG = 0
+        <if test="accountName != null">
+            AND a.ACCOUNT_NAME like '%'||#{accountName}||'%'
+        </if>
+        <if test="registerStatus != null">
+            AND a.REGISTER_STATUS = #{registerStatus}
+        </if>
+            ORDER BY a.CREATE_DATE DESC
+    </select>
+
+
+    <select id="findAccountPartnerShipList"  resultType="com.fintech.gams.account.model.AccountManagementListModel">
+        SELECT  a.ID as accountId,
+                a.UNID as unid,
+                a.ACCOUNT_NAME as accountName,
+                a.ACCOUNT_TYPE as accounType,
+                a.MOBILE as mobile,
+                a.EMAIL as email,
+                a.STATUS as status,
+                a.REGION as region,
+                a.CREATE_DATE as createDate,
+                p.INSTITUTIONAL_NAME as customerName,
+                r.CN_NAME as country,
+                d.DICT_DEST as accountPortfolioTypeDest,
+                pap.BASE_CURRENCY as baseCurrency,
+                i.IB_ACCOUNT_CODE as ibAccountCode
+        FROM
+             ACCOUNT a
+             left JOIN ACCOUNT_PAR_INSTITUTIONAL p on a.ID = p.ACCOUNT_ID
+             LEFT JOIN IB_ACCOUNT_FAMILY i ON a.ID = i.ACCOUNT_ID
+             LEFT JOIN ACCOUNT_PAR_ACCOUNT_PORTFOLIO pap ON a.ID = pap.ACCOUNT_ID
+             LEFT JOIN DICTIONARY d ON pap.ACCOUNT_PORTFOLIO_TYPE = d.DICT_VALUE AND #{accountModel.lang} = d.LANG AND d.DICT_CODE = 'accountPortfolioType'
+             LEFT JOIN REGION r ON a.COUNTRY = r.S_CODE
+        WHERE a.DEL_FLAG = 0
+            <if test="accountModel.accountId != null">
+                AND a.ID = #{accountModel.accountId}
+            </if>
+            <if test="accountModel.accountName != null">
+                AND a.ACCOUNT_NAME  like '%'||#{accountModel.accountName}||'%'
+            </if>
+            <if test="accountModel.mobile != null">
+                AND a.MOBILE = #{accountModel.mobile}
+            </if>
+            <if test="accountModel.country != null">
+                AND a.COUNTRY = #{accountModel.country}
+            </if>
+            <if test="accountModel.status != null">
+                AND a.STATUS = #{accountModel.status}
+            </if>
+            <if test="accountModel.accountType != null">
+                AND a.ACCOUNT_TYPE = #{accountModel.accountType}
+            </if>
+            <if test="accountModel.accountCreateDateStart != null and accountModel.accountCreateDateEnd != null">
+                AND a.CREATE_DATE &gt;= #{accountModel.accountCreateDateStart}
+                AND a.CREATE_DATE &lt;= #{accountModel.accountCreateDateEnd}
+            </if>
+            <if test="accountModel.customerName != null">
+                AND p.INSTITUTIONAL_NAME like '%'||#{accountModel.customerName}||'%'
+            </if>
+            <if test="accountModel.ibAccountCode != null">
+                AND i.IB_ACCOUNT_CODE = #{accountModel.ibAccountCode}
+            </if>
+        ORDER BY a.CREATE_DATE DESC
+    </select>
+
+    <select id="findAccountLimitedLiablityList"  resultType="com.fintech.gams.account.model.AccountManagementListModel">
+        SELECT  a.ID as accountId,
+                a.UNID as unid,
+                a.ACCOUNT_NAME as accountName,
+                a.ACCOUNT_TYPE as accounType,
+                a.MOBILE as mobile,
+                a.EMAIL as email,
+                a.STATUS as status,
+                a.REGION as region,
+                a.CREATE_DATE as createDate,
+                p.INSTITUTIONAL_NAME as customerName,
+                r.CN_NAME as country,
+                d.DICT_DEST as accountPortfolioTypeDest,
+                pap.BASE_CURRENCY as baseCurrency,
+                i.IB_ACCOUNT_CODE as ibAccountCode
+        FROM
+             ACCOUNT a
+             left JOIN ACCOUNT_CO_INSTITUTIONAL p on a.ID = p.ACCOUNT_ID
+             LEFT JOIN IB_ACCOUNT_FAMILY i ON a.ID = i.ACCOUNT_ID
+             LEFT JOIN ACCOUNT_CO_ACCOUNT_PORTFOLIO pap ON a.ID = pap.ACCOUNT_ID
+             LEFT JOIN DICTIONARY d ON pap.ACCOUNT_PORTFOLIO_TYPE = d.DICT_VALUE AND #{accountModel.lang} = d.LANG AND d.DICT_CODE = 'accountPortfolioType'
+             LEFT JOIN REGION r ON a.COUNTRY = r.S_CODE
+        WHERE a.DEL_FLAG = 0
+            <if test="accountModel.accountId != null">
+                AND a.ID = #{accountModel.accountId}
+            </if>
+            <if test="accountModel.accountName != null">
+                AND a.ACCOUNT_NAME like '%'||#{accountModel.accountName}||'%'
+            </if>
+            <if test="accountModel.mobile != null">
+                AND a.MOBILE = #{accountModel.mobile}
+            </if>
+            <if test="accountModel.country != null">
+                AND a.COUNTRY = #{accountModel.country}
+            </if>
+            <if test="accountModel.status != null">
+                AND a.STATUS = #{accountModel.status}
+            </if>
+            <if test="accountModel.accountType != null">
+                AND a.ACCOUNT_TYPE = #{accountModel.accountType}
+            </if>
+            <if test="accountModel.accountCreateDateStart != null and accountModel.accountCreateDateEnd != null">
+                AND a.CREATE_DATE &gt;= #{accountModel.accountCreateDateStart}
+                AND a.CREATE_DATE &lt;= #{accountModel.accountCreateDateEnd}
+            </if>
+            <if test="accountModel.customerName != null">
+                AND p.INSTITUTIONAL_NAME  like '%'||#{accountModel.customerName}||'%'
+            </if>
+            <if test="accountModel.ibAccountCode != null">
+                AND i.IB_ACCOUNT_CODE = #{accountModel.ibAccountCode}
+            </if>
+        ORDER BY a.CREATE_DATE DESC
+    </select>
+
+    <select id="findAccountPersonalList"  resultType="com.fintech.gams.account.model.AccountManagementListModel">
+        SELECT  a.ID as accountId,
+                a.UNID as unid,
+                a.ACCOUNT_NAME as accountName,
+                a.ACCOUNT_TYPE as accounType,
+                a.MOBILE as mobile,
+                a.EMAIL as email,
+                a.STATUS as status,
+                a.CREATE_DATE as createDate,
+                a.REGION as region,
+                CONCAT(p.LAST_NAME,p.FIRST_NAME) as customerName,
+                r.CN_NAME as country,
+                d.DICT_DEST as accountPortfolioTypeDest,
+                pp.BASE_CURRENCY as baseCurrency,
+                i.IB_ACCOUNT_CODE as ibAccountCode
+        FROM
+             ACCOUNT a
+             left JOIN ACCOUNT_PER_INFO p on a.ID = p.ACCOUNT_ID AND p.PERSONAL_TYPE = 'personalInfo'
+             LEFT JOIN IB_ACCOUNT_FAMILY i ON a.ID = i.ACCOUNT_ID
+             LEFT JOIN ACCOUNT_PER_PORTFOLIO pp ON a.ID = pp.ACCOUNT_ID
+             LEFT JOIN DICTIONARY d ON pp.ACCOUNT_PORTFOLIO_TYPE = d.DICT_VALUE AND #{accountModel.lang} = d.LANG AND d.DICT_CODE = 'accountPortfolioType'
+             LEFT JOIN REGION r ON a.COUNTRY = r.S_CODE
+        WHERE a.DEL_FLAG = 0
+            <if test="accountModel.accountId != null">
+                AND a.ID = #{accountModel.accountId}
+            </if>
+            <if test="accountModel.accountName != null">
+                AND a.ACCOUNT_NAME like '%'||#{accountModel.accountName}||'%'
+            </if>
+            <if test="accountModel.mobile != null">
+                AND a.MOBILE = #{accountModel.mobile}
+            </if>
+            <if test="accountModel.country != null">
+                AND a.COUNTRY = #{accountModel.country}
+            </if>
+            <if test="accountModel.status != null">
+                AND a.STATUS = #{accountModel.status}
+            </if>
+            <if test="accountModel.accountType != null">
+                AND a.ACCOUNT_TYPE = #{accountModel.accountType}
+            </if>
+            <if test="accountModel.accountCreateDateStart != null and accountModel.accountCreateDateEnd != null">
+                AND a.CREATE_DATE &gt;= #{accountModel.accountCreateDateStart}
+                AND a.CREATE_DATE &lt;= #{accountModel.accountCreateDateEnd}
+            </if>
+            <if test="accountModel.customerName != null">
+                AND  CONCAT(p.LAST_NAME,p.FIRST_NAME) like '%'||#{accountModel.customerName}||'%'
+            </if>
+            <if test="accountModel.ibAccountCode != null">
+                AND i.IB_ACCOUNT_CODE = #{accountModel.ibAccountCode}
+            </if>
+        ORDER BY a.CREATE_DATE DESC
+    </select>
+    <select id="findAccountManagementList"  resultType="com.fintech.gams.account.model.AccountManagementListModel">
+        SELECT  a.ID as accountId,
+                a.UNID as unid,
+                a.ACCOUNT_NAME as accountName,
+                a.ACCOUNT_TYPE as accounType,
+                a.MOBILE as mobile,
+                a.EMAIL as email,
+                a.STATUS as status,
+                a.CREATE_DATE as createDate,
+                a.REGION as region,
+                i.IB_ACCOUNT_CODE as ibAccountCode,
+                r.CN_NAME as country
+        FROM
+             ACCOUNT a
+             LEFT JOIN IB_ACCOUNT_FAMILY i ON a.ID = i.ACCOUNT_ID
+             LEFT JOIN REGION r ON a.COUNTRY = r.S_CODE
+        WHERE a.DEL_FLAG = 0
+            <if test="accountModel.accountId != null">
+                AND a.ID = #{accountModel.accountId}
+            </if>
+            <if test="accountModel.accountName != null">
+                AND a.ACCOUNT_NAME like '%'||#{accountModel.accountName}||'%'
+            </if>
+            <if test="accountModel.mobile != null">
+                AND a.MOBILE = #{accountModel.mobile}
+            </if>
+            <if test="accountModel.country != null">
+                AND a.COUNTRY = #{accountModel.country}
+            </if>
+            <if test="accountModel.status != null">
+                AND a.STATUS = #{accountModel.status}
+            </if>
+            <if test="accountModel.accountType != null">
+                AND a.ACCOUNT_TYPE = #{accountModel.accountType}
+            </if>
+            <if test="accountModel.accountCreateDateStart != null and accountModel.accountCreateDateEnd != null">
+                AND a.CREATE_DATE &gt;= #{accountModel.accountCreateDateStart}
+                AND a.CREATE_DATE &lt;= #{accountModel.accountCreateDateEnd}
+            </if>
+            <if test="accountModel.ibAccountCode != null">
+                AND i.IB_ACCOUNT_CODE = #{accountModel.ibAccountCode}
+            </if>
+        ORDER BY a.CREATE_DATE DESC
+    </select>
+
+</mapper>
+

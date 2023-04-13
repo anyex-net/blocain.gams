@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.account.mapper.AccountCoSecurityOfficerMapper">
+    <!-- 基础列 -->
+    <sql id="accountCoSecurityOfficerColumns">
+        a.ID as id,
+        a.ACCOUNT_ID as accountId,
+        a.APPELLATION as appellation,
+        a.LAST_NAME as lastName,
+        a.MIDDLE_NAME as middleName,
+        a.FIRST_NAME as firstName,
+        a.SUFFIX as suffix,
+        a.EMAIL as email,
+        a.ETITY_RELATIONSHIP as etityRelationship,
+        a.AUTHORIZED_RELATIONSHIP as authorizedRelationship,
+        a.USER_NAME as userName,
+        a.PASSWORD as password,
+        a.CREATED_BY as createdBy,
+        a.CREATED_DATE as createdDate,
+        a.UPDATED_BY as updatedBy,
+        a.UPDATED_DATE as updatedDate
+    </sql>
+
+    <resultMap id="accountCoSecurityOfficerResultMap" type="com.fintech.gams.account.entity.AccountCoSecurityOfficer">
+        <id column="ID" property="id" />
+        <result column="ACCOUNT_ID" property="accountId"/>
+        <result column="APPELLATION" property="appellation"/>
+        <result column="LAST_NAME" property="lastName"/>
+        <result column="MIDDLE_NAME" property="middleName"/>
+        <result column="FIRST_NAME" property="firstName"/>
+        <result column="SUFFIX" property="suffix"/>
+        <result column="EMAIL" property="email"/>
+        <result column="ETITY_RELATIONSHIP" property="etityRelationship"/>
+        <result column="AUTHORIZED_RELATIONSHIP" property="authorizedRelationship"/>
+        <result column="USER_NAME" property="userName"/>
+        <result column="PASSWORD" property="password"/>
+        <result column="CREATED_BY" property="createdBy"/>
+        <result column="CREATED_DATE" property="createdDate"/>
+        <result column="UPDATED_BY" property="updatedBy"/>
+        <result column="UPDATED_DATE" property="updatedDate"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.account.entity.AccountCoSecurityOfficer">
+        INSERT INTO ACCOUNT_CO_SECURITY_OFFICER(
+            ID ,
+            ACCOUNT_ID ,
+            APPELLATION ,
+            LAST_NAME ,
+            MIDDLE_NAME ,
+            FIRST_NAME ,
+            SUFFIX ,
+            EMAIL ,
+            ETITY_RELATIONSHIP ,
+            AUTHORIZED_RELATIONSHIP ,
+            USER_NAME ,
+            PASSWORD ,
+            CREATED_BY ,
+            CREATED_DATE ,
+            UPDATED_BY ,
+            UPDATED_DATE 
+        ) VALUES (
+            #{id} ,
+            #{accountId} ,
+            #{appellation} ,
+            #{lastName} ,
+            #{middleName} ,
+            #{firstName} ,
+            #{suffix} ,
+            #{email} ,
+            #{etityRelationship} ,
+            #{authorizedRelationship} ,
+            #{userName} ,
+            #{password} ,
+            #{createdBy} ,
+            #{createdDate} ,
+            #{updatedBy} ,
+            #{updatedDate} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM ACCOUNT_CO_SECURITY_OFFICER WHERE ID = #{id}
+    </delete>
+
+    <!-- 根据主键逻辑删除 -->
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE ACCOUNT_CO_SECURITY_OFFICER SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.account.entity.AccountCoSecurityOfficer">
+        INSERT INTO ACCOUNT_CO_SECURITY_OFFICER
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="accountId != null">
+                ACCOUNT_ID ,
+        </if>
+        <if test="appellation != null">
+                APPELLATION ,
+        </if>
+        <if test="lastName != null">
+                LAST_NAME ,
+        </if>
+        <if test="middleName != null">
+                MIDDLE_NAME ,
+        </if>
+        <if test="firstName != null">
+                FIRST_NAME ,
+        </if>
+        <if test="suffix != null">
+                SUFFIX ,
+        </if>
+        <if test="email != null">
+                EMAIL ,
+        </if>
+        <if test="etityRelationship != null">
+                ETITY_RELATIONSHIP ,
+        </if>
+        <if test="authorizedRelationship != null">
+                AUTHORIZED_RELATIONSHIP ,
+        </if>
+        <if test="userName != null">
+                USER_NAME ,
+        </if>
+        <if test="password != null">
+                PASSWORD ,
+        </if>
+        <if test="createdBy != null">
+                CREATED_BY ,
+        </if>
+        <if test="createdDate != null">
+                CREATED_DATE ,
+        </if>
+        <if test="updatedBy != null">
+                UPDATED_BY ,
+        </if>
+        <if test="updatedDate != null">
+                UPDATED_DATE 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="accountId != null">
+                #{accountId} ,
+        </if>
+        <if test="appellation != null">
+                #{appellation} ,
+        </if>
+        <if test="lastName != null">
+                #{lastName} ,
+        </if>
+        <if test="middleName != null">
+                #{middleName} ,
+        </if>
+        <if test="firstName != null">
+                #{firstName} ,
+        </if>
+        <if test="suffix != null">
+                #{suffix} ,
+        </if>
+        <if test="email != null">
+                #{email} ,
+        </if>
+        <if test="etityRelationship != null">
+                #{etityRelationship} ,
+        </if>
+        <if test="authorizedRelationship != null">
+                #{authorizedRelationship} ,
+        </if>
+        <if test="userName != null">
+                #{userName} ,
+        </if>
+        <if test="password != null">
+                #{password} ,
+        </if>
+        <if test="createdBy != null">
+                #{createdBy} ,
+        </if>
+        <if test="createdDate != null">
+                #{createdDate} ,
+        </if>
+        <if test="updatedBy != null">
+                #{updatedBy} ,
+        </if>
+        <if test="updatedDate != null">
+                #{updatedDate} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.account.entity.AccountCoSecurityOfficer">
+        UPDATE ACCOUNT_CO_SECURITY_OFFICER
+           <set>
+            <if test="accountId != null">
+                ACCOUNT_ID = #{accountId} ,
+            </if>
+            <if test="appellation != null">
+                APPELLATION = #{appellation} ,
+            </if>
+            <if test="lastName != null">
+                LAST_NAME = #{lastName} ,
+            </if>
+            <if test="middleName != null">
+                MIDDLE_NAME = #{middleName} ,
+            </if>
+            <if test="firstName != null">
+                FIRST_NAME = #{firstName} ,
+            </if>
+            <if test="suffix != null">
+                SUFFIX = #{suffix} ,
+            </if>
+            <if test="email != null">
+                EMAIL = #{email} ,
+            </if>
+            <if test="etityRelationship != null">
+                ETITY_RELATIONSHIP = #{etityRelationship} ,
+            </if>
+            <if test="authorizedRelationship != null">
+                AUTHORIZED_RELATIONSHIP = #{authorizedRelationship} ,
+            </if>
+            <if test="userName != null">
+                USER_NAME = #{userName} ,
+            </if>
+            <if test="password != null">
+                PASSWORD = #{password} ,
+            </if>
+            <if test="createdBy != null">
+                CREATED_BY = #{createdBy} ,
+            </if>
+            <if test="createdDate != null">
+                CREATED_DATE = #{createdDate} ,
+            </if>
+            <if test="updatedBy != null">
+                UPDATED_BY = #{updatedBy} ,
+            </if>
+            <if test="updatedDate != null">
+                UPDATED_DATE = #{updatedDate} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO ACCOUNT_CO_SECURITY_OFFICER(
+            ID ,
+            ACCOUNT_ID ,
+            APPELLATION ,
+            LAST_NAME ,
+            MIDDLE_NAME ,
+            FIRST_NAME ,
+            SUFFIX ,
+            EMAIL ,
+            ETITY_RELATIONSHIP ,
+            AUTHORIZED_RELATIONSHIP ,
+            USER_NAME ,
+            PASSWORD ,
+            CREATED_BY ,
+            CREATED_DATE ,
+            UPDATED_BY ,
+            UPDATED_DATE 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.accountId} ,
+            #{item.appellation} ,
+            #{item.lastName} ,
+            #{item.middleName} ,
+            #{item.firstName} ,
+            #{item.suffix} ,
+            #{item.email} ,
+            #{item.etityRelationship} ,
+            #{item.authorizedRelationship} ,
+            #{item.userName} ,
+            #{item.password} ,
+            #{item.createdBy} ,
+            #{item.createdDate} ,
+            #{item.updatedBy} ,
+            #{item.updatedDate} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE ACCOUNT_CO_SECURITY_OFFICER SET
+            ACCOUNT_ID = #{item.accountId} ,
+            APPELLATION = #{item.appellation} ,
+            LAST_NAME = #{item.lastName} ,
+            MIDDLE_NAME = #{item.middleName} ,
+            FIRST_NAME = #{item.firstName} ,
+            SUFFIX = #{item.suffix} ,
+            EMAIL = #{item.email} ,
+            ETITY_RELATIONSHIP = #{item.etityRelationship} ,
+            AUTHORIZED_RELATIONSHIP = #{item.authorizedRelationship} ,
+            USER_NAME = #{item.userName} ,
+            PASSWORD = #{item.password} ,
+            CREATED_BY = #{item.createdBy} ,
+            CREATED_DATE = #{item.createdDate} ,
+            UPDATED_BY = #{item.updatedBy} ,
+            UPDATED_DATE = #{item.updatedDate} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.account.entity.AccountCoSecurityOfficer">
+        UPDATE ACCOUNT_CO_SECURITY_OFFICER SET
+            ACCOUNT_ID = #{accountId} ,
+            APPELLATION = #{appellation} ,
+            LAST_NAME = #{lastName} ,
+            MIDDLE_NAME = #{middleName} ,
+            FIRST_NAME = #{firstName} ,
+            SUFFIX = #{suffix} ,
+            EMAIL = #{email} ,
+            ETITY_RELATIONSHIP = #{etityRelationship} ,
+            AUTHORIZED_RELATIONSHIP = #{authorizedRelationship} ,
+            USER_NAME = #{userName} ,
+            PASSWORD = #{password} ,
+            CREATED_BY = #{createdBy} ,
+            CREATED_DATE = #{createdDate} ,
+            UPDATED_BY = #{updatedBy} ,
+            UPDATED_DATE = #{updatedDate} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.account.entity.AccountCoSecurityOfficer">
+        SELECT <include refid="accountCoSecurityOfficerColumns"/> FROM ACCOUNT_CO_SECURITY_OFFICER a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.account.entity.AccountCoSecurityOfficer">
+        SELECT
+        <include refid="accountCoSecurityOfficerColumns"/>
+        FROM ACCOUNT_CO_SECURITY_OFFICER a WHERE 1=1
+        <if test="accountId != null">
+            AND a.ACCOUNT_ID = #{accountId}
+        </if>
+        <if test="appellation != null">
+            AND a.APPELLATION LIKE '%'||#{appellation}||'%'
+        </if>
+        <if test="lastName != null">
+            AND a.LAST_NAME LIKE '%'||#{lastName}||'%'
+        </if>
+        <if test="middleName != null">
+            AND a.MIDDLE_NAME LIKE '%'||#{middleName}||'%'
+        </if>
+        <if test="firstName != null">
+            AND a.FIRST_NAME LIKE '%'||#{firstName}||'%'
+        </if>
+        <if test="suffix != null">
+            AND a.SUFFIX LIKE '%'||#{suffix}||'%'
+        </if>
+        <if test="email != null">
+            AND a.EMAIL LIKE '%'||#{email}||'%'
+        </if>
+        <if test="etityRelationship != null">
+            AND a.ETITY_RELATIONSHIP LIKE '%'||#{etityRelationship}||'%'
+        </if>
+        <if test="authorizedRelationship != null">
+            AND a.AUTHORIZED_RELATIONSHIP LIKE '%'||#{authorizedRelationship}||'%'
+        </if>
+        <if test="userName != null">
+            AND a.USER_NAME LIKE '%'||#{userName}||'%'
+        </if>
+        <if test="password != null">
+            AND a.PASSWORD LIKE '%'||#{password}||'%'
+        </if>
+        <if test="createdBy != null">
+            AND a.CREATED_BY = #{createdBy}
+        </if>
+        <if test="createdDate != null">
+            AND a.CREATED_DATE = #{createdDate}
+        </if>
+        <if test="updatedBy != null">
+            AND a.UPDATED_BY = #{updatedBy}
+        </if>
+        <if test="updatedDate != null">
+            AND a.UPDATED_DATE = #{updatedDate}
+        </if>
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.account.entity.AccountCoSecurityOfficer">
+        SELECT
+        <include refid="accountCoSecurityOfficerColumns"/>
+        FROM ACCOUNT_CO_SECURITY_OFFICER a WHERE a.DEL_FLAG = 0
+    </select>
+
+
+</mapper>
+

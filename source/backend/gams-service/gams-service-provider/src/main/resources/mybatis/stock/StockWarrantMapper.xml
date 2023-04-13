@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.stock.mapper.StockWarrantMapper">
+    <!-- 基础列 -->
+    <sql id="stockWarrantColumns">
+        a.ID as id,
+        a.STOCKINFO_ID as stockInfoId,
+        a.WARRANT_CLASS as warrantClass,
+        a.WARRANT_TYPE as warrantType,
+        a.EXERCISE_PRICE as exercisePrice,
+        a.CREATE_BY as createBy,
+        a.CREATE_DATE as createDate,
+        a.UPDATE_BY as updateBy,
+        a.UPDATE_DATE as updateDate
+    </sql>
+
+    <resultMap id="stockWarrantResultMap" type="com.fintech.gams.stock.entity.StockWarrant">
+        <id column="ID" property="id" />
+        <result column="STOCKINFO_ID" property="stockInfoId"/>
+        <result column="WARRANT_CLASS" property="warrantClass"/>
+        <result column="WARRANT_TYPE" property="warrantType"/>
+        <result column="EXERCISE_PRICE" property="exercisePrice"/>
+        <result column="CREATE_BY" property="createBy"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="UPDATE_BY" property="updateBy"/>
+        <result column="UPDATE_DATE" property="updateDate"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.stock.entity.StockWarrant">
+        INSERT INTO STOCK_WARRANT(
+            ID ,
+            STOCKINFO_ID ,
+            WARRANT_CLASS ,
+            WARRANT_TYPE ,
+            EXERCISE_PRICE ,
+            CREATE_BY ,
+            CREATE_DATE ,
+            UPDATE_BY ,
+            UPDATE_DATE 
+        ) VALUES (
+            #{id} ,
+            #{stockInfoId} ,
+            #{warrantClass} ,
+            #{warrantType} ,
+            #{exercisePrice} ,
+            #{createBy} ,
+            #{createDate} ,
+            #{updateBy} ,
+            #{updateDate} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM STOCK_WARRANT WHERE ID = #{id}
+    </delete>
+
+    <!-- 根据主键逻辑删除
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE STOCK_WARRANT SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+    -->
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.stock.entity.StockWarrant">
+        INSERT INTO STOCK_WARRANT
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="stockInfoId != null">
+                STOCKINFO_ID ,
+        </if>
+        <if test="warrantClass != null">
+                WARRANT_CLASS ,
+        </if>
+        <if test="warrantType != null">
+                WARRANT_TYPE ,
+        </if>
+        <if test="exercisePrice != null">
+                EXERCISE_PRICE ,
+        </if>
+        <if test="createBy != null">
+                CREATE_BY ,
+        </if>
+        <if test="createDate != null">
+                CREATE_DATE ,
+        </if>
+        <if test="updateBy != null">
+                UPDATE_BY ,
+        </if>
+        <if test="updateDate != null">
+                UPDATE_DATE 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="stockInfoId != null">
+                #{stockInfoId} ,
+        </if>
+        <if test="warrantClass != null">
+                #{warrantClass} ,
+        </if>
+        <if test="warrantType != null">
+                #{warrantType} ,
+        </if>
+        <if test="exercisePrice != null">
+                #{exercisePrice} ,
+        </if>
+        <if test="createBy != null">
+                #{createBy} ,
+        </if>
+        <if test="createDate != null">
+                #{createDate} ,
+        </if>
+        <if test="updateBy != null">
+                #{updateBy} ,
+        </if>
+        <if test="updateDate != null">
+                #{updateDate} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.stock.entity.StockWarrant">
+        UPDATE STOCK_WARRANT
+           <set>
+            <if test="stockInfoId != null">
+                STOCKINFO_ID = #{stockInfoId} ,
+            </if>
+            <if test="warrantClass != null">
+                WARRANT_CLASS = #{warrantClass} ,
+            </if>
+            <if test="warrantType != null">
+                WARRANT_TYPE = #{warrantType} ,
+            </if>
+            <if test="exercisePrice != null">
+                EXERCISE_PRICE = #{exercisePrice} ,
+            </if>
+            <if test="createBy != null">
+                CREATE_BY = #{createBy} ,
+            </if>
+            <if test="createDate != null">
+                CREATE_DATE = #{createDate} ,
+            </if>
+            <if test="updateBy != null">
+                UPDATE_BY = #{updateBy} ,
+            </if>
+            <if test="updateDate != null">
+                UPDATE_DATE = #{updateDate} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO STOCK_WARRANT(
+            ID ,
+            STOCKINFO_ID ,
+            WARRANT_CLASS ,
+            WARRANT_TYPE ,
+            EXERCISE_PRICE ,
+            CREATE_BY ,
+            CREATE_DATE ,
+            UPDATE_BY ,
+            UPDATE_DATE 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.stockInfoId} ,
+            #{item.warrantClass} ,
+            #{item.warrantType} ,
+            #{item.exercisePrice} ,
+            #{item.createBy} ,
+            #{item.createDate} ,
+            #{item.updateBy} ,
+            #{item.updateDate} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE STOCK_WARRANT SET
+            STOCKINFO_ID = #{item.stockInfoId} ,
+            WARRANT_CLASS = #{item.warrantClass} ,
+            WARRANT_TYPE = #{item.warrantType} ,
+            EXERCISE_PRICE = #{item.exercisePrice} ,
+            CREATE_BY = #{item.createBy} ,
+            CREATE_DATE = #{item.createDate} ,
+            UPDATE_BY = #{item.updateBy} ,
+            UPDATE_DATE = #{item.updateDate} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.stock.entity.StockWarrant">
+        UPDATE STOCK_WARRANT SET
+            STOCKINFO_ID = #{stockInfoId} ,
+            WARRANT_CLASS = #{warrantClass} ,
+            WARRANT_TYPE = #{warrantType} ,
+            EXERCISE_PRICE = #{exercisePrice} ,
+            CREATE_BY = #{createBy} ,
+            CREATE_DATE = #{createDate} ,
+            UPDATE_BY = #{updateBy} ,
+            UPDATE_DATE = #{updateDate} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.stock.entity.StockWarrant">
+        SELECT <include refid="stockWarrantColumns"/> FROM STOCK_WARRANT a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.stock.entity.StockWarrant">
+        SELECT
+        a.ID as id,
+        a.STOCKINFO_ID as stockInfoId,
+        a.WARRANT_CLASS as warrantClass,
+        a.WARRANT_TYPE as warrantType,
+        a.EXERCISE_PRICE as  exercisePrice,
+        b.STOCK_CODE as stockCode,
+        b.STOCK_SYMBOL as stockSymbol,
+        b.IB_SYMBOL as ibSymbol
+        FROM STOCK_WARRANT a
+        LEFT JOIN STOCK_INFO b ON a.STOCKINFO_ID = b.ID
+        WHERE 1 = 1
+            AND b.STOCK_TYPE = 'warrant'
+        <if test="stockCode != null">
+            AND b.STOCK_CODE LIKE '%'||#{stockCode}||'%'
+        </if>
+        <if test="stockSymbol != null">
+            AND b.STOCK_SYMBOL LIKE '%'||#{stockSymbol}||'%'
+        </if>
+        <if test="stockInfoId != null">
+            AND a.STOCKINFO_ID = #{stockInfoId}
+        </if>
+        <if test="warrantClass != null">
+            AND a.WARRANT_CLASS LIKE '%'||#{warrantClass}||'%'
+        </if>
+        <if test="warrantType != null">
+            AND a.WARRANT_TYPE LIKE '%'||#{warrantType}||'%'
+        </if>
+        <if test="exercisePrice != null">
+            AND a.EXERCISE_PRICE = #{exercisePrice}
+        </if>
+        <if test="createBy != null">
+            AND a.CREATE_BY = #{createBy}
+        </if>
+        <if test="createDate != null">
+            AND a.CREATE_DATE = #{createDate}
+        </if>
+        <if test="updateBy != null">
+            AND a.UPDATE_BY = #{updateBy}
+        </if>
+        <if test="updateDate != null">
+            AND a.UPDATE_DATE = #{updateDate}
+        </if>
+    </select>
+
+    <!-- 权证行情的分页对象查询 -->
+    <select id="findListWarrant" resultType="com.fintech.gams.stock.entity.StockWarrant">
+        SELECT
+        a.STOCK_SYMBOL as stockSymbol,
+        a.BASE_CURRENCY as baseCurrency,
+        b.WARRANT_CLASS as warrantClass,
+        b.WARRANT_TYPE as warrantType,
+        b.EXERCISE_PRICE as  exercisePrice,
+        c.QUOTE_DATE as quoteDate,
+        c.PREV_CLOSE as prevClose,
+        c.BID as bid,
+        c.ASK as ask,
+        c.BID_SIZE as bidSize,
+        c.ASK_SIZE as askSize
+        FROM STOCK_INFO a
+        LEFT JOIN STOCK_WARRANT b ON a.ID = b.STOCKINFO_ID
+        LEFT JOIN (SELECT * FROM
+        (SELECT t.*, row_number() OVER(PARTITION BY t.STOCKINFO_ID ORDER BY t.QUOTE_DATE DESC) RN FROM QUOTE_WARRANT t)
+        WHERE RN = 1 ) c ON c.STOCKINFO_ID = a.ID
+        WHERE 1 = 1
+        <if test="warrantClass != null">
+            AND a.STOCK_TYPE = 'warrant' AND b.WARRANT_CLASS = #{warrantClass}
+        </if>
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.stock.entity.StockWarrant">
+        SELECT
+        <include refid="stockWarrantColumns"/>
+        FROM STOCK_WARRANT a <!--WHERE a.DEL_FLAG = 0-->
+    </select>
+
+</mapper>
+

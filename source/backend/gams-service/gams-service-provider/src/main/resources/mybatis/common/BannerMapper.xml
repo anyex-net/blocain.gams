@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.common.mapper.BannerMapper">
+    <!-- 基础列 -->
+    <sql id="bannerColumns">
+        a.ID as id,
+        a.TITLE as title,
+        a.SUMMARY as summary,
+        a.PICT_URL as pictUrl,
+        a.DETAIL_LINK as detailLink,
+        a.LANG as lang,
+        a.SORT_NUM as sortNum,
+        a.STATUS as status,
+        a.CREATE_BY as createBy,
+        a.CREATE_DATE as createDate,
+        a.UPDATE_BY as updateBy,
+        a.UPDATE_DATE as updateDate
+    </sql>
+
+    <resultMap id="bannerResultMap" type="com.fintech.gams.common.entity.Banner">
+        <id column="ID" property="id" />
+        <result column="TITLE" property="title"/>
+        <result column="SUMMARY" property="summary"/>
+        <result column="PICT_URL" property="pictUrl"/>
+        <result column="DETAIL_LINK" property="detailLink"/>
+        <result column="LANG" property="lang"/>
+        <result column="SORT_NUM" property="sortNum"/>
+        <result column="STATUS" property="status"/>
+        <result column="CREATE_BY" property="createBy"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="UPDATE_BY" property="updateBy"/>
+        <result column="UPDATE_DATE" property="updateDate"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.common.entity.Banner">
+        INSERT INTO BANNER(
+            ID ,
+            TITLE ,
+            SUMMARY ,
+            PICT_URL ,
+            DETAIL_LINK ,
+            LANG ,
+            SORT_NUM ,
+            STATUS ,
+            CREATE_BY ,
+            CREATE_DATE ,
+            UPDATE_BY ,
+            UPDATE_DATE 
+        ) VALUES (
+            #{id} ,
+            #{title} ,
+            #{summary} ,
+            #{pictUrl} ,
+            #{detailLink} ,
+            #{lang} ,
+            #{sortNum} ,
+            #{status} ,
+            #{createBy} ,
+            #{createDate} ,
+            #{updateBy} ,
+            #{updateDate} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM BANNER WHERE ID = #{id}
+    </delete>
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.common.entity.Banner">
+        INSERT INTO BANNER
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="title != null">
+                TITLE ,
+        </if>
+        <if test="summary != null">
+                SUMMARY ,
+        </if>
+        <if test="pictUrl != null">
+                PICT_URL ,
+        </if>
+        <if test="detailLink != null">
+                DETAIL_LINK ,
+        </if>
+        <if test="lang != null">
+                LANG ,
+        </if>
+        <if test="sortNum != null">
+                SORT_NUM ,
+        </if>
+        <if test="status != null">
+                STATUS ,
+        </if>
+        <if test="createBy != null">
+                CREATE_BY ,
+        </if>
+        <if test="createDate != null">
+                CREATE_DATE ,
+        </if>
+        <if test="updateBy != null">
+                UPDATE_BY ,
+        </if>
+        <if test="updateDate != null">
+                UPDATE_DATE 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="title != null">
+                #{title} ,
+        </if>
+        <if test="summary != null">
+                #{summary} ,
+        </if>
+        <if test="pictUrl != null">
+                #{pictUrl} ,
+        </if>
+        <if test="detailLink != null">
+                #{detailLink} ,
+        </if>
+        <if test="lang != null">
+                #{lang} ,
+        </if>
+        <if test="sortNum != null">
+                #{sortNum} ,
+        </if>
+        <if test="status != null">
+                #{status} ,
+        </if>
+        <if test="createBy != null">
+                #{createBy} ,
+        </if>
+        <if test="createDate != null">
+                #{createDate} ,
+        </if>
+        <if test="updateBy != null">
+                #{updateBy} ,
+        </if>
+        <if test="updateDate != null">
+                #{updateDate} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.common.entity.Banner">
+        UPDATE BANNER
+           <set>
+            <if test="title != null">
+                TITLE = #{title} ,
+            </if>
+            <if test="summary != null">
+                SUMMARY = #{summary} ,
+            </if>
+            <if test="pictUrl != null">
+                PICT_URL = #{pictUrl} ,
+            </if>
+            <if test="detailLink != null">
+                DETAIL_LINK = #{detailLink} ,
+            </if>
+            <if test="lang != null">
+                LANG = #{lang} ,
+            </if>
+            <if test="sortNum != null">
+                SORT_NUM = #{sortNum} ,
+            </if>
+            <if test="status != null">
+                STATUS = #{status} ,
+            </if>
+            <if test="createBy != null">
+                CREATE_BY = #{createBy} ,
+            </if>
+            <if test="createDate != null">
+                CREATE_DATE = #{createDate} ,
+            </if>
+            <if test="updateBy != null">
+                UPDATE_BY = #{updateBy} ,
+            </if>
+            <if test="updateDate != null">
+                UPDATE_DATE = #{updateDate} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO BANNER(
+            ID ,
+            TITLE ,
+            SUMMARY ,
+            PICT_URL ,
+            DETAIL_LINK ,
+            LANG ,
+            SORT_NUM ,
+            STATUS ,
+            CREATE_BY ,
+            CREATE_DATE ,
+            UPDATE_BY ,
+            UPDATE_DATE 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.title} ,
+            #{item.summary} ,
+            #{item.pictUrl} ,
+            #{item.detailLink} ,
+            #{item.lang} ,
+            #{item.sortNum} ,
+            #{item.status} ,
+            #{item.createBy} ,
+            #{item.createDate} ,
+            #{item.updateBy} ,
+            #{item.updateDate} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE BANNER SET
+            TITLE = #{item.title} ,
+            SUMMARY = #{item.summary} ,
+            PICT_URL = #{item.pictUrl} ,
+            DETAIL_LINK = #{item.detailLink} ,
+            LANG = #{item.lang} ,
+            SORT_NUM = #{item.sortNum} ,
+            STATUS = #{item.status} ,
+            CREATE_BY = #{item.createBy} ,
+            CREATE_DATE = #{item.createDate} ,
+            UPDATE_BY = #{item.updateBy} ,
+            UPDATE_DATE = #{item.updateDate} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.common.entity.Banner">
+        UPDATE BANNER SET
+            TITLE = #{title} ,
+            SUMMARY = #{summary} ,
+            PICT_URL = #{pictUrl} ,
+            DETAIL_LINK = #{detailLink} ,
+            LANG = #{lang} ,
+            SORT_NUM = #{sortNum} ,
+            STATUS = #{status} ,
+            CREATE_BY = #{createBy} ,
+            CREATE_DATE = #{createDate} ,
+            UPDATE_BY = #{updateBy} ,
+            UPDATE_DATE = #{updateDate} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.common.entity.Banner">
+        SELECT <include refid="bannerColumns"/> FROM BANNER a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.common.entity.Banner">
+        SELECT
+        <include refid="bannerColumns"/>
+        FROM BANNER a WHERE 1 = 1
+        <if test="title != null">
+            AND a.TITLE LIKE '%'||#{title}||'%'
+        </if>
+        <if test="summary != null">
+            AND a.SUMMARY LIKE '%'||#{summary}||'%'
+        </if>
+        <if test="lang != null">
+            AND a.LANG LIKE '%'||#{lang}||'%'
+        </if>
+        <if test="status != null">
+            AND a.STATUS = #{status}
+        </if>
+        <if test="createBy != null">
+            AND a.CREATE_BY = #{createBy}
+        </if>
+        <if test="updateBy != null">
+            AND a.UPDATE_BY = #{updateBy}
+        </if>
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.common.entity.Banner">
+        SELECT
+        <include refid="bannerColumns"/>
+        FROM BANNER a
+    </select>
+
+</mapper>
+

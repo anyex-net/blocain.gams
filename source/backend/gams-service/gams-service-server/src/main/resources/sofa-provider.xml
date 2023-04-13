@@ -1,0 +1,778 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sofa="http://sofastack.io/schema/sofaboot"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://sofastack.io/schema/sofaboot http://sofastack.io/schema/sofaboot.xsd">
+    <!-- OAUTH2.0 -->
+    <sofa:service interface="com.fintech.gams.oauth2.service.OauthService" ref="oauthServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- CLIENT_DETAILS -->
+    <sofa:service interface="com.fintech.gams.oauth2.service.ClientDetailsService" ref="clientDetailsServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 系统管理服务 -->
+    <!-- 机构管理 -->
+    <sofa:service interface="com.fintech.gams.system.service.OrganizeService" ref="organizeServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 资源管理 -->
+    <sofa:service interface="com.fintech.gams.system.service.ResourcesService" ref="resourcesServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 角色管理 -->
+    <sofa:service interface="com.fintech.gams.system.service.RoleInfoService" ref="roleInfoServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 用户管理 -->
+    <sofa:service interface="com.fintech.gams.system.service.UserInfoService" ref="userInfoServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 用户权限 -->
+    <sofa:service interface="com.fintech.gams.system.service.UserDataService" ref="userDataServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 用户日志 -->
+    <sofa:service interface="com.fintech.gams.system.service.UserLogService" ref="userLogServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!--数据字典-->
+    <sofa:service interface="com.fintech.gams.common.service.DictionaryService" ref="dictionaryServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!--区域代码-->
+    <sofa:service interface="com.fintech.gams.common.service.RegionService" ref="regionServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!--参数表-->
+    <sofa:service interface="com.fintech.gams.common.service.ParameterService" ref="parameterServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!--消息模版-->
+    <sofa:service interface="com.fintech.gams.common.service.TemplateService" ref="templateServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!--Banner信息-->
+    <sofa:service interface="com.fintech.gams.common.service.BannerService" ref="bannerServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!--快讯信息-->
+    <sofa:service interface="com.fintech.gams.common.service.ExpressService" ref="expressServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!--消息日志-->
+    <sofa:service interface="com.fintech.gams.common.service.MsgLogService" ref="msgLogServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!--帮助中心-->
+    <sofa:service interface="com.fintech.gams.common.service.HelpCenterService" ref="helpCenterServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!--消息公告-->
+    <sofa:service interface="com.fintech.gams.common.service.NewsBulletinService" ref="newsBulletinServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!--问题反馈-->
+    <sofa:service interface="com.fintech.gams.common.service.FeedbackService" ref="feedbackServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+
+    <!-- 帐户服务 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountService" ref="accountServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 帐户策略 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountPolicyService" ref="accountPolicyServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 帐户协议信息 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountCommonAgreementService" ref="accountCommonAgreementServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 帐户协议类型信息 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountCommonAgreementTypeService" ref="accountCommonAgreementTypeServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 账户交易经验地点 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountCommonTradeLocationService" ref="accountCommonTradeLocationServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 账户公共的文件 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountCommonFileService" ref="accountCommonFileServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 上传文件类型 -->
+    <sofa:service interface="com.fintech.gams.account.service.UploadFileTypeService" ref="uploadFileTypeServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 公司开户 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountCompanyService" ref="accountCompanyServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 个人开户 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountPersonalService" ref="accountPersonalServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 合伙企业开户 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountPartnerShipService" ref="accountPartnerShipServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 公司地址信息 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountCoAddressService" ref="accountCoAddressServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 公司账户组合信息 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountCoAccountPortfolioService" ref="accountCoAccountPortfolioServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 公司协议纰漏信息 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountCoAgreementService" ref="accountCoAgreementServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 公司资产信息 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountCoAssetService" ref="accountCoAssetServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 公司联系信息 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountCoContactService" ref="accountCoContactServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 公司文件信息 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountCoFileService" ref="accountCoFileServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 公司身份信息 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountCoIdentityService" ref="accountCoIdentityServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 公司机构 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountCoInstitutionalService" ref="accountCoInstitutionalServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 公司一体化投资管理账户 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountCoInvestmentAccountService" ref="accountCoInvestmentAccountServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 公司投资目标信息 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountCoInvestmentTargetService" ref="accountCoInvestmentTargetServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 公司个人信息 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountCoPersonalService" ref="accountCoPersonalServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 公司规管信息 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountCoRegulatoryService" ref="accountCoRegulatoryServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 公司安全问题 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountCoSafeQuestionService" ref="accountCoSafeQuestionServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 公司安全官 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountCoSecurityOfficerService" ref="accountCoSecurityOfficerServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 公司税收分类 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountCoTaxClassificationService" ref="accountCoTaxClassificationServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 公司税务居住地 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountCoTaxesService" ref="accountCoTaxesServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+     <!-- 公司交易经验信息 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountCoTradeExperienceService" ref="accountCoTradeExperienceServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+     <!-- 公司w8ben表 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountCoWbenContractService" ref="accountCoWbenContractServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+     <!-- 公司财富来源 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountCoWealthSourceService" ref="accountCoWealthSourceServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 公司CRS 实体自我证明表格 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountCoCrsEntityService" ref="accountCoCrsEntityServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 公司CRS 控权人自我证明表格 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountCoCrsControlService" ref="accountCoCrsControlServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 公司CRS控权人自我证明控权人编号 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountCoCrsControlNumService" ref="accountCoCrsControlNumServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 公司 aml/ctf 风险问卷  -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountCoAmlCtfService" ref="accountCoAmlCtfServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 公司crs实体（CRS-E）控权人信息  -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountCoCrsEntityContrService" ref="accountCoCrsEntityContrServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+
+    <!-- 个人地址 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountPerAddressService" ref="accountPerAddressServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 个人资产信息 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountPerAssetService" ref="accountPerAssetServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 个人联系方式 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountPerContactService" ref="accountPerContactServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 个人文件 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountPerFileService" ref="accountPerFileServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 个人身份信息 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountPerIdentityService" ref="accountPerIdentityServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 个人投资目标 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountPerInvestTargetService" ref="accountPerInvestTargetServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 个人安全问题 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountPerSafeQuestionService" ref="accountPerSafeQuestionServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 个人税务居住地 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountPerTaxesService" ref="accountPerTaxesServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 个人交易经验信息 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountPerTradeExpService" ref="accountPerTradeExpServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 个人财富来源 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountPerWealthSourceService" ref="accountPerWealthSourceServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 个人信息 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountPerInfoService" ref="accountPerInfoServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 个人雇佣(就业)信息 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountPerEmploymentService" ref="accountPerEmploymentServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 个人协议纰漏 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountPerAgreementService" ref="accountPerAgreementServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!--个人一体化投资管理账户功能 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountPerInvestAccountService" ref="accountPerInvestAccountServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 个人账户投资组合 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountPerPortfolioService" ref="accountPerPortfolioServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 个人账户规管信息 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountPerRegulatoryService" ref="accountPerRegulatoryServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 个人WBen合约 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountPerWbenContractService" ref="accountPerWbenContractServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 个人CRS  -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountPerCrsService" ref="accountPerCrsServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 个人aml/ctf 风险问卷  -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountPerAmlCtfService" ref="accountPerAmlCtfServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+
+    <!-- 合伙企业经济商监管许可  -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountParBrokerPermissionService" ref="accountParBrokerPermissionServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 合伙企业经济商信息  -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountParBrokerInfoService" ref="accountParBrokerInfoServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 合伙企业机构信息  -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountParInstitutionalService" ref="accountParInstitutionalServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 合伙企业一体化投资管理账户  -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountParInvestmentAccountService" ref="accountParInvestmentAccountServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 合伙企业账户组合信息  -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountParAccountPortfolioService" ref="accountParAccountPortfolioServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 合伙企业地址信息  -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountParAddressService" ref="accountParAddressServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 合伙企业协议纰漏信息  -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountParAgreementService" ref="accountParAgreementServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 合伙企业资产信息  -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountParAssetService" ref="accountParAssetServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 合伙企业联系信息  -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountParContactService" ref="accountParContactServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 合伙企业文件信息  -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountParFileService" ref="accountParFileServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 合伙企业身份信息  -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountParIdentityService" ref="accountParIdentityServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 合伙企业投资目标信息  -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountParInvestmentTargetService" ref="accountParInvestmentTargetServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 合伙企业个人信息  -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountParPersonalService" ref="accountParPersonalServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 合伙企业规管信息  -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountParRegulatoryService" ref="accountParRegulatoryServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 合伙企业安全问题  -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountParSafeQuestionService" ref="accountParSafeQuestionServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 合伙企业安全官  -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountParSecurityOfficerService" ref="accountParSecurityOfficerServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 合伙企业税收分类  -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountParTaxClassificationService" ref="accountParTaxClassificationServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 合伙企业税务居住地  -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountParTaxesService" ref="accountParTaxesServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 合伙企业交易经验信息  -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountParTradeExperienceService" ref="accountParTradeExperienceServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 合伙企业w8ben表  -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountParWbenContractService" ref="accountParWbenContractServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 合伙企业财富来源  -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountParWealthSourceService" ref="accountParWealthSourceServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 合伙企业CRS实体自我证明表格（CRS-CP）-->
+    <sofa:service interface="com.fintech.gams.account.service.AccountParCrsEntityService" ref="accountParCrsEntityServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 合伙企业CRS控权人自我证明表格（CRS-CP）-->
+    <sofa:service interface="com.fintech.gams.account.service.AccountParCrsControlService" ref="accountParCrsControlServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 合伙企业CRS控权人自我证明控权人编号 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountParCrsControlNumService" ref="accountParCrsControlNumServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 合伙企业 aml/ctf 风险问卷  -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountParAmlCtfService" ref="accountParAmlCtfServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 合伙企业 crs实体（CRS-E）控权人信息  -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountParCrsEntityContrService" ref="accountParCrsEntityContrServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+
+    <!-- 帐户日志服务 -->
+    <sofa:service interface="com.fintech.gams.account.service.AccountLogService" ref="accountLogServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+
+    <!-- 交易所信息 -->
+    <sofa:service interface="com.fintech.gams.stock.service.StockExchangeService" ref="stockExchangeServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 证券信息 -->
+    <sofa:service interface="com.fintech.gams.stock.service.StockInfoService" ref="stockInfoServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 证券热门推荐配置 -->
+    <sofa:service interface="com.fintech.gams.stock.service.StockHotConfigService" ref="stockHotConfigServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 证券基金信息 -->
+    <sofa:service interface="com.fintech.gams.stock.service.StockFundService" ref="stockFundServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!--证券理财产品信息-->
+    <sofa:service interface="com.fintech.gams.stock.service.StockWmpService" ref="stockWmpServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!--证券权证信息-->
+    <sofa:service interface="com.fintech.gams.stock.service.StockWarrantService" ref="stockWarrantServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 热门证券行情服务接口 -->
+    <sofa:service interface="com.fintech.gams.stock.service.StockHotQuoteService" ref="stockHotQuoteServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+
+    <!-- 股票行情 -->
+    <sofa:service interface="com.fintech.gams.quote.service.QuoteStockService" ref="quoteStockServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 债券行情 -->
+    <sofa:service interface="com.fintech.gams.quote.service.QuoteBondService" ref="quoteBondServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 期货行情 -->
+    <sofa:service interface="com.fintech.gams.quote.service.QuoteFuturesService" ref="quoteFuturesServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 期权行情 -->
+    <sofa:service interface="com.fintech.gams.quote.service.QuoteOptionService" ref="quoteOptionServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 外汇行情 -->
+    <sofa:service interface="com.fintech.gams.quote.service.QuoteForeignExService" ref="quoteForeignExServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 基金行情 -->
+    <sofa:service interface="com.fintech.gams.quote.service.QuoteFundService" ref="quoteFundServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!--权证行情-->
+    <sofa:service interface="com.fintech.gams.quote.service.QuoteWarrantService" ref="quoteWarrantServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+
+    <!-- 充值入金记录表 -->
+    <sofa:service interface="com.fintech.gams.asset.service.AssetDepositService" ref="assetDepositServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 提现出金记录表 -->
+    <sofa:service interface="com.fintech.gams.asset.service.AssetWithdrawService" ref="assetWithdrawServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 资产持仓表 -->
+    <sofa:service interface="com.fintech.gams.asset.service.AssetPositionService" ref="assetPositionServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- 资产流水表 -->
+    <sofa:service interface="com.fintech.gams.asset.service.AssetCurrentService" ref="assetCurrentServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+
+    <!-- IB账户家族表 -->
+    <sofa:service interface="com.fintech.gams.ib.service.IbAccountFamilyService" ref="ibAccountFamilyServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- IB账户当日盈亏 -->
+    <sofa:service interface="com.fintech.gams.ib.service.IbAccountDailyPnlService" ref="ibAccountDailyPnlServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- IB账户持仓市值表 -->
+    <sofa:service interface="com.fintech.gams.ib.service.IbAccountMarketValueService" ref="ibAccountMarketValueServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- IB账户市值历史表 -->
+    <sofa:service interface="com.fintech.gams.ib.service.IbAccountMarketValueHisService" ref="ibAccountMarketValueHisServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- IB账户持仓表 -->
+    <sofa:service interface="com.fintech.gams.ib.service.IbAccountPositionService" ref="ibAccountPositionServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- IB账户交易流水表 -->
+    <sofa:service interface="com.fintech.gams.ib.service.IbAccountTradeService" ref="ibAccountTradeServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- IB账户资金保证金表 -->
+    <sofa:service interface="com.fintech.gams.ib.service.IbAccountBalanceMarginService" ref="ibAccountBalanceMarginServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    <!-- IB Tick服务接口 -->
+    <!--
+    <sofa:service interface="com.fintech.gams.ib.service.IbTickService" ref="ibTickServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    -->
+    <!-- IB网关核心服务 -->
+    <!--
+    <sofa:service interface="com.fintech.gams.ib.service.IbCoreService" ref="ibCoreServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    -->
+    <!-- IB网关核心客户端请求服务 -->
+    <!--
+    <sofa:service interface="com.fintech.gams.ib.service.IbCoreRequestService" ref="ibCoreRequestServiceImpl">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="600000"/>
+        </sofa:binding.bolt>
+    </sofa:service>
+    -->
+
+</beans>

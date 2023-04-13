@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.ib.mapper.IbAccountFamilyMapper">
+    <!-- 基础列 -->
+    <sql id="ibAccountFamilyColumns">
+        a.ID as id,
+        a.ACCOUNT_ID as accountId,
+        a.IB_ACCOUNT_CODE as ibAccountCode,
+        a.IB_FAMILY_CODE as ibFamilyCode,
+        a.BASE_CURRENCY as baseCurrency,
+        a.REMARK as remark,
+        a.CREATE_DATE as createDate,
+        a.UPDATE_DATE as updateDate
+    </sql>
+
+    <resultMap id="ibAccountFamilyResultMap" type="com.fintech.gams.ib.entity.IbAccountFamily">
+        <id column="ID" property="id" />
+        <result column="ACCOUNT_ID" property="accountId"/>
+        <result column="IB_ACCOUNT_CODE" property="ibAccountCode"/>
+        <result column="IB_FAMILY_CODE" property="ibFamilyCode"/>
+        <result column="BASE_CURRENCY" property="baseCurrency"/>
+        <result column="REMARK" property="remark"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="UPDATE_DATE" property="updateDate"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.ib.entity.IbAccountFamily">
+        INSERT INTO IB_ACCOUNT_FAMILY(
+            ID ,
+            ACCOUNT_ID ,
+            IB_ACCOUNT_CODE ,
+            IB_FAMILY_CODE ,
+            BASE_CURRENCY ,
+            REMARK ,
+            CREATE_DATE ,
+            UPDATE_DATE 
+        ) VALUES (
+            #{id} ,
+            #{accountId} ,
+            #{ibAccountCode} ,
+            #{ibFamilyCode} ,
+            #{baseCurrency} ,
+            #{remark} ,
+            #{createDate} ,
+            #{updateDate}
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM IB_ACCOUNT_FAMILY WHERE ID = #{id}
+    </delete>
+
+    <!-- 根据主键逻辑删除
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE IB_ACCOUNT_FAMILY SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+    -->
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.ib.entity.IbAccountFamily">
+        INSERT INTO IB_ACCOUNT_FAMILY
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="accountId != null">
+                ACCOUNT_ID ,
+        </if>
+        <if test="ibAccountCode != null">
+                IB_ACCOUNT_CODE ,
+        </if>
+        <if test="ibFamilyCode != null">
+                IB_FAMILY_CODE ,
+        </if>
+        <if test="baseCurrency != null">
+                BASE_CURRENCY ,
+        </if>
+        <if test="remark != null">
+                REMARK ,
+        </if>
+        <if test="createDate != null">
+                CREATE_DATE ,
+        </if>
+        <if test="updateDate != null">
+                UPDATE_DATE
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="accountId != null">
+                #{accountId} ,
+        </if>
+        <if test="ibAccountCode != null">
+                #{ibAccountCode} ,
+        </if>
+        <if test="ibFamilyCode != null">
+                #{ibFamilyCode} ,
+        </if>
+        <if test="baseCurrency != null">
+                #{baseCurrency} ,
+        </if>
+        <if test="remark != null">
+                #{remark} ,
+        </if>
+        <if test="createDate != null">
+                #{createDate} ,
+        </if>
+        <if test="updateDate != null">
+                #{updateDate}
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.ib.entity.IbAccountFamily">
+        UPDATE IB_ACCOUNT_FAMILY
+           <set>
+            <if test="accountId != null">
+                ACCOUNT_ID = #{accountId} ,
+            </if>
+            <if test="ibAccountCode != null">
+                IB_ACCOUNT_CODE = #{ibAccountCode} ,
+            </if>
+            <if test="ibFamilyCode != null">
+                IB_FAMILY_CODE = #{ibFamilyCode} ,
+            </if>
+            <if test="baseCurrency != null">
+                   BASE_CURRENCY = #{baseCurrency} ,
+            </if>
+            <if test="remark != null">
+                REMARK = #{remark} ,
+            </if>
+            <if test="createDate != null">
+                CREATE_DATE = #{createDate} ,
+            </if>
+            <if test="updateDate != null">
+                UPDATE_DATE = #{updateDate}
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO IB_ACCOUNT_FAMILY(
+            ID ,
+            ACCOUNT_ID ,
+            IB_ACCOUNT_CODE ,
+            IB_FAMILY_CODE ,
+            BASE_CURRENCY ,
+            REMARK ,
+            CREATE_DATE ,
+            UPDATE_DATE
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.accountId} ,
+            #{item.ibAccountCode} ,
+            #{item.ibFamilyCode} ,
+            #{item.baseCurrency} ,
+            #{item.remark} ,
+            #{item.createDate} ,
+            #{item.updateDate}
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE IB_ACCOUNT_FAMILY SET
+            ACCOUNT_ID = #{item.accountId} ,
+            IB_ACCOUNT_CODE = #{item.ibAccountCode} ,
+            IB_FAMILY_CODE = #{item.ibFamilyCode} ,
+            BASE_CURRENCY = #{item.baseCurrency} ,
+            REMARK = #{item.remark} ,
+            CREATE_DATE = #{item.createDate} ,
+            UPDATE_DATE = #{item.updateDate}
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.ib.entity.IbAccountFamily">
+        UPDATE IB_ACCOUNT_FAMILY SET
+            ACCOUNT_ID = #{accountId} ,
+            IB_ACCOUNT_CODE = #{ibAccountCode} ,
+            IB_FAMILY_CODE = #{ibFamilyCode} ,
+            UPDATE_DATE = #{updateDate} ,
+            REMARK = #{remark} ,
+            CREATE_DATE = #{createDate} ,
+            UPDATE_DATE = #{updateDate}
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.ib.entity.IbAccountFamily">
+        SELECT <include refid="ibAccountFamilyColumns"/> FROM IB_ACCOUNT_FAMILY a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 判断AccountId、IbAccountCode、IbFamilyCode是否唯一 -->
+    <select id="findByAccountIdORIbAccountCodeORIbFamilyCode"  resultType="com.fintech.gams.ib.entity.IbAccountFamily">
+        SELECT
+        <include refid="ibAccountFamilyColumns"/>
+         FROM IB_ACCOUNT_FAMILY a
+         WHERE 1 = 0
+        <if test="accountId != null">
+            OR a.ACCOUNT_ID = #{accountId}
+        </if>
+        <if test="ibAccountCode != null">
+            OR a.IB_ACCOUNT_CODE = #{ibAccountCode}
+        </if>
+        <if test="ibFamilyCode != null">
+            OR a.IB_FAMILY_CODE = #{ibFamilyCode}
+        </if>
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.ib.entity.IbAccountFamily">
+        SELECT <include refid="ibAccountFamilyColumns"/>, b.ACCOUNT_NAME as accountName
+        FROM IB_ACCOUNT_FAMILY a
+        LEFT JOIN ACCOUNT b ON a.ACCOUNT_ID = b.ID
+        WHERE 1 = 1
+        <if test="accountId != null">
+            AND a.ACCOUNT_ID = #{accountId}
+        </if>
+        <if test="ibAccountCode != null">
+            AND a.IB_ACCOUNT_CODE = #{ibAccountCode}
+        </if>
+        <if test="ibFamilyCode != null">
+            AND a.IB_FAMILY_CODE = #{ibFamilyCode}
+        </if>
+        <if test="baseCurrency != null">
+            AND a.BASE_CURRENCY = #{baseCurrency}
+        </if>
+        <if test="remark != null">
+            AND a.REMARK = #{remark}
+        </if>
+        <if test="createDate != null">
+            AND a.CREATE_DATE = #{createDate}
+        </if>
+        <if test="updateDate != null">
+            AND a.UPDATE_DATE = #{updateDate}
+        </if>
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.ib.entity.IbAccountFamily">
+        SELECT
+        <include refid="ibAccountFamilyColumns"/>
+        FROM IB_ACCOUNT_FAMILY a <!--WHERE a.DEL_FLAG = 0-->
+    </select>
+
+</mapper>
+

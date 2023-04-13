@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.account.mapper.AccountPerWbenContractMapper">
+    <!-- 基础列 -->
+    <sql id="accountPerWbenContractColumns">
+        a.ID as id,
+        a.ACCOUNT_ID as accountId,
+        a.ACCOUNT_NAME as accountName,
+        a.SIGNATURE_TIME as signatureTime,
+        a.SIGNATURE as signature,
+        a.EMAIL_ADDRESS as emailAddress,
+        a.MAIL_CODE as mailCode,
+        a.OTHER_NATIONALITY as otherNationality,
+        a.USA_ITIN as usaItin,
+        a.OVERSEAS_TAX_NUMBER as overseasTaxNumber,
+        a.REFERENCE_NUMBER as referenceNumber,
+        a.OTHER_BIRTHDAY as otherBirthday,
+        a.USA_COUNTRY_AGREEMENT as usaCountryAgreement,
+        a.EXPLAIN_ADDRESS as explainAddress,
+        a.CONSENT_STATUS as consentStatus,
+        a.CONSENT_TAX as consentTax,
+        a.CREATED_BY as createdBy,
+        a.CREATED_DATE as createdDate,
+        a.UPDATED_BY as updatedBy,
+        a.UPDATED_DATE as updatedDate
+    </sql>
+
+    <resultMap id="accountPerWbenContractResultMap" type="com.fintech.gams.account.entity.AccountPerWbenContract">
+        <id column="ID" property="id" />
+        <result column="ACCOUNT_ID" property="accountId"/>
+        <result column="ACCOUNT_NAME" property="accountName"/>
+        <result column="SIGNATURE_TIME" property="signatureTime"/>
+        <result column="SIGNATURE" property="signature"/>
+        <result column="EMAIL_ADDRESS" property="emailAddress"/>
+        <result column="MAIL_CODE" property="mailCode"/>
+        <result column="OTHER_NATIONALITY" property="otherNationality"/>
+        <result column="USA_ITIN" property="usaItin"/>
+        <result column="OVERSEAS_TAX_NUMBER" property="overseasTaxNumber"/>
+        <result column="REFERENCE_NUMBER" property="referenceNumber"/>
+        <result column="OTHER_BIRTHDAY" property="otherBirthday"/>
+        <result column="USA_COUNTRY_AGREEMENT" property="usaCountryAgreement"/>
+        <result column="EXPLAIN_ADDRESS" property="explainAddress"/>
+        <result column="CONSENT_STATUS" property="consentStatus"/>
+        <result column="CONSENT_TAX" property="consentTax"/>
+        <result column="CREATED_BY" property="createdBy"/>
+        <result column="CREATED_DATE" property="createdDate"/>
+        <result column="UPDATED_BY" property="updatedBy"/>
+        <result column="UPDATED_DATE" property="updatedDate"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.account.entity.AccountPerWbenContract">
+        INSERT INTO ACCOUNT_PER_WBEN_CONTRACT(
+            ID ,
+            ACCOUNT_ID ,
+            ACCOUNT_NAME ,
+            SIGNATURE_TIME ,
+            SIGNATURE ,
+            EMAIL_ADDRESS ,
+            MAIL_CODE ,
+            OTHER_NATIONALITY ,
+            USA_ITIN ,
+            OVERSEAS_TAX_NUMBER ,
+            REFERENCE_NUMBER ,
+            OTHER_BIRTHDAY ,
+            USA_COUNTRY_AGREEMENT ,
+            EXPLAIN_ADDRESS ,
+            CONSENT_STATUS ,
+            CONSENT_TAX ,
+            CREATED_BY ,
+            CREATED_DATE ,
+            UPDATED_BY ,
+            UPDATED_DATE 
+        ) VALUES (
+            #{id} ,
+            #{accountId} ,
+            #{accountName} ,
+            #{signatureTime} ,
+            #{signature} ,
+            #{emailAddress} ,
+            #{mailCode} ,
+            #{otherNationality} ,
+            #{usaItin} ,
+            #{overseasTaxNumber} ,
+            #{referenceNumber} ,
+            #{otherBirthday} ,
+            #{usaCountryAgreement} ,
+            #{explainAddress} ,
+            #{consentStatus} ,
+            #{consentTax} ,
+            #{createdBy} ,
+            #{createdDate} ,
+            #{updatedBy} ,
+            #{updatedDate} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM ACCOUNT_PER_WBEN_CONTRACT WHERE ID = #{id}
+    </delete>
+
+    <!-- 根据主键逻辑删除 -->
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE ACCOUNT_PER_WBEN_CONTRACT SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.account.entity.AccountPerWbenContract">
+        INSERT INTO ACCOUNT_PER_WBEN_CONTRACT
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="accountId != null">
+                ACCOUNT_ID ,
+        </if>
+        <if test="accountName != null">
+                ACCOUNT_NAME ,
+        </if>
+        <if test="signatureTime != null">
+                SIGNATURE_TIME ,
+        </if>
+        <if test="signature != null">
+                SIGNATURE ,
+        </if>
+        <if test="emailAddress != null">
+                EMAIL_ADDRESS ,
+        </if>
+        <if test="mailCode != null">
+                MAIL_CODE ,
+        </if>
+        <if test="otherNationality != null">
+                OTHER_NATIONALITY ,
+        </if>
+        <if test="usaItin != null">
+                USA_ITIN ,
+        </if>
+        <if test="overseasTaxNumber != null">
+                OVERSEAS_TAX_NUMBER ,
+        </if>
+        <if test="referenceNumber != null">
+                REFERENCE_NUMBER ,
+        </if>
+        <if test="otherBirthday != null">
+                OTHER_BIRTHDAY ,
+        </if>
+        <if test="usaCountryAgreement != null">
+                USA_COUNTRY_AGREEMENT ,
+        </if>
+        <if test="explainAddress != null">
+                EXPLAIN_ADDRESS ,
+        </if>
+        <if test="consentStatus != null">
+                CONSENT_STATUS ,
+        </if>
+        <if test="consentTax != null">
+                CONSENT_TAX ,
+        </if>
+        <if test="createdBy != null">
+                CREATED_BY ,
+        </if>
+        <if test="createdDate != null">
+                CREATED_DATE ,
+        </if>
+        <if test="updatedBy != null">
+                UPDATED_BY ,
+        </if>
+        <if test="updatedDate != null">
+                UPDATED_DATE 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="accountId != null">
+                #{accountId} ,
+        </if>
+        <if test="accountName != null">
+                #{accountName} ,
+        </if>
+        <if test="signatureTime != null">
+                #{signatureTime} ,
+        </if>
+        <if test="signature != null">
+                #{signature} ,
+        </if>
+        <if test="emailAddress != null">
+                #{emailAddress} ,
+        </if>
+        <if test="mailCode != null">
+                #{mailCode} ,
+        </if>
+        <if test="otherNationality != null">
+                #{otherNationality} ,
+        </if>
+        <if test="usaItin != null">
+                #{usaItin} ,
+        </if>
+        <if test="overseasTaxNumber != null">
+                #{overseasTaxNumber} ,
+        </if>
+        <if test="referenceNumber != null">
+                #{referenceNumber} ,
+        </if>
+        <if test="otherBirthday != null">
+                #{otherBirthday} ,
+        </if>
+        <if test="usaCountryAgreement != null">
+                #{usaCountryAgreement} ,
+        </if>
+        <if test="explainAddress != null">
+                #{explainAddress} ,
+        </if>
+        <if test="consentStatus != null">
+                #{consentStatus} ,
+        </if>
+        <if test="consentTax != null">
+                #{consentTax} ,
+        </if>
+        <if test="createdBy != null">
+                #{createdBy} ,
+        </if>
+        <if test="createdDate != null">
+                #{createdDate} ,
+        </if>
+        <if test="updatedBy != null">
+                #{updatedBy} ,
+        </if>
+        <if test="updatedDate != null">
+                #{updatedDate} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.account.entity.AccountPerWbenContract">
+        UPDATE ACCOUNT_PER_WBEN_CONTRACT
+           <set>
+            <if test="accountId != null">
+                ACCOUNT_ID = #{accountId} ,
+            </if>
+            <if test="accountName != null">
+                ACCOUNT_NAME = #{accountName} ,
+            </if>
+            <if test="signatureTime != null">
+                SIGNATURE_TIME = #{signatureTime} ,
+            </if>
+            <if test="signature != null">
+                SIGNATURE = #{signature} ,
+            </if>
+            <if test="emailAddress != null">
+                EMAIL_ADDRESS = #{emailAddress} ,
+            </if>
+            <if test="mailCode != null">
+                MAIL_CODE = #{mailCode} ,
+            </if>
+            <if test="otherNationality != null">
+                OTHER_NATIONALITY = #{otherNationality} ,
+            </if>
+            <if test="usaItin != null">
+                USA_ITIN = #{usaItin} ,
+            </if>
+            <if test="overseasTaxNumber != null">
+                OVERSEAS_TAX_NUMBER = #{overseasTaxNumber} ,
+            </if>
+            <if test="referenceNumber != null">
+                REFERENCE_NUMBER = #{referenceNumber} ,
+            </if>
+            <if test="otherBirthday != null">
+                OTHER_BIRTHDAY = #{otherBirthday} ,
+            </if>
+            <if test="usaCountryAgreement != null">
+                USA_COUNTRY_AGREEMENT = #{usaCountryAgreement} ,
+            </if>
+            <if test="explainAddress != null">
+                EXPLAIN_ADDRESS = #{explainAddress} ,
+            </if>
+            <if test="consentStatus != null">
+                CONSENT_STATUS = #{consentStatus} ,
+            </if>
+            <if test="consentTax != null">
+                CONSENT_TAX = #{consentTax} ,
+            </if>
+            <if test="createdBy != null">
+                CREATED_BY = #{createdBy} ,
+            </if>
+            <if test="createdDate != null">
+                CREATED_DATE = #{createdDate} ,
+            </if>
+            <if test="updatedBy != null">
+                UPDATED_BY = #{updatedBy} ,
+            </if>
+            <if test="updatedDate != null">
+                UPDATED_DATE = #{updatedDate} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO ACCOUNT_PER_WBEN_CONTRACT(
+            ID ,
+            ACCOUNT_ID ,
+            ACCOUNT_NAME ,
+            SIGNATURE_TIME ,
+            SIGNATURE ,
+            EMAIL_ADDRESS ,
+            MAIL_CODE ,
+            OTHER_NATIONALITY ,
+            USA_ITIN ,
+            OVERSEAS_TAX_NUMBER ,
+            REFERENCE_NUMBER ,
+            OTHER_BIRTHDAY ,
+            USA_COUNTRY_AGREEMENT ,
+            EXPLAIN_ADDRESS ,
+            CONSENT_STATUS ,
+            CONSENT_TAX ,
+            CREATED_BY ,
+            CREATED_DATE ,
+            UPDATED_BY ,
+            UPDATED_DATE 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.accountId} ,
+            #{item.accountName} ,
+            #{item.signatureTime} ,
+            #{item.signature} ,
+            #{item.emailAddress} ,
+            #{item.mailCode} ,
+            #{item.otherNationality} ,
+            #{item.usaItin} ,
+            #{item.overseasTaxNumber} ,
+            #{item.referenceNumber} ,
+            #{item.otherBirthday} ,
+            #{item.usaCountryAgreement} ,
+            #{item.explainAddress} ,
+            #{item.consentStatus} ,
+            #{item.consentTax} ,
+            #{item.createdBy} ,
+            #{item.createdDate} ,
+            #{item.updatedBy} ,
+            #{item.updatedDate} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE ACCOUNT_PER_WBEN_CONTRACT SET
+            ACCOUNT_ID = #{item.accountId} ,
+            ACCOUNT_NAME = #{item.accountName} ,
+            SIGNATURE_TIME = #{item.signatureTime} ,
+            SIGNATURE = #{item.signature} ,
+            EMAIL_ADDRESS = #{item.emailAddress} ,
+            MAIL_CODE = #{item.mailCode} ,
+            OTHER_NATIONALITY = #{item.otherNationality} ,
+            USA_ITIN = #{item.usaItin} ,
+            OVERSEAS_TAX_NUMBER = #{item.overseasTaxNumber} ,
+            REFERENCE_NUMBER = #{item.referenceNumber} ,
+            OTHER_BIRTHDAY = #{item.otherBirthday} ,
+            USA_COUNTRY_AGREEMENT = #{item.usaCountryAgreement} ,
+            EXPLAIN_ADDRESS = #{item.explainAddress} ,
+            CONSENT_STATUS = #{item.consentStatus} ,
+            CONSENT_TAX = #{item.consentTax} ,
+            CREATED_BY = #{item.createdBy} ,
+            CREATED_DATE = #{item.createdDate} ,
+            UPDATED_BY = #{item.updatedBy} ,
+            UPDATED_DATE = #{item.updatedDate} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.account.entity.AccountPerWbenContract">
+        UPDATE ACCOUNT_PER_WBEN_CONTRACT SET
+            ACCOUNT_ID = #{accountId} ,
+            ACCOUNT_NAME = #{accountName} ,
+            SIGNATURE_TIME = #{signatureTime} ,
+            SIGNATURE = #{signature} ,
+            EMAIL_ADDRESS = #{emailAddress} ,
+            MAIL_CODE = #{mailCode} ,
+            OTHER_NATIONALITY = #{otherNationality} ,
+            USA_ITIN = #{usaItin} ,
+            OVERSEAS_TAX_NUMBER = #{overseasTaxNumber} ,
+            REFERENCE_NUMBER = #{referenceNumber} ,
+            OTHER_BIRTHDAY = #{otherBirthday} ,
+            USA_COUNTRY_AGREEMENT = #{usaCountryAgreement} ,
+            EXPLAIN_ADDRESS = #{explainAddress} ,
+            CONSENT_STATUS = #{consentStatus} ,
+            CONSENT_TAX = #{consentTax} ,
+            CREATED_BY = #{createdBy} ,
+            CREATED_DATE = #{createdDate} ,
+            UPDATED_BY = #{updatedBy} ,
+            UPDATED_DATE = #{updatedDate} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.account.entity.AccountPerWbenContract">
+        SELECT <include refid="accountPerWbenContractColumns"/> FROM ACCOUNT_PER_WBEN_CONTRACT a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.account.entity.AccountPerWbenContract">
+        SELECT
+        <include refid="accountPerWbenContractColumns"/>
+        FROM ACCOUNT_PER_WBEN_CONTRACT a WHERE 1 = 1
+        <if test="accountId != null">
+            AND a.ACCOUNT_ID = #{accountId}
+        </if>
+        <if test="accountName != null">
+            AND a.ACCOUNT_NAME LIKE '%'||#{accountName}||'%'
+        </if>
+        <if test="signatureTime != null">
+            AND a.SIGNATURE_TIME = #{signatureTime}
+        </if>
+        <if test="signature != null">
+            AND a.SIGNATURE LIKE '%'||#{signature}||'%'
+        </if>
+        <if test="emailAddress != null">
+            AND a.EMAIL_ADDRESS LIKE '%'||#{emailAddress}||'%'
+        </if>
+        <if test="mailCode != null">
+            AND a.MAIL_CODE LIKE '%'||#{mailCode}||'%'
+        </if>
+        <if test="otherNationality != null">
+            AND a.OTHER_NATIONALITY LIKE '%'||#{otherNationality}||'%'
+        </if>
+        <if test="usaItin != null">
+            AND a.USA_ITIN LIKE '%'||#{usaItin}||'%'
+        </if>
+        <if test="overseasTaxNumber != null">
+            AND a.OVERSEAS_TAX_NUMBER LIKE '%'||#{overseasTaxNumber}||'%'
+        </if>
+        <if test="referenceNumber != null">
+            AND a.REFERENCE_NUMBER LIKE '%'||#{referenceNumber}||'%'
+        </if>
+        <if test="otherBirthday != null">
+            AND a.OTHER_BIRTHDAY = #{otherBirthday}
+        </if>
+        <if test="usaCountryAgreement != null">
+            AND a.USA_COUNTRY_AGREEMENT LIKE '%'||#{usaCountryAgreement}||'%'
+        </if>
+        <if test="explainAddress != null">
+            AND a.EXPLAIN_ADDRESS LIKE '%'||#{explainAddress}||'%'
+        </if>
+        <if test="consentStatus != null">
+            AND a.CONSENT_STATUS LIKE '%'||#{consentStatus}||'%'
+        </if>
+        <if test="consentTax != null">
+            AND a.CONSENT_TAX LIKE '%'||#{consentTax}||'%'
+        </if>
+        <if test="createdBy != null">
+            AND a.CREATED_BY = #{createdBy}
+        </if>
+        <if test="createdDate != null">
+            AND a.CREATED_DATE = #{createdDate}
+        </if>
+        <if test="updatedBy != null">
+            AND a.UPDATED_BY = #{updatedBy}
+        </if>
+        <if test="updatedDate != null">
+            AND a.UPDATED_DATE = #{updatedDate}
+        </if>
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.account.entity.AccountPerWbenContract">
+        SELECT
+        <include refid="accountPerWbenContractColumns"/>
+        FROM ACCOUNT_PER_WBEN_CONTRACT a WHERE a.DEL_FLAG = 0
+    </select>
+
+
+</mapper>
+

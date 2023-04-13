@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.stock.mapper.StockWmpMapper">
+    <!-- 基础列 -->
+    <sql id="stockWmpColumns">
+        a.ID as id,
+        a.STOCKINFO_ID as stockInfoId,
+        a.FUND_TYPE as fundType,
+        a.EXPECTED_ANNUAL_RETURN as expectedAnnualReturn,
+        a.PRODUCT_LIFE as productLife,
+        a.RISK_LEVEL as riskLevel,
+        a.START_SALE_AMT as startSaleAmt,
+        a.LISTING_DATE as listingDate,
+        a.EXPIRE_DATE as expireDate,
+        a.IS_RECOMMEND as isRecommend,
+        a.CREATE_BY as createBy,
+        a.CREATE_DATE as createDate,
+        a.UPDATE_BY as updateBy,
+        a.UPDATE_DATE as updateDate
+    </sql>
+
+    <!-- 关联查询列 -->
+    <sql id="stockWmpJoinColumns">
+        a.ID AS id,
+        a.STOCKINFO_ID,
+        a.FUND_TYPE,
+        a.EXPECTED_ANNUAL_RETURN,
+        a.PRODUCT_LIFE,
+        a.RISK_LEVEL,
+        a.START_SALE_AMT,
+        a.LISTING_DATE,
+        a.EXPIRE_DATE,
+        a.IS_RECOMMEND,
+        b.ID AS STOCK_INFO_ID,
+        b.STOCK_CODE,
+        b.STOCK_SYMBOL,
+        b.STOCK_ISIN,
+        b.STOCK_SPELL_ABBR,
+        b.STOCK_NAME_EN,
+        b.STOCK_NAME_CN,
+        b.STOCK_TYPE,
+        b.ASSET_TYPE,
+        b.EXCHANGE_ID,
+        b.BASE_CURRENCY,
+        b.COMPANY_CODE,
+        b.COMPANY_NAME,
+        b.OFFER_DATE,
+        b.CANCEL_DATE,
+        b.LAST_PRICE,
+        b.IS_OPENTRADE,
+        b.IB_SYMBOL
+    </sql>
+
+    <resultMap id="stockWmpResultMap" type="com.fintech.gams.stock.entity.StockWmp">
+        <id column="ID" property="id" />
+        <result column="STOCKINFO_ID" property="stockInfoId"/>
+        <result column="FUND_TYPE" property="fundType"/>
+        <result column="EXPECTED_ANNUAL_RETURN" property="expectedAnnualReturn"/>
+        <result column="PRODUCT_LIFE" property="productLife"/>
+        <result column="RISK_LEVEL" property="riskLevel"/>
+        <result column="START_SALE_AMT" property="startSaleAmt"/>
+        <result column="LISTING_DATE" property="listingDate"/>
+        <result column="EXPIRE_DATE" property="expireDate"/>
+        <result column="IS_RECOMMEND" property="isRecommend"/>
+        <result column="CREATE_BY" property="createBy"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="UPDATE_BY" property="updateBy"/>
+        <result column="UPDATE_DATE" property="updateDate"/>
+        <association property="stockInfo" javaType="com.fintech.gams.stock.entity.StockInfo">
+            <id column="STOCK_INFO_ID" property="id" />
+            <result column="STOCK_CODE" property="stockCode"/>
+            <result column="STOCK_SYMBOL" property="stockSymbol"/>
+            <result column="STOCK_ISIN" property="stockIsin"/>
+            <result column="STOCK_SPELL_ABBR" property="stockSpellAbbr"/>
+            <result column="STOCK_NAME_EN" property="stockNameEn"/>
+            <result column="STOCK_NAME_CN" property="stockNameCn"/>
+            <result column="STOCK_TYPE" property="stockType"/>
+            <result column="ASSET_TYPE" property="assetType"/>
+            <result column="EXCHANGE_ID" property="exchangeId"/>
+            <result column="BASE_CURRENCY" property="baseCurrency"/>
+            <result column="COMPANY_CODE" property="companyCode"/>
+            <result column="COMPANY_NAME" property="companyName"/>
+            <result column="OFFER_DATE" property="offerDate"/>
+            <result column="LIST_DATE" property="listDate"/>
+            <result column="CANCEL_DATE" property="cancelDate"/>
+            <result column="LAST_PRICE" property="lastPrice"/>
+            <result column="IS_OPENTRADE" property="isOpentrade"/>
+            <result column="IB_SYMBOL" property="ibSymbol"/>
+        </association>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.stock.entity.StockWmp">
+        INSERT INTO STOCK_WMP(
+            ID ,
+            STOCKINFO_ID ,
+            FUND_TYPE ,
+            EXPECTED_ANNUAL_RETURN ,
+            PRODUCT_LIFE ,
+            RISK_LEVEL ,
+            START_SALE_AMT ,
+            LISTING_DATE ,
+            EXPIRE_DATE ,
+            IS_RECOMMEND ,
+            CREATE_BY ,
+            CREATE_DATE ,
+            UPDATE_BY ,
+            UPDATE_DATE 
+        ) VALUES (
+            #{id} ,
+            #{stockInfoId} ,
+            #{fundType} ,
+            #{expectedAnnualReturn} ,
+            #{productLife} ,
+            #{riskLevel} ,
+            #{startSaleAmt} ,
+            #{listingDate} ,
+            #{expireDate} ,
+            #{isRecommend} ,
+            #{createBy} ,
+            #{createDate} ,
+            #{updateBy} ,
+            #{updateDate} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM STOCK_WMP WHERE ID = #{id}
+    </delete>
+
+    <!-- 根据主键逻辑删除
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE STOCK_WMP SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+    -->
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.stock.entity.StockWmp">
+        INSERT INTO STOCK_WMP
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="stockInfoId != null">
+                STOCKINFO_ID ,
+        </if>
+        <if test="fundType != null">
+                FUND_TYPE ,
+        </if>
+        <if test="expectedAnnualReturn != null">
+                EXPECTED_ANNUAL_RETURN ,
+        </if>
+        <if test="productLife != null">
+                PRODUCT_LIFE ,
+        </if>
+        <if test="riskLevel != null">
+                RISK_LEVEL ,
+        </if>
+        <if test="startSaleAmt != null">
+                START_SALE_AMT ,
+        </if>
+        <if test="listingDate != null">
+                LISTING_DATE ,
+        </if>
+        <if test="expireDate != null">
+                EXPIRE_DATE ,
+        </if>
+        <if test="isRecommend != null">
+                IS_RECOMMEND ,
+        </if>
+        <if test="createBy != null">
+                CREATE_BY ,
+        </if>
+        <if test="createDate != null">
+                CREATE_DATE ,
+        </if>
+        <if test="updateBy != null">
+                UPDATE_BY ,
+        </if>
+        <if test="updateDate != null">
+                UPDATE_DATE 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="stockInfoId != null">
+                #{stockInfoId} ,
+        </if>
+        <if test="fundType != null">
+                #{fundType} ,
+        </if>
+        <if test="expectedAnnualReturn != null">
+                #{expectedAnnualReturn} ,
+        </if>
+        <if test="productLife != null">
+                #{productLife} ,
+        </if>
+        <if test="riskLevel != null">
+                #{riskLevel} ,
+        </if>
+        <if test="startSaleAmt != null">
+                #{startSaleAmt} ,
+        </if>
+        <if test="listingDate != null">
+                #{listingDate} ,
+        </if>
+        <if test="expireDate != null">
+                #{expireDate} ,
+        </if>
+        <if test="isRecommend != null">
+                #{isRecommend} ,
+        </if>
+        <if test="createBy != null">
+                #{createBy} ,
+        </if>
+        <if test="createDate != null">
+                #{createDate} ,
+        </if>
+        <if test="updateBy != null">
+                #{updateBy} ,
+        </if>
+        <if test="updateDate != null">
+                #{updateDate} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.stock.entity.StockWmp">
+        UPDATE STOCK_WMP
+           <set>
+            <if test="stockInfoId != null">
+                STOCKINFO_ID = #{stockInfoId} ,
+            </if>
+            <if test="fundType != null">
+                FUND_TYPE = #{fundType} ,
+            </if>
+            <if test="expectedAnnualReturn != null">
+                EXPECTED_ANNUAL_RETURN = #{expectedAnnualReturn} ,
+            </if>
+            <if test="productLife != null">
+                PRODUCT_LIFE = #{productLife} ,
+            </if>
+            <if test="riskLevel != null">
+                RISK_LEVEL = #{riskLevel} ,
+            </if>
+            <if test="startSaleAmt != null">
+                START_SALE_AMT = #{startSaleAmt} ,
+            </if>
+            <if test="listingDate != null">
+                LISTING_DATE = #{listingDate} ,
+            </if>
+            <if test="expireDate != null">
+                EXPIRE_DATE = #{expireDate} ,
+            </if>
+            <if test="isRecommend != null">
+                IS_RECOMMEND = #{isRecommend} ,
+            </if>
+            <if test="createBy != null">
+                CREATE_BY = #{createBy} ,
+            </if>
+            <if test="createDate != null">
+                CREATE_DATE = #{createDate} ,
+            </if>
+            <if test="updateBy != null">
+                UPDATE_BY = #{updateBy} ,
+            </if>
+            <if test="updateDate != null">
+                UPDATE_DATE = #{updateDate} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO STOCK_WMP(
+            ID ,
+            STOCKINFO_ID ,
+            FUND_TYPE ,
+            EXPECTED_ANNUAL_RETURN ,
+            PRODUCT_LIFE ,
+            RISK_LEVEL ,
+            START_SALE_AMT ,
+            LISTING_DATE ,
+            EXPIRE_DATE ,
+            IS_RECOMMEND ,
+            CREATE_BY ,
+            CREATE_DATE ,
+            UPDATE_BY ,
+            UPDATE_DATE 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.stockInfoId} ,
+            #{item.fundType} ,
+            #{item.expectedAnnualReturn} ,
+            #{item.productLife} ,
+            #{item.riskLevel} ,
+            #{item.startSaleAmt} ,
+            #{item.listingDate} ,
+            #{item.expireDate} ,
+            #{item.isRecommend} ,
+            #{item.createBy} ,
+            #{item.createDate} ,
+            #{item.updateBy} ,
+            #{item.updateDate} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE STOCK_WMP SET
+            STOCKINFO_ID = #{item.stockInfoId} ,
+            FUND_TYPE = #{item.fundType} ,
+            EXPECTED_ANNUAL_RETURN = #{item.expectedAnnualReturn} ,
+            PRODUCT_LIFE = #{item.productLife} ,
+            RISK_LEVEL = #{item.riskLevel} ,
+            START_SALE_AMT = #{item.startSaleAmt} ,
+            LISTING_DATE = #{item.listingDate} ,
+            EXPIRE_DATE = #{item.expireDate} ,
+            IS_RECOMMEND = #{item.isRecommend} ,
+            CREATE_BY = #{item.createBy} ,
+            CREATE_DATE = #{item.createDate} ,
+            UPDATE_BY = #{item.updateBy} ,
+            UPDATE_DATE = #{item.updateDate} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.stock.entity.StockWmp">
+        UPDATE STOCK_WMP SET
+            STOCKINFO_ID = #{stockInfoId} ,
+            FUND_TYPE = #{fundType} ,
+            EXPECTED_ANNUAL_RETURN = #{expectedAnnualReturn} ,
+            PRODUCT_LIFE = #{productLife} ,
+            RISK_LEVEL = #{riskLevel} ,
+            START_SALE_AMT = #{startSaleAmt} ,
+            LISTING_DATE = #{listingDate} ,
+            EXPIRE_DATE = #{expireDate} ,
+            IS_RECOMMEND = #{isRecommend} ,
+            CREATE_BY = #{createBy} ,
+            CREATE_DATE = #{createDate} ,
+            UPDATE_BY = #{updateBy} ,
+            UPDATE_DATE = #{updateDate} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.stock.entity.StockWmp">
+        SELECT <include refid="stockWmpColumns"/> FROM STOCK_WMP a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultMap="stockWmpResultMap">
+        SELECT
+        <include refid="stockWmpJoinColumns"/>
+        FROM STOCK_WMP a
+        LEFT JOIN STOCK_INFO b ON a.STOCKINFO_ID = b.ID
+        WHERE 1 = 1
+        <if test="stockNameEn != null">
+            AND b.STOCK_NAME_EN LIKE '%'||#{stockNameEn}||'%'
+        </if>
+        <if test="stockNameCn != null">
+            AND b.STOCK_NAME_CN LIKE '%'||#{stockNameCn}||'%'
+        </if>
+        <if test="stockCode != null">
+            AND b.STOCK_CODE LIKE '%'||#{stockCode}||'%'
+        </if>
+        <if test="stockSymbol != null">
+            AND b.STOCK_SYMBOL LIKE '%'||#{stockSymbol}||'%'
+        </if>
+        <if test="baseCurrencyArray!=null and baseCurrencyArray.length>0" > <!-- 先判断传来的数组是否为空 -->
+            AND (
+            <foreach collection="baseCurrencyArray" item="baseCurrency" index="index" separator="OR">
+                b.BASE_CURRENCY LIKE '%'||#{baseCurrency}||'%'
+            </foreach>
+            )
+        </if>
+        <if test="stockInfoId != null">
+            AND a.STOCKINFO_ID = #{stockInfoId}
+        </if>
+        <if test="fundTypeArray!=null and fundTypeArray.length>0" > <!-- 先判断传来的数组是否为空 -->
+            AND (
+            <foreach collection="fundTypeArray" item="fundType" index="index" separator="OR">
+                a.FUND_TYPE LIKE '%'||#{fundType}||'%'
+            </foreach>
+            )
+        </if>
+        <if test="expectedAnnualReturn != null">
+            AND a.EXPECTED_ANNUAL_RETURN = #{expectedAnnualReturn}
+        </if>
+        <if test="productLife != null">
+            AND a.PRODUCT_LIFE = #{productLife}
+        </if>
+        <if test="riskLevelArray!=null and riskLevelArray.length>0" > <!-- 先判断传来的数组是否为空 -->
+            AND (
+            <foreach collection="riskLevelArray" item="riskLevel" index="index" separator="OR">
+                a.RISK_LEVEL LIKE '%'||#{riskLevel}||'%'
+            </foreach>
+            )
+        </if>
+        <if test="startSaleAmt != null">
+            AND a.START_SALE_AMT = #{startSaleAmt}
+        </if>
+        <if test="listingDate != null">
+            AND a.LISTING_DATE = #{listingDate}
+        </if>
+        <if test="expireDate != null">
+            AND a.EXPIRE_DATE = #{expireDate}
+        </if>
+        <if test="isRecommend != null">
+            AND a.IS_RECOMMEND = #{isRecommend}
+        </if>
+        <if test="createBy != null">
+            AND a.CREATE_BY = #{createBy}
+        </if>
+        <if test="createDate != null">
+            AND a.CREATE_DATE = #{createDate}
+        </if>
+        <if test="updateBy != null">
+            AND a.UPDATE_BY = #{updateBy}
+        </if>
+        <if test="updateDate != null">
+            AND a.UPDATE_DATE = #{updateDate}
+        </if>
+        AND b.STOCK_TYPE = 'wmp'
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.stock.entity.StockWmp">
+        SELECT
+        <include refid="stockWmpColumns"/>
+        FROM STOCK_WMP a <!--WHERE a.DEL_FLAG = 0-->
+    </select>
+
+
+</mapper>
+

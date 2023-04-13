@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.stock.mapper.StockHotQuoteMapper">
+
+    <!--查询热门股票行情-->
+    <select id="searchStockQuote" resultType="com.fintech.gams.stock.model.HotStockQuote">
+        SELECT
+          d.stockinfoId,
+          d.stockCode,
+          d.stockNameCn,
+          d.stockNameEn,
+          d.baseCurrency,
+          c.QUOTE_DATE as QUOTEDATE,
+          c.prev_close as prevClose,
+          c.last as last,
+          c.bid as bid,
+          c.ask as ask,
+          c.bid_size as bidSize,
+          c.ask_size as askSize,
+          c.open as open,
+          c.high as high,
+          c.low as low,
+          c.chg as chg,
+          c.change as change,
+          c.volume as volume,
+          c.turnover as turnover,
+          c.pe_ratio as peRatio,
+          c.turnover_rate as turnoverRate
+        FROM
+        (SELECT
+          a.STOCKINFO_ID as stockinfoId,
+          b.STOCK_CODE as stockCode,
+          b.STOCK_NAME_CN as stockNameCn,
+          b.STOCK_NAME_EN as stockNameEn,
+          b.BASE_CURRENCY as baseCurrency
+         FROM STOCK_HOT_CONFIG a, STOCK_INFO b
+          WHERE b.ID = a.STOCKINFO_ID and b.stock_type = 'stock'
+        ) d
+        LEFT JOIN QUOTE_STOCK c ON c.STOCKINFO_ID = d.stockinfoId
+        ORDER BY QUOTEDATE DESC
+    </select>
+
+    <!--查询债券行情-->
+    <select id="searchBondQuote" resultType="com.fintech.gams.stock.model.HotBondQuote">
+        SELECT
+          d.stockinfoId,
+          d.stockCode,
+          d.stockNameCn,
+          d.stockNameEn,
+          d.baseCurrency,
+          c.QUOTE_DATE as QUOTEDATE,
+          c.prev_close as prevClose,
+          c.last as last,
+          c.bid as bid,
+          c.ask as ask,
+          c.bid_size as bidSize,
+          c.ask_size as askSize,
+          c.open as open,
+          c.high as high,
+          c.low as low,
+          c.chg as chg,
+          c.change as change,
+          c.volume as volume,
+          c.turnover as turnover
+        FROM
+        (SELECT
+          a.STOCKINFO_ID as stockinfoId,
+          b.STOCK_CODE as stockCode,
+          b.STOCK_NAME_CN as stockNameCn,
+          b.STOCK_NAME_EN as stockNameEn,
+          b.BASE_CURRENCY as baseCurrency
+         FROM STOCK_HOT_CONFIG a, STOCK_INFO b
+          WHERE b.ID = a.STOCKINFO_ID and b.stock_type = 'bond'
+        ) d
+        LEFT JOIN QUOTE_BOND c ON c.STOCKINFO_ID = d.stockinfoId
+        ORDER BY QUOTEDATE DESC
+    </select>
+
+    <!--查询期货行情-->
+    <select id="searchFuturesQuote" resultType="com.fintech.gams.stock.model.HotFuturesQuote">
+        SELECT
+          d.stockinfoId,
+          d.stockCode,
+          d.stockNameCn,
+          d.stockNameEn,
+          d.baseCurrency,
+          c.QUOTE_DATE as QUOTEDATE,
+          c.prev_close as prevClose,
+          c.last as last,
+          c.bid as bid,
+          c.ask as ask,
+          c.bid_size as bidSize,
+          c.ask_size as askSize,
+          c.open as open,
+          c.high as high,
+          c.low as low,
+          c.chg as chg,
+          c.change as change,
+          c.volume as volume,
+          c.turnover as turnover
+        FROM
+        (SELECT
+          a.STOCKINFO_ID as stockinfoId,
+          b.STOCK_CODE as stockCode,
+          b.STOCK_NAME_CN as stockNameCn,
+          b.STOCK_NAME_EN as stockNameEn,
+          b.BASE_CURRENCY as baseCurrency
+         FROM STOCK_HOT_CONFIG a, STOCK_INFO b
+          WHERE b.ID = a.STOCKINFO_ID and b.stock_type = 'futures'
+        ) d
+        LEFT JOIN QUOTE_Futures c ON c.STOCKINFO_ID = d.stockinfoId
+        ORDER BY QUOTEDATE DESC
+    </select>
+
+    <!--查询期权行情-->
+    <select id="searchOptionQuote" resultType="com.fintech.gams.stock.model.HotOptionQuote">
+        SELECT
+          d.stockinfoId,
+          d.stockCode,
+          d.stockNameCn,
+          d.stockNameEn,
+          d.baseCurrency,
+          c.QUOTE_DATE as QUOTEDATE,
+          c.prev_close as prevClose,
+          c.last as last,
+          c.bid as bid,
+          c.ask as ask,
+          c.bid_size as bidSize,
+          c.ask_size as askSize,
+          c.open as open,
+          c.high as high,
+          c.low as low,
+          c.chg as chg,
+          c.change as change,
+          c.volume as volume,
+          c.turnover as turnover
+        FROM
+        (SELECT
+          a.STOCKINFO_ID as stockinfoId,
+          b.STOCK_CODE as stockCode,
+          b.STOCK_NAME_CN as stockNameCn,
+          b.STOCK_NAME_EN as stockNameEn,
+          b.BASE_CURRENCY as baseCurrency
+         FROM STOCK_HOT_CONFIG a, STOCK_INFO b
+          WHERE b.ID = a.STOCKINFO_ID and b.stock_type = 'option'
+        ) d
+        LEFT JOIN QUOTE_Option c ON c.STOCKINFO_ID = d.stockinfoId
+        ORDER BY QUOTEDATE DESC
+    </select>
+
+    <!--查询热门外汇行情-->
+    <select id="searchForeignExQuote" resultType="com.fintech.gams.stock.model.HotForeignExQuote">
+        SELECT
+          d.stockinfoId,
+          d.stockCode,
+          d.stockNameCn,
+          d.stockNameEn,
+          d.baseCurrency,
+          c.QUOTE_DATE as QUOTEDATE,
+          c.prev_close as prevClose,
+          c.last as last,
+          c.bid as bid,
+          c.ask as ask,
+          c.bid_size as bidSize,
+          c.ask_size as askSize,
+          c.open as open,
+          c.high as high,
+          c.low as low,
+          c.chg as chg,
+          c.change as change,
+          c.volume as volume,
+          c.turnover as turnover
+        FROM
+        (SELECT
+          a.STOCKINFO_ID as stockinfoId,
+          b.STOCK_CODE as stockCode,
+          b.STOCK_NAME_CN as stockNameCn,
+          b.STOCK_NAME_EN as stockNameEn,
+          b.BASE_CURRENCY as baseCurrency
+         FROM STOCK_HOT_CONFIG a, STOCK_INFO b
+          WHERE b.ID = a.STOCKINFO_ID and b.stock_type = 'foreignEx'
+        ) d
+        LEFT JOIN QUOTE_ForeignEx c ON c.STOCKINFO_ID = d.stockinfoId
+        ORDER BY QUOTEDATE DESC
+    </select>
+
+    <!--查询热门基金行情-->
+    <select id="searchFundQuote" resultType="com.fintech.gams.stock.model.HotFundQuote">
+        SELECT
+          d.stockinfoId,
+          d.stockCode,
+          d.stockNameCn,
+          d.stockNameEn,
+          d.baseCurrency,
+          c.QUOTE_DATE as QUOTEDATE,
+          c.prev_close as prevClose,
+          c.last as last,
+          c.bid as bid,
+          c.ask as ask,
+          c.bid_size as bidSize,
+          c.ask_size as askSize,
+          c.cumulative_Net_Value as cumulativeNetValue,
+          c.return_Daily_Rate as returnDailyRate,
+          c.return_1week as return1week,
+          c.return_1month as return1month,
+          c.return_3month as return3month,
+          c.return_6month as return6month,
+          c.return_1year as return1year,
+          c.return_2year as return2year,
+          c.return_3year as return3year,
+          c.return_Yield_This_Year as returnYieldThisYear,
+          c.return_Since_Foundation as returnSinceFoundation
+        FROM
+        (SELECT
+          a.STOCKINFO_ID as stockinfoId,
+          b.STOCK_CODE as stockCode,
+          b.STOCK_NAME_CN as stockNameCn,
+          b.STOCK_NAME_EN as stockNameEn,
+          b.BASE_CURRENCY as baseCurrency
+         FROM STOCK_HOT_CONFIG a, STOCK_INFO b
+          WHERE b.ID = a.STOCKINFO_ID and b.stock_type = 'fund'
+        ) d
+        LEFT JOIN QUOTE_Fund c ON c.STOCKINFO_ID = d.stockinfoId
+        ORDER BY QUOTEDATE DESC
+    </select>
+
+</mapper>

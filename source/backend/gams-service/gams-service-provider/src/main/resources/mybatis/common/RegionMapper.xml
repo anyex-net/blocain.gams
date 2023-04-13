@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.common.mapper.RegionMapper">
+    <!-- 基础列 -->
+    <sql id="regionColumns">
+        a.ID as id,
+        a.S_CODE as sCode,
+        a.L_CODE as lCode,
+        a.EN_NAME as enName,
+        a.CN_NAME as cnName,
+        a.AREA as area,
+        a.SORT_NUM as sortNum
+    </sql>
+
+    <resultMap id="regionResultMap" type="com.fintech.gams.common.entity.Region">
+        <id column="ID" property="id" />
+        <result column="S_CODE" property="sCode"/>
+        <result column="L_CODE" property="lCode"/>
+        <result column="EN_NAME" property="enName"/>
+        <result column="CN_NAME" property="cnName"/>
+        <result column="AREA" property="area"/>
+        <result column="SORT_NUM" property="sortNum"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.common.entity.Region">
+        INSERT INTO REGION(
+            ID ,
+            S_CODE ,
+            L_CODE ,
+            EN_NAME ,
+            CN_NAME ,
+            AREA ,
+            SORT_NUM
+        ) VALUES (
+            #{id} ,
+            #{sCode} ,
+            #{lCode} ,
+            #{enName} ,
+            #{cnName} ,
+            #{area} ,
+            #{sortNum}
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM REGION WHERE ID = #{id}
+    </delete>
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.common.entity.Region">
+        INSERT INTO REGION
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="sCode != null">
+                S_CODE ,
+        </if>
+        <if test="lCode != null">
+                L_CODE ,
+        </if>
+        <if test="enName != null">
+                EN_NAME ,
+        </if>
+        <if test="cnName != null">
+                CN_NAME ,
+        </if>
+        <if test="area != null">
+                AREA ,
+        </if>
+        <if test="sortNum != null">
+                SORT_NUM
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="sCode != null">
+                #{sCode} ,
+        </if>
+        <if test="lCode != null">
+                #{lCode} ,
+        </if>
+        <if test="enName != null">
+                #{enName} ,
+        </if>
+        <if test="cnName != null">
+                #{cnName} ,
+        </if>
+        <if test="area != null">
+                #{area} ,
+        </if>
+        <if test="sortNum != null">
+                #{sortNum}
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.common.entity.Region">
+        UPDATE REGION
+           <set>
+            <if test="sCode != null">
+                S_CODE = #{sCode} ,
+            </if>
+            <if test="lCode != null">
+                L_CODE = #{lCode} ,
+            </if>
+            <if test="enName != null">
+                EN_NAME = #{enName} ,
+            </if>
+            <if test="cnName != null">
+                CN_NAME = #{cnName} ,
+            </if>
+            <if test="area != null">
+                AREA = #{area} ,
+            </if>
+            <if test="sortNum != null">
+                SORT_NUM = #{sortNum}
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO REGION(
+            ID ,
+            S_CODE ,
+            L_CODE ,
+            EN_NAME ,
+            CN_NAME ,
+            AREA ,
+            SORT_NUM
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.sCode} ,
+            #{item.lCode} ,
+            #{item.enName} ,
+            #{item.cnName} ,
+            #{item.area} ,
+            #{item.sortNum}
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE REGION SET
+            S_CODE = #{item.sCode} ,
+            L_CODE = #{item.lCode} ,
+            EN_NAME = #{item.enName} ,
+            CN_NAME = #{item.cnName} ,
+            AREA = #{item.area} ,
+            SORT_NUM = #{item.sortNum}
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.common.entity.Region">
+        UPDATE REGION SET
+            S_CODE = #{sCode} ,
+            L_CODE = #{lCode} ,
+            EN_NAME = #{enName} ,
+            CN_NAME = #{cnName} ,
+            AREA = #{area} ,
+            SORT_NUM = #{sortNum}
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.common.entity.Region">
+        SELECT <include refid="regionColumns"/> FROM REGION a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.common.entity.Region">
+        SELECT
+        <include refid="regionColumns"/>
+        FROM REGION a WHERE 1 = 1
+        <if test="sCode != null">
+            AND a.S_CODE = #{sCode}
+        </if>
+        <if test="lCode != null">
+            AND a.L_CODE = #{lCode}
+        </if>
+        <if test="enName != null">
+            AND a.EN_NAME = #{enName}
+        </if>
+        <if test="cnName != null">
+            AND a.CN_NAME = #{cnName}
+        </if>
+        ORDER BY a.SORT_NUM
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.common.entity.Region">
+        SELECT
+        <include refid="regionColumns"/>
+        FROM REGION a ORDER BY a.EN_NAME
+    </select>
+
+    <select id="findRegionBySCode" resultType="com.fintech.gams.common.entity.Region">
+        SELECT
+        <include refid="regionColumns"/>
+        FROM REGION a
+        WHERE a.S_CODE = #{sCode}
+    </select>
+
+    <!-- 根据国际代码取区域 -->
+    <select id="findRegionByLCode" resultType="com.fintech.gams.common.entity.Region">
+        SELECT
+        <include refid="regionColumns"/>
+        FROM REGION a
+        WHERE a.L_CODE = #{lCode}
+    </select>
+</mapper>
+

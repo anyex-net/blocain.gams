@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.common.mapper.MsgLogMapper">
+    <!-- 基础列 -->
+    <sql id="msgLogColumns">
+        a.ID as id,
+        a.TYPE as type,
+        a.OBJECT as object,
+        a.CONTENT as content,
+        a.STATUS as status,
+        a.CREATE_DATE as createDate
+    </sql>
+
+    <resultMap id="msgLogResultMap" type="com.fintech.gams.common.entity.MsgLog">
+        <id column="ID" property="id" />
+        <result column="TYPE" property="type"/>
+        <result column="OBJECT" property="object"/>
+        <result column="CONTENT" property="content"/>
+        <result column="STATUS" property="status"/>
+        <result column="CREATE_DATE" property="createDate"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.common.entity.MsgLog">
+        INSERT INTO MSG_LOG(
+            ID ,
+            TYPE ,
+            OBJECT ,
+            CONTENT ,
+            STATUS ,
+            CREATE_DATE
+        ) VALUES (
+            #{id} ,
+            #{type} ,
+            #{object} ,
+            #{content} ,
+            #{status} ,
+            #{createDate}
+        )
+    </insert>
+
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM MSG_LOG WHERE ID = #{id}
+    </delete>
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.common.entity.MsgLog">
+        INSERT INTO MSG_LOG
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="type != null">
+                TYPE ,
+        </if>
+        <if test="object != null">
+                OBJECT ,
+        </if>
+        <if test="content != null">
+                CONTENT ,
+        </if>
+        <if test="status != null">
+            STATUS
+        </if>
+        <if test="createDate != null">
+                CREATE_DATE ,
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="type != null">
+                #{type} ,
+        </if>
+        <if test="object != null">
+                #{object} ,
+        </if>
+        <if test="content != null">
+                #{content} ,
+        </if>
+        <if test="status != null">
+            #{status}
+        </if>
+        <if test="createDate != null">
+                #{createDate} ,
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.common.entity.MsgLog">
+        UPDATE MSG_LOG
+           <set>
+            <if test="type != null">
+                TYPE = #{type} ,
+            </if>
+            <if test="object != null">
+                OBJECT = #{object} ,
+            </if>
+            <if test="content != null">
+                CONTENT = #{content} ,
+            </if>
+            <if test="status != null">
+                STATUS = #{status}
+            </if>
+            <if test="createDate != null">
+                CREATE_DATE = #{createDate} ,
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO MSG_LOG(
+            ID ,
+            TYPE ,
+            OBJECT ,
+            CONTENT ,
+            STATUS ,
+            CREATE_DATE
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.type} ,
+            #{item.object} ,
+            #{item.content} ,
+            #{item.status} ,
+            #{item.createDate}
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE MSG_LOG SET
+            TYPE = #{item.type} ,
+            OBJECT = #{item.object} ,
+            CONTENT = #{item.content} ,
+            STATUS = #{item.status} ,
+            CREATE_DATE = #{item.createDate}
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.common.entity.MsgLog">
+        UPDATE MSG_LOG SET
+            TYPE = #{type} ,
+            OBJECT = #{object} ,
+            CONTENT = #{content} ,
+            STATUS = #{status} ,
+            CREATE_DATE = #{createDate}
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.common.entity.MsgLog">
+        SELECT <include refid="msgLogColumns"/> FROM MSG_LOG a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.common.entity.MsgLog">
+        SELECT
+        <include refid="msgLogColumns"/>
+        FROM MSG_LOG a WHERE 1 = 1
+        <if test="type != null">
+            AND a.TYPE = #{type}
+        </if>
+        <if test="object != null">
+            AND a.OBJECT LIKE '%'||#{object}||'%'
+        </if>
+        <if test="content != null">
+            AND a.CONTENT LIKE '%'||#{content}||'%'
+        </if>
+        <if test="status != null">
+            AND a.STATUS = #{status}
+        </if>
+        <if test="createDate != null">
+            AND a.CREATE_DATE = #{createDate}
+        </if>
+        ORDER BY a.CREATE_DATE DESC
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.common.entity.MsgLog">
+        SELECT
+        <include refid="msgLogColumns"/>
+        FROM MSG_LOG a
+    </select>
+
+</mapper>
+

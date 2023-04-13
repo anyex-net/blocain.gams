@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.system.mapper.RoleResMapper">
+    <!-- 基础列 -->
+    <sql id="roleResColumns">
+        a.ID as id,
+        a.ROLE_ID as roleId,
+        a.RES_ID as resId
+    </sql>
+
+    <resultMap id="roleResResultMap" type="com.fintech.gams.system.entity.RoleRes">
+        <id column="ID" property="id" />
+        <result column="ROLE_ID" property="roleId"/>
+        <result column="RES_ID" property="resId"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.system.entity.RoleRes">
+        INSERT INTO ROLE_RES(
+            ID ,
+            ROLE_ID ,
+            RES_ID 
+        ) VALUES (
+            #{id} ,
+            #{roleId} ,
+            #{resId} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM ROLE_RES WHERE ID = #{id}
+    </delete>
+
+    <delete id="removeByRoleId">
+        DELETE FROM ROLE_RES WHERE ROLE_ID = #{roleId}
+    </delete>
+
+    <!-- 根据主键逻辑删除 -->
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE ROLE_RES SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.system.entity.RoleRes">
+        INSERT INTO ROLE_RES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="roleId != null">
+                ROLE_ID ,
+        </if>
+        <if test="resId != null">
+                RES_ID 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="roleId != null">
+                #{roleId} ,
+        </if>
+        <if test="resId != null">
+                #{resId} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.system.entity.RoleRes">
+        UPDATE ROLE_RES
+           <set>
+            <if test="roleId != null">
+                ROLE_ID = #{roleId} ,
+            </if>
+            <if test="resId != null">
+                RES_ID = #{resId} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO ROLE_RES(
+            ID ,
+            ROLE_ID ,
+            RES_ID 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.roleId} ,
+            #{item.resId} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE ROLE_RES SET
+            ROLE_ID = #{item.roleId} ,
+            RES_ID = #{item.resId} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.system.entity.RoleRes">
+        UPDATE ROLE_RES SET
+            ROLE_ID = #{roleId} ,
+            RES_ID = #{resId} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.system.entity.RoleRes">
+        SELECT <include refid="roleResColumns"/> FROM ROLE_RES a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.system.entity.RoleRes">
+        SELECT
+        <include refid="roleResColumns"/>
+        FROM ROLE_RES a WHERE 1 = 1
+        <if test="roleId != null">
+            AND a.ROLE_ID = #{roleId}
+        </if>
+        <if test="resId != null">
+            AND a.RES_ID = #{resId}
+        </if>
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.system.entity.RoleRes">
+        SELECT
+        <include refid="roleResColumns"/>
+        FROM ROLE_RES a
+    </select>
+
+</mapper>
+

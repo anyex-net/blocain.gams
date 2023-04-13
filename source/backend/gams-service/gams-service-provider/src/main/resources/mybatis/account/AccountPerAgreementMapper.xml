@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.account.mapper.AccountPerAgreementMapper">
+    <!-- 基础列 -->
+    <sql id="accountPerAgreementColumns">
+        a.ID as id,
+        a.ACCOUNT_ID as accountId,
+        a.AGREEMENT_NUMBER as agreementNumber,
+        a.ACCOUNT_NAME as accountName,
+        a.SIGNATURE as signature,
+        a.SIGNATURE_TIME as signatureTime,
+        a.STATUS as status,
+        a.CREATED_BY as createdBy,
+        a.CREATED_DATE as createdDate,
+        a.UPDATED_BY as updatedBy,
+        a.UPDATED_DATE as updatedDate
+    </sql>
+
+    <resultMap id="accountPerAgreementResultMap" type="com.fintech.gams.account.entity.AccountPerAgreement">
+        <id column="ID" property="id" />
+        <result column="ACCOUNT_ID" property="accountId"/>
+        <result column="AGREEMENT_NUMBER" property="agreementNumber"/>
+        <result column="ACCOUNT_NAME" property="accountName"/>
+        <result column="SIGNATURE" property="signature"/>
+        <result column="SIGNATURE_TIME" property="signatureTime"/>
+        <result column="STATUS" property="status"/>
+        <result column="CREATED_BY" property="createdBy"/>
+        <result column="CREATED_DATE" property="createdDate"/>
+        <result column="UPDATED_BY" property="updatedBy"/>
+        <result column="UPDATED_DATE" property="updatedDate"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.account.entity.AccountPerAgreement">
+        INSERT INTO ACCOUNT_PER_AGREEMENT(
+            ID ,
+            ACCOUNT_ID ,
+            AGREEMENT_NUMBER ,
+            ACCOUNT_NAME ,
+            SIGNATURE ,
+            SIGNATURE_TIME ,
+            STATUS ,
+            CREATED_BY ,
+            CREATED_DATE ,
+            UPDATED_BY ,
+            UPDATED_DATE 
+        ) VALUES (
+            #{id} ,
+            #{accountId} ,
+            #{agreementNumber} ,
+            #{accountName} ,
+            #{signature} ,
+            #{signatureTime} ,
+            #{status} ,
+            #{createdBy} ,
+            #{createdDate} ,
+            #{updatedBy} ,
+            #{updatedDate} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM ACCOUNT_PER_AGREEMENT WHERE ID = #{id}
+    </delete>
+
+    <!-- 根据主键逻辑删除
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE ACCOUNT_PER_AGREEMENT SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+    -->
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.account.entity.AccountPerAgreement">
+        INSERT INTO ACCOUNT_PER_AGREEMENT
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="accountId != null">
+                ACCOUNT_ID ,
+        </if>
+        <if test="agreementNumber != null">
+                AGREEMENT_NUMBER ,
+        </if>
+        <if test="accountName != null">
+                ACCOUNT_NAME ,
+        </if>
+        <if test="signature != null">
+                SIGNATURE ,
+        </if>
+        <if test="signatureTime != null">
+                SIGNATURE_TIME ,
+        </if>
+        <if test="status != null">
+                STATUS ,
+        </if>
+        <if test="createdBy != null">
+                CREATED_BY ,
+        </if>
+        <if test="createdDate != null">
+                CREATED_DATE ,
+        </if>
+        <if test="updatedBy != null">
+                UPDATED_BY ,
+        </if>
+        <if test="updatedDate != null">
+                UPDATED_DATE 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="accountId != null">
+                #{accountId} ,
+        </if>
+        <if test="agreementNumber != null">
+                #{agreementNumber} ,
+        </if>
+        <if test="accountName != null">
+                #{accountName} ,
+        </if>
+        <if test="signature != null">
+                #{signature} ,
+        </if>
+        <if test="signatureTime != null">
+                #{signatureTime} ,
+        </if>
+        <if test="status != null">
+                #{status} ,
+        </if>
+        <if test="createdBy != null">
+                #{createdBy} ,
+        </if>
+        <if test="createdDate != null">
+                #{createdDate} ,
+        </if>
+        <if test="updatedBy != null">
+                #{updatedBy} ,
+        </if>
+        <if test="updatedDate != null">
+                #{updatedDate} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.account.entity.AccountPerAgreement">
+        UPDATE ACCOUNT_PER_AGREEMENT
+           <set>
+            <if test="accountId != null">
+                ACCOUNT_ID = #{accountId} ,
+            </if>
+            <if test="agreementNumber != null">
+                AGREEMENT_NUMBER = #{agreementNumber} ,
+            </if>
+            <if test="accountName != null">
+                ACCOUNT_NAME = #{accountName} ,
+            </if>
+            <if test="signature != null">
+                SIGNATURE = #{signature} ,
+            </if>
+            <if test="signatureTime != null">
+                SIGNATURE_TIME = #{signatureTime} ,
+            </if>
+            <if test="status != null">
+                STATUS = #{status} ,
+            </if>
+            <if test="createdBy != null">
+                CREATED_BY = #{createdBy} ,
+            </if>
+            <if test="createdDate != null">
+                CREATED_DATE = #{createdDate} ,
+            </if>
+            <if test="updatedBy != null">
+                UPDATED_BY = #{updatedBy} ,
+            </if>
+            <if test="updatedDate != null">
+                UPDATED_DATE = #{updatedDate} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO ACCOUNT_PER_AGREEMENT(
+            ID ,
+            ACCOUNT_ID ,
+            AGREEMENT_NUMBER ,
+            ACCOUNT_NAME ,
+            SIGNATURE ,
+            SIGNATURE_TIME ,
+            STATUS ,
+            CREATED_BY ,
+            CREATED_DATE ,
+            UPDATED_BY ,
+            UPDATED_DATE 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.accountId} ,
+            #{item.agreementNumber} ,
+            #{item.accountName} ,
+            #{item.signature} ,
+            #{item.signatureTime} ,
+            #{item.status} ,
+            #{item.createdBy} ,
+            #{item.createdDate} ,
+            #{item.updatedBy} ,
+            #{item.updatedDate} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE ACCOUNT_PER_AGREEMENT SET
+            ACCOUNT_ID = #{item.accountId} ,
+            AGREEMENT_NUMBER = #{item.agreementNumber} ,
+            ACCOUNT_NAME = #{item.accountName} ,
+            SIGNATURE = #{item.signature} ,
+            SIGNATURE_TIME = #{item.signatureTime} ,
+            STATUS = #{item.status} ,
+            CREATED_BY = #{item.createdBy} ,
+            CREATED_DATE = #{item.createdDate} ,
+            UPDATED_BY = #{item.updatedBy} ,
+            UPDATED_DATE = #{item.updatedDate} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.account.entity.AccountPerAgreement">
+        UPDATE ACCOUNT_PER_AGREEMENT SET
+            ACCOUNT_ID = #{accountId} ,
+            AGREEMENT_NUMBER = #{agreementNumber} ,
+            ACCOUNT_NAME = #{accountName} ,
+            SIGNATURE = #{signature} ,
+            SIGNATURE_TIME = #{signatureTime} ,
+            STATUS = #{status} ,
+            CREATED_BY = #{createdBy} ,
+            CREATED_DATE = #{createdDate} ,
+            UPDATED_BY = #{updatedBy} ,
+            UPDATED_DATE = #{updatedDate} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.account.entity.AccountPerAgreement">
+        SELECT <include refid="accountPerAgreementColumns"/> FROM ACCOUNT_PER_AGREEMENT a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.account.entity.AccountPerAgreement">
+        SELECT
+        <include refid="accountPerAgreementColumns"/>
+        FROM ACCOUNT_PER_AGREEMENT a WHERE 1 = 1 <!-- and a.DEL_FLAG = 0-->
+        <if test="accountId != null">
+            AND a.ACCOUNT_ID = #{accountId}
+        </if>
+        <if test="agreementNumber != null">
+            AND a.AGREEMENT_NUMBER LIKE '%'||#{agreementNumber}||'%'
+        </if>
+        <if test="accountName != null">
+            AND a.ACCOUNT_NAME LIKE '%'||#{accountName}||'%'
+        </if>
+        <if test="signature != null">
+            AND a.SIGNATURE LIKE '%'||#{signature}||'%'
+        </if>
+        <if test="signatureTime != null">
+            AND a.SIGNATURE_TIME = #{signatureTime}
+        </if>
+        <if test="status != null">
+            AND a.STATUS = #{status}
+        </if>
+        <if test="createdBy != null">
+            AND a.CREATED_BY = #{createdBy}
+        </if>
+        <if test="createdDate != null">
+            AND a.CREATED_DATE = #{createdDate}
+        </if>
+        <if test="updatedBy != null">
+            AND a.UPDATED_BY = #{updatedBy}
+        </if>
+        <if test="updatedDate != null">
+            AND a.UPDATED_DATE = #{updatedDate}
+        </if>
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.account.entity.AccountPerAgreement">
+        SELECT
+        <include refid="accountPerAgreementColumns"/>
+        FROM ACCOUNT_PER_AGREEMENT a <!--WHERE a.DEL_FLAG = 0-->
+    </select>
+
+
+</mapper>
+

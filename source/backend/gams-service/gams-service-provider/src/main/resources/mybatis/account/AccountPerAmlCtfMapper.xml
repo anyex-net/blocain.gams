@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.account.mapper.AccountPerAmlCtfMapper">
+    <!-- 基础列 -->
+    <sql id="accountPerAmlCtfColumns">
+        a.ID as id,
+        a.ACCOUNT_ID as accountId,
+        a.ISSUE as issue,
+        a.STATUS as status,
+        a.SUPPLEMENTARY_INFO as supplementaryInfo,
+        a.CREATED_BY as createdBy,
+        a.CREATED_DATE as createdDate,
+        a.UPDATED_BY as updatedBy,
+        a.UPDATED_DATE as updatedDate
+    </sql>
+
+    <resultMap id="accountPerAmlCtfResultMap" type="com.fintech.gams.account.entity.AccountPerAmlCtf">
+        <id column="ID" property="id" />
+        <result column="ACCOUNT_ID" property="accountId"/>
+        <result column="ISSUE" property="issue"/>
+        <result column="STATUS" property="status"/>
+        <result column="SUPPLEMENTARY_INFO" property="supplementaryInfo"/>
+        <result column="CREATED_BY" property="createdBy"/>
+        <result column="CREATED_DATE" property="createdDate"/>
+        <result column="UPDATED_BY" property="updatedBy"/>
+        <result column="UPDATED_DATE" property="updatedDate"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.account.entity.AccountPerAmlCtf">
+        INSERT INTO ACCOUNT_PER_AML_CTF(
+            ID ,
+            ACCOUNT_ID ,
+            ISSUE ,
+            STATUS ,
+            SUPPLEMENTARY_INFO ,
+            CREATED_BY ,
+            CREATED_DATE ,
+            UPDATED_BY ,
+            UPDATED_DATE 
+        ) VALUES (
+            #{id} ,
+            #{accountId} ,
+            #{issue} ,
+            #{status} ,
+            #{supplementaryInfo} ,
+            #{createdBy} ,
+            #{createdDate} ,
+            #{updatedBy} ,
+            #{updatedDate} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM ACCOUNT_PER_AML_CTF WHERE ID = #{id}
+    </delete>
+
+    <!-- 根据主键逻辑删除
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE ACCOUNT_PER_AML_CTF SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+    -->
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.account.entity.AccountPerAmlCtf">
+        INSERT INTO ACCOUNT_PER_AML_CTF
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="accountId != null">
+                ACCOUNT_ID ,
+        </if>
+        <if test="issue != null">
+                ISSUE ,
+        </if>
+        <if test="status != null">
+                STATUS ,
+        </if>
+        <if test="supplementaryInfo != null">
+                SUPPLEMENTARY_INFO ,
+        </if>
+        <if test="createdBy != null">
+                CREATED_BY ,
+        </if>
+        <if test="createdDate != null">
+                CREATED_DATE ,
+        </if>
+        <if test="updatedBy != null">
+                UPDATED_BY ,
+        </if>
+        <if test="updatedDate != null">
+                UPDATED_DATE 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="accountId != null">
+                #{accountId} ,
+        </if>
+        <if test="issue != null">
+                #{issue} ,
+        </if>
+        <if test="status != null">
+                #{status} ,
+        </if>
+        <if test="supplementaryInfo != null">
+                #{supplementaryInfo} ,
+        </if>
+        <if test="createdBy != null">
+                #{createdBy} ,
+        </if>
+        <if test="createdDate != null">
+                #{createdDate} ,
+        </if>
+        <if test="updatedBy != null">
+                #{updatedBy} ,
+        </if>
+        <if test="updatedDate != null">
+                #{updatedDate} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.account.entity.AccountPerAmlCtf">
+        UPDATE ACCOUNT_PER_AML_CTF
+           <set>
+            <if test="accountId != null">
+                ACCOUNT_ID = #{accountId} ,
+            </if>
+            <if test="issue != null">
+                ISSUE = #{issue} ,
+            </if>
+            <if test="status != null">
+                STATUS = #{status} ,
+            </if>
+            <if test="supplementaryInfo != null">
+                SUPPLEMENTARY_INFO = #{supplementaryInfo} ,
+            </if>
+            <if test="createdBy != null">
+                CREATED_BY = #{createdBy} ,
+            </if>
+            <if test="createdDate != null">
+                CREATED_DATE = #{createdDate} ,
+            </if>
+            <if test="updatedBy != null">
+                UPDATED_BY = #{updatedBy} ,
+            </if>
+            <if test="updatedDate != null">
+                UPDATED_DATE = #{updatedDate} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO ACCOUNT_PER_AML_CTF(
+            ID ,
+            ACCOUNT_ID ,
+            ISSUE ,
+            STATUS ,
+            SUPPLEMENTARY_INFO ,
+            CREATED_BY ,
+            CREATED_DATE ,
+            UPDATED_BY ,
+            UPDATED_DATE 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.accountId} ,
+            #{item.issue} ,
+            #{item.status} ,
+            #{item.supplementaryInfo} ,
+            #{item.createdBy} ,
+            #{item.createdDate} ,
+            #{item.updatedBy} ,
+            #{item.updatedDate} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE ACCOUNT_PER_AML_CTF SET
+            ACCOUNT_ID = #{item.accountId} ,
+            ISSUE = #{item.issue} ,
+            STATUS = #{item.status} ,
+            SUPPLEMENTARY_INFO = #{item.supplementaryInfo} ,
+            CREATED_BY = #{item.createdBy} ,
+            CREATED_DATE = #{item.createdDate} ,
+            UPDATED_BY = #{item.updatedBy} ,
+            UPDATED_DATE = #{item.updatedDate} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.account.entity.AccountPerAmlCtf">
+        UPDATE ACCOUNT_PER_AML_CTF SET
+            ACCOUNT_ID = #{accountId} ,
+            ISSUE = #{issue} ,
+            STATUS = #{status} ,
+            SUPPLEMENTARY_INFO = #{supplementaryInfo} ,
+            CREATED_BY = #{createdBy} ,
+            CREATED_DATE = #{createdDate} ,
+            UPDATED_BY = #{updatedBy} ,
+            UPDATED_DATE = #{updatedDate} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.account.entity.AccountPerAmlCtf">
+        SELECT <include refid="accountPerAmlCtfColumns"/> FROM ACCOUNT_PER_AML_CTF a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.account.entity.AccountPerAmlCtf">
+        SELECT
+        <include refid="accountPerAmlCtfColumns"/>
+        FROM ACCOUNT_PER_AML_CTF a WHERE 1 = 1 <!-- and a.DEL_FLAG = 0-->
+        <if test="accountId != null">
+            AND a.ACCOUNT_ID = #{accountId}
+        </if>
+        <if test="issue != null">
+            AND a.ISSUE LIKE '%'||#{issue}||'%'
+        </if>
+        <if test="status != null">
+            AND a.STATUS = #{status}
+        </if>
+        <if test="supplementaryInfo != null">
+            AND a.SUPPLEMENTARY_INFO LIKE '%'||#{supplementaryInfo}||'%'
+        </if>
+        <if test="createdBy != null">
+            AND a.CREATED_BY = #{createdBy}
+        </if>
+        <if test="createdDate != null">
+            AND a.CREATED_DATE = #{createdDate}
+        </if>
+        <if test="updatedBy != null">
+            AND a.UPDATED_BY = #{updatedBy}
+        </if>
+        <if test="updatedDate != null">
+            AND a.UPDATED_DATE = #{updatedDate}
+        </if>
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.account.entity.AccountPerAmlCtf">
+        SELECT
+        <include refid="accountPerAmlCtfColumns"/>
+        FROM ACCOUNT_PER_AML_CTF a <!--WHERE a.DEL_FLAG = 0-->
+    </select>
+
+
+</mapper>
+

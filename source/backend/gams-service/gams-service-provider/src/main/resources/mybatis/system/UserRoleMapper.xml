@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.system.mapper.UserRoleMapper">
+    <!-- 基础列 -->
+    <sql id="userRoleColumns">
+        a.ID as id,
+        a.ROLE_ID as roleId,
+        a.USER_ID as userId
+    </sql>
+
+    <resultMap id="userRoleResultMap" type="com.fintech.gams.system.entity.UserRole">
+        <id column="ID" property="id" />
+        <result column="ROLE_ID" property="roleId"/>
+        <result column="USER_ID" property="userId"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.system.entity.UserRole">
+        INSERT INTO USER_ROLE(
+            ID ,
+            ROLE_ID ,
+            USER_ID 
+        ) VALUES (
+            #{id} ,
+            #{roleId} ,
+            #{userId} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM USER_ROLE WHERE ID = #{id}
+    </delete>
+
+    <delete id="removeByUser">
+        delete from USER_ROLE where USER_ID = #{userId}
+    </delete>
+
+    <!-- 根据主键逻辑删除 -->
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE USER_ROLE SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.system.entity.UserRole">
+        INSERT INTO USER_ROLE
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="roleId != null">
+                ROLE_ID ,
+        </if>
+        <if test="userId != null">
+                USER_ID 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="roleId != null">
+                #{roleId} ,
+        </if>
+        <if test="userId != null">
+                #{userId} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.system.entity.UserRole">
+        UPDATE USER_ROLE
+           <set>
+            <if test="roleId != null">
+                ROLE_ID = #{roleId} ,
+            </if>
+            <if test="userId != null">
+                USER_ID = #{userId} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO USER_ROLE(
+            ID ,
+            ROLE_ID ,
+            USER_ID 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.roleId} ,
+            #{item.userId} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE USER_ROLE SET
+            ROLE_ID = #{item.roleId} ,
+            USER_ID = #{item.userId} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.system.entity.UserRole">
+        UPDATE USER_ROLE SET
+            ROLE_ID = #{roleId} ,
+            USER_ID = #{userId} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.system.entity.UserRole">
+        SELECT <include refid="userRoleColumns"/> FROM USER_ROLE a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.system.entity.UserRole">
+        SELECT
+        <include refid="userRoleColumns"/>
+        FROM USER_ROLE a WHERE 1 = 1
+        <if test="roleId != null">
+            AND a.ROLE_ID = #{roleId}
+        </if>
+        <if test="userId != null">
+            AND a.USER_ID = #{userId}
+        </if>
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.system.entity.UserRole">
+        SELECT
+        <include refid="userRoleColumns"/>
+        FROM USER_ROLE a
+    </select>
+
+</mapper>
+

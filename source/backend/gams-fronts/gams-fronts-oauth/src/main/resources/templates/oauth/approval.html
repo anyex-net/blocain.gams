@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Global Asset Management Services|MOF</title>
+    <link rel="icon" th:href="@{/images/favicon.ico}" />
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/index.css}" />
+</head>
+<body>
+<div class="app-header">
+    <a class="link-index">
+        <img src="/images/logo.png" class="logo">
+    </a>
+    <div class="tab-wrapper">
+        <a class="register link-register">Open Account</a>
+        <span class="divide">|</span>
+        <a class="return link-index">Home</a>
+    </div>
+</div>
+<div class="app-container">
+    <div class="app-content">
+        <div class="left-wrapper">
+            <img src="/images/title_border.png" class="title-border">
+            <div class="left-txt">MOF Securities</div>
+            <div class="left-button">Realize your dream of wealth</div>
+        </div>
+        <div class="right-wrapper">
+            <div class="login-title">Authorization</div>
+            <form th:action="@{/oauth/authorize}" method="post">
+                <input type="hidden" name="client_id" th:value="${param.client_id}"/>
+                <input type="hidden" name="scope" th:value="${param.scope}"/>
+                <input type="hidden" name="response_type" th:value="${param.response_type}"/>
+                <input type="hidden" name="redirect_uri" th:value="${param.redirect_uri}"/>
+                <input type="hidden" name="state" th:value="${param.state}"/>
+                <input type="hidden" name="client_secret" th:value="${param.client_secret}"/>
+                <input name='user_oauth_approval' value='true' type='hidden'/>
+                <label><input value='authorize' type='submit' class="btn-approval btn-primary"/></label>
+            </form>
+            <form th:action="@{/oauth/authorize}" method="post">
+                <input type="hidden" name="client_id" th:value="${param.client_id}"/>
+                <input type="hidden" name="scope" th:value="${param.scope}"/>
+                <input type="hidden" name="response_type" th:value="${param.response_type}"/>
+                <input type="hidden" name="redirect_uri" th:value="${param.redirect_uri}"/>
+                <input type="hidden" name="state" th:value="${param.state}"/>
+                <input type="hidden" name="client_secret" th:value="${param.client_secret}"/>
+                <input name='user_oauth_approval' value='false' type='hidden'/>
+                <label><input value='deny' type='submit' class="btn-deny btn-warning"/></label>
+            </form>
+        </div>
+    </div>
+    <div class="app-footer">
+        <div class="app-introduce">
+            Copyright © 2017-2019 MOF Securities Co Ltd. All rights reserved.
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    $(function(){
+        $(".link-index").each(function () {
+            $(this).attr("href", "http://" + window.location.hostname.replace('auth', 'www'));
+        });
+        $(".link-register").each(function () {
+            $(this).attr("href", "http://" + window.location.hostname.replace('auth', 'www') + "/register");
+        });
+
+        $(".app-container").height(window.innerHeight - 58 + 'px');
+    });
+</script>
+</html>

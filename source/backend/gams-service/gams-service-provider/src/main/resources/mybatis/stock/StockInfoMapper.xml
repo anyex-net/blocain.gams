@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.stock.mapper.StockInfoMapper">
+    <!-- 基础列 -->
+    <sql id="stockInfoColumns">
+        a.ID as id,
+        a.STOCK_CODE as stockCode,
+        a.STOCK_SYMBOL as stockSymbol,
+        a.STOCK_ISIN as stockIsin,
+        a.STOCK_SPELL_ABBR as stockSpellAbbr,
+        a.STOCK_NAME_EN as stockNameEn,
+        a.STOCK_NAME_CN as stockNameCn,
+        a.STOCK_TYPE as stockType,
+        a.ASSET_TYPE as assetType,
+        a.EXCHANGE_ID as exchangeId,
+        a.BASE_CURRENCY as baseCurrency,
+        a.COMPANY_CODE as companyCode,
+        a.COMPANY_NAME as companyName,
+        a.OFFER_DATE as offerDate,
+        a.LIST_DATE as listDate,
+        a.CANCEL_DATE as cancelDate,
+        a.LAST_PRICE as lastPrice,
+        a.IS_OPENTRADE as isOpentrade,
+        a.IB_SYMBOL as ibSymbol,
+        a.CREATE_BY as createBy,
+        a.CREATE_DATE as createDate,
+        a.UPDATE_BY as updateBy,
+        a.UPDATE_DATE as updateDate
+    </sql>
+
+    <!-- 关联查询列 -->
+    <sql id="stockInfoJoinColumns">
+        a.ID AS id,
+        a.STOCK_CODE ,
+        a.STOCK_SYMBOL ,
+        a.STOCK_ISIN ,
+        a.STOCK_SPELL_ABBR ,
+        a.STOCK_NAME_EN ,
+        a.STOCK_NAME_CN ,
+        a.STOCK_TYPE ,
+        a.ASSET_TYPE ,
+        a.EXCHANGE_ID ,
+        a.BASE_CURRENCY ,
+        a.COMPANY_CODE ,
+        a.COMPANY_NAME ,
+        a.OFFER_DATE ,
+        a.LIST_DATE ,
+        a.CANCEL_DATE ,
+        a.LAST_PRICE ,
+        a.IS_OPENTRADE ,
+        a.IB_SYMBOL ,
+        a.CREATE_BY ,
+        a.CREATE_DATE ,
+        a.UPDATE_BY ,
+        a.UPDATE_DATE ,
+        b.ID AS E_ID,
+        b.EXCHANGE_CODE,
+        b.EXCHANGE_NAME,
+        c.ID AS C_ID,
+        c.USER_NAME AS C_USER_NAME,
+        c.TRUE_NAME AS C_TRUE_NAME,
+        d.ID AS U_ID,
+        d.USER_NAME AS U_USER_NAME,
+        d.TRUE_NAME AS U_TRUE_NAME
+    </sql>
+
+    <resultMap id="stockInfoResultMap" type="com.fintech.gams.stock.entity.StockInfo">
+        <id column="ID" property="id" />
+        <result column="STOCK_CODE" property="stockCode"/>
+        <result column="STOCK_SYMBOL" property="stockSymbol"/>
+        <result column="STOCK_ISIN" property="stockIsin"/>
+        <result column="STOCK_SPELL_ABBR" property="stockSpellAbbr"/>
+        <result column="STOCK_NAME_EN" property="stockNameEn"/>
+        <result column="STOCK_NAME_CN" property="stockNameCn"/>
+        <result column="STOCK_TYPE" property="stockType"/>
+        <result column="ASSET_TYPE" property="assetType"/>
+        <result column="EXCHANGE_ID" property="exchangeId"/>
+        <result column="BASE_CURRENCY" property="baseCurrency"/>
+        <result column="COMPANY_CODE" property="companyCode"/>
+        <result column="COMPANY_NAME" property="companyName"/>
+        <result column="OFFER_DATE" property="offerDate"/>
+        <result column="LIST_DATE" property="listDate"/>
+        <result column="CANCEL_DATE" property="cancelDate"/>
+        <result column="LAST_PRICE" property="lastPrice"/>
+        <result column="IS_OPENTRADE" property="isOpentrade"/>
+        <result column="IB_SYMBOL" property="ibSymbol"/>
+        <result column="CREATE_BY" property="createBy"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="UPDATE_BY" property="updateBy"/>
+        <result column="UPDATE_DATE" property="updateDate"/>
+        <association property="stockExchange" javaType="com.fintech.gams.stock.entity.StockExchange">
+            <id column="E_ID" property="id" />
+            <result column="EXCHANGE_CODE" property="exchangeCode"/>
+            <result column="EXCHANGE_NAME" property="exchangeName"/>
+        </association>
+        <association property="createUser" javaType="com.fintech.gams.system.entity.UserInfo">
+            <id column="C_ID" property="id" />
+            <result column="C_USER_NAME" property="userName"/>
+            <result column="C_TRUE_NAME" property="trueName"/>
+        </association>
+        <association property="updateUser" javaType="com.fintech.gams.system.entity.UserInfo">
+            <id column="U_ID" property="id" />
+            <result column="U_USER_NAME" property="userName"/>
+            <result column="U_TRUE_NAME" property="trueName"/>
+        </association>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.stock.entity.StockInfo">
+        INSERT INTO STOCK_INFO(
+            ID ,
+            STOCK_CODE ,
+            STOCK_SYMBOL ,
+            STOCK_ISIN ,
+            STOCK_SPELL_ABBR ,
+            STOCK_NAME_EN ,
+            STOCK_NAME_CN ,
+            STOCK_TYPE ,
+            ASSET_TYPE ,
+            EXCHANGE_ID ,
+            BASE_CURRENCY ,
+            COMPANY_CODE ,
+            COMPANY_NAME ,
+            OFFER_DATE ,
+            LIST_DATE ,
+            CANCEL_DATE ,
+            LAST_PRICE ,
+            IS_OPENTRADE ,
+            IB_SYMBOL ,
+            CREATE_BY ,
+            CREATE_DATE ,
+            UPDATE_BY ,
+            UPDATE_DATE 
+        ) VALUES (
+            #{id} ,
+            #{stockCode} ,
+            #{stockSymbol} ,
+            #{stockIsin} ,
+            #{stockSpellAbbr} ,
+            #{stockNameEn} ,
+            #{stockNameCn} ,
+            #{stockType} ,
+            #{assetType} ,
+            #{exchangeId} ,
+            #{baseCurrency} ,
+            #{companyCode} ,
+            #{companyName} ,
+            #{offerDate} ,
+            #{listDate} ,
+            #{cancelDate} ,
+            #{lastPrice} ,
+            #{isOpentrade} ,
+            #{ibSymbol} ,
+            #{createBy} ,
+            #{createDate} ,
+            #{updateBy} ,
+            #{updateDate} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM STOCK_INFO WHERE ID = #{id}
+    </delete>
+
+    <!-- 根据主键逻辑删除
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE STOCK_INFO SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+    -->
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.stock.entity.StockInfo">
+        INSERT INTO STOCK_INFO
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="stockCode != null">
+                STOCK_CODE ,
+        </if>
+        <if test="stockSymbol != null">
+                STOCK_SYMBOL ,
+        </if>
+        <if test="stockIsin != null">
+                STOCK_ISIN ,
+        </if>
+        <if test="stockSpellAbbr != null">
+                STOCK_SPELL_ABBR ,
+        </if>
+        <if test="stockNameEn != null">
+                STOCK_NAME_EN ,
+        </if>
+        <if test="stockNameCn != null">
+                STOCK_NAME_CN ,
+        </if>
+        <if test="stockType != null">
+                STOCK_TYPE ,
+        </if>
+        <if test="assetType != null">
+                ASSET_TYPE ,
+        </if>
+        <if test="exchangeId != null">
+                EXCHANGE_ID ,
+        </if>
+        <if test="baseCurrency != null">
+                BASE_CURRENCY ,
+        </if>
+        <if test="companyCode != null">
+                COMPANY_CODE ,
+        </if>
+        <if test="companyName != null">
+                COMPANY_NAME ,
+        </if>
+        <if test="offerDate != null">
+                OFFER_DATE ,
+        </if>
+        <if test="listDate != null">
+                LIST_DATE ,
+        </if>
+        <if test="cancelDate != null">
+                CANCEL_DATE ,
+        </if>
+        <if test="lastPrice != null">
+                LAST_PRICE ,
+        </if>
+        <if test="isOpentrade != null">
+                IS_OPENTRADE ,
+        </if>
+        <if test="ibSymbol != null">
+                IB_SYMBOL ,
+        </if>
+        <if test="createBy != null">
+                CREATE_BY ,
+        </if>
+        <if test="createDate != null">
+                CREATE_DATE ,
+        </if>
+        <if test="updateBy != null">
+                UPDATE_BY ,
+        </if>
+        <if test="updateDate != null">
+                UPDATE_DATE 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="stockCode != null">
+                #{stockCode} ,
+        </if>
+        <if test="stockSymbol != null">
+                #{stockSymbol} ,
+        </if>
+        <if test="stockIsin != null">
+                #{stockIsin} ,
+        </if>
+        <if test="stockSpellAbbr != null">
+                #{stockSpellAbbr} ,
+        </if>
+        <if test="stockNameEn != null">
+                #{stockNameEn} ,
+        </if>
+        <if test="stockNameCn != null">
+                #{stockNameCn} ,
+        </if>
+        <if test="stockType != null">
+                #{stockType} ,
+        </if>
+        <if test="assetType != null">
+                #{assetType} ,
+        </if>
+        <if test="exchangeId != null">
+                #{exchangeId} ,
+        </if>
+        <if test="baseCurrency != null">
+                #{baseCurrency} ,
+        </if>
+        <if test="companyCode != null">
+                #{companyCode} ,
+        </if>
+        <if test="companyName != null">
+                #{companyName} ,
+        </if>
+        <if test="offerDate != null">
+                #{offerDate} ,
+        </if>
+        <if test="listDate != null">
+                #{listDate} ,
+        </if>
+        <if test="cancelDate != null">
+                #{cancelDate} ,
+        </if>
+        <if test="lastPrice != null">
+                #{lastPrice} ,
+        </if>
+        <if test="isOpentrade != null">
+                #{isOpentrade} ,
+        </if>
+        <if test="ibSymbol != null">
+                #{ibSymbol} ,
+        </if>
+        <if test="createBy != null">
+                #{createBy} ,
+        </if>
+        <if test="createDate != null">
+                #{createDate} ,
+        </if>
+        <if test="updateBy != null">
+                #{updateBy} ,
+        </if>
+        <if test="updateDate != null">
+                #{updateDate} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.stock.entity.StockInfo">
+        UPDATE STOCK_INFO
+           <set>
+            <if test="stockCode != null">
+                STOCK_CODE = #{stockCode} ,
+            </if>
+            <if test="stockSymbol != null">
+                STOCK_SYMBOL = #{stockSymbol} ,
+            </if>
+            <if test="stockIsin != null">
+                STOCK_ISIN = #{stockIsin} ,
+            </if>
+            <if test="stockSpellAbbr != null">
+                STOCK_SPELL_ABBR = #{stockSpellAbbr} ,
+            </if>
+            <if test="stockNameEn != null">
+                STOCK_NAME_EN = #{stockNameEn} ,
+            </if>
+            <if test="stockNameCn != null">
+                STOCK_NAME_CN = #{stockNameCn} ,
+            </if>
+            <if test="stockType != null">
+                STOCK_TYPE = #{stockType} ,
+            </if>
+            <if test="assetType != null">
+                ASSET_TYPE = #{assetType} ,
+            </if>
+            <if test="exchangeId != null">
+                EXCHANGE_ID = #{exchangeId} ,
+            </if>
+            <if test="baseCurrency != null">
+                BASE_CURRENCY = #{baseCurrency} ,
+            </if>
+            <if test="companyCode != null">
+                COMPANY_CODE = #{companyCode} ,
+            </if>
+            <if test="companyName != null">
+                COMPANY_NAME = #{companyName} ,
+            </if>
+            <if test="offerDate != null">
+                OFFER_DATE = #{offerDate} ,
+            </if>
+            <if test="listDate != null">
+                LIST_DATE = #{listDate} ,
+            </if>
+            <if test="cancelDate != null">
+                CANCEL_DATE = #{cancelDate} ,
+            </if>
+            <if test="lastPrice != null">
+                LAST_PRICE = #{lastPrice} ,
+            </if>
+            <if test="isOpentrade != null">
+                IS_OPENTRADE = #{isOpentrade} ,
+            </if>
+            <if test="ibSymbol != null">
+                IB_SYMBOL = #{ibSymbol} ,
+            </if>
+            <if test="createBy != null">
+                CREATE_BY = #{createBy} ,
+            </if>
+            <if test="createDate != null">
+                CREATE_DATE = #{createDate} ,
+            </if>
+            <if test="updateBy != null">
+                UPDATE_BY = #{updateBy} ,
+            </if>
+            <if test="updateDate != null">
+                UPDATE_DATE = #{updateDate} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO STOCK_INFO(
+            ID ,
+            STOCK_CODE ,
+            STOCK_SYMBOL ,
+            STOCK_ISIN ,
+            STOCK_SPELL_ABBR ,
+            STOCK_NAME_EN ,
+            STOCK_NAME_CN ,
+            STOCK_TYPE ,
+            ASSET_TYPE ,
+            EXCHANGE_ID ,
+            BASE_CURRENCY ,
+            COMPANY_CODE ,
+            COMPANY_NAME ,
+            OFFER_DATE ,
+            LIST_DATE ,
+            CANCEL_DATE ,
+            LAST_PRICE ,
+            IS_OPENTRADE ,
+            IB_SYMBOL ,
+            CREATE_BY ,
+            CREATE_DATE ,
+            UPDATE_BY ,
+            UPDATE_DATE 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.stockCode} ,
+            #{item.stockSymbol} ,
+            #{item.stockIsin} ,
+            #{item.stockSpellAbbr} ,
+            #{item.stockNameEn} ,
+            #{item.stockNameCn} ,
+            #{item.stockType} ,
+            #{item.assetType} ,
+            #{item.exchangeId} ,
+            #{item.baseCurrency} ,
+            #{item.companyCode} ,
+            #{item.companyName} ,
+            #{item.offerDate} ,
+            #{item.listDate} ,
+            #{item.cancelDate} ,
+            #{item.lastPrice} ,
+            #{item.isOpentrade} ,
+            #{item.ibSymbol} ,
+            #{item.createBy} ,
+            #{item.createDate} ,
+            #{item.updateBy} ,
+            #{item.updateDate} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE STOCK_INFO SET
+            STOCK_CODE = #{item.stockCode} ,
+            STOCK_SYMBOL = #{item.stockSymbol} ,
+            STOCK_ISIN = #{item.stockIsin} ,
+            STOCK_SPELL_ABBR = #{item.stockSpellAbbr} ,
+            STOCK_NAME_EN = #{item.stockNameEn} ,
+            STOCK_NAME_CN = #{item.stockNameCn} ,
+            STOCK_TYPE = #{item.stockType} ,
+            ASSET_TYPE = #{item.assetType} ,
+            EXCHANGE_ID = #{item.exchangeId} ,
+            BASE_CURRENCY = #{item.baseCurrency} ,
+            COMPANY_CODE = #{item.companyCode} ,
+            COMPANY_NAME = #{item.companyName} ,
+            OFFER_DATE = #{item.offerDate} ,
+            LIST_DATE = #{item.listDate} ,
+            CANCEL_DATE = #{item.cancelDate} ,
+            LAST_PRICE = #{item.lastPrice} ,
+            IS_OPENTRADE = #{item.isOpentrade} ,
+            IB_SYMBOL = #{item.ibSymbol} ,
+            CREATE_BY = #{item.createBy} ,
+            CREATE_DATE = #{item.createDate} ,
+            UPDATE_BY = #{item.updateBy} ,
+            UPDATE_DATE = #{item.updateDate} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.stock.entity.StockInfo">
+        UPDATE STOCK_INFO SET
+            STOCK_CODE = #{stockCode} ,
+            STOCK_SYMBOL = #{stockSymbol} ,
+            STOCK_ISIN = #{stockIsin} ,
+            STOCK_SPELL_ABBR = #{stockSpellAbbr} ,
+            STOCK_NAME_EN = #{stockNameEn} ,
+            STOCK_NAME_CN = #{stockNameCn} ,
+            STOCK_TYPE = #{stockType} ,
+            ASSET_TYPE = #{assetType} ,
+            EXCHANGE_ID = #{exchangeId} ,
+            BASE_CURRENCY = #{baseCurrency} ,
+            COMPANY_CODE = #{companyCode} ,
+            COMPANY_NAME = #{companyName} ,
+            OFFER_DATE = #{offerDate} ,
+            LIST_DATE = #{listDate} ,
+            CANCEL_DATE = #{cancelDate} ,
+            LAST_PRICE = #{lastPrice} ,
+            IS_OPENTRADE = #{isOpentrade} ,
+            IB_SYMBOL = #{ibSymbol} ,
+            CREATE_BY = #{createBy} ,
+            CREATE_DATE = #{createDate} ,
+            UPDATE_BY = #{updateBy} ,
+            UPDATE_DATE = #{updateDate} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.stock.entity.StockInfo">
+        SELECT <include refid="stockInfoColumns"/> FROM STOCK_INFO a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultMap="stockInfoResultMap">
+        SELECT
+        <include refid="stockInfoJoinColumns"/>
+        FROM STOCK_INFO a
+        INNER JOIN STOCK_EXCHANGE b ON a.EXCHANGE_ID = b.ID
+        LEFT JOIN USER_INFO c ON a.UPDATE_BY = c.ID
+        LEFT JOIN USER_INFO d ON a.UPDATE_BY = d.ID
+        WHERE 1 = 1
+        <if test="exchangeName != null">
+            AND b.EXCHANGE_NAME LIKE '%'||#{exchangeName}||'%'
+        </if>
+        <if test="stockCode != null">
+            AND a.STOCK_CODE = #{stockCode} 
+        </if>
+        <if test="stockSymbol != null">
+            AND a.STOCK_SYMBOL = #{stockSymbol} 
+        </if>
+        <if test="stockNameEn != null">
+            AND a.STOCK_NAME_EN = #{stockNameEn} 
+        </if>
+        <if test="stockNameCn != null">
+            AND a.STOCK_NAME_CN = #{stockNameCn} 
+        </if>
+        <if test="stockType != null">
+            AND a.STOCK_TYPE = #{stockType} 
+        </if>
+        <if test="assetType != null">
+            AND a.ASSET_TYPE = #{assetType} 
+        </if>
+        <if test="baseCurrency != null">
+            AND a.BASE_CURRENCY = #{baseCurrency} 
+        </if>
+        <if test="companyCode != null">
+            AND a.COMPANY_CODE = #{companyCode} 
+        </if>
+        <if test="companyName != null">
+            AND a.COMPANY_NAME = #{companyName} 
+        </if>
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.stock.entity.StockInfo">
+        SELECT
+        <include refid="stockInfoColumns"/>
+        FROM STOCK_INFO a <!--WHERE a.DEL_FLAG = 0-->
+    </select>
+
+    <select id="findByStockInfoCode" resultType="com.fintech.gams.stock.entity.StockInfo">
+        SELECT
+        <include refid="stockInfoColumns"/>
+        FROM STOCK_INFO a where a.STOCK_CODE = #{stockCode}
+    </select>
+
+
+</mapper>
+

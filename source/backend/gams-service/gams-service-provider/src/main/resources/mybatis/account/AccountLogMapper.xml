@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.account.mapper.AccountLogMapper">
+    <!-- 基础列 -->
+    <sql id="accountLogColumns">
+        a.ID as id,
+        a.ACCOUNT_ID as accountId,
+        a.ACCOUNT_NAME as accountName,
+        a.IP_ADDR as ipAddr,
+        a.URL as url,
+        a.CONTENT as content,
+        a.RUN_TIME as runTime,
+        a.CREATE_DATE as createDate
+    </sql>
+
+    <resultMap id="accountLogResultMap" type="com.fintech.gams.account.entity.AccountLog">
+        <id column="ID" property="id" />
+        <result column="ACCOUNT_ID" property="accountId"/>
+        <result column="ACCOUNT_NAME" property="accountName"/>
+        <result column="IP_ADDR" property="ipAddr"/>
+        <result column="URL" property="url"/>
+        <result column="CONTENT" property="content"/>
+        <result column="RUN_TIME" property="runTime"/>
+        <result column="CREATE_DATE" property="createDate"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.account.entity.AccountLog">
+        INSERT INTO ACCOUNT_LOG(
+            ID ,
+            ACCOUNT_ID ,
+            ACCOUNT_NAME ,
+            IP_ADDR ,
+            URL ,
+            CONTENT ,
+            RUN_TIME ,
+            CREATE_DATE 
+        ) VALUES (
+            #{id} ,
+            #{accountId} ,
+            #{accountName} ,
+            #{ipAddr} ,
+            #{url} ,
+            #{content} ,
+            #{runTime} ,
+            #{createDate} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM ACCOUNT_LOG WHERE ID = #{id}
+    </delete>
+
+    <!-- 根据主键逻辑删除
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE ACCOUNT_LOG SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+    -->
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.account.entity.AccountLog">
+        INSERT INTO ACCOUNT_LOG
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="accountId != null">
+                ACCOUNT_ID ,
+        </if>
+        <if test="accountName != null">
+                ACCOUNT_NAME ,
+        </if>
+        <if test="ipAddr != null">
+                IP_ADDR ,
+        </if>
+        <if test="url != null">
+                URL ,
+        </if>
+        <if test="content != null">
+                CONTENT ,
+        </if>
+        <if test="runTime != null">
+                RUN_TIME ,
+        </if>
+        <if test="createDate != null">
+                CREATE_DATE 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="accountId != null">
+                #{accountId} ,
+        </if>
+        <if test="accountName != null">
+                #{accountName} ,
+        </if>
+        <if test="ipAddr != null">
+                #{ipAddr} ,
+        </if>
+        <if test="url != null">
+                #{url} ,
+        </if>
+        <if test="content != null">
+                #{content} ,
+        </if>
+        <if test="runTime != null">
+                #{runTime} ,
+        </if>
+        <if test="createDate != null">
+                #{createDate} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.account.entity.AccountLog">
+        UPDATE ACCOUNT_LOG
+           <set>
+            <if test="accountId != null">
+                ACCOUNT_ID = #{accountId} ,
+            </if>
+            <if test="accountName != null">
+                ACCOUNT_NAME = #{accountName} ,
+            </if>
+            <if test="ipAddr != null">
+                IP_ADDR = #{ipAddr} ,
+            </if>
+            <if test="url != null">
+                URL = #{url} ,
+            </if>
+            <if test="content != null">
+                CONTENT = #{content} ,
+            </if>
+            <if test="runTime != null">
+                RUN_TIME = #{runTime} ,
+            </if>
+            <if test="createDate != null">
+                CREATE_DATE = #{createDate} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO ACCOUNT_LOG(
+            ID ,
+            ACCOUNT_ID ,
+            ACCOUNT_NAME ,
+            IP_ADDR ,
+            URL ,
+            CONTENT ,
+            RUN_TIME ,
+            CREATE_DATE 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.accountId} ,
+            #{item.accountName} ,
+            #{item.ipAddr} ,
+            #{item.url} ,
+            #{item.content} ,
+            #{item.runTime} ,
+            #{item.createDate} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE ACCOUNT_LOG SET
+            ACCOUNT_ID = #{item.accountId} ,
+            ACCOUNT_NAME = #{item.accountName} ,
+            IP_ADDR = #{item.ipAddr} ,
+            URL = #{item.url} ,
+            CONTENT = #{item.content} ,
+            RUN_TIME = #{item.runTime} ,
+            CREATE_DATE = #{item.createDate} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.account.entity.AccountLog">
+        UPDATE ACCOUNT_LOG SET
+            ACCOUNT_ID = #{accountId} ,
+            ACCOUNT_NAME = #{accountName} ,
+            IP_ADDR = #{ipAddr} ,
+            URL = #{url} ,
+            CONTENT = #{content} ,
+            RUN_TIME = #{runTime} ,
+            CREATE_DATE = #{createDate} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.account.entity.AccountLog">
+        SELECT <include refid="accountLogColumns"/> FROM ACCOUNT_LOG a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.account.entity.AccountLog">
+        SELECT
+        <include refid="accountLogColumns"/>
+        FROM ACCOUNT_LOG a WHERE 1 = 1 <!-- and a.DEL_FLAG = 0-->
+        <if test="accountId != null">
+            AND a.ACCOUNT_ID = #{accountId}
+        </if>
+        <if test="accountName != null">
+            AND a.ACCOUNT_NAME LIKE '%'||#{accountName}||'%'
+        </if>
+        <if test="ipAddr != null">
+            AND a.IP_ADDR = #{ipAddr}
+        </if>
+        <if test="url != null">
+            AND a.URL LIKE '%'||#{url}||'%'
+        </if>
+        <if test="runTime != null">
+            AND a.RUN_TIME = #{runTime}
+        </if>
+        ORDER BY a.CREATE_DATE DESC
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.account.entity.AccountLog">
+        SELECT
+        <include refid="accountLogColumns"/>
+        FROM ACCOUNT_LOG a <!--WHERE a.DEL_FLAG = 0-->
+    </select>
+
+
+</mapper>
+

@@ -1,0 +1,2261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.ib.mapper.IbAccountBalanceMarginMapper">
+    <!-- 基础列 -->
+    <sql id="ibAccountBalanceMarginColumns">
+        a.ID as id,
+        a.ACCOUNT_ID as accountId,
+        a.ACCOUNT_CODE as accountCode,
+        a.ACCOUNT_TYPE as accountType,
+        a.ACCOUNT_READY as accountReady,
+        a.CUSHION as cushion,
+        a.LEVERAGE_S as leverageS,
+        a.LEVERAGE_C as leverageC,
+        a.LOOK_AHEAD_NEXT_CHANGE as lookAheadNextChange,
+        a.NLV_AND_MARGIN_IN_REVIEW as nlvAndMarginInReview,
+        a.SEGMENT_TITLE_S as segmentTitleS,
+        a.TRADING_TYPE_S as tradingTypeS,
+        a.SEGMENT_TITLE_C as segmentTitleC,
+        a.TRADING_TYPE_C as tradingTypeC,
+        a.DAY_TRADES_REMAINING as dayTradesRemaining,
+        a.DAY_TRADES_REMAINING_T1 as dayTradesRemainingT1,
+        a.DAY_TRADES_REMAINING_T2 as dayTradesRemainingT2,
+        a.DAY_TRADES_REMAINING_T3 as dayTradesRemainingT3,
+        a.DAY_TRADES_REMAINING_T4 as dayTradesRemainingT4,
+        a.CURRENCY as currency,
+        a.ACCRUED_CASH as accruedCash,
+        a.ACCRUED_CASH_S as accruedCashS,
+        a.ACCRUED_CASH_C as accruedCashC,
+        a.ACCRUED_DIVIDEND as accruedDividend,
+        a.ACCRUED_DIVIDEND_S as accruedDividendS,
+        a.ACCRUED_DIVIDEND_C as accruedDividendC,
+        a.AVAILABLE_FUNDS as availableFunds,
+        a.AVAILABLE_FUNDS_S as availableFundsS,
+        a.AVAILABLE_FUNDS_C as availableFundsC,
+        a.BILLABLE as billable,
+        a.BILLABLE_S as billableS,
+        a.BILLABLE_C as billableC,
+        a.BUYING_POWER as buyingPower,
+        a.EQUITY_WITH_LOAN_VALUE as equityWithLoanValue,
+        a.EQUITY_WITH_LOAN_VALUE_S as equityWithLoanValueS,
+        a.EQUITY_WITH_LOAN_VALUE_C as equityWithLoanValueC,
+        a.EXCESS_LIQUIDITY as excessLiquidity,
+        a.EXCESS_LIQUIDITY_S as excessLiquidityS,
+        a.EXCESS_LIQUIDITY_C as excessLiquidityC,
+        a.FULL_AVAILABLE_FUNDS as fullAvailableFunds,
+        a.FULL_AVAILABLE_FUNDS_S as fullAvailableFundsS,
+        a.FULL_AVAILABLE_FUNDS_C as fullAvailableFundsC,
+        a.FULL_EXCESS_LIQUIDITY as fullExcessLiquidity,
+        a.FULL_EXCESS_LIQUIDITY_S as fullExcessLiquidityS,
+        a.FULL_EXCESS_LIQUIDITY_C as fullExcessLiquidityC,
+        a.FULL_INIT_MARGIN_REQ as fullInitMarginReq,
+        a.FULL_INIT_MARGIN_REQ_S as fullInitMarginReqS,
+        a.FULL_INIT_MARGIN_REQ_C as fullInitMarginReqC,
+        a.FULL_MAINT_MARGIN_REQ as fullMaintMarginReq,
+        a.FULL_MAINT_MARGIN_REQ_S as fullMaintMarginReqS,
+        a.FULL_MAINT_MARGIN_REQ_C as fullMaintMarginReqC,
+        a.GROSS_POSITION_VALUE as grossPositionValue,
+        a.GROSS_POSITION_VALUE_S as grossPositionValueS,
+        a.GROSS_POSITION_VALUE_C as grossPositionValueC,
+        a.GUARANTEE as guarantee,
+        a.GUARANTEE_S as guaranteeS,
+        a.GUARANTEE_C as guaranteeC,
+        a.INDIAN_STOCK_HAIRCUT as indianStockHaircut,
+        a.INDIAN_STOCK_HAIRCUT_S as indianStockHaircutS,
+        a.INDIAN_STOCK_HAIRCUT_C as indianStockHaircutC,
+        a.INIT_MARGIN_REQ as initMarginReq,
+        a.INIT_MARGIN_REQ_S as initMarginReqS,
+        a.INIT_MARGIN_REQ_C as initMarginReqC,
+        a.LOOK_AHEAD_AVAILABLE_FUNDS as lookAheadAvailableFunds,
+        a.LOOK_AHEAD_AVAILABLE_FUNDS_S as lookAheadAvailableFundsS,
+        a.LOOK_AHEAD_AVAILABLE_FUNDS_C as lookAheadAvailableFundsC,
+        a.LOOK_AHEAD_EXCESS_LIQUIDITY as lookAheadExcessLiquidity,
+        a.LOOK_AHEAD_EXCESS_LIQUIDITY_S as lookAheadExcessLiquidityS,
+        a.LOOK_AHEAD_EXCESS_LIQUIDITY_C as lookAheadExcessLiquidityC,
+        a.LOOK_AHEAD_INIT_MARGIN_REQ as lookAheadInitMarginReq,
+        a.LOOK_AHEAD_INIT_MARGIN_REQ_S as lookAheadInitMarginReqS,
+        a.LOOK_AHEAD_INIT_MARGIN_REQ_C as lookAheadInitMarginReqC,
+        a.LOOK_AHEAD_MAINT_MARGIN_REQ as lookAheadMaintMarginReq,
+        a.LOOK_AHEAD_MAINT_MARGIN_REQ_S as lookAheadMaintMarginReqS,
+        a.LOOK_AHEAD_MAINT_MARGIN_REQ_C as lookAheadMaintMarginReqC,
+        a.MAINT_MARGIN_REQ as maintMarginReq,
+        a.MAINT_MARGIN_REQ_S as maintMarginReqS,
+        a.MAINT_MARGIN_REQ_C as maintMarginReqC,
+        a.NET_LIQUIDATION as netLiquidation,
+        a.NET_LIQUIDATION_S as netLiquidationS,
+        a.NET_LIQUIDATION_C as netLiquidationC,
+        a.NET_LIQUIDATION_UNCERTAINTY as netLiquidationUncertainty,
+        a.PASHARES_VALUE as pasharesValue,
+        a.PASHARES_VALUE_S as pasharesValueS,
+        a.PASHARES_VALUE_C as pasharesValueC,
+        a.POST_EXPIRATION_EXCESS as postExpirationExcess,
+        a.POST_EXPIRATION_EXCESS_S as postExpirationExcessS,
+        a.POST_EXPIRATION_EXCESS_C as postExpirationExcessC,
+        a.POST_EXPIRATION_MARGIN as postExpirationMargin,
+        a.POST_EXPIRATION_MARGIN_S as postExpirationMarginS,
+        a.POST_EXPIRATION_MARGIN_C as postExpirationMarginC,
+        a.REG_T_EQUITY as regTEquity,
+        a.REG_T_EQUITY_S as regTEquityS,
+        a.REG_T_EQUITY_C as regTEquityC,
+        a.REG_T_MARGIN as regTMargin,
+        a.REG_T_MARGIN_S as regTMarginS,
+        a.REG_T_MARGIN_C as regTMarginC,
+        a.SMA as SMA,
+        a.SMA_S as SMAS,
+        a.SMA_C as SMAC,
+        a.TOTAL_CASHVALUE as totalCashvalue,
+        a.TOTAL_CASHVALUE_S as totalCashvalueS,
+        a.TOTAL_CASHVALUE_C as totalCashvalueC,
+        a.DEBIT_CARD_PENDING_CHARGES as debitCardPendingCharges,
+        a.DEBIT_CARD_PENDING_CHARGES_S as debitCardPendingChargesS,
+        a.DEBIT_CARD_PENDING_CHARGES_C as debitCardPendingChargesC,
+        a.REMARK as remark,
+        a.CREATE_DATE as createDate,
+        a.UPDATE_DATE as updateDate
+    </sql>
+
+    <resultMap id="ibAccountBalanceMarginResultMap" type="com.fintech.gams.ib.entity.IbAccountBalanceMargin">
+        <id column="ID" property="id" />
+        <result column="ACCOUNT_ID" property="accountId"/>
+        <result column="ACCOUNT_CODE" property="accountCode"/>
+        <result column="ACCOUNT_TYPE" property="accountType"/>
+        <result column="ACCOUNT_READY" property="accountReady"/>
+        <result column="CUSHION" property="cushion"/>
+        <result column="LEVERAGE_S" property="leverageS"/>
+        <result column="LEVERAGE_C" property="leverageC"/>
+        <result column="LOOK_AHEAD_NEXT_CHANGE" property="lookAheadNextChange"/>
+        <result column="NLV_AND_MARGIN_IN_REVIEW" property="nlvAndMarginInReview"/>
+        <result column="SEGMENT_TITLE_S" property="segmentTitleS"/>
+        <result column="TRADING_TYPE_S" property="tradingTypeS"/>
+        <result column="SEGMENT_TITLE_C" property="segmentTitleC"/>
+        <result column="DAY_TRADES_REMAINING" property="dayTradesRemaining"/>
+        <result column="DAY_TRADES_REMAINING_T1" property="dayTradesRemainingT1"/>
+        <result column="DAY_TRADES_REMAINING_T2" property="dayTradesRemainingT2"/>
+        <result column="DAY_TRADES_REMAINING_T3" property="dayTradesRemainingT3"/>
+        <result column="DAY_TRADES_REMAINING_T4" property="dayTradesRemainingT4"/>
+        <result column="CURRENCY" property="currency"/>
+        <result column="ACCRUED_CASH" property="accruedCash"/>
+        <result column="ACCRUED_CASH_S" property="accruedCashS"/>
+        <result column="ACCRUED_CASH_C" property="accruedCashC"/>
+        <result column="ACCRUED_DIVIDEND" property="accruedDividend"/>
+        <result column="ACCRUED_DIVIDEND_S" property="accruedDividendS"/>
+        <result column="ACCRUED_DIVIDEND_C" property="accruedDividendC"/>
+        <result column="AVAILABLE_FUNDS" property="availableFunds"/>
+        <result column="AVAILABLE_FUNDS_S" property="availableFundsS"/>
+        <result column="AVAILABLE_FUNDS_C" property="availableFundsC"/>
+        <result column="BILLABLE" property="billable"/>
+        <result column="BILLABLE_S" property="billableS"/>
+        <result column="BILLABLE_C" property="billableC"/>
+        <result column="BUYING_POWER" property="buyingPower"/>
+        <result column="EQUITY_WITH_LOAN_VALUE" property="equityWithLoanValue"/>
+        <result column="EQUITY_WITH_LOAN_VALUE_S" property="equityWithLoanValueS"/>
+        <result column="EQUITY_WITH_LOAN_VALUE_C" property="equityWithLoanValueC"/>
+        <result column="EXCESS_LIQUIDITY" property="excessLiquidity"/>
+        <result column="EXCESS_LIQUIDITY_S" property="excessLiquidityS"/>
+        <result column="EXCESS_LIQUIDITY_C" property="excessLiquidityC"/>
+        <result column="FULL_AVAILABLE_FUNDS" property="fullAvailableFunds"/>
+        <result column="FULL_AVAILABLE_FUNDS_S" property="fullAvailableFundsS"/>
+        <result column="FULL_AVAILABLE_FUNDS_C" property="fullAvailableFundsC"/>
+        <result column="FULL_EXCESS_LIQUIDITY" property="fullExcessLiquidity"/>
+        <result column="FULL_EXCESS_LIQUIDITY_S" property="fullExcessLiquidityS"/>
+        <result column="FULL_EXCESS_LIQUIDITY_C" property="fullExcessLiquidityC"/>
+        <result column="FULL_INIT_MARGIN_REQ" property="fullInitMarginReq"/>
+        <result column="FULL_INIT_MARGIN_REQ_S" property="fullInitMarginReqS"/>
+        <result column="FULL_INIT_MARGIN_REQ_C" property="fullInitMarginReqC"/>
+        <result column="FULL_MAINT_MARGIN_REQ" property="fullMaintMarginReq"/>
+        <result column="FULL_MAINT_MARGIN_REQ_S" property="fullMaintMarginReqS"/>
+        <result column="FULL_MAINT_MARGIN_REQ_C" property="fullMaintMarginReqC"/>
+        <result column="GROSS_POSITION_VALUE" property="grossPositionValue"/>
+        <result column="GROSS_POSITION_VALUE_S" property="grossPositionValueS"/>
+        <result column="GROSS_POSITION_VALUE_C" property="grossPositionValueC"/>
+        <result column="GUARANTEE" property="guarantee"/>
+        <result column="GUARANTEE_S" property="guaranteeS"/>
+        <result column="GUARANTEE_C" property="guaranteeC"/>
+        <result column="INDIAN_STOCK_HAIRCUT" property="indianStockHaircut"/>
+        <result column="INDIAN_STOCK_HAIRCUT_S" property="indianStockHaircutS"/>
+        <result column="INDIAN_STOCK_HAIRCUT_C" property="indianStockHaircutC"/>
+        <result column="INIT_MARGIN_REQ" property="initMarginReq"/>
+        <result column="INIT_MARGIN_REQ_S" property="initMarginReqS"/>
+        <result column="INIT_MARGIN_REQ_C" property="initMarginReqC"/>
+        <result column="LOOK_AHEAD_AVAILABLE_FUNDS" property="lookAheadAvailableFunds"/>
+        <result column="LOOK_AHEAD_AVAILABLE_FUNDS_S" property="lookAheadAvailableFundsS"/>
+        <result column="LOOK_AHEAD_AVAILABLE_FUNDS_C" property="lookAheadAvailableFundsC"/>
+        <result column="LOOK_AHEAD_EXCESS_LIQUIDITY" property="lookAheadExcessLiquidity"/>
+        <result column="LOOK_AHEAD_EXCESS_LIQUIDITY_S" property="lookAheadExcessLiquidityS"/>
+        <result column="LOOK_AHEAD_EXCESS_LIQUIDITY_C" property="lookAheadExcessLiquidityC"/>
+        <result column="LOOK_AHEAD_INIT_MARGIN_REQ" property="lookAheadInitMarginReq"/>
+        <result column="LOOK_AHEAD_INIT_MARGIN_REQ_S" property="lookAheadInitMarginReqS"/>
+        <result column="LOOK_AHEAD_INIT_MARGIN_REQ_C" property="lookAheadInitMarginReqC"/>
+        <result column="LOOK_AHEAD_MAINT_MARGIN_REQ" property="lookAheadMaintMarginReq"/>
+        <result column="LOOK_AHEAD_MAINT_MARGIN_REQ_S" property="lookAheadMaintMarginReqS"/>
+        <result column="LOOK_AHEAD_MAINT_MARGIN_REQ_C" property="lookAheadMaintMarginReqC"/>
+        <result column="MAINT_MARGIN_REQ" property="maintMarginReq"/>
+        <result column="MAINT_MARGIN_REQ_S" property="maintMarginReqS"/>
+        <result column="MAINT_MARGIN_REQ_C" property="maintMarginReqC"/>
+        <result column="NET_LIQUIDATION" property="netLiquidation"/>
+        <result column="NET_LIQUIDATION_S" property="netLiquidationS"/>
+        <result column="NET_LIQUIDATION_C" property="netLiquidationC"/>
+        <result column="NET_LIQUIDATION_UNCERTAINTY" property="netLiquidationUncertainty"/>
+        <result column="PASHARES_VALUE" property="pasharesValue"/>
+        <result column="PASHARES_VALUE_S" property="pasharesValueS"/>
+        <result column="PASHARES_VALUE_C" property="pasharesValueC"/>
+        <result column="POST_EXPIRATION_EXCESS" property="postExpirationExcess"/>
+        <result column="POST_EXPIRATION_EXCESS_S" property="postExpirationExcessS"/>
+        <result column="POST_EXPIRATION_EXCESS_C" property="postExpirationExcessC"/>
+        <result column="POST_EXPIRATION_MARGIN" property="postExpirationMargin"/>
+        <result column="POST_EXPIRATION_MARGIN_S" property="postExpirationMarginS"/>
+        <result column="POST_EXPIRATION_MARGIN_C" property="postExpirationMarginC"/>
+        <result column="REG_T_EQUITY" property="regTEquity"/>
+        <result column="REG_T_EQUITY_S" property="regTEquityS"/>
+        <result column="REG_T_EQUITY_C" property="regTEquityC"/>
+        <result column="REG_T_MARGIN" property="regTMargin"/>
+        <result column="REG_T_MARGIN_S" property="regTMarginS"/>
+        <result column="REG_T_MARGIN_C" property="regTMarginC"/>
+        <result column="SMA" property="SMA"/>
+        <result column="SMA_S" property="SMAS"/>
+        <result column="SMA_C" property="SMAC"/>
+        <result column="TOTAL_CASHVALUE" property="totalCashvalue"/>
+        <result column="TOTAL_CASHVALUE_S" property="totalCashvalueS"/>
+        <result column="TOTAL_CASHVALUE_C" property="totalCashvalueC"/>
+        <result column="DEBIT_CARD_PENDING_CHARGES" property="debitCardPendingCharges"/>
+        <result column="DEBIT_CARD_PENDING_CHARGES_S" property="debitCardPendingChargesS"/>
+        <result column="DEBIT_CARD_PENDING_CHARGES_C" property="debitCardPendingChargesC"/>
+        <result column="REMARK" property="remark"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="UPDATE_DATE" property="updateDate"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.ib.entity.IbAccountBalanceMargin">
+        INSERT INTO IB_ACCOUNT_BALANCE_MARGIN(
+            ID ,
+            ACCOUNT_ID ,
+            ACCOUNT_CODE ,
+            ACCOUNT_TYPE ,
+            ACCOUNT_READY ,
+            CUSHION ,
+            LEVERAGE_S ,
+            LEVERAGE_C ,
+            LOOK_AHEAD_NEXT_CHANGE ,
+            NLV_AND_MARGIN_IN_REVIEW ,
+            SEGMENT_TITLE_S ,
+            TRADING_TYPE_S ,
+            SEGMENT_TITLE_C ,
+            TRADING_TYPE_C ,
+            DAY_TRADES_REMAINING ,
+            DAY_TRADES_REMAINING_T1 ,
+            DAY_TRADES_REMAINING_T2 ,
+            DAY_TRADES_REMAINING_T3 ,
+            DAY_TRADES_REMAINING_T4 ,
+            CURRENCY ,
+            ACCRUED_CASH ,
+            ACCRUED_CASH_S ,
+            ACCRUED_CASH_C ,
+            ACCRUED_DIVIDEND ,
+            ACCRUED_DIVIDEND_S ,
+            ACCRUED_DIVIDEND_C ,
+            AVAILABLE_FUNDS ,
+            AVAILABLE_FUNDS_S ,
+            AVAILABLE_FUNDS_C ,
+            BILLABLE ,
+            BILLABLE_S ,
+            BILLABLE_C ,
+            BUYING_POWER ,
+            EQUITY_WITH_LOAN_VALUE ,
+            EQUITY_WITH_LOAN_VALUE_S ,
+            EQUITY_WITH_LOAN_VALUE_C ,
+            EXCESS_LIQUIDITY ,
+            EXCESS_LIQUIDITY_S ,
+            EXCESS_LIQUIDITY_C ,
+            FULL_AVAILABLE_FUNDS ,
+            FULL_AVAILABLE_FUNDS_S ,
+            FULL_AVAILABLE_FUNDS_C ,
+            FULL_EXCESS_LIQUIDITY ,
+            FULL_EXCESS_LIQUIDITY_S ,
+            FULL_EXCESS_LIQUIDITY_C ,
+            FULL_INIT_MARGIN_REQ ,
+            FULL_INIT_MARGIN_REQ_S ,
+            FULL_INIT_MARGIN_REQ_C ,
+            FULL_MAINT_MARGIN_REQ ,
+            FULL_MAINT_MARGIN_REQ_S ,
+            FULL_MAINT_MARGIN_REQ_C ,
+            GROSS_POSITION_VALUE ,
+            GROSS_POSITION_VALUE_S ,
+            GROSS_POSITION_VALUE_C ,
+            GUARANTEE ,
+            GUARANTEE_S ,
+            GUARANTEE_C ,
+            INDIAN_STOCK_HAIRCUT ,
+            INDIAN_STOCK_HAIRCUT_S ,
+            INDIAN_STOCK_HAIRCUT_C ,
+            INIT_MARGIN_REQ ,
+            INIT_MARGIN_REQ_S ,
+            INIT_MARGIN_REQ_C ,
+            LOOK_AHEAD_AVAILABLE_FUNDS ,
+            LOOK_AHEAD_AVAILABLE_FUNDS_S ,
+            LOOK_AHEAD_AVAILABLE_FUNDS_C ,
+            LOOK_AHEAD_EXCESS_LIQUIDITY ,
+            LOOK_AHEAD_EXCESS_LIQUIDITY_S ,
+            LOOK_AHEAD_EXCESS_LIQUIDITY_C ,
+            LOOK_AHEAD_INIT_MARGIN_REQ ,
+            LOOK_AHEAD_INIT_MARGIN_REQ_S ,
+            LOOK_AHEAD_INIT_MARGIN_REQ_C ,
+            LOOK_AHEAD_MAINT_MARGIN_REQ ,
+            LOOK_AHEAD_MAINT_MARGIN_REQ_S ,
+            LOOK_AHEAD_MAINT_MARGIN_REQ_C ,
+            MAINT_MARGIN_REQ ,
+            MAINT_MARGIN_REQ_S ,
+            MAINT_MARGIN_REQ_C ,
+            NET_LIQUIDATION ,
+            NET_LIQUIDATION_S ,
+            NET_LIQUIDATION_C ,
+            NET_LIQUIDATION_UNCERTAINTY ,
+            PASHARES_VALUE ,
+            PASHARES_VALUE_S ,
+            PASHARES_VALUE_C ,
+            POST_EXPIRATION_EXCESS ,
+            POST_EXPIRATION_EXCESS_S ,
+            POST_EXPIRATION_EXCESS_C ,
+            POST_EXPIRATION_MARGIN ,
+            POST_EXPIRATION_MARGIN_S ,
+            POST_EXPIRATION_MARGIN_C ,
+            REG_T_EQUITY ,
+            REG_T_EQUITY_S ,
+            REG_T_EQUITY_C ,
+            REG_T_MARGIN ,
+            REG_T_MARGIN_S ,
+            REG_T_MARGIN_C ,
+            SMA ,
+            SMA_S ,
+            SMA_C ,
+            TOTAL_CASHVALUE ,
+            TOTAL_CASHVALUE_S ,
+            TOTAL_CASHVALUE_C ,
+            DEBIT_CARD_PENDING_CHARGES ,
+            DEBIT_CARD_PENDING_CHARGES_S ,
+            DEBIT_CARD_PENDING_CHARGES_C ,
+            REMARK,
+            CREATE_DATE ,
+            UPDATE_DATE 
+        ) VALUES (
+            #{id} ,
+            #{accountId} ,
+            #{accountCode} ,
+            #{accountType} ,
+            #{accountReady} ,
+            #{cushion} ,
+            #{leverageS} ,
+            #{leverageC} ,
+            #{lookAheadNextChange} ,
+            #{nlvAndMarginInReview} ,
+            #{segmentTitleS} ,
+            #{tradingTypeS} ,
+            #{segmentTitleC} ,
+            #{tradingTypeC} ,
+            #{dayTradesRemaining} ,
+            #{dayTradesRemainingT1} ,
+            #{dayTradesRemainingT2} ,
+            #{dayTradesRemainingT3} ,
+            #{dayTradesRemainingT4} ,
+            #{currency} ,
+            #{accruedCash} ,
+            #{accruedCashS} ,
+            #{accruedCashC} ,
+            #{accruedDividend} ,
+            #{accruedDividendS} ,
+            #{accruedDividendC} ,
+            #{availableFunds} ,
+            #{availableFundsS} ,
+            #{availableFundsC} ,
+            #{billable} ,
+            #{billableS} ,
+            #{billableC} ,
+            #{buyingPower} ,
+            #{equityWithLoanValue} ,
+            #{equityWithLoanValueS} ,
+            #{equityWithLoanValueC} ,
+            #{excessLiquidity} ,
+            #{excessLiquidityS} ,
+            #{excessLiquidityC} ,
+            #{fullAvailableFunds} ,
+            #{fullAvailableFundsS} ,
+            #{fullAvailableFundsC} ,
+            #{fullExcessLiquidity} ,
+            #{fullExcessLiquidityS} ,
+            #{fullExcessLiquidityC} ,
+            #{fullInitMarginReq} ,
+            #{fullInitMarginReqS} ,
+            #{fullInitMarginReqC} ,
+            #{fullMaintMarginReq} ,
+            #{fullMaintMarginReqS} ,
+            #{fullMaintMarginReqC} ,
+            #{grossPositionValue} ,
+            #{grossPositionValueS} ,
+            #{grossPositionValueC} ,
+            #{guarantee} ,
+            #{guaranteeS} ,
+            #{guaranteeC} ,
+            #{indianStockHaircut} ,
+            #{indianStockHaircutS} ,
+            #{indianStockHaircutC} ,
+            #{initMarginReq} ,
+            #{initMarginReqS} ,
+            #{initMarginReqC} ,
+            #{lookAheadAvailableFunds} ,
+            #{lookAheadAvailableFundsS} ,
+            #{lookAheadAvailableFundsC} ,
+            #{lookAheadExcessLiquidity} ,
+            #{lookAheadExcessLiquidityS} ,
+            #{lookAheadExcessLiquidityC} ,
+            #{lookAheadInitMarginReq} ,
+            #{lookAheadInitMarginReqS} ,
+            #{lookAheadInitMarginReqC} ,
+            #{lookAheadMaintMarginReq} ,
+            #{lookAheadMaintMarginReqS} ,
+            #{lookAheadMaintMarginReqC} ,
+            #{maintMarginReq} ,
+            #{maintMarginReqS} ,
+            #{maintMarginReqC} ,
+            #{netLiquidation} ,
+            #{netLiquidationS} ,
+            #{netLiquidationC} ,
+            #{netLiquidationUncertainty} ,
+            #{pasharesValue} ,
+            #{pasharesValueS} ,
+            #{pasharesValueC} ,
+            #{postExpirationExcess} ,
+            #{postExpirationExcessS} ,
+            #{postExpirationExcessC} ,
+            #{postExpirationMargin} ,
+            #{postExpirationMarginS} ,
+            #{postExpirationMarginC} ,
+            #{regTEquity} ,
+            #{regTEquityS} ,
+            #{regTEquityC} ,
+            #{regTMargin} ,
+            #{regTMarginS} ,
+            #{regTMarginC} ,
+            #{SMA} ,
+            #{SMAS} ,
+            #{SMAC} ,
+            #{totalCashvalue} ,
+            #{totalCashvalueS} ,
+            #{totalCashvalueC} ,
+            #{debitCardPendingCharges} ,
+            #{debitCardPendingChargesS} ,
+            #{debitCardPendingChargesC} ,
+            #{remark},
+            #{createDate} ,
+            #{updateDate} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM IB_ACCOUNT_BALANCE_MARGIN WHERE ID = #{id}
+    </delete>
+
+    <!-- 根据主键逻辑删除
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE IB_ACCOUNT_BALANCE_MARGIN SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+    -->
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.ib.entity.IbAccountBalanceMargin">
+        INSERT INTO IB_ACCOUNT_BALANCE_MARGIN
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="accountId != null">
+                ACCOUNT_ID ,
+        </if>
+        <if test="accountCode != null">
+            ACCOUNT_CODE ,
+        </if>
+        <if test="accountType != null">
+                ACCOUNT_TYPE ,
+        </if>
+        <if test="accountReady != null">
+                ACCOUNT_READY ,
+        </if>
+        <if test="cushion != null">
+                CUSHION ,
+        </if>
+        <if test="leverageS != null">
+                LEVERAGE_S ,
+        </if>
+        <if test="leverageC != null">
+                LEVERAGE_C ,
+        </if>
+        <if test="lookAheadNextChange != null">
+                LOOK_AHEAD_NEXT_CHANGE ,
+        </if>
+        <if test="nlvAndMarginInReview != null">
+                NLV_AND_MARGIN_IN_REVIEW ,
+        </if>
+        <if test="segmentTitleS != null">
+                SEGMENT_TITLE_S ,
+        </if>
+        <if test="tradingTypeS != null">
+                TRADING_TYPE_S ,
+        </if>
+        <if test="segmentTitleC != null">
+                SEGMENT_TITLE_C ,
+        </if>
+        <if test="tradingTypeC != null">
+                TRADING_TYPE_C ,
+        </if>
+        <if test="dayTradesRemaining != null">
+                DAY_TRADES_REMAINING ,
+        </if>
+        <if test="dayTradesRemainingT1 != null">
+                DAY_TRADES_REMAINING_T1 ,
+        </if>
+        <if test="dayTradesRemainingT2 != null">
+                DAY_TRADES_REMAINING_T2 ,
+        </if>
+        <if test="dayTradesRemainingT3 != null">
+                DAY_TRADES_REMAINING_T3 ,
+        </if>
+        <if test="dayTradesRemainingT4 != null">
+                DAY_TRADES_REMAINING_T4 ,
+        </if>
+        <if test="currency != null">
+                CURRENCY ,
+        </if>
+        <if test="accruedCash != null">
+                ACCRUED_CASH ,
+        </if>
+        <if test="accruedCashS != null">
+                ACCRUED_CASH_S ,
+        </if>
+        <if test="accruedCashC != null">
+                ACCRUED_CASH_C ,
+        </if>
+        <if test="accruedDividend != null">
+                ACCRUED_DIVIDEND ,
+        </if>
+        <if test="accruedDividendS != null">
+                ACCRUED_DIVIDEND_S ,
+        </if>
+        <if test="accruedDividendC != null">
+                ACCRUED_DIVIDEND_C ,
+        </if>
+        <if test="availableFunds != null">
+                AVAILABLE_FUNDS ,
+        </if>
+        <if test="availableFundsS != null">
+                AVAILABLE_FUNDS_S ,
+        </if>
+        <if test="availableFundsC != null">
+                AVAILABLE_FUNDS_C ,
+        </if>
+        <if test="billable != null">
+                BILLABLE ,
+        </if>
+        <if test="billableS != null">
+                BILLABLE_S ,
+        </if>
+        <if test="billableC != null">
+                BILLABLE_C ,
+        </if>
+        <if test="buyingPower != null">
+                BUYING_POWER ,
+        </if>
+        <if test="equityWithLoanValue != null">
+                EQUITY_WITH_LOAN_VALUE ,
+        </if>
+        <if test="equityWithLoanValueS != null">
+                EQUITY_WITH_LOAN_VALUE_S ,
+        </if>
+        <if test="equityWithLoanValueC != null">
+                EQUITY_WITH_LOAN_VALUE_C ,
+        </if>
+        <if test="excessLiquidity != null">
+                EXCESS_LIQUIDITY ,
+        </if>
+        <if test="excessLiquidityS != null">
+                EXCESS_LIQUIDITY_S ,
+        </if>
+        <if test="excessLiquidityC != null">
+                EXCESS_LIQUIDITY_C ,
+        </if>
+        <if test="fullAvailableFunds != null">
+                FULL_AVAILABLE_FUNDS ,
+        </if>
+        <if test="fullAvailableFundsS != null">
+                FULL_AVAILABLE_FUNDS_S ,
+        </if>
+        <if test="fullAvailableFundsC != null">
+                FULL_AVAILABLE_FUNDS_C ,
+        </if>
+        <if test="fullExcessLiquidity != null">
+                FULL_EXCESS_LIQUIDITY ,
+        </if>
+        <if test="fullExcessLiquidityS != null">
+                FULL_EXCESS_LIQUIDITY_S ,
+        </if>
+        <if test="fullExcessLiquidityC != null">
+                FULL_EXCESS_LIQUIDITY_C ,
+        </if>
+        <if test="fullInitMarginReq != null">
+                FULL_INIT_MARGIN_REQ ,
+        </if>
+        <if test="fullInitMarginReqS != null">
+                FULL_INIT_MARGIN_REQ_S ,
+        </if>
+        <if test="fullInitMarginReqC != null">
+                FULL_INIT_MARGIN_REQ_C ,
+        </if>
+        <if test="fullMaintMarginReq != null">
+                FULL_MAINT_MARGIN_REQ ,
+        </if>
+        <if test="fullMaintMarginReqS != null">
+                FULL_MAINT_MARGIN_REQ_S ,
+        </if>
+        <if test="fullMaintMarginReqC != null">
+                FULL_MAINT_MARGIN_REQ_C ,
+        </if>
+        <if test="grossPositionValue != null">
+                GROSS_POSITION_VALUE ,
+        </if>
+        <if test="grossPositionValueS != null">
+                GROSS_POSITION_VALUE_S ,
+        </if>
+        <if test="grossPositionValueC != null">
+                GROSS_POSITION_VALUE_C ,
+        </if>
+        <if test="guarantee != null">
+                GUARANTEE ,
+        </if>
+        <if test="guaranteeS != null">
+                GUARANTEE_S ,
+        </if>
+        <if test="guaranteeC != null">
+                GUARANTEE_C ,
+        </if>
+        <if test="indianStockHaircut != null">
+                INDIAN_STOCK_HAIRCUT ,
+        </if>
+        <if test="indianStockHaircutS != null">
+                INDIAN_STOCK_HAIRCUT_S ,
+        </if>
+        <if test="indianStockHaircutC != null">
+                INDIAN_STOCK_HAIRCUT_C ,
+        </if>
+        <if test="initMarginReq != null">
+                INIT_MARGIN_REQ ,
+        </if>
+        <if test="initMarginReqS != null">
+                INIT_MARGIN_REQ_S ,
+        </if>
+        <if test="initMarginReqC != null">
+                INIT_MARGIN_REQ_C ,
+        </if>
+        <if test="lookAheadAvailableFunds != null">
+                LOOK_AHEAD_AVAILABLE_FUNDS ,
+        </if>
+        <if test="lookAheadAvailableFundsS != null">
+                LOOK_AHEAD_AVAILABLE_FUNDS_S ,
+        </if>
+        <if test="lookAheadAvailableFundsC != null">
+                LOOK_AHEAD_AVAILABLE_FUNDS_C ,
+        </if>
+        <if test="lookAheadExcessLiquidity != null">
+                LOOK_AHEAD_EXCESS_LIQUIDITY ,
+        </if>
+        <if test="lookAheadExcessLiquidityS != null">
+                LOOK_AHEAD_EXCESS_LIQUIDITY_S ,
+        </if>
+        <if test="lookAheadExcessLiquidityC != null">
+                LOOK_AHEAD_EXCESS_LIQUIDITY_C ,
+        </if>
+        <if test="lookAheadInitMarginReq != null">
+                LOOK_AHEAD_INIT_MARGIN_REQ ,
+        </if>
+        <if test="lookAheadInitMarginReqS != null">
+                LOOK_AHEAD_INIT_MARGIN_REQ_S ,
+        </if>
+        <if test="lookAheadInitMarginReqC != null">
+                LOOK_AHEAD_INIT_MARGIN_REQ_C ,
+        </if>
+        <if test="lookAheadMaintMarginReq != null">
+                LOOK_AHEAD_MAINT_MARGIN_REQ ,
+        </if>
+        <if test="lookAheadMaintMarginReqS != null">
+                LOOK_AHEAD_MAINT_MARGIN_REQ_S ,
+        </if>
+        <if test="lookAheadMaintMarginReqC != null">
+                LOOK_AHEAD_MAINT_MARGIN_REQ_C ,
+        </if>
+        <if test="maintMarginReq != null">
+                MAINT_MARGIN_REQ ,
+        </if>
+        <if test="maintMarginReqS != null">
+                MAINT_MARGIN_REQ_S ,
+        </if>
+        <if test="maintMarginReqC != null">
+                MAINT_MARGIN_REQ_C ,
+        </if>
+        <if test="netLiquidation != null">
+                NET_LIQUIDATION ,
+        </if>
+        <if test="netLiquidationS != null">
+                NET_LIQUIDATION_S ,
+        </if>
+        <if test="netLiquidationC != null">
+                NET_LIQUIDATION_C ,
+        </if>
+        <if test="netLiquidationUncertainty != null">
+                NET_LIQUIDATION_UNCERTAINTY ,
+        </if>
+        <if test="pasharesValue != null">
+                PASHARES_VALUE ,
+        </if>
+        <if test="pasharesValueS != null">
+                PASHARES_VALUE_S ,
+        </if>
+        <if test="pasharesValueC != null">
+                PASHARES_VALUE_C ,
+        </if>
+        <if test="postExpirationExcess != null">
+                POST_EXPIRATION_EXCESS ,
+        </if>
+        <if test="postExpirationExcessS != null">
+                POST_EXPIRATION_EXCESS_S ,
+        </if>
+        <if test="postExpirationExcessC != null">
+                POST_EXPIRATION_EXCESS_C ,
+        </if>
+        <if test="postExpirationMargin != null">
+                POST_EXPIRATION_MARGIN ,
+        </if>
+        <if test="postExpirationMarginS != null">
+                POST_EXPIRATION_MARGIN_S ,
+        </if>
+        <if test="postExpirationMarginC != null">
+                POST_EXPIRATION_MARGIN_C ,
+        </if>
+        <if test="regTEquity != null">
+                REG_T_EQUITY ,
+        </if>
+        <if test="regTEquityS != null">
+                REG_T_EQUITY_S ,
+        </if>
+        <if test="regTEquityC != null">
+                REG_T_EQUITY_C ,
+        </if>
+        <if test="regTMargin != null">
+                REG_T_MARGIN ,
+        </if>
+        <if test="regTMarginS != null">
+                REG_T_MARGIN_S ,
+        </if>
+        <if test="regTMarginC != null">
+                REG_T_MARGIN_C ,
+        </if>
+        <if test="SMA != null">
+                SMA ,
+        </if>
+        <if test="SMAS != null">
+                SMA_S ,
+        </if>
+        <if test="SMAC != null">
+                SMA_C ,
+        </if>
+        <if test="totalCashvalue != null">
+                TOTAL_CASHVALUE ,
+        </if>
+        <if test="totalCashvalueS != null">
+                TOTAL_CASHVALUE_S ,
+        </if>
+        <if test="totalCashvalueC != null">
+                TOTAL_CASHVALUE_C ,
+        </if>
+        <if test="debitCardPendingCharges != null">
+                DEBIT_CARD_PENDING_CHARGES ,
+        </if>
+        <if test="debitCardPendingChargesS != null">
+                DEBIT_CARD_PENDING_CHARGES_S ,
+        </if>
+        <if test="debitCardPendingChargesC != null">
+                DEBIT_CARD_PENDING_CHARGES_C ,
+        </if>
+        <if test="remark != null">
+                REMARK ,
+        </if>
+        <if test="createDate != null">
+                CREATE_DATE ,
+        </if>
+        <if test="updateDate != null">
+                UPDATE_DATE 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="accountId != null">
+                #{accountId} ,
+        </if>
+        <if test="accountType != null">
+                #{accountType} ,
+        </if>
+        <if test="accountCode != null">
+                #{accountCode} ,
+        </if>
+        <if test="accountReady != null">
+                #{accountReady} ,
+        </if>
+        <if test="cushion != null">
+                #{cushion} ,
+        </if>
+        <if test="leverageS != null">
+                #{leverageS} ,
+        </if>
+        <if test="leverageC != null">
+                #{leverageC} ,
+        </if>
+        <if test="lookAheadNextChange != null">
+                #{lookAheadNextChange} ,
+        </if>
+        <if test="nlvAndMarginInReview != null">
+                #{nlvAndMarginInReview} ,
+        </if>
+        <if test="segmentTitleS != null">
+                #{segmentTitleS} ,
+        </if>
+        <if test="tradingTypeS != null">
+                #{tradingTypeS} ,
+        </if>
+        <if test="segmentTitleC != null">
+                #{segmentTitleC} ,
+        </if>
+        <if test="tradingTypeC != null">
+                #{tradingTypeC} ,
+        </if>
+        <if test="dayTradesRemaining != null">
+                #{dayTradesRemaining} ,
+        </if>
+        <if test="dayTradesRemainingT1 != null">
+                #{dayTradesRemainingT1} ,
+        </if>
+        <if test="dayTradesRemainingT2 != null">
+                #{dayTradesRemainingT2} ,
+        </if>
+        <if test="dayTradesRemainingT3 != null">
+                #{dayTradesRemainingT3} ,
+        </if>
+        <if test="dayTradesRemainingT4 != null">
+                #{dayTradesRemainingT4} ,
+        </if>
+        <if test="currency != null">
+                #{currency} ,
+        </if>
+        <if test="accruedCash != null">
+                #{accruedCash} ,
+        </if>
+        <if test="accruedCashS != null">
+                #{accruedCashS} ,
+        </if>
+        <if test="accruedCashC != null">
+                #{accruedCashC} ,
+        </if>
+        <if test="accruedDividend != null">
+                #{accruedDividend} ,
+        </if>
+        <if test="accruedDividendS != null">
+                #{accruedDividendS} ,
+        </if>
+        <if test="accruedDividendC != null">
+                #{accruedDividendC} ,
+        </if>
+        <if test="availableFunds != null">
+                #{availableFunds} ,
+        </if>
+        <if test="availableFundsS != null">
+                #{availableFundsS} ,
+        </if>
+        <if test="availableFundsC != null">
+                #{availableFundsC} ,
+        </if>
+        <if test="billable != null">
+                #{billable} ,
+        </if>
+        <if test="billableS != null">
+                #{billableS} ,
+        </if>
+        <if test="billableC != null">
+                #{billableC} ,
+        </if>
+        <if test="buyingPower != null">
+                #{buyingPower} ,
+        </if>
+        <if test="equityWithLoanValue != null">
+                #{equityWithLoanValue} ,
+        </if>
+        <if test="equityWithLoanValueS != null">
+                #{equityWithLoanValueS} ,
+        </if>
+        <if test="equityWithLoanValueC != null">
+                #{equityWithLoanValueC} ,
+        </if>
+        <if test="excessLiquidity != null">
+                #{excessLiquidity} ,
+        </if>
+        <if test="excessLiquidityS != null">
+                #{excessLiquidityS} ,
+        </if>
+        <if test="excessLiquidityC != null">
+                #{excessLiquidityC} ,
+        </if>
+        <if test="fullAvailableFunds != null">
+                #{fullAvailableFunds} ,
+        </if>
+        <if test="fullAvailableFundsS != null">
+                #{fullAvailableFundsS} ,
+        </if>
+        <if test="fullAvailableFundsC != null">
+                #{fullAvailableFundsC} ,
+        </if>
+        <if test="fullExcessLiquidity != null">
+                #{fullExcessLiquidity} ,
+        </if>
+        <if test="fullExcessLiquidityS != null">
+                #{fullExcessLiquidityS} ,
+        </if>
+        <if test="fullExcessLiquidityC != null">
+                #{fullExcessLiquidityC} ,
+        </if>
+        <if test="fullInitMarginReq != null">
+                #{fullInitMarginReq} ,
+        </if>
+        <if test="fullInitMarginReqS != null">
+                #{fullInitMarginReqS} ,
+        </if>
+        <if test="fullInitMarginReqC != null">
+                #{fullInitMarginReqC} ,
+        </if>
+        <if test="fullMaintMarginReq != null">
+                #{fullMaintMarginReq} ,
+        </if>
+        <if test="fullMaintMarginReqS != null">
+                #{fullMaintMarginReqS} ,
+        </if>
+        <if test="fullMaintMarginReqC != null">
+                #{fullMaintMarginReqC} ,
+        </if>
+        <if test="grossPositionValue != null">
+                #{grossPositionValue} ,
+        </if>
+        <if test="grossPositionValueS != null">
+                #{grossPositionValueS} ,
+        </if>
+        <if test="grossPositionValueC != null">
+                #{grossPositionValueC} ,
+        </if>
+        <if test="guarantee != null">
+                #{guarantee} ,
+        </if>
+        <if test="guaranteeS != null">
+                #{guaranteeS} ,
+        </if>
+        <if test="guaranteeC != null">
+                #{guaranteeC} ,
+        </if>
+        <if test="indianStockHaircut != null">
+                #{indianStockHaircut} ,
+        </if>
+        <if test="indianStockHaircutS != null">
+                #{indianStockHaircutS} ,
+        </if>
+        <if test="indianStockHaircutC != null">
+                #{indianStockHaircutC} ,
+        </if>
+        <if test="initMarginReq != null">
+                #{initMarginReq} ,
+        </if>
+        <if test="initMarginReqS != null">
+                #{initMarginReqS} ,
+        </if>
+        <if test="initMarginReqC != null">
+                #{initMarginReqC} ,
+        </if>
+        <if test="lookAheadAvailableFunds != null">
+                #{lookAheadAvailableFunds} ,
+        </if>
+        <if test="lookAheadAvailableFundsS != null">
+                #{lookAheadAvailableFundsS} ,
+        </if>
+        <if test="lookAheadAvailableFundsC != null">
+                #{lookAheadAvailableFundsC} ,
+        </if>
+        <if test="lookAheadExcessLiquidity != null">
+                #{lookAheadExcessLiquidity} ,
+        </if>
+        <if test="lookAheadExcessLiquidityS != null">
+                #{lookAheadExcessLiquidityS} ,
+        </if>
+        <if test="lookAheadExcessLiquidityC != null">
+                #{lookAheadExcessLiquidityC} ,
+        </if>
+        <if test="lookAheadInitMarginReq != null">
+                #{lookAheadInitMarginReq} ,
+        </if>
+        <if test="lookAheadInitMarginReqS != null">
+                #{lookAheadInitMarginReqS} ,
+        </if>
+        <if test="lookAheadInitMarginReqC != null">
+                #{lookAheadInitMarginReqC} ,
+        </if>
+        <if test="lookAheadMaintMarginReq != null">
+                #{lookAheadMaintMarginReq} ,
+        </if>
+        <if test="lookAheadMaintMarginReqS != null">
+                #{lookAheadMaintMarginReqS} ,
+        </if>
+        <if test="lookAheadMaintMarginReqC != null">
+                #{lookAheadMaintMarginReqC} ,
+        </if>
+        <if test="maintMarginReq != null">
+                #{maintMarginReq} ,
+        </if>
+        <if test="maintMarginReqS != null">
+                #{maintMarginReqS} ,
+        </if>
+        <if test="maintMarginReqC != null">
+                #{maintMarginReqC} ,
+        </if>
+        <if test="netLiquidation != null">
+                #{netLiquidation} ,
+        </if>
+        <if test="netLiquidationS != null">
+                #{netLiquidationS} ,
+        </if>
+        <if test="netLiquidationC != null">
+                #{netLiquidationC} ,
+        </if>
+        <if test="netLiquidationUncertainty != null">
+                #{netLiquidationUncertainty} ,
+        </if>
+        <if test="pasharesValue != null">
+                #{pasharesValue} ,
+        </if>
+        <if test="pasharesValueS != null">
+                #{pasharesValueS} ,
+        </if>
+        <if test="pasharesValueC != null">
+                #{pasharesValueC} ,
+        </if>
+        <if test="postExpirationExcess != null">
+                #{postExpirationExcess} ,
+        </if>
+        <if test="postExpirationExcessS != null">
+                #{postExpirationExcessS} ,
+        </if>
+        <if test="postExpirationExcessC != null">
+                #{postExpirationExcessC} ,
+        </if>
+        <if test="postExpirationMargin != null">
+                #{postExpirationMargin} ,
+        </if>
+        <if test="postExpirationMarginS != null">
+                #{postExpirationMarginS} ,
+        </if>
+        <if test="postExpirationMarginC != null">
+                #{postExpirationMarginC} ,
+        </if>
+        <if test="regTEquity != null">
+                #{regTEquity} ,
+        </if>
+        <if test="regTEquityS != null">
+                #{regTEquityS} ,
+        </if>
+        <if test="regTEquityC != null">
+                #{regTEquityC} ,
+        </if>
+        <if test="regTMargin != null">
+                #{regTMargin} ,
+        </if>
+        <if test="regTMarginS != null">
+                #{regTMarginS} ,
+        </if>
+        <if test="regTMarginC != null">
+                #{regTMarginC} ,
+        </if>
+        <if test="SMA != null">
+                #{SMA} ,
+        </if>
+        <if test="SMAS != null">
+                #{SMAS} ,
+        </if>
+        <if test="SMAC != null">
+                #{SMAC} ,
+        </if>
+        <if test="totalCashvalue != null">
+                #{totalCashvalue} ,
+        </if>
+        <if test="totalCashvalueS != null">
+                #{totalCashvalueS} ,
+        </if>
+        <if test="totalCashvalueC != null">
+                #{totalCashvalueC} ,
+        </if>
+        <if test="debitCardPendingCharges != null">
+                #{debitCardPendingCharges} ,
+        </if>
+        <if test="debitCardPendingChargesS != null">
+                #{debitCardPendingChargesS} ,
+        </if>
+        <if test="debitCardPendingChargesC != null">
+                #{debitCardPendingChargesC} ,
+        </if>
+        <if test="remark != null">
+                #{remark} ,
+        </if>
+        <if test="createDate != null">
+                #{createDate} ,
+        </if>
+        <if test="updateDate != null">
+                #{updateDate} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.ib.entity.IbAccountBalanceMargin">
+        UPDATE IB_ACCOUNT_BALANCE_MARGIN
+           <set>
+            <if test="accountId != null">
+                ACCOUNT_ID = #{accountId} ,
+            </if>
+            <if test="accountCode != null">
+                ACCOUNT_CODE = #{accountCode} ,
+            </if>
+            <if test="accountType != null">
+                ACCOUNT_TYPE = #{accountType} ,
+            </if>
+            <if test="accountReady != null">
+                ACCOUNT_READY = #{accountReady} ,
+            </if>
+            <if test="cushion != null">
+                CUSHION = #{cushion} ,
+            </if>
+            <if test="leverageS != null">
+                LEVERAGE_S = #{leverageS} ,
+            </if>
+            <if test="leverageC != null">
+                LEVERAGE_C = #{leverageC} ,
+            </if>
+            <if test="lookAheadNextChange != null">
+                LOOK_AHEAD_NEXT_CHANGE = #{lookAheadNextChange} ,
+            </if>
+            <if test="nlvAndMarginInReview != null">
+                NLV_AND_MARGIN_IN_REVIEW = #{nlvAndMarginInReview} ,
+            </if>
+            <if test="segmentTitleS != null">
+                SEGMENT_TITLE_S = #{segmentTitleS} ,
+            </if>
+            <if test="tradingTypeS != null">
+                TRADING_TYPE_S = #{tradingTypeS} ,
+            </if>
+            <if test="segmentTitleC != null">
+                SEGMENT_TITLE_C = #{segmentTitleC} ,
+            </if>
+            <if test="tradingTypeC != null">
+                TRADING_TYPE_C = #{tradingTypeC} ,
+            </if>
+            <if test="dayTradesRemaining != null">
+                DAY_TRADES_REMAINING = #{dayTradesRemaining} ,
+            </if>
+            <if test="dayTradesRemainingT1 != null">
+                DAY_TRADES_REMAINING_T1 = #{dayTradesRemainingT1} ,
+            </if>
+            <if test="dayTradesRemainingT2 != null">
+                DAY_TRADES_REMAINING_T2 = #{dayTradesRemainingT2} ,
+            </if>
+            <if test="dayTradesRemainingT3 != null">
+                DAY_TRADES_REMAINING_T3 = #{dayTradesRemainingT3} ,
+            </if>
+            <if test="dayTradesRemainingT4 != null">
+                DAY_TRADES_REMAINING_T4 = #{dayTradesRemainingT4} ,
+            </if>
+            <if test="currency != null">
+                CURRENCY = #{currency} ,
+            </if>
+            <if test="accruedCash != null">
+                ACCRUED_CASH = #{accruedCash} ,
+            </if>
+            <if test="accruedCashS != null">
+                ACCRUED_CASH_S = #{accruedCashS} ,
+            </if>
+            <if test="accruedCashC != null">
+                ACCRUED_CASH_C = #{accruedCashC} ,
+            </if>
+            <if test="accruedDividend != null">
+                ACCRUED_DIVIDEND = #{accruedDividend} ,
+            </if>
+            <if test="accruedDividendS != null">
+                ACCRUED_DIVIDEND_S = #{accruedDividendS} ,
+            </if>
+            <if test="accruedDividendC != null">
+                ACCRUED_DIVIDEND_C = #{accruedDividendC} ,
+            </if>
+            <if test="availableFunds != null">
+                AVAILABLE_FUNDS = #{availableFunds} ,
+            </if>
+            <if test="availableFundsS != null">
+                AVAILABLE_FUNDS_S = #{availableFundsS} ,
+            </if>
+            <if test="availableFundsC != null">
+                AVAILABLE_FUNDS_C = #{availableFundsC} ,
+            </if>
+            <if test="billable != null">
+                BILLABLE = #{billable} ,
+            </if>
+            <if test="billableS != null">
+                BILLABLE_S = #{billableS} ,
+            </if>
+            <if test="billableC != null">
+                BILLABLE_C = #{billableC} ,
+            </if>
+            <if test="buyingPower != null">
+                BUYING_POWER = #{buyingPower} ,
+            </if>
+            <if test="equityWithLoanValue != null">
+                EQUITY_WITH_LOAN_VALUE = #{equityWithLoanValue} ,
+            </if>
+            <if test="equityWithLoanValueS != null">
+                EQUITY_WITH_LOAN_VALUE_S = #{equityWithLoanValueS} ,
+            </if>
+            <if test="equityWithLoanValueC != null">
+                EQUITY_WITH_LOAN_VALUE_C = #{equityWithLoanValueC} ,
+            </if>
+            <if test="excessLiquidity != null">
+                EXCESS_LIQUIDITY = #{excessLiquidity} ,
+            </if>
+            <if test="excessLiquidityS != null">
+                EXCESS_LIQUIDITY_S = #{excessLiquidityS} ,
+            </if>
+            <if test="excessLiquidityC != null">
+                EXCESS_LIQUIDITY_C = #{excessLiquidityC} ,
+            </if>
+            <if test="fullAvailableFunds != null">
+                FULL_AVAILABLE_FUNDS = #{fullAvailableFunds} ,
+            </if>
+            <if test="fullAvailableFundsS != null">
+                FULL_AVAILABLE_FUNDS_S = #{fullAvailableFundsS} ,
+            </if>
+            <if test="fullAvailableFundsC != null">
+                FULL_AVAILABLE_FUNDS_C = #{fullAvailableFundsC} ,
+            </if>
+            <if test="fullExcessLiquidity != null">
+                FULL_EXCESS_LIQUIDITY = #{fullExcessLiquidity} ,
+            </if>
+            <if test="fullExcessLiquidityS != null">
+                FULL_EXCESS_LIQUIDITY_S = #{fullExcessLiquidityS} ,
+            </if>
+            <if test="fullExcessLiquidityC != null">
+                FULL_EXCESS_LIQUIDITY_C = #{fullExcessLiquidityC} ,
+            </if>
+            <if test="fullInitMarginReq != null">
+                FULL_INIT_MARGIN_REQ = #{fullInitMarginReq} ,
+            </if>
+            <if test="fullInitMarginReqS != null">
+                FULL_INIT_MARGIN_REQ_S = #{fullInitMarginReqS} ,
+            </if>
+            <if test="fullInitMarginReqC != null">
+                FULL_INIT_MARGIN_REQ_C = #{fullInitMarginReqC} ,
+            </if>
+            <if test="fullMaintMarginReq != null">
+                FULL_MAINT_MARGIN_REQ = #{fullMaintMarginReq} ,
+            </if>
+            <if test="fullMaintMarginReqS != null">
+                FULL_MAINT_MARGIN_REQ_S = #{fullMaintMarginReqS} ,
+            </if>
+            <if test="fullMaintMarginReqC != null">
+                FULL_MAINT_MARGIN_REQ_C = #{fullMaintMarginReqC} ,
+            </if>
+            <if test="grossPositionValue != null">
+                GROSS_POSITION_VALUE = #{grossPositionValue} ,
+            </if>
+            <if test="grossPositionValueS != null">
+                GROSS_POSITION_VALUE_S = #{grossPositionValueS} ,
+            </if>
+            <if test="grossPositionValueC != null">
+                GROSS_POSITION_VALUE_C = #{grossPositionValueC} ,
+            </if>
+            <if test="guarantee != null">
+                GUARANTEE = #{guarantee} ,
+            </if>
+            <if test="guaranteeS != null">
+                GUARANTEE_S = #{guaranteeS} ,
+            </if>
+            <if test="guaranteeC != null">
+                GUARANTEE_C = #{guaranteeC} ,
+            </if>
+            <if test="indianStockHaircut != null">
+                INDIAN_STOCK_HAIRCUT = #{indianStockHaircut} ,
+            </if>
+            <if test="indianStockHaircutS != null">
+                INDIAN_STOCK_HAIRCUT_S = #{indianStockHaircutS} ,
+            </if>
+            <if test="indianStockHaircutC != null">
+                INDIAN_STOCK_HAIRCUT_C = #{indianStockHaircutC} ,
+            </if>
+            <if test="initMarginReq != null">
+                INIT_MARGIN_REQ = #{initMarginReq} ,
+            </if>
+            <if test="initMarginReqS != null">
+                INIT_MARGIN_REQ_S = #{initMarginReqS} ,
+            </if>
+            <if test="initMarginReqC != null">
+                INIT_MARGIN_REQ_C = #{initMarginReqC} ,
+            </if>
+            <if test="lookAheadAvailableFunds != null">
+                LOOK_AHEAD_AVAILABLE_FUNDS = #{lookAheadAvailableFunds} ,
+            </if>
+            <if test="lookAheadAvailableFundsS != null">
+                LOOK_AHEAD_AVAILABLE_FUNDS_S = #{lookAheadAvailableFundsS} ,
+            </if>
+            <if test="lookAheadAvailableFundsC != null">
+                LOOK_AHEAD_AVAILABLE_FUNDS_C = #{lookAheadAvailableFundsC} ,
+            </if>
+            <if test="lookAheadExcessLiquidity != null">
+                LOOK_AHEAD_EXCESS_LIQUIDITY = #{lookAheadExcessLiquidity} ,
+            </if>
+            <if test="lookAheadExcessLiquidityS != null">
+                LOOK_AHEAD_EXCESS_LIQUIDITY_S = #{lookAheadExcessLiquidityS} ,
+            </if>
+            <if test="lookAheadExcessLiquidityC != null">
+                LOOK_AHEAD_EXCESS_LIQUIDITY_C = #{lookAheadExcessLiquidityC} ,
+            </if>
+            <if test="lookAheadInitMarginReq != null">
+                LOOK_AHEAD_INIT_MARGIN_REQ = #{lookAheadInitMarginReq} ,
+            </if>
+            <if test="lookAheadInitMarginReqS != null">
+                LOOK_AHEAD_INIT_MARGIN_REQ_S = #{lookAheadInitMarginReqS} ,
+            </if>
+            <if test="lookAheadInitMarginReqC != null">
+                LOOK_AHEAD_INIT_MARGIN_REQ_C = #{lookAheadInitMarginReqC} ,
+            </if>
+            <if test="lookAheadMaintMarginReq != null">
+                LOOK_AHEAD_MAINT_MARGIN_REQ = #{lookAheadMaintMarginReq} ,
+            </if>
+            <if test="lookAheadMaintMarginReqS != null">
+                LOOK_AHEAD_MAINT_MARGIN_REQ_S = #{lookAheadMaintMarginReqS} ,
+            </if>
+            <if test="lookAheadMaintMarginReqC != null">
+                LOOK_AHEAD_MAINT_MARGIN_REQ_C = #{lookAheadMaintMarginReqC} ,
+            </if>
+            <if test="maintMarginReq != null">
+                MAINT_MARGIN_REQ = #{maintMarginReq} ,
+            </if>
+            <if test="maintMarginReqS != null">
+                MAINT_MARGIN_REQ_S = #{maintMarginReqS} ,
+            </if>
+            <if test="maintMarginReqC != null">
+                MAINT_MARGIN_REQ_C = #{maintMarginReqC} ,
+            </if>
+            <if test="netLiquidation != null">
+                NET_LIQUIDATION = #{netLiquidation} ,
+            </if>
+            <if test="netLiquidationS != null">
+                NET_LIQUIDATION_S = #{netLiquidationS} ,
+            </if>
+            <if test="netLiquidationC != null">
+                NET_LIQUIDATION_C = #{netLiquidationC} ,
+            </if>
+            <if test="netLiquidationUncertainty != null">
+                NET_LIQUIDATION_UNCERTAINTY = #{netLiquidationUncertainty} ,
+            </if>
+            <if test="pasharesValue != null">
+                PASHARES_VALUE = #{pasharesValue} ,
+            </if>
+            <if test="pasharesValueS != null">
+                PASHARES_VALUE_S = #{pasharesValueS} ,
+            </if>
+            <if test="pasharesValueC != null">
+                PASHARES_VALUE_C = #{pasharesValueC} ,
+            </if>
+            <if test="postExpirationExcess != null">
+                POST_EXPIRATION_EXCESS = #{postExpirationExcess} ,
+            </if>
+            <if test="postExpirationExcessS != null">
+                POST_EXPIRATION_EXCESS_S = #{postExpirationExcessS} ,
+            </if>
+            <if test="postExpirationExcessC != null">
+                POST_EXPIRATION_EXCESS_C = #{postExpirationExcessC} ,
+            </if>
+            <if test="postExpirationMargin != null">
+                POST_EXPIRATION_MARGIN = #{postExpirationMargin} ,
+            </if>
+            <if test="postExpirationMarginS != null">
+                POST_EXPIRATION_MARGIN_S = #{postExpirationMarginS} ,
+            </if>
+            <if test="postExpirationMarginC != null">
+                POST_EXPIRATION_MARGIN_C = #{postExpirationMarginC} ,
+            </if>
+            <if test="regTEquity != null">
+                REG_T_EQUITY = #{regTEquity} ,
+            </if>
+            <if test="regTEquityS != null">
+                REG_T_EQUITY_S = #{regTEquityS} ,
+            </if>
+            <if test="regTEquityC != null">
+                REG_T_EQUITY_C = #{regTEquityC} ,
+            </if>
+            <if test="regTMargin != null">
+                REG_T_MARGIN = #{regTMargin} ,
+            </if>
+            <if test="regTMarginS != null">
+                REG_T_MARGIN_S = #{regTMarginS} ,
+            </if>
+            <if test="regTMarginC != null">
+                REG_T_MARGIN_C = #{regTMarginC} ,
+            </if>
+            <if test="SMA != null">
+                SMA = #{SMA} ,
+            </if>
+            <if test="SMAS != null">
+                SMA_S = #{SMAS} ,
+            </if>
+            <if test="SMAC != null">
+                SMA_C = #{SMAC} ,
+            </if>
+            <if test="totalCashvalue != null">
+                TOTAL_CASHVALUE = #{totalCashvalue} ,
+            </if>
+            <if test="totalCashvalueS != null">
+                TOTAL_CASHVALUE_S = #{totalCashvalueS} ,
+            </if>
+            <if test="totalCashvalueC != null">
+                TOTAL_CASHVALUE_C = #{totalCashvalueC} ,
+            </if>
+            <if test="debitCardPendingCharges != null">
+                DEBIT_CARD_PENDING_CHARGES = #{debitCardPendingCharges} ,
+            </if>
+            <if test="debitCardPendingChargesS != null">
+                DEBIT_CARD_PENDING_CHARGES_S = #{debitCardPendingChargesS} ,
+            </if>
+            <if test="debitCardPendingChargesC != null">
+                DEBIT_CARD_PENDING_CHARGES_C = #{debitCardPendingChargesC} ,
+            </if>
+            <if test="remark != null">
+                REMARK = #{remark} ,
+             </if>
+            <if test="createDate != null">
+                CREATE_DATE = #{createDate} ,
+            </if>
+            <if test="updateDate != null">
+                UPDATE_DATE = #{updateDate} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO IB_ACCOUNT_BALANCE_MARGIN(
+            ID ,
+            ACCOUNT_ID ,
+            ACCOUNT_CODE ,
+            ACCOUNT_TYPE ,
+            ACCOUNT_READY ,
+            CUSHION ,
+            LEVERAGE_S ,
+            LEVERAGE_C ,
+            LOOK_AHEAD_NEXT_CHANGE ,
+            NLV_AND_MARGIN_IN_REVIEW ,
+            SEGMENT_TITLE_S ,
+            TRADING_TYPE_S ,
+            SEGMENT_TITLE_C ,
+            TRADING_TYPE_C ,
+            DAY_TRADES_REMAINING ,
+            DAY_TRADES_REMAINING_T1 ,
+            DAY_TRADES_REMAINING_T2 ,
+            DAY_TRADES_REMAINING_T3 ,
+            DAY_TRADES_REMAINING_T4 ,
+            CURRENCY ,
+            ACCRUED_CASH ,
+            ACCRUED_CASH_S ,
+            ACCRUED_CASH_C ,
+            ACCRUED_DIVIDEND ,
+            ACCRUED_DIVIDEND_S ,
+            ACCRUED_DIVIDEND_C ,
+            AVAILABLE_FUNDS ,
+            AVAILABLE_FUNDS_S ,
+            AVAILABLE_FUNDS_C ,
+            BILLABLE ,
+            BILLABLE_S ,
+            BILLABLE_C ,
+            BUYING_POWER ,
+            EQUITY_WITH_LOAN_VALUE ,
+            EQUITY_WITH_LOAN_VALUE_S ,
+            EQUITY_WITH_LOAN_VALUE_C ,
+            EXCESS_LIQUIDITY ,
+            EXCESS_LIQUIDITY_S ,
+            EXCESS_LIQUIDITY_C ,
+            FULL_AVAILABLE_FUNDS ,
+            FULL_AVAILABLE_FUNDS_S ,
+            FULL_AVAILABLE_FUNDS_C ,
+            FULL_EXCESS_LIQUIDITY ,
+            FULL_EXCESS_LIQUIDITY_S ,
+            FULL_EXCESS_LIQUIDITY_C ,
+            FULL_INIT_MARGIN_REQ ,
+            FULL_INIT_MARGIN_REQ_S ,
+            FULL_INIT_MARGIN_REQ_C ,
+            FULL_MAINT_MARGIN_REQ ,
+            FULL_MAINT_MARGIN_REQ_S ,
+            FULL_MAINT_MARGIN_REQ_C ,
+            GROSS_POSITION_VALUE ,
+            GROSS_POSITION_VALUE_S ,
+            GROSS_POSITION_VALUE_C ,
+            GUARANTEE ,
+            GUARANTEE_S ,
+            GUARANTEE_C ,
+            INDIAN_STOCK_HAIRCUT ,
+            INDIAN_STOCK_HAIRCUT_S ,
+            INDIAN_STOCK_HAIRCUT_C ,
+            INIT_MARGIN_REQ ,
+            INIT_MARGIN_REQ_S ,
+            INIT_MARGIN_REQ_C ,
+            LOOK_AHEAD_AVAILABLE_FUNDS ,
+            LOOK_AHEAD_AVAILABLE_FUNDS_S ,
+            LOOK_AHEAD_AVAILABLE_FUNDS_C ,
+            LOOK_AHEAD_EXCESS_LIQUIDITY ,
+            LOOK_AHEAD_EXCESS_LIQUIDITY_S ,
+            LOOK_AHEAD_EXCESS_LIQUIDITY_C ,
+            LOOK_AHEAD_INIT_MARGIN_REQ ,
+            LOOK_AHEAD_INIT_MARGIN_REQ_S ,
+            LOOK_AHEAD_INIT_MARGIN_REQ_C ,
+            LOOK_AHEAD_MAINT_MARGIN_REQ ,
+            LOOK_AHEAD_MAINT_MARGIN_REQ_S ,
+            LOOK_AHEAD_MAINT_MARGIN_REQ_C ,
+            MAINT_MARGIN_REQ ,
+            MAINT_MARGIN_REQ_S ,
+            MAINT_MARGIN_REQ_C ,
+            NET_LIQUIDATION ,
+            NET_LIQUIDATION_S ,
+            NET_LIQUIDATION_C ,
+            NET_LIQUIDATION_UNCERTAINTY ,
+            PASHARES_VALUE ,
+            PASHARES_VALUE_S ,
+            PASHARES_VALUE_C ,
+            POST_EXPIRATION_EXCESS ,
+            POST_EXPIRATION_EXCESS_S ,
+            POST_EXPIRATION_EXCESS_C ,
+            POST_EXPIRATION_MARGIN ,
+            POST_EXPIRATION_MARGIN_S ,
+            POST_EXPIRATION_MARGIN_C ,
+            REG_T_EQUITY ,
+            REG_T_EQUITY_S ,
+            REG_T_EQUITY_C ,
+            REG_T_MARGIN ,
+            REG_T_MARGIN_S ,
+            REG_T_MARGIN_C ,
+            SMA ,
+            SMA_S ,
+            SMA_C ,
+            TOTAL_CASHVALUE ,
+            TOTAL_CASHVALUE_S ,
+            TOTAL_CASHVALUE_C ,
+            DEBIT_CARD_PENDING_CHARGES ,
+            DEBIT_CARD_PENDING_CHARGES_S ,
+            DEBIT_CARD_PENDING_CHARGES_C ,
+            REMARK ,
+            CREATE_DATE ,
+            UPDATE_DATE 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.accountId} ,
+            #{item.accountCode} ,
+            #{item.accountType} ,
+            #{item.accountReady} ,
+            #{item.cushion} ,
+            #{item.leverageS} ,
+            #{item.leverageC} ,
+            #{item.lookAheadNextChange} ,
+            #{item.nlvAndMarginInReview} ,
+            #{item.segmentTitleS} ,
+            #{item.tradingTypeS} ,
+            #{item.segmentTitleC} ,
+            #{item.tradingTypeC} ,
+            #{dayTradesRemaining} ,
+            #{dayTradesRemainingT1} ,
+            #{dayTradesRemainingT2} ,
+            #{dayTradesRemainingT3} ,
+            #{dayTradesRemainingT4} ,
+            #{item.currency} ,
+            #{item.accruedCash} ,
+            #{item.accruedCashS} ,
+            #{item.accruedCashC} ,
+            #{item.accruedDividend} ,
+            #{item.accruedDividendS} ,
+            #{item.accruedDividendC} ,
+            #{item.availableFunds} ,
+            #{item.availableFundsS} ,
+            #{item.availableFundsC} ,
+            #{item.billable} ,
+            #{item.billableS} ,
+            #{item.billableC} ,
+            #{item.buyingPower} ,
+            #{item.equityWithLoanValue} ,
+            #{item.equityWithLoanValueS} ,
+            #{item.equityWithLoanValueC} ,
+            #{item.excessLiquidity} ,
+            #{item.excessLiquidityS} ,
+            #{item.excessLiquidityC} ,
+            #{item.fullAvailableFunds} ,
+            #{item.fullAvailableFundsS} ,
+            #{item.fullAvailableFundsC} ,
+            #{item.fullExcessLiquidity} ,
+            #{item.fullExcessLiquidityS} ,
+            #{item.fullExcessLiquidityC} ,
+            #{item.fullInitMarginReq} ,
+            #{item.fullInitMarginReqS} ,
+            #{item.fullInitMarginReqC} ,
+            #{item.fullMaintMarginReq} ,
+            #{item.fullMaintMarginReqS} ,
+            #{item.fullMaintMarginReqC} ,
+            #{item.grossPositionValue} ,
+            #{item.grossPositionValueS} ,
+            #{item.grossPositionValueC} ,
+            #{item.guarantee} ,
+            #{item.guaranteeS} ,
+            #{item.guaranteeC} ,
+            #{item.indianStockHaircut} ,
+            #{item.indianStockHaircutS} ,
+            #{item.indianStockHaircutC} ,
+            #{item.initMarginReq} ,
+            #{item.initMarginReqS} ,
+            #{item.initMarginReqC} ,
+            #{item.lookAheadAvailableFunds} ,
+            #{item.lookAheadAvailableFundsS} ,
+            #{item.lookAheadAvailableFundsC} ,
+            #{item.lookAheadExcessLiquidity} ,
+            #{item.lookAheadExcessLiquidityS} ,
+            #{item.lookAheadExcessLiquidityC} ,
+            #{item.lookAheadInitMarginReq} ,
+            #{item.lookAheadInitMarginReqS} ,
+            #{item.lookAheadInitMarginReqC} ,
+            #{item.lookAheadMaintMarginReq} ,
+            #{item.lookAheadMaintMarginReqS} ,
+            #{item.lookAheadMaintMarginReqC} ,
+            #{item.maintMarginReq} ,
+            #{item.maintMarginReqS} ,
+            #{item.maintMarginReqC} ,
+            #{item.netLiquidation} ,
+            #{item.netLiquidationS} ,
+            #{item.netLiquidationC} ,
+            #{item.netLiquidationUncertainty} ,
+            #{item.pasharesValue} ,
+            #{item.pasharesValueS} ,
+            #{item.pasharesValueC} ,
+            #{item.postExpirationExcess} ,
+            #{item.postExpirationExcessS} ,
+            #{item.postExpirationExcessC} ,
+            #{item.postExpirationMargin} ,
+            #{item.postExpirationMarginS} ,
+            #{item.postExpirationMarginC} ,
+            #{regTEquity} ,
+            #{regTEquityS} ,
+            #{regTEquityC} ,
+            #{regTMargin} ,
+            #{regTMarginS} ,
+            #{regTMarginC} ,
+            #{SMA} ,
+            #{SMAS} ,
+            #{SMAC} ,
+            #{item.totalCashvalue} ,
+            #{item.totalCashvalueS} ,
+            #{item.totalCashvalueC} ,
+            #{item.debitCardPendingCharges} ,
+            #{item.debitCardPendingChargesS} ,
+            #{item.debitCardPendingChargesC} ,
+            #{item.remark} ,
+            #{item.createDate} ,
+            #{item.updateDate} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE IB_ACCOUNT_BALANCE_MARGIN SET
+            ACCOUNT_ID = #{item.accountId} ,
+            ACCOUNT_CODE = #{item.accountCode} ,
+            ACCOUNT_TYPE = #{item.accountType} ,
+            ACCOUNT_READY = #{item.accountReady} ,
+            CUSHION = #{item.cushion} ,
+            LEVERAGE_S = #{item.leverageS} ,
+            LEVERAGE_C = #{item.leverageC} ,
+            LOOK_AHEAD_NEXT_CHANGE = #{item.lookAheadNextChange} ,
+            NLV_AND_MARGIN_IN_REVIEW = #{item.nlvAndMarginInReview} ,
+            SEGMENT_TITLE_S = #{item.segmentTitleS} ,
+            TRADING_TYPE_S = #{item.tradingTypeS} ,
+            SEGMENT_TITLE_C = #{item.segmentTitleC} ,
+            TRADING_TYPE_C = #{item.tradingTypeC} ,
+            DAY_TRADES_REMAINING = #{item.dayTradesRemaining} ,
+            DAY_TRADES_REMAINING_T1 = #{item.dayTradesRemainingT1} ,
+            DAY_TRADES_REMAINING_T2 = #{item.dayTradesRemainingT2} ,
+            DAY_TRADES_REMAINING_T3 = #{item.dayTradesRemainingT3} ,
+            DAY_TRADES_REMAINING_T4 = #{item.dayTradesRemainingT4} ,
+            CURRENCY = #{item.currency} ,
+            ACCRUED_CASH = #{item.accruedCash} ,
+            ACCRUED_CASH_S = #{item.accruedCashS} ,
+            ACCRUED_CASH_C = #{item.accruedCashC} ,
+            ACCRUED_DIVIDEND = #{item.accruedDividend} ,
+            ACCRUED_DIVIDEND_S = #{item.accruedDividendS} ,
+            ACCRUED_DIVIDEND_C = #{item.accruedDividendC} ,
+            AVAILABLE_FUNDS = #{item.availableFunds} ,
+            AVAILABLE_FUNDS_S = #{item.availableFundsS} ,
+            AVAILABLE_FUNDS_C = #{item.availableFundsC} ,
+            BILLABLE = #{item.billable} ,
+            BILLABLE_S = #{item.billableS} ,
+            BILLABLE_C = #{item.billableC} ,
+            BUYING_POWER = #{item.buyingPower} ,
+            EQUITY_WITH_LOAN_VALUE = #{item.equityWithLoanValue} ,
+            EQUITY_WITH_LOAN_VALUE_S = #{item.equityWithLoanValueS} ,
+            EQUITY_WITH_LOAN_VALUE_C = #{item.equityWithLoanValueC} ,
+            EXCESS_LIQUIDITY = #{item.excessLiquidity} ,
+            EXCESS_LIQUIDITY_S = #{item.excessLiquidityS} ,
+            EXCESS_LIQUIDITY_C = #{item.excessLiquidityC} ,
+            FULL_AVAILABLE_FUNDS = #{item.fullAvailableFunds} ,
+            FULL_AVAILABLE_FUNDS_S = #{item.fullAvailableFundsS} ,
+            FULL_AVAILABLE_FUNDS_C = #{item.fullAvailableFundsC} ,
+            FULL_EXCESS_LIQUIDITY = #{item.fullExcessLiquidity} ,
+            FULL_EXCESS_LIQUIDITY_S = #{item.fullExcessLiquidityS} ,
+            FULL_EXCESS_LIQUIDITY_C = #{item.fullExcessLiquidityC} ,
+            FULL_INIT_MARGIN_REQ = #{item.fullInitMarginReq} ,
+            FULL_INIT_MARGIN_REQ_S = #{item.fullInitMarginReqS} ,
+            FULL_INIT_MARGIN_REQ_C = #{item.fullInitMarginReqC} ,
+            FULL_MAINT_MARGIN_REQ = #{item.fullMaintMarginReq} ,
+            FULL_MAINT_MARGIN_REQ_S = #{item.fullMaintMarginReqS} ,
+            FULL_MAINT_MARGIN_REQ_C = #{item.fullMaintMarginReqC} ,
+            GROSS_POSITION_VALUE = #{item.grossPositionValue} ,
+            GROSS_POSITION_VALUE_S = #{item.grossPositionValueS} ,
+            GROSS_POSITION_VALUE_C = #{item.grossPositionValueC} ,
+            GUARANTEE = #{item.guarantee} ,
+            GUARANTEE_S = #{item.guaranteeS} ,
+            GUARANTEE_C = #{item.guaranteeC} ,
+            INDIAN_STOCK_HAIRCUT = #{item.indianStockHaircut} ,
+            INDIAN_STOCK_HAIRCUT_S = #{item.indianStockHaircutS} ,
+            INDIAN_STOCK_HAIRCUT_C = #{item.indianStockHaircutC} ,
+            INIT_MARGIN_REQ = #{item.initMarginReq} ,
+            INIT_MARGIN_REQ_S = #{item.initMarginReqS} ,
+            INIT_MARGIN_REQ_C = #{item.initMarginReqC} ,
+            LOOK_AHEAD_AVAILABLE_FUNDS = #{item.lookAheadAvailableFunds} ,
+            LOOK_AHEAD_AVAILABLE_FUNDS_S = #{item.lookAheadAvailableFundsS} ,
+            LOOK_AHEAD_AVAILABLE_FUNDS_C = #{item.lookAheadAvailableFundsC} ,
+            LOOK_AHEAD_EXCESS_LIQUIDITY = #{item.lookAheadExcessLiquidity} ,
+            LOOK_AHEAD_EXCESS_LIQUIDITY_S = #{item.lookAheadExcessLiquidityS} ,
+            LOOK_AHEAD_EXCESS_LIQUIDITY_C = #{item.lookAheadExcessLiquidityC} ,
+            LOOK_AHEAD_INIT_MARGIN_REQ = #{item.lookAheadInitMarginReq} ,
+            LOOK_AHEAD_INIT_MARGIN_REQ_S = #{item.lookAheadInitMarginReqS} ,
+            LOOK_AHEAD_INIT_MARGIN_REQ_C = #{item.lookAheadInitMarginReqC} ,
+            LOOK_AHEAD_MAINT_MARGIN_REQ = #{item.lookAheadMaintMarginReq} ,
+            LOOK_AHEAD_MAINT_MARGIN_REQ_S = #{item.lookAheadMaintMarginReqS} ,
+            LOOK_AHEAD_MAINT_MARGIN_REQ_C = #{item.lookAheadMaintMarginReqC} ,
+            MAINT_MARGIN_REQ = #{item.maintMarginReq} ,
+            MAINT_MARGIN_REQ_S = #{item.maintMarginReqS} ,
+            MAINT_MARGIN_REQ_C = #{item.maintMarginReqC} ,
+            NET_LIQUIDATION = #{item.netLiquidation} ,
+            NET_LIQUIDATION_S = #{item.netLiquidationS} ,
+            NET_LIQUIDATION_C = #{item.netLiquidationC} ,
+            NET_LIQUIDATION_UNCERTAINTY = #{item.netLiquidationUncertainty} ,
+            PASHARES_VALUE = #{item.pasharesValue} ,
+            PASHARES_VALUE_S = #{item.pasharesValueS} ,
+            PASHARES_VALUE_C = #{item.pasharesValueC} ,
+            POST_EXPIRATION_EXCESS = #{item.postExpirationExcess} ,
+            POST_EXPIRATION_EXCESS_S = #{item.postExpirationExcessS} ,
+            POST_EXPIRATION_EXCESS_C = #{item.postExpirationExcessC} ,
+            POST_EXPIRATION_MARGIN = #{item.postExpirationMargin} ,
+            POST_EXPIRATION_MARGIN_S = #{item.postExpirationMarginS} ,
+            POST_EXPIRATION_MARGIN_C = #{item.postExpirationMarginC} ,
+            REG_T_EQUITY = #{item.regTEquity} ,
+            REG_T_EQUITY_S = #{item.regTEquityS} ,
+            REG_T_EQUITY_C = #{item.regTEquityC} ,
+            REG_T_MARGIN = #{item.regTMargin} ,
+            REG_T_MARGIN_S = #{item.regTMarginS} ,
+            REG_T_MARGIN_C = #{item.regTMarginC} ,
+            SMA = #{item.SMA} ,
+            SMA_S = #{item.SMAS} ,
+            SMA_C = #{item.SMAC} ,
+            TOTAL_CASHVALUE = #{item.totalCashvalue} ,
+            TOTAL_CASHVALUE_S = #{item.totalCashvalueS} ,
+            TOTAL_CASHVALUE_C = #{item.totalCashvalueC} ,
+            DEBIT_CARD_PENDING_CHARGES = #{item.debitCardPendingCharges} ,
+            DEBIT_CARD_PENDING_CHARGES_S = #{item.debitCardPendingChargesS} ,
+            DEBIT_CARD_PENDING_CHARGES_C = #{item.debitCardPendingChargesC} ,
+            REMARK = #{item.remark} ,
+            CREATE_DATE = #{item.createDate} ,
+            UPDATE_DATE = #{item.updateDate} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.ib.entity.IbAccountBalanceMargin">
+        UPDATE IB_ACCOUNT_BALANCE_MARGIN SET
+            ACCOUNT_ID = #{accountId} ,
+            ACCOUNT_CODE = #{accountCode} ,
+            ACCOUNT_TYPE = #{accountType} ,
+            ACCOUNT_READY = #{accountReady} ,
+            CUSHION = #{cushion} ,
+            LEVERAGE_S = #{leverageS} ,
+            LEVERAGE_C = #{leverageC} ,
+            LOOK_AHEAD_NEXT_CHANGE = #{lookAheadNextChange} ,
+            NLV_AND_MARGIN_IN_REVIEW = #{nlvAndMarginInReview} ,
+            SEGMENT_TITLE_S = #{segmentTitleS} ,
+            TRADING_TYPE_S = #{tradingTypeS} ,
+            SEGMENT_TITLE_C = #{segmentTitleC} ,
+            TRADING_TYPE_C = #{tradingTypeC} ,
+            DAY_TRADES_REMAINING = #{dayTradesRemaining} ,
+            DAY_TRADES_REMAINING_T1 = #{dayTradesRemainingT1} ,
+            DAY_TRADES_REMAINING_T2 = #{dayTradesRemainingT2} ,
+            DAY_TRADES_REMAINING_T3 = #{dayTradesRemainingT3} ,
+            DAY_TRADES_REMAINING_T4 = #{dayTradesRemainingT4} ,
+            CURRENCY = #{currency} ,
+            ACCRUED_CASH = #{accruedCash} ,
+            ACCRUED_CASH_S = #{accruedCashS} ,
+            ACCRUED_CASH_C = #{accruedCashC} ,
+            ACCRUED_DIVIDEND = #{accruedDividend} ,
+            ACCRUED_DIVIDEND_S = #{accruedDividendS} ,
+            ACCRUED_DIVIDEND_C = #{accruedDividendC} ,
+            AVAILABLE_FUNDS = #{availableFunds} ,
+            AVAILABLE_FUNDS_S = #{availableFundsS} ,
+            AVAILABLE_FUNDS_C = #{availableFundsC} ,
+            BILLABLE = #{billable} ,
+            BILLABLE_S = #{billableS} ,
+            BILLABLE_C = #{billableC} ,
+            BUYING_POWER = #{buyingPower} ,
+            EQUITY_WITH_LOAN_VALUE = #{equityWithLoanValue} ,
+            EQUITY_WITH_LOAN_VALUE_S = #{equityWithLoanValueS} ,
+            EQUITY_WITH_LOAN_VALUE_C = #{equityWithLoanValueC} ,
+            EXCESS_LIQUIDITY = #{excessLiquidity} ,
+            EXCESS_LIQUIDITY_S = #{excessLiquidityS} ,
+            EXCESS_LIQUIDITY_C = #{excessLiquidityC} ,
+            FULL_AVAILABLE_FUNDS = #{fullAvailableFunds} ,
+            FULL_AVAILABLE_FUNDS_S = #{fullAvailableFundsS} ,
+            FULL_AVAILABLE_FUNDS_C = #{fullAvailableFundsC} ,
+            FULL_EXCESS_LIQUIDITY = #{fullExcessLiquidity} ,
+            FULL_EXCESS_LIQUIDITY_S = #{fullExcessLiquidityS} ,
+            FULL_EXCESS_LIQUIDITY_C = #{fullExcessLiquidityC} ,
+            FULL_INIT_MARGIN_REQ = #{fullInitMarginReq} ,
+            FULL_INIT_MARGIN_REQ_S = #{fullInitMarginReqS} ,
+            FULL_INIT_MARGIN_REQ_C = #{fullInitMarginReqC} ,
+            FULL_MAINT_MARGIN_REQ = #{fullMaintMarginReq} ,
+            FULL_MAINT_MARGIN_REQ_S = #{fullMaintMarginReqS} ,
+            FULL_MAINT_MARGIN_REQ_C = #{fullMaintMarginReqC} ,
+            GROSS_POSITION_VALUE = #{grossPositionValue} ,
+            GROSS_POSITION_VALUE_S = #{grossPositionValueS} ,
+            GROSS_POSITION_VALUE_C = #{grossPositionValueC} ,
+            GUARANTEE = #{guarantee} ,
+            GUARANTEE_S = #{guaranteeS} ,
+            GUARANTEE_C = #{guaranteeC} ,
+            INDIAN_STOCK_HAIRCUT = #{indianStockHaircut} ,
+            INDIAN_STOCK_HAIRCUT_S = #{indianStockHaircutS} ,
+            INDIAN_STOCK_HAIRCUT_C = #{indianStockHaircutC} ,
+            INIT_MARGIN_REQ = #{initMarginReq} ,
+            INIT_MARGIN_REQ_S = #{initMarginReqS} ,
+            INIT_MARGIN_REQ_C = #{initMarginReqC} ,
+            LOOK_AHEAD_AVAILABLE_FUNDS = #{lookAheadAvailableFunds} ,
+            LOOK_AHEAD_AVAILABLE_FUNDS_S = #{lookAheadAvailableFundsS} ,
+            LOOK_AHEAD_AVAILABLE_FUNDS_C = #{lookAheadAvailableFundsC} ,
+            LOOK_AHEAD_EXCESS_LIQUIDITY = #{lookAheadExcessLiquidity} ,
+            LOOK_AHEAD_EXCESS_LIQUIDITY_S = #{lookAheadExcessLiquidityS} ,
+            LOOK_AHEAD_EXCESS_LIQUIDITY_C = #{lookAheadExcessLiquidityC} ,
+            LOOK_AHEAD_INIT_MARGIN_REQ = #{lookAheadInitMarginReq} ,
+            LOOK_AHEAD_INIT_MARGIN_REQ_S = #{lookAheadInitMarginReqS} ,
+            LOOK_AHEAD_INIT_MARGIN_REQ_C = #{lookAheadInitMarginReqC} ,
+            LOOK_AHEAD_MAINT_MARGIN_REQ = #{lookAheadMaintMarginReq} ,
+            LOOK_AHEAD_MAINT_MARGIN_REQ_S = #{lookAheadMaintMarginReqS} ,
+            LOOK_AHEAD_MAINT_MARGIN_REQ_C = #{lookAheadMaintMarginReqC} ,
+            MAINT_MARGIN_REQ = #{maintMarginReq} ,
+            MAINT_MARGIN_REQ_S = #{maintMarginReqS} ,
+            MAINT_MARGIN_REQ_C = #{maintMarginReqC} ,
+            NET_LIQUIDATION = #{netLiquidation} ,
+            NET_LIQUIDATION_S = #{netLiquidationS} ,
+            NET_LIQUIDATION_C = #{netLiquidationC} ,
+            NET_LIQUIDATION_UNCERTAINTY = #{netLiquidationUncertainty} ,
+            PASHARES_VALUE = #{pasharesValue} ,
+            PASHARES_VALUE_S = #{pasharesValueS} ,
+            PASHARES_VALUE_C = #{pasharesValueC} ,
+            POST_EXPIRATION_EXCESS = #{postExpirationExcess} ,
+            POST_EXPIRATION_EXCESS_S = #{postExpirationExcessS} ,
+            POST_EXPIRATION_EXCESS_C = #{postExpirationExcessC} ,
+            POST_EXPIRATION_MARGIN = #{postExpirationMargin} ,
+            POST_EXPIRATION_MARGIN_S = #{postExpirationMarginS} ,
+            POST_EXPIRATION_MARGIN_C = #{postExpirationMarginC} ,
+            REG_T_EQUITY = #{regTEquity} ,
+            REG_T_EQUITY_S = #{regTEquityS} ,
+            REG_T_EQUITY_C = #{regTEquityC} ,
+            REG_T_MARGIN = #{regTMargin} ,
+            REG_T_MARGIN_S = #{regTMarginS} ,
+            REG_T_MARGIN_C = #{regTMarginC} ,
+            SMA = #{SMA} ,
+            SMA_S = #{SMAS} ,
+            SMA_C = #{SMAC} ,
+            TOTAL_CASHVALUE = #{totalCashvalue} ,
+            TOTAL_CASHVALUE_S = #{totalCashvalueS} ,
+            TOTAL_CASHVALUE_C = #{totalCashvalueC} ,
+            DEBIT_CARD_PENDING_CHARGES = #{debitCardPendingCharges} ,
+            DEBIT_CARD_PENDING_CHARGES_S = #{debitCardPendingChargesS} ,
+            DEBIT_CARD_PENDING_CHARGES_C = #{debitCardPendingChargesC} ,
+            REMARK = #{remark} ,
+            CREATE_DATE = #{createDate} ,
+            UPDATE_DATE = #{updateDate} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.ib.entity.IbAccountBalanceMargin">
+        SELECT <include refid="ibAccountBalanceMarginColumns"/> FROM IB_ACCOUNT_BALANCE_MARGIN a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.ib.entity.IbAccountBalanceMargin">
+        SELECT <include refid="ibAccountBalanceMarginColumns"/>, b.ACCOUNT_NAME as accountName
+        FROM IB_ACCOUNT_BALANCE_MARGIN a
+        LEFT JOIN ACCOUNT b ON a.ACCOUNT_ID = b.ID
+        WHERE 1 = 1
+        <if test="accountId != null">
+            AND a.ACCOUNT_ID = #{accountId}
+        </if>
+        <if test="accountCode != null">
+            AND a.ACCOUNT_CODE LIKE '%'||#{accountCode}||'%'
+        </if>
+        <if test="accountType != null">
+            AND a.ACCOUNT_TYPE LIKE '%'||#{accountType}||'%'
+        </if>
+        <if test="accountReady != null">
+            AND a.ACCOUNT_READY LIKE '%'||#{accountReady}||'%'
+        </if>
+        <if test="cushion != null">
+            AND a.CUSHION = #{cushion}
+        </if>
+        <if test="leverageS != null">
+            AND a.LEVERAGE_S = #{leverageS}
+        </if>
+        <if test="leverageC != null">
+            AND a.LEVERAGE_C = #{leverageC}
+        </if>
+        <if test="lookAheadNextChange != null">
+            AND a.LOOK_AHEAD_NEXT_CHANGE = #{lookAheadNextChange}
+        </if>
+        <if test="nlvAndMarginInReview != null">
+            AND a.NLV_AND_MARGIN_IN_REVIEW LIKE '%'||#{nlvAndMarginInReview}||'%'
+        </if>
+        <if test="segmentTitleS != null">
+            AND a.SEGMENT_TITLE_S LIKE '%'||#{segmentTitleS}||'%'
+        </if>
+        <if test="tradingTypeS != null">
+            AND a.TRADING_TYPE_S LIKE '%'||#{tradingTypeS}||'%'
+        </if>
+        <if test="segmentTitleC != null">
+            AND a.SEGMENT_TITLE_C LIKE '%'||#{segmentTitleC}||'%'
+        </if>
+        <if test="tradingTypeC != null">
+            AND a.TRADING_TYPE_C LIKE '%'||#{tradingTypeC}||'%'
+        </if>
+        <if test="dayTradesRemaining != null">
+            AND a.DAY_TRADES_REMAINING = #{dayTradesRemaining}
+        </if>
+        <if test="dayTradesRemainingT1 != null">
+            AND a.DAY_TRADES_REMAINING_T1 = #{dayTradesRemainingT1}
+        </if>
+        <if test="dayTradesRemainingT2 != null">
+            AND a.DAY_TRADES_REMAINING_T2 = #{dayTradesRemainingT2}
+        </if>
+        <if test="dayTradesRemainingT3 != null">
+            AND a.DAY_TRADES_REMAINING_T3 = #{dayTradesRemainingT3}
+        </if>
+        <if test="dayTradesRemainingT4 != null">
+            AND a.DAY_TRADES_REMAINING_T4 = #{dayTradesRemainingT4}
+        </if>
+        <if test="currency != null">
+            AND a.CURRENCY LIKE '%'||#{currency}||'%'
+        </if>
+        <if test="accruedCash != null">
+            AND a.ACCRUED_CASH = #{accruedCash}
+        </if>
+        <if test="accruedCashS != null">
+            AND a.ACCRUED_CASH_S = #{accruedCashS}
+        </if>
+        <if test="accruedCashC != null">
+            AND a.ACCRUED_CASH_C = #{accruedCashC}
+        </if>
+        <if test="accruedDividend != null">
+            AND a.ACCRUED_DIVIDEND = #{accruedDividend}
+        </if>
+        <if test="accruedDividendS != null">
+            AND a.ACCRUED_DIVIDEND_S = #{accruedDividendS}
+        </if>
+        <if test="accruedDividendC != null">
+            AND a.ACCRUED_DIVIDEND_C = #{accruedDividendC}
+        </if>
+        <if test="availableFunds != null">
+            AND a.AVAILABLE_FUNDS = #{availableFunds}
+        </if>
+        <if test="availableFundsS != null">
+            AND a.AVAILABLE_FUNDS_S = #{availableFundsS}
+        </if>
+        <if test="availableFundsC != null">
+            AND a.AVAILABLE_FUNDS_C = #{availableFundsC}
+        </if>
+        <if test="billable != null">
+            AND a.BILLABLE = #{billable}
+        </if>
+        <if test="billableS != null">
+            AND a.BILLABLE_S = #{billableS}
+        </if>
+        <if test="billableC != null">
+            AND a.BILLABLE_C = #{billableC}
+        </if>
+        <if test="buyingPower != null">
+            AND a.BUYING_POWER = #{buyingPower}
+        </if>
+        <if test="equityWithLoanValue != null">
+            AND a.EQUITY_WITH_LOAN_VALUE = #{equityWithLoanValue}
+        </if>
+        <if test="equityWithLoanValueS != null">
+            AND a.EQUITY_WITH_LOAN_VALUE_S = #{equityWithLoanValueS}
+        </if>
+        <if test="equityWithLoanValueC != null">
+            AND a.EQUITY_WITH_LOAN_VALUE_C = #{equityWithLoanValueC}
+        </if>
+        <if test="excessLiquidity != null">
+            AND a.EXCESS_LIQUIDITY = #{excessLiquidity}
+        </if>
+        <if test="excessLiquidityS != null">
+            AND a.EXCESS_LIQUIDITY_S = #{excessLiquidityS}
+        </if>
+        <if test="excessLiquidityC != null">
+            AND a.EXCESS_LIQUIDITY_C = #{excessLiquidityC}
+        </if>
+        <if test="fullAvailableFunds != null">
+            AND a.FULL_AVAILABLE_FUNDS = #{fullAvailableFunds}
+        </if>
+        <if test="fullAvailableFundsS != null">
+            AND a.FULL_AVAILABLE_FUNDS_S = #{fullAvailableFundsS}
+        </if>
+        <if test="fullAvailableFundsC != null">
+            AND a.FULL_AVAILABLE_FUNDS_C = #{fullAvailableFundsC}
+        </if>
+        <if test="fullExcessLiquidity != null">
+            AND a.FULL_EXCESS_LIQUIDITY = #{fullExcessLiquidity}
+        </if>
+        <if test="fullExcessLiquidityS != null">
+            AND a.FULL_EXCESS_LIQUIDITY_S = #{fullExcessLiquidityS}
+        </if>
+        <if test="fullExcessLiquidityC != null">
+            AND a.FULL_EXCESS_LIQUIDITY_C = #{fullExcessLiquidityC}
+        </if>
+        <if test="fullInitMarginReq != null">
+            AND a.FULL_INIT_MARGIN_REQ = #{fullInitMarginReq}
+        </if>
+        <if test="fullInitMarginReqS != null">
+            AND a.FULL_INIT_MARGIN_REQ_S = #{fullInitMarginReqS}
+        </if>
+        <if test="fullInitMarginReqC != null">
+            AND a.FULL_INIT_MARGIN_REQ_C = #{fullInitMarginReqC}
+        </if>
+        <if test="fullMaintMarginReq != null">
+            AND a.FULL_MAINT_MARGIN_REQ = #{fullMaintMarginReq}
+        </if>
+        <if test="fullMaintMarginReqS != null">
+            AND a.FULL_MAINT_MARGIN_REQ_S = #{fullMaintMarginReqS}
+        </if>
+        <if test="fullMaintMarginReqC != null">
+            AND a.FULL_MAINT_MARGIN_REQ_C = #{fullMaintMarginReqC}
+        </if>
+        <if test="grossPositionValue != null">
+            AND a.GROSS_POSITION_VALUE = #{grossPositionValue}
+        </if>
+        <if test="grossPositionValueS != null">
+            AND a.GROSS_POSITION_VALUE_S = #{grossPositionValueS}
+        </if>
+        <if test="grossPositionValueC != null">
+            AND a.GROSS_POSITION_VALUE_C = #{grossPositionValueC}
+        </if>
+        <if test="guarantee != null">
+            AND a.GUARANTEE = #{guarantee}
+        </if>
+        <if test="guaranteeS != null">
+            AND a.GUARANTEE_S = #{guaranteeS}
+        </if>
+        <if test="guaranteeC != null">
+            AND a.GUARANTEE_C = #{guaranteeC}
+        </if>
+        <if test="indianStockHaircut != null">
+            AND a.INDIAN_STOCK_HAIRCUT = #{indianStockHaircut}
+        </if>
+        <if test="indianStockHaircutS != null">
+            AND a.INDIAN_STOCK_HAIRCUT_S = #{indianStockHaircutS}
+        </if>
+        <if test="indianStockHaircutC != null">
+            AND a.INDIAN_STOCK_HAIRCUT_C = #{indianStockHaircutC}
+        </if>
+        <if test="initMarginReq != null">
+            AND a.INIT_MARGIN_REQ = #{initMarginReq}
+        </if>
+        <if test="initMarginReqS != null">
+            AND a.INIT_MARGIN_REQ_S = #{initMarginReqS}
+        </if>
+        <if test="initMarginReqC != null">
+            AND a.INIT_MARGIN_REQ_C = #{initMarginReqC}
+        </if>
+        <if test="lookAheadAvailableFunds != null">
+            AND a.LOOK_AHEAD_AVAILABLE_FUNDS = #{lookAheadAvailableFunds}
+        </if>
+        <if test="lookAheadAvailableFundsS != null">
+            AND a.LOOK_AHEAD_AVAILABLE_FUNDS_S = #{lookAheadAvailableFundsS}
+        </if>
+        <if test="lookAheadAvailableFundsC != null">
+            AND a.LOOK_AHEAD_AVAILABLE_FUNDS_C = #{lookAheadAvailableFundsC}
+        </if>
+        <if test="lookAheadExcessLiquidity != null">
+            AND a.LOOK_AHEAD_EXCESS_LIQUIDITY = #{lookAheadExcessLiquidity}
+        </if>
+        <if test="lookAheadExcessLiquidityS != null">
+            AND a.LOOK_AHEAD_EXCESS_LIQUIDITY_S = #{lookAheadExcessLiquidityS}
+        </if>
+        <if test="lookAheadExcessLiquidityC != null">
+            AND a.LOOK_AHEAD_EXCESS_LIQUIDITY_C = #{lookAheadExcessLiquidityC}
+        </if>
+        <if test="lookAheadInitMarginReq != null">
+            AND a.LOOK_AHEAD_INIT_MARGIN_REQ = #{lookAheadInitMarginReq}
+        </if>
+        <if test="lookAheadInitMarginReqS != null">
+            AND a.LOOK_AHEAD_INIT_MARGIN_REQ_S = #{lookAheadInitMarginReqS}
+        </if>
+        <if test="lookAheadInitMarginReqC != null">
+            AND a.LOOK_AHEAD_INIT_MARGIN_REQ_C = #{lookAheadInitMarginReqC}
+        </if>
+        <if test="lookAheadMaintMarginReq != null">
+            AND a.LOOK_AHEAD_MAINT_MARGIN_REQ = #{lookAheadMaintMarginReq}
+        </if>
+        <if test="lookAheadMaintMarginReqS != null">
+            AND a.LOOK_AHEAD_MAINT_MARGIN_REQ_S = #{lookAheadMaintMarginReqS}
+        </if>
+        <if test="lookAheadMaintMarginReqC != null">
+            AND a.LOOK_AHEAD_MAINT_MARGIN_REQ_C = #{lookAheadMaintMarginReqC}
+        </if>
+        <if test="maintMarginReq != null">
+            AND a.MAINT_MARGIN_REQ = #{maintMarginReq}
+        </if>
+        <if test="maintMarginReqS != null">
+            AND a.MAINT_MARGIN_REQ_S = #{maintMarginReqS}
+        </if>
+        <if test="maintMarginReqC != null">
+            AND a.MAINT_MARGIN_REQ_C = #{maintMarginReqC}
+        </if>
+        <if test="netLiquidation != null">
+            AND a.NET_LIQUIDATION = #{netLiquidation}
+        </if>
+        <if test="netLiquidationS != null">
+            AND a.NET_LIQUIDATION_S = #{netLiquidationS}
+        </if>
+        <if test="netLiquidationC != null">
+            AND a.NET_LIQUIDATION_C = #{netLiquidationC}
+        </if>
+        <if test="netLiquidationUncertainty != null">
+            AND a.NET_LIQUIDATION_UNCERTAINTY = #{netLiquidationUncertainty}
+        </if>
+        <if test="pasharesValue != null">
+            AND a.PASHARES_VALUE = #{pasharesValue}
+        </if>
+        <if test="pasharesValueS != null">
+            AND a.PASHARES_VALUE_S = #{pasharesValueS}
+        </if>
+        <if test="pasharesValueC != null">
+            AND a.PASHARES_VALUE_C = #{pasharesValueC}
+        </if>
+        <if test="postExpirationExcess != null">
+            AND a.POST_EXPIRATION_EXCESS = #{postExpirationExcess}
+        </if>
+        <if test="postExpirationExcessS != null">
+            AND a.POST_EXPIRATION_EXCESS_S = #{postExpirationExcessS}
+        </if>
+        <if test="postExpirationExcessC != null">
+            AND a.POST_EXPIRATION_EXCESS_C = #{postExpirationExcessC}
+        </if>
+        <if test="postExpirationMargin != null">
+            AND a.POST_EXPIRATION_MARGIN = #{postExpirationMargin}
+        </if>
+        <if test="postExpirationMarginS != null">
+            AND a.POST_EXPIRATION_MARGIN_S = #{postExpirationMarginS}
+        </if>
+        <if test="postExpirationMarginC != null">
+            AND a.POST_EXPIRATION_MARGIN_C = #{postExpirationMarginC}
+        </if>
+        <if test="regTEquity != null">
+            AND a.REG_T_EQUITY = #{regTEquity}
+        </if>
+        <if test="regTEquityS != null">
+            AND a.REG_T_EQUITY_S = #{regTEquityS}
+        </if>
+        <if test="regTEquityC != null">
+            AND a.REG_T_EQUITY_C = #{regTEquityC}
+        </if>
+        <if test="regTMargin != null">
+            AND a.REG_T_MARGIN = #{regTMargin}
+        </if>
+        <if test="regTMarginS != null">
+            AND a.REG_T_MARGIN_S = #{regTMarginS}
+        </if>
+        <if test="regTMarginC != null">
+            AND a.REG_T_MARGIN_C = #{regTMarginC}
+        </if>
+        <if test="SMA != null">
+            AND a.SMA = #{SMA}
+        </if>
+        <if test="SMAS != null">
+            AND a.SMA_S = #{SMAS}
+        </if>
+        <if test="SMAC != null">
+            AND a.SMA_C = #{SMAC}
+        </if>
+        <if test="totalCashvalue != null">
+            AND a.TOTAL_CASHVALUE = #{totalCashvalue}
+        </if>
+        <if test="totalCashvalueS != null">
+            AND a.TOTAL_CASHVALUE_S = #{totalCashvalueS}
+        </if>
+        <if test="totalCashvalueC != null">
+            AND a.TOTAL_CASHVALUE_C = #{totalCashvalueC}
+        </if>
+        <if test="debitCardPendingCharges != null">
+            AND a.DEBIT_CARD_PENDING_CHARGES = #{debitCardPendingCharges}
+        </if>
+        <if test="debitCardPendingChargesS != null">
+            AND a.DEBIT_CARD_PENDING_CHARGES_S = #{debitCardPendingChargesS}
+        </if>
+        <if test="debitCardPendingChargesC != null">
+            AND a.DEBIT_CARD_PENDING_CHARGES_C = #{debitCardPendingChargesC}
+        </if>
+        <if test="remark != null">
+            AND a.REMARK = #{remark}
+        </if>
+        <if test="createDate != null">
+            AND a.CREATE_DATE = #{createDate}
+        </if>
+        <if test="updateDate != null">
+            AND a.UPDATE_DATE = #{updateDate}
+        </if>
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.ib.entity.IbAccountBalanceMargin">
+        SELECT
+        <include refid="ibAccountBalanceMarginColumns"/>
+        FROM IB_ACCOUNT_BALANCE_MARGIN a <!--WHERE a.DEL_FLAG = 0-->
+    </select>
+
+</mapper>
+

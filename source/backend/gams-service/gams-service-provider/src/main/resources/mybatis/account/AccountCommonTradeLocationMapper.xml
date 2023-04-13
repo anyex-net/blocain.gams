@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.account.mapper.AccountCommonTradeLocationMapper">
+    <!-- 基础列 -->
+    <sql id="accountCommonTradeLocationColumns">
+        a.TANSACTION_LOCATION as tansactionLocation,
+        a.TANSACTION_TYPE as tansactionType,
+        a.TANSACTION_REGION as tansactionRegion,
+        a.ID as id,
+        a.CN_NAME as cnName,
+        a.EN_NAME as enName
+    </sql>
+
+    <resultMap id="accountCommonTradeLocationResultMap" type="com.fintech.gams.account.entity.AccountCommonTradeLocation">
+        <id column="ID" property="id" />
+        <result column="TANSACTION_LOCATION" property="tansactionLocation"/>
+        <result column="TANSACTION_TYPE" property="tansactionType"/>
+        <result column="TANSACTION_REGION" property="tansactionRegion"/>
+        <result column="CN_NAME" property="cnName"/>
+        <result column="EN_NAME" property="enName"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.account.entity.AccountCommonTradeLocation">
+        INSERT INTO ACCOUNT_COMMON_TRADE_LOCATION(
+            TANSACTION_LOCATION ,
+            TANSACTION_TYPE ,
+            TANSACTION_REGION ,
+            ID ,
+            CN_NAME ,
+            EN_NAME 
+        ) VALUES (
+            #{tansactionLocation} ,
+            #{tansactionType} ,
+            #{tansactionRegion} ,
+            #{id} ,
+            #{cnName} ,
+            #{enName} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM ACCOUNT_COMMON_TRADE_LOCATION WHERE ID = #{id}
+    </delete>
+
+    <!-- 根据主键逻辑删除
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE ACCOUNT_COMMOM_TRADE_LOCATION SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+    -->
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.account.entity.AccountCommonTradeLocation">
+        INSERT INTO ACCOUNT_COMMON_TRADE_LOCATION
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="tansactionLocation != null">
+                TANSACTION_LOCATION ,
+        </if>
+        <if test="tansactionType != null">
+                TANSACTION_TYPE ,
+        </if>
+        <if test="tansactionRegion != null">
+                TANSACTION_REGION ,
+        </if>
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="cnName != null">
+                CN_NAME ,
+        </if>
+        <if test="enName != null">
+                EN_NAME 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="tansactionLocation != null">
+                #{tansactionLocation} ,
+        </if>
+        <if test="tansactionType != null">
+                #{tansactionType} ,
+        </if>
+        <if test="tansactionRegion != null">
+                #{tansactionRegion} ,
+        </if>
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="cnName != null">
+                #{cnName} ,
+        </if>
+        <if test="enName != null">
+                #{enName} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.account.entity.AccountCommonTradeLocation">
+        UPDATE ACCOUNT_COMMON_TRADE_LOCATION
+           <set>
+            <if test="tansactionLocation != null">
+                TANSACTION_LOCATION = #{tansactionLocation} ,
+            </if>
+            <if test="tansactionType != null">
+                TANSACTION_TYPE = #{tansactionType} ,
+            </if>
+            <if test="tansactionRegion != null">
+                TANSACTION_REGION = #{tansactionRegion} ,
+            </if>
+            <if test="cnName != null">
+                CN_NAME = #{cnName} ,
+            </if>
+            <if test="enName != null">
+                EN_NAME = #{enName} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO ACCOUNT_COMMON_TRADE_LOCATION(
+            TANSACTION_LOCATION ,
+            TANSACTION_TYPE ,
+            TANSACTION_REGION ,
+            ID ,
+            CN_NAME ,
+            EN_NAME 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.tansactionLocation} ,
+            #{item.tansactionType} ,
+            #{item.tansactionRegion} ,
+            #{item.id} ,
+            #{item.cnName} ,
+            #{item.enName} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE ACCOUNT_COMMON_TRADE_LOCATION SET
+            TANSACTION_LOCATION = #{item.tansactionLocation} ,
+            TANSACTION_TYPE = #{item.tansactionType} ,
+            TANSACTION_REGION = #{item.tansactionRegion} ,
+            CN_NAME = #{item.cnName} ,
+            EN_NAME = #{item.enName} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.account.entity.AccountCommonTradeLocation">
+        UPDATE ACCOUNT_COMMON_TRADE_LOCATION SET
+            TANSACTION_LOCATION = #{tansactionLocation} ,
+            TANSACTION_TYPE = #{tansactionType} ,
+            TANSACTION_REGION = #{tansactionRegion} ,
+            CN_NAME = #{cnName} ,
+            EN_NAME = #{enName} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.account.entity.AccountCommonTradeLocation">
+        SELECT <include refid="accountCommonTradeLocationColumns"/> FROM ACCOUNT_COMMON_TRADE_LOCATION a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.account.entity.AccountCommonTradeLocation">
+        SELECT
+        <include refid="accountCommonTradeLocationColumns"/>
+        FROM ACCOUNT_COMMON_TRADE_LOCATION a WHERE 1 = 1 <!-- and a.DEL_FLAG = 0-->
+        <if test="tansactionLocation != null">
+            AND a.TANSACTION_LOCATION = #{tansactionLocation}
+        </if>
+        <if test="tansactionType != null">
+            AND a.TANSACTION_TYPE  = #{tansactionType}
+        </if>
+        <if test="tansactionRegion != null">
+            AND a.TANSACTION_REGION LIKE '%'||#{tansactionRegion}||'%'
+        </if>
+        <if test="cnName != null">
+            AND a.CN_NAME LIKE '%'||#{cnName}||'%'
+        </if>
+        <if test="enName != null">
+            AND a.EN_NAME LIKE '%'||#{enName}||'%'
+        </if>
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.account.entity.AccountCommonTradeLocation">
+        SELECT
+        <include refid="accountCommonTradeLocationColumns"/>
+        FROM ACCOUNT_COMMON_TRADE_LOCATION a <!--WHERE a.DEL_FLAG = 0-->
+    </select>
+
+    <!-- 根据主键取数据 -->
+    <select id="findByTansactionType"  parameterType="java.lang.String" resultType="com.fintech.gams.account.entity.AccountCommonTradeLocation">
+        SELECT <include refid="accountCommonTradeLocationColumns"/> FROM ACCOUNT_COMMON_TRADE_LOCATION a WHERE a.TANSACTION_TYPE = #{tansactionType}
+    </select>
+
+
+</mapper>
+

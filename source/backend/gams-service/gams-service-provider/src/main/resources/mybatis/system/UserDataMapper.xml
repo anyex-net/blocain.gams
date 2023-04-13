@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.system.mapper.UserDataMapper">
+    <!-- 基础列 -->
+    <sql id="userDataColumns">
+        a.ID as id,
+        a.USER_ID as userId,
+        a.ORG_ID as orgId
+    </sql>
+
+    <resultMap id="userDataResultMap" type="com.fintech.gams.system.entity.UserData">
+        <id column="ID" property="id" />
+        <result column="USER_ID" property="userId"/>
+        <result column="ORG_ID" property="orgId"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.system.entity.UserData">
+        INSERT INTO USER_DATA(
+            ID ,
+            USER_ID ,
+            ORG_ID 
+        ) VALUES (
+            #{id} ,
+            #{userId} ,
+            #{orgId} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM USER_DATA WHERE ID = #{id}
+    </delete>
+
+    <!--根据用户编号删除-->
+    <delete id="removeByUser">
+        DELETE FROM USER_DATA WHERE USER_ID = #{userId}
+    </delete>
+
+    <!-- 根据主键逻辑删除 -->
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE USER_DATA SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.system.entity.UserData">
+        INSERT INTO USER_DATA
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="userId != null">
+                USER_ID ,
+        </if>
+        <if test="orgId != null">
+                ORG_ID 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="userId != null">
+                #{userId} ,
+        </if>
+        <if test="orgId != null">
+                #{orgId} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.system.entity.UserData">
+        UPDATE USER_DATA
+           <set>
+            <if test="userId != null">
+                USER_ID = #{userId} ,
+            </if>
+            <if test="orgId != null">
+                ORG_ID = #{orgId} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO USER_DATA(
+            ID ,
+            USER_ID ,
+            ORG_ID 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.userId} ,
+            #{item.orgId} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE USER_DATA SET
+            USER_ID = #{item.userId} ,
+            ORG_ID = #{item.orgId} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.system.entity.UserData">
+        UPDATE USER_DATA SET
+            USER_ID = #{userId} ,
+            ORG_ID = #{orgId} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.system.entity.UserData">
+        SELECT <include refid="userDataColumns"/> FROM USER_DATA a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.system.entity.UserData">
+        SELECT
+        <include refid="userDataColumns"/>
+        FROM USER_DATA a WHERE 1 = 1
+        <if test="userId != null">
+            AND a.USER_ID = #{userId}
+        </if>
+        <if test="orgId != null">
+            AND a.ORG_ID = #{orgId}
+        </if>
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.system.entity.UserData">
+        SELECT
+        <include refid="userDataColumns"/>
+        FROM USER_DATA a
+    </select>
+
+</mapper>
+

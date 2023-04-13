@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.account.mapper.AccountCoWbenContractMapper">
+    <!-- 基础列 -->
+    <sql id="accountCoWbenContractColumns">
+        a.ID as id,
+        a.ACCOUNT_ID as accountId,
+        a.ORGANIZATION_NAME as organizationName,
+        a.ORGANIZATION_COUNTRY as organizationCountry,
+        a.DISREGARDED_ENTITY_NAME as disregardedEntityName,
+        a.CHAPTER_THREE_STATUS as chapterThreeStatus,
+        a.WHETHER as whether,
+        a.CHAPTER_FOUR_STATUS as chapterFourStatus,
+        a.USA_TIN as usaTin,
+        a.EIN as ein,
+        a.GIIN_XXX as giinXxx,
+        a.FOREIGN_TIN as foreignTin,
+        a.REFERENCE_NUMBER as referenceNumber,
+        a.FFI as ffi,
+        a.BRANCH_ADDRESS as branchAddress,
+        a.BRANCH_CITY as branchCity,
+        a.BRANCH_COUNTRY as branchCountry,
+        a.GGIN_IF as gginIf,
+        a.NONWITHHOLDING_A as nonwithholdingA,
+        a.CHECKED as checked,
+        a.SIGNATURE as signature,
+        a.SIGNATURE_TIME as signatureTime,
+        a.STATUS as status,
+        a.TYPE as type,
+        a.CREATED_BY as createdBy,
+        a.CREATED_DATE as createdDate,
+        a.UPDATED_BY as updatedBy,
+        a.UPDATED_DATE as updatedDate
+    </sql>
+
+    <resultMap id="accountCoWbenContractResultMap" type="com.fintech.gams.account.entity.AccountCoWbenContract">
+        <id column="ID" property="id" />
+        <result column="ACCOUNT_ID" property="accountId"/>
+        <result column="ORGANIZATION_NAME" property="organizationName"/>
+        <result column="ORGANIZATION_COUNTRY" property="organizationCountry"/>
+        <result column="DISREGARDED_ENTITY_NAME" property="disregardedEntityName"/>
+        <result column="CHAPTER_THREE_STATUS" property="chapterThreeStatus"/>
+        <result column="WHETHER" property="whether"/>
+        <result column="CHAPTER_FOUR_STATUS" property="chapterFourStatus"/>
+        <result column="USA_TIN" property="usaTin"/>
+        <result column="EIN" property="ein"/>
+        <result column="GIIN_XXX" property="giinXxx"/>
+        <result column="FOREIGN_TIN" property="foreignTin"/>
+        <result column="REFERENCE_NUMBER" property="referenceNumber"/>
+        <result column="FFI" property="ffi"/>
+        <result column="BRANCH_ADDRESS" property="branchAddress"/>
+        <result column="BRANCH_CITY" property="branchCity"/>
+        <result column="BRANCH_COUNTRY" property="branchCountry"/>
+        <result column="GGIN_IF" property="gginIf"/>
+        <result column="NONWITHHOLDING_A" property="nonwithholdingA"/>
+        <result column="CHECKED" property="checked"/>
+        <result column="SIGNATURE" property="signature"/>
+        <result column="SIGNATURE_TIME" property="signatureTime"/>
+        <result column="STATUS" property="status"/>
+        <result column="TYPE" property="type"/>
+        <result column="CREATED_BY" property="createdBy"/>
+        <result column="CREATED_DATE" property="createdDate"/>
+        <result column="UPDATED_BY" property="updatedBy"/>
+        <result column="UPDATED_DATE" property="updatedDate"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.account.entity.AccountCoWbenContract">
+        INSERT INTO ACCOUNT_CO_WBEN_CONTRACT(
+            ID ,
+            ACCOUNT_ID ,
+            ORGANIZATION_NAME ,
+            ORGANIZATION_COUNTRY ,
+            DISREGARDED_ENTITY_NAME ,
+            CHAPTER_THREE_STATUS ,
+            WHETHER ,
+            CHAPTER_FOUR_STATUS ,
+            USA_TIN ,
+            EIN ,
+            GIIN_XXX ,
+            FOREIGN_TIN ,
+            REFERENCE_NUMBER ,
+            FFI ,
+            BRANCH_ADDRESS ,
+            BRANCH_CITY ,
+            BRANCH_COUNTRY ,
+            GGIN_IF ,
+            NONWITHHOLDING_A ,
+            CHECKED ,
+            SIGNATURE ,
+            SIGNATURE_TIME ,
+            STATUS ,
+            TYPE ,
+            CREATED_BY ,
+            CREATED_DATE ,
+            UPDATED_BY ,
+            UPDATED_DATE 
+        ) VALUES (
+            #{id} ,
+            #{accountId} ,
+            #{organizationName} ,
+            #{organizationCountry} ,
+            #{disregardedEntityName} ,
+            #{chapterThreeStatus} ,
+            #{whether} ,
+            #{chapterFourStatus} ,
+            #{usaTin} ,
+            #{ein} ,
+            #{giinXxx} ,
+            #{foreignTin} ,
+            #{referenceNumber} ,
+            #{ffi} ,
+            #{branchAddress} ,
+            #{branchCity} ,
+            #{branchCountry} ,
+            #{gginIf} ,
+            #{nonwithholdingA} ,
+            #{checked} ,
+            #{signature} ,
+            #{signatureTime} ,
+            #{status} ,
+            #{type} ,
+            #{createdBy} ,
+            #{createdDate} ,
+            #{updatedBy} ,
+            #{updatedDate} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM ACCOUNT_CO_WBEN_CONTRACT WHERE ID = #{id}
+    </delete>
+
+    <!-- 根据主键逻辑删除 -->
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE ACCOUNT_CO_WBEN_CONTRACT SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.account.entity.AccountCoWbenContract">
+        INSERT INTO ACCOUNT_CO_WBEN_CONTRACT
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="accountId != null">
+                ACCOUNT_ID ,
+        </if>
+        <if test="organizationName != null">
+                ORGANIZATION_NAME ,
+        </if>
+        <if test="organizationCountry != null">
+                ORGANIZATION_COUNTRY ,
+        </if>
+        <if test="disregardedEntityName != null">
+                DISREGARDED_ENTITY_NAME ,
+        </if>
+        <if test="chapterThreeStatus != null">
+                CHAPTER_THREE_STATUS ,
+        </if>
+        <if test="whether != null">
+                WHETHER ,
+        </if>
+        <if test="chapterFourStatus != null">
+                CHAPTER_FOUR_STATUS ,
+        </if>
+        <if test="usaTin != null">
+                USA_TIN ,
+        </if>
+        <if test="ein != null">
+                EIN ,
+        </if>
+        <if test="giinXxx != null">
+                GIIN_XXX ,
+        </if>
+        <if test="foreignTin != null">
+                FOREIGN_TIN ,
+        </if>
+        <if test="referenceNumber != null">
+                REFERENCE_NUMBER ,
+        </if>
+        <if test="ffi != null">
+                FFI ,
+        </if>
+        <if test="branchAddress != null">
+                BRANCH_ADDRESS ,
+        </if>
+        <if test="branchCity != null">
+                BRANCH_CITY ,
+        </if>
+        <if test="branchCountry != null">
+                BRANCH_COUNTRY ,
+        </if>
+        <if test="gginIf != null">
+                GGIN_IF ,
+        </if>
+        <if test="nonwithholdingA != null">
+                NONWITHHOLDING_A ,
+        </if>
+        <if test="checked != null">
+                CHECKED ,
+        </if>
+        <if test="signature != null">
+                SIGNATURE ,
+        </if>
+        <if test="signatureTime != null">
+                SIGNATURE_TIME ,
+        </if>
+        <if test="status != null">
+                STATUS ,
+        </if>
+        <if test="type != null">
+                TYPE ,
+        </if>
+        <if test="createdBy != null">
+                CREATED_BY ,
+        </if>
+        <if test="createdDate != null">
+                CREATED_DATE ,
+        </if>
+        <if test="updatedBy != null">
+                UPDATED_BY ,
+        </if>
+        <if test="updatedDate != null">
+                UPDATED_DATE 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="accountId != null">
+                #{accountId} ,
+        </if>
+        <if test="organizationName != null">
+                #{organizationName} ,
+        </if>
+        <if test="organizationCountry != null">
+                #{organizationCountry} ,
+        </if>
+        <if test="disregardedEntityName != null">
+                #{disregardedEntityName} ,
+        </if>
+        <if test="chapterThreeStatus != null">
+                #{chapterThreeStatus} ,
+        </if>
+        <if test="whether != null">
+                #{whether} ,
+        </if>
+        <if test="chapterFourStatus != null">
+                #{chapterFourStatus} ,
+        </if>
+        <if test="usaTin != null">
+                #{usaTin} ,
+        </if>
+        <if test="ein != null">
+                #{ein} ,
+        </if>
+        <if test="giinXxx != null">
+                #{giinXxx} ,
+        </if>
+        <if test="foreignTin != null">
+                #{foreignTin} ,
+        </if>
+        <if test="referenceNumber != null">
+                #{referenceNumber} ,
+        </if>
+        <if test="ffi != null">
+                #{ffi} ,
+        </if>
+        <if test="branchAddress != null">
+                #{branchAddress} ,
+        </if>
+        <if test="branchCity != null">
+                #{branchCity} ,
+        </if>
+        <if test="branchCountry != null">
+                #{branchCountry} ,
+        </if>
+        <if test="gginIf != null">
+                #{gginIf} ,
+        </if>
+        <if test="nonwithholdingA != null">
+                #{nonwithholdingA} ,
+        </if>
+        <if test="checked != null">
+                #{checked} ,
+        </if>
+        <if test="signature != null">
+                #{signature} ,
+        </if>
+        <if test="signatureTime != null">
+                #{signatureTime} ,
+        </if>
+        <if test="status != null">
+                #{status} ,
+        </if>
+        <if test="type != null">
+                #{type} ,
+        </if>
+        <if test="createdBy != null">
+                #{createdBy} ,
+        </if>
+        <if test="createdDate != null">
+                #{createdDate} ,
+        </if>
+        <if test="updatedBy != null">
+                #{updatedBy} ,
+        </if>
+        <if test="updatedDate != null">
+                #{updatedDate} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.account.entity.AccountCoWbenContract">
+        UPDATE ACCOUNT_CO_WBEN_CONTRACT
+           <set>
+            <if test="accountId != null">
+                ACCOUNT_ID = #{accountId} ,
+            </if>
+            <if test="organizationName != null">
+                ORGANIZATION_NAME = #{organizationName} ,
+            </if>
+            <if test="organizationCountry != null">
+                ORGANIZATION_COUNTRY = #{organizationCountry} ,
+            </if>
+            <if test="disregardedEntityName != null">
+                DISREGARDED_ENTITY_NAME = #{disregardedEntityName} ,
+            </if>
+            <if test="chapterThreeStatus != null">
+                CHAPTER_THREE_STATUS = #{chapterThreeStatus} ,
+            </if>
+            <if test="whether != null">
+                WHETHER = #{whether} ,
+            </if>
+            <if test="chapterFourStatus != null">
+                CHAPTER_FOUR_STATUS = #{chapterFourStatus} ,
+            </if>
+            <if test="usaTin != null">
+                USA_TIN = #{usaTin} ,
+            </if>
+            <if test="ein != null">
+                EIN = #{ein} ,
+            </if>
+            <if test="giinXxx != null">
+                GIIN_XXX = #{giinXxx} ,
+            </if>
+            <if test="foreignTin != null">
+                FOREIGN_TIN = #{foreignTin} ,
+            </if>
+            <if test="referenceNumber != null">
+                REFERENCE_NUMBER = #{referenceNumber} ,
+            </if>
+            <if test="ffi != null">
+                FFI = #{ffi} ,
+            </if>
+            <if test="branchAddress != null">
+                BRANCH_ADDRESS = #{branchAddress} ,
+            </if>
+            <if test="branchCity != null">
+                BRANCH_CITY = #{branchCity} ,
+            </if>
+            <if test="branchCountry != null">
+                BRANCH_COUNTRY = #{branchCountry} ,
+            </if>
+            <if test="gginIf != null">
+                GGIN_IF = #{gginIf} ,
+            </if>
+            <if test="nonwithholdingA != null">
+                NONWITHHOLDING_A = #{nonwithholdingA} ,
+            </if>
+            <if test="checked != null">
+                CHECKED = #{checked} ,
+            </if>
+            <if test="signature != null">
+                SIGNATURE = #{signature} ,
+            </if>
+            <if test="signatureTime != null">
+                SIGNATURE_TIME = #{signatureTime} ,
+            </if>
+            <if test="status != null">
+                STATUS = #{status} ,
+            </if>
+            <if test="type != null">
+                TYPE = #{type} ,
+            </if>
+            <if test="createdBy != null">
+                CREATED_BY = #{createdBy} ,
+            </if>
+            <if test="createdDate != null">
+                CREATED_DATE = #{createdDate} ,
+            </if>
+            <if test="updatedBy != null">
+                UPDATED_BY = #{updatedBy} ,
+            </if>
+            <if test="updatedDate != null">
+                UPDATED_DATE = #{updatedDate} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO ACCOUNT_CO_WBEN_CONTRACT(
+            ID ,
+            ACCOUNT_ID ,
+            ORGANIZATION_NAME ,
+            ORGANIZATION_COUNTRY ,
+            DISREGARDED_ENTITY_NAME ,
+            CHAPTER_THREE_STATUS ,
+            WHETHER ,
+            CHAPTER_FOUR_STATUS ,
+            USA_TIN ,
+            EIN ,
+            GIIN_XXX ,
+            FOREIGN_TIN ,
+            REFERENCE_NUMBER ,
+            FFI ,
+            BRANCH_ADDRESS ,
+            BRANCH_CITY ,
+            BRANCH_COUNTRY ,
+            GGIN_IF ,
+            NONWITHHOLDING_A ,
+            CHECKED ,
+            SIGNATURE ,
+            SIGNATURE_TIME ,
+            STATUS ,
+            TYPE ,
+            CREATED_BY ,
+            CREATED_DATE ,
+            UPDATED_BY ,
+            UPDATED_DATE 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.accountId} ,
+            #{item.organizationName} ,
+            #{item.organizationCountry} ,
+            #{item.disregardedEntityName} ,
+            #{item.chapterThreeStatus} ,
+            #{item.whether} ,
+            #{item.chapterFourStatus} ,
+            #{item.usaTin} ,
+            #{item.ein} ,
+            #{item.giinXxx} ,
+            #{item.foreignTin} ,
+            #{item.referenceNumber} ,
+            #{item.ffi} ,
+            #{item.branchAddress} ,
+            #{item.branchCity} ,
+            #{item.branchCountry} ,
+            #{item.gginIf} ,
+            #{item.nonwithholdingA} ,
+            #{item.checked} ,
+            #{item.signature} ,
+            #{item.signatureTime} ,
+            #{item.status} ,
+            #{item.type} ,
+            #{item.createdBy} ,
+            #{item.createdDate} ,
+            #{item.updatedBy} ,
+            #{item.updatedDate} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE ACCOUNT_CO_WBEN_CONTRACT SET
+            ACCOUNT_ID = #{item.accountId} ,
+            ORGANIZATION_NAME = #{item.organizationName} ,
+            ORGANIZATION_COUNTRY = #{item.organizationCountry} ,
+            DISREGARDED_ENTITY_NAME = #{item.disregardedEntityName} ,
+            CHAPTER_THREE_STATUS = #{item.chapterThreeStatus} ,
+            WHETHER = #{item.whether} ,
+            CHAPTER_FOUR_STATUS = #{item.chapterFourStatus} ,
+            USA_TIN = #{item.usaTin} ,
+            EIN = #{item.ein} ,
+            GIIN_XXX = #{item.giinXxx} ,
+            FOREIGN_TIN = #{item.foreignTin} ,
+            REFERENCE_NUMBER = #{item.referenceNumber} ,
+            FFI = #{item.ffi} ,
+            BRANCH_ADDRESS = #{item.branchAddress} ,
+            BRANCH_CITY = #{item.branchCity} ,
+            BRANCH_COUNTRY = #{item.branchCountry} ,
+            GGIN_IF = #{item.gginIf} ,
+            NONWITHHOLDING_A = #{item.nonwithholdingA} ,
+            CHECKED = #{item.checked} ,
+            SIGNATURE = #{item.signature} ,
+            SIGNATURE_TIME = #{item.signatureTime} ,
+            STATUS = #{item.status} ,
+            TYPE = #{item.type} ,
+            CREATED_BY = #{item.createdBy} ,
+            CREATED_DATE = #{item.createdDate} ,
+            UPDATED_BY = #{item.updatedBy} ,
+            UPDATED_DATE = #{item.updatedDate} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.account.entity.AccountCoWbenContract">
+        UPDATE ACCOUNT_CO_WBEN_CONTRACT SET
+            ACCOUNT_ID = #{accountId} ,
+            ORGANIZATION_NAME = #{organizationName} ,
+            ORGANIZATION_COUNTRY = #{organizationCountry} ,
+            DISREGARDED_ENTITY_NAME = #{disregardedEntityName} ,
+            CHAPTER_THREE_STATUS = #{chapterThreeStatus} ,
+            WHETHER = #{whether} ,
+            CHAPTER_FOUR_STATUS = #{chapterFourStatus} ,
+            USA_TIN = #{usaTin} ,
+            EIN = #{ein} ,
+            GIIN_XXX = #{giinXxx} ,
+            FOREIGN_TIN = #{foreignTin} ,
+            REFERENCE_NUMBER = #{referenceNumber} ,
+            FFI = #{ffi} ,
+            BRANCH_ADDRESS = #{branchAddress} ,
+            BRANCH_CITY = #{branchCity} ,
+            BRANCH_COUNTRY = #{branchCountry} ,
+            GGIN_IF = #{gginIf} ,
+            NONWITHHOLDING_A = #{nonwithholdingA} ,
+            CHECKED = #{checked} ,
+            SIGNATURE = #{signature} ,
+            SIGNATURE_TIME = #{signatureTime} ,
+            STATUS = #{status} ,
+            TYPE = #{type} ,
+            CREATED_BY = #{createdBy} ,
+            CREATED_DATE = #{createdDate} ,
+            UPDATED_BY = #{updatedBy} ,
+            UPDATED_DATE = #{updatedDate} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.account.entity.AccountCoWbenContract">
+        SELECT <include refid="accountCoWbenContractColumns"/> FROM ACCOUNT_CO_WBEN_CONTRACT a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.account.entity.AccountCoWbenContract">
+        SELECT
+        <include refid="accountCoWbenContractColumns"/>
+        FROM ACCOUNT_CO_WBEN_CONTRACT a WHERE 1=1
+        <if test="accountId != null">
+            AND a.ACCOUNT_ID = #{accountId}
+        </if>
+        <if test="organizationName != null">
+            AND a.ORGANIZATION_NAME LIKE '%'||#{organizationName}||'%'
+        </if>
+        <if test="organizationCountry != null">
+            AND a.ORGANIZATION_COUNTRY LIKE '%'||#{organizationCountry}||'%'
+        </if>
+        <if test="disregardedEntityName != null">
+            AND a.DISREGARDED_ENTITY_NAME LIKE '%'||#{disregardedEntityName}||'%'
+        </if>
+        <if test="chapterThreeStatus != null">
+            AND a.CHAPTER_THREE_STATUS LIKE '%'||#{chapterThreeStatus}||'%'
+        </if>
+        <if test="whether != null">
+            AND a.WHETHER LIKE '%'||#{whether}||'%'
+        </if>
+        <if test="chapterFourStatus != null">
+            AND a.CHAPTER_FOUR_STATUS LIKE '%'||#{chapterFourStatus}||'%'
+        </if>
+        <if test="usaTin != null">
+            AND a.USA_TIN LIKE '%'||#{usaTin}||'%'
+        </if>
+        <if test="ein != null">
+            AND a.EIN LIKE '%'||#{ein}||'%'
+        </if>
+        <if test="giinXxx != null">
+            AND a.GIIN_XXX LIKE '%'||#{giinXxx}||'%'
+        </if>
+        <if test="foreignTin != null">
+            AND a.FOREIGN_TIN LIKE '%'||#{foreignTin}||'%'
+        </if>
+        <if test="referenceNumber != null">
+            AND a.REFERENCE_NUMBER LIKE '%'||#{referenceNumber}||'%'
+        </if>
+        <if test="ffi != null">
+            AND a.FFI LIKE '%'||#{ffi}||'%'
+        </if>
+        <if test="branchAddress != null">
+            AND a.BRANCH_ADDRESS LIKE '%'||#{branchAddress}||'%'
+        </if>
+        <if test="branchCity != null">
+            AND a.BRANCH_CITY LIKE '%'||#{branchCity}||'%'
+        </if>
+        <if test="branchCountry != null">
+            AND a.BRANCH_COUNTRY LIKE '%'||#{branchCountry}||'%'
+        </if>
+        <if test="gginIf != null">
+            AND a.GGIN_IF LIKE '%'||#{gginIf}||'%'
+        </if>
+        <if test="nonwithholdingA != null">
+            AND a.NONWITHHOLDING_A LIKE '%'||#{nonwithholdingA}||'%'
+        </if>
+        <if test="checked != null">
+            AND a.CHECKED LIKE '%'||#{checked}||'%'
+        </if>
+        <if test="signature != null">
+            AND a.SIGNATURE LIKE '%'||#{signature}||'%'
+        </if>
+        <if test="signatureTime != null">
+            AND a.SIGNATURE_TIME = #{signatureTime}
+        </if>
+        <if test="status != null">
+            AND a.STATUS LIKE '%'||#{status}||'%'
+        </if>
+        <if test="type != null">
+            AND a.TYPE LIKE '%'||#{type}||'%'
+        </if>
+        <if test="createdBy != null">
+            AND a.CREATED_BY = #{createdBy}
+        </if>
+        <if test="createdDate != null">
+            AND a.CREATED_DATE = #{createdDate}
+        </if>
+        <if test="updatedBy != null">
+            AND a.UPDATED_BY = #{updatedBy}
+        </if>
+        <if test="updatedDate != null">
+            AND a.UPDATED_DATE = #{updatedDate}
+        </if>
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.account.entity.AccountCoWbenContract">
+        SELECT
+        <include refid="accountCoWbenContractColumns"/>
+        FROM ACCOUNT_CO_WBEN_CONTRACT a WHERE a.DEL_FLAG = 0
+    </select>
+
+
+</mapper>
+

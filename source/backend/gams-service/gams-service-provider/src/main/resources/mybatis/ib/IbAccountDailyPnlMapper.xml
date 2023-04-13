@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.ib.mapper.IbAccountDailyPnlMapper">
+    <!-- 基础列 -->
+    <sql id="ibAccountDailyPnlColumns">
+        a.ID as id,
+        a.ACCOUNT_ID as accountId,
+        a.ACCOUNT_CODE as accountCode,
+        a.DAILY_PNL as dailyPnl,
+        a.UNREALIZED_PNL as unrealizedPnl,
+        a.REALIZED_PNL as realizedPnl,
+        a.REMARK as remark,
+        a.CREATE_DATE as createDate,
+        a.UPDATE_DATE as updateDate
+    </sql>
+
+    <resultMap id="ibAccountDailyPnlResultMap" type="com.fintech.gams.ib.entity.IbAccountDailyPnl">
+        <id column="ID" property="id" />
+        <result column="ACCOUNT_ID" property="accountId"/>
+        <result column="ACCOUNT_CODE" property="accountCode"/>
+        <result column="DAILY_PNL" property="dailyPnl"/>
+        <result column="UNREALIZED_PNL" property="unrealizedPnl"/>
+        <result column="REALIZED_PNL" property="realizedPnl"/>
+        <result column="REMARK" property="remark"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="UPDATE_DATE" property="updateDate"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.ib.entity.IbAccountDailyPnl">
+        INSERT INTO IB_ACCOUNT_DAILY_PNL(
+            ID ,
+            ACCOUNT_ID ,
+            ACCOUNT_CODE ,
+            DAILY_PNL ,
+            UNREALIZED_PNL ,
+            REALIZED_PNL ,
+            REMARK ,
+            CREATE_DATE ,
+            UPDATE_DATE 
+        ) VALUES (
+            #{id} ,
+            #{accountId} ,
+            #{accountCode} ,
+            #{dailyPnl} ,
+            #{unrealizedPnl} ,
+            #{realizedPnl} ,
+            #{remark} ,
+            #{createDate} ,
+            #{updateDate} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM IB_ACCOUNT_DAILY_PNL WHERE ID = #{id}
+    </delete>
+
+    <!-- 根据主键逻辑删除
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE IB_ACCOUNT_DAILY_PNL SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+    -->
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.ib.entity.IbAccountDailyPnl">
+        INSERT INTO IB_ACCOUNT_DAILY_PNL
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="accountId != null">
+                ACCOUNT_ID ,
+        </if>
+        <if test="accountCode != null">
+                ACCOUNT_CODE ,
+        </if>
+        <if test="dailyPnl != null">
+                DAILY_PNL ,
+        </if>
+        <if test="unrealizedPnl != null">
+                UNREALIZED_PNL ,
+        </if>
+        <if test="realizedPnl != null">
+                REALIZED_PNL ,
+        </if>
+        <if test="remark != null">
+                REMARK ,
+        </if>
+        <if test="createDate != null">
+                CREATE_DATE ,
+        </if>
+        <if test="updateDate != null">
+                UPDATE_DATE 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="accountId != null">
+                #{accountId} ,
+        </if>
+        <if test="accountCode != null">
+                #{accountCode} ,
+        </if>
+        <if test="dailyPnl != null">
+                #{dailyPnl} ,
+        </if>
+        <if test="unrealizedPnl != null">
+                #{unrealizedPnl} ,
+        </if>
+        <if test="realizedPnl != null">
+                #{realizedPnl} ,
+        </if>
+        <if test="remark != null">
+                #{remark} ,
+        </if>
+        <if test="createDate != null">
+                #{createDate} ,
+        </if>
+        <if test="updateDate != null">
+                #{updateDate} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.ib.entity.IbAccountDailyPnl">
+        UPDATE IB_ACCOUNT_DAILY_PNL
+           <set>
+            <if test="accountId != null">
+                ACCOUNT_ID = #{accountId} ,
+            </if>
+            <if test="accountCode != null">
+                ACCOUNT_CODE = #{accountCode} ,
+            </if>
+            <if test="dailyPnl != null">
+                DAILY_PNL = #{dailyPnl} ,
+            </if>
+            <if test="unrealizedPnl != null">
+                UNREALIZED_PNL = #{unrealizedPnl} ,
+            </if>
+            <if test="realizedPnl != null">
+                REALIZED_PNL = #{realizedPnl} ,
+            </if>
+            <if test="remark != null">
+                REMARK = #{remark} ,
+            </if>
+            <if test="createDate != null">
+                CREATE_DATE = #{createDate} ,
+            </if>
+            <if test="updateDate != null">
+                UPDATE_DATE = #{updateDate} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO IB_ACCOUNT_DAILY_PNL(
+            ID ,
+            ACCOUNT_ID ,
+            ACCOUNT_CODE ,
+            DAILY_PNL ,
+            UNREALIZED_PNL ,
+            REALIZED_PNL ,
+            REMARK ,
+            CREATE_DATE ,
+            UPDATE_DATE 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.accountId} ,
+            #{item.accountCode} ,
+            #{item.dailyPnl} ,
+            #{item.unrealizedPnl} ,
+            #{item.realizedPnl} ,
+            #{item.remark} ,
+            #{item.createDate} ,
+            #{item.updateDate} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE IB_ACCOUNT_DAILY_PNL SET
+            ACCOUNT_ID = #{item.accountId} ,
+            ACCOUNT_CODE = #{item.accountCode} ,
+            DAILY_PNL = #{item.dailyPnl} ,
+            UNREALIZED_PNL = #{item.unrealizedPnl} ,
+            REALIZED_PNL = #{item.realizedPnl} ,
+            REMARK = #{item.remark} ,
+            CREATE_DATE = #{item.createDate} ,
+            UPDATE_DATE = #{item.updateDate} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.ib.entity.IbAccountDailyPnl">
+        UPDATE IB_ACCOUNT_DAILY_PNL SET
+            ACCOUNT_ID = #{accountId} ,
+            ACCOUNT_CODE = #{accountCode} ,
+            DAILY_PNL = #{dailyPnl} ,
+            UNREALIZED_PNL = #{unrealizedPnl} ,
+            REALIZED_PNL = #{realizedPnl} ,
+            REMARK = #{remark} ,
+            CREATE_DATE = #{createDate} ,
+            UPDATE_DATE = #{updateDate} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.ib.entity.IbAccountDailyPnl">
+        SELECT <include refid="ibAccountDailyPnlColumns"/> FROM IB_ACCOUNT_DAILY_PNL a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.ib.entity.IbAccountDailyPnl">
+        SELECT <include refid="ibAccountDailyPnlColumns"/>, b.ACCOUNT_NAME as accountName
+        FROM IB_ACCOUNT_DAILY_PNL a
+        LEFT JOIN ACCOUNT b ON a.ACCOUNT_ID = b.ID
+        WHERE 1 = 1
+        <if test="accountId != null">
+            AND a.ACCOUNT_ID = #{accountId}
+        </if>
+        <if test="accountCode != null">
+            AND a.ACCOUNT_CODE LIKE '%'||#{accountCode}||'%'
+        </if>
+        <if test="dailyPnl != null">
+            AND a.DAILY_PNL = #{dailyPnl}
+        </if>
+        <if test="unrealizedPnl != null">
+            AND a.UNREALIZED_PNL = #{unrealizedPnl}
+        </if>
+        <if test="realizedPnl != null">
+            AND a.REALIZED_PNL = #{realizedPnl}
+        </if>
+        <if test="remark != null">
+            AND a.REMARK LIKE '%'||#{remark}||'%'
+        </if>
+        <if test="createDate != null">
+            AND a.CREATE_DATE = #{createDate}
+        </if>
+        <if test="updateDate != null">
+            AND a.UPDATE_DATE = #{updateDate}
+        </if>
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.ib.entity.IbAccountDailyPnl">
+        SELECT
+        <include refid="ibAccountDailyPnlColumns"/>
+        FROM IB_ACCOUNT_DAILY_PNL a <!--WHERE a.DEL_FLAG = 0-->
+    </select>
+
+
+</mapper>
+

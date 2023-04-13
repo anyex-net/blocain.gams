@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.common.mapper.ExpressMapper">
+    <!-- 基础列 -->
+    <sql id="expressColumns">
+        a.ID as id,
+        a.TITLE as title,
+        a.TYPE as type,
+        a.SOURCE as source,
+        a.SUMMARY as summary,
+        a.PICT_URL as pictUrl,
+        a.CONTENT as content,
+        a.LANG as lang,
+        a.STATUS as status,
+        a.IS_TOP as isTop,
+        a.READING_QUANTITY as readingQuantity,
+        a.THUMBS_UP as thumbsUp,
+        a.CREATE_BY as createBy,
+        a.CREATE_DATE as createDate,
+        a.UPDATE_BY as updateBy,
+        a.UPDATE_DATE as updateDate
+    </sql>
+
+    <!-- 关联列 -->
+    <sql id="expressJoinColumns">
+        a.ID as id,
+        a.TITLE as title,
+        a.TYPE as type,
+        a.SOURCE as source,
+        a.SUMMARY as summary,
+        a.PICT_URL as pictUrl,
+        a.CONTENT as content,
+        a.LANG as lang,
+        a.STATUS as status,
+        a.IS_TOP as isTop,
+        a.READING_QUANTITY as readingQuantity,
+        a.THUMBS_UP as thumbsUp,
+        a.CREATE_BY as createBy,
+        b.TRUE_NAME as createByName,
+        a.CREATE_DATE as createDate,
+        a.UPDATE_BY as updateBy,
+        a.UPDATE_DATE as updateDate,
+        b.ID as C_ID
+    </sql>
+
+    <resultMap id="expressResultMap" type="com.fintech.gams.common.entity.Express">
+        <id column="ID" property="id" />
+        <result column="TITLE" property="title"/>
+        <result column="TYPE" property="type"/>
+        <result column="SOURCE" property="source"/>
+        <result column="SUMMARY" property="summary"/>
+        <result column="PICT_URL" property="pictUrl"/>
+        <result column="CONTENT" property="content"/>
+        <result column="LANG" property="lang"/>
+        <result column="STATUS" property="status"/>
+        <result column="IS_TOP" property="isTop"/>
+        <result column="READING_QUANTITY" property="readingQuantity"/>
+        <result column="THUMBS_UP" property="thumbsUp"/>
+        <result column="CREATE_BY" property="createBy"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="UPDATE_BY" property="updateBy"/>
+        <result column="UPDATE_DATE" property="updateDate"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.common.entity.Express">
+        INSERT INTO EXPRESS(
+            ID ,
+            TITLE ,
+            TYPE ,
+            SOURCE ,
+            SUMMARY ,
+            PICT_URL ,
+            CONTENT ,
+            LANG ,
+            STATUS ,
+            IS_TOP ,
+            READING_QUANTITY ,
+            THUMBS_UP ,
+            CREATE_BY ,
+            CREATE_DATE ,
+            UPDATE_BY ,
+            UPDATE_DATE 
+        ) VALUES (
+            #{id} ,
+            #{title} ,
+            #{type} ,
+            #{source} ,
+            #{summary} ,
+            #{pictUrl} ,
+            #{content} ,
+            #{lang} ,
+            #{status} ,
+            #{isTop} ,
+            #{readingQuantity} ,
+            #{thumbsUp} ,
+            #{createBy} ,
+            #{createDate} ,
+            #{updateBy} ,
+            #{updateDate} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM EXPRESS WHERE ID = #{id}
+    </delete>
+
+    <!-- 根据主键逻辑删除
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE EXPRESS SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+    -->
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.common.entity.Express">
+        INSERT INTO EXPRESS
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="title != null">
+                TITLE ,
+        </if>
+        <if test="type != null">
+                TYPE ,
+        </if>
+        <if test="source != null">
+                SOURCE ,
+        </if>
+        <if test="summary != null">
+                SUMMARY ,
+        </if>
+        <if test="pictUrl != null">
+                PICT_URL ,
+        </if>
+        <if test="content != null">
+                CONTENT ,
+        </if>
+        <if test="lang != null">
+                LANG ,
+        </if>
+        <if test="status != null">
+                STATUS ,
+        </if>
+        <if test="isTop != null">
+                IS_TOP ,
+        </if>
+        <if test="readingQuantity != null">
+                READING_QUANTITY ,
+        </if>
+        <if test="thumbsUp != null">
+                THUMBS_UP ,
+        </if>
+        <if test="createBy != null">
+                CREATE_BY ,
+        </if>
+        <if test="createDate != null">
+                CREATE_DATE ,
+        </if>
+        <if test="updateBy != null">
+                UPDATE_BY ,
+        </if>
+        <if test="updateDate != null">
+                UPDATE_DATE 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="title != null">
+                #{title} ,
+        </if>
+        <if test="type != null">
+                #{type} ,
+        </if>
+        <if test="source != null">
+                #{source} ,
+        </if>
+        <if test="summary != null">
+                #{summary} ,
+        </if>
+        <if test="pictUrl != null">
+                #{pictUrl} ,
+        </if>
+        <if test="content != null">
+                #{content} ,
+        </if>
+        <if test="lang != null">
+                #{lang} ,
+        </if>
+        <if test="status != null">
+                #{status} ,
+        </if>
+        <if test="isTop != null">
+                #{isTop} ,
+        </if>
+        <if test="readingQuantity != null">
+                #{readingQuantity} ,
+        </if>
+        <if test="thumbsUp != null">
+                #{thumbsUp} ,
+        </if>
+        <if test="createBy != null">
+                #{createBy} ,
+        </if>
+        <if test="createDate != null">
+                #{createDate} ,
+        </if>
+        <if test="updateBy != null">
+                #{updateBy} ,
+        </if>
+        <if test="updateDate != null">
+                #{updateDate} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.common.entity.Express">
+        UPDATE EXPRESS
+           <set>
+            <if test="title != null">
+                TITLE = #{title} ,
+            </if>
+            <if test="type != null">
+                TYPE = #{type} ,
+            </if>
+            <if test="source != null">
+                SOURCE = #{source} ,
+            </if>
+            <if test="summary != null">
+                SUMMARY = #{summary} ,
+            </if>
+            <if test="pictUrl != null">
+                PICT_URL = #{pictUrl} ,
+            </if>
+            <if test="content != null">
+                CONTENT = #{content} ,
+            </if>
+            <if test="lang != null">
+                LANG = #{lang} ,
+            </if>
+            <if test="status != null">
+                STATUS = #{status} ,
+            </if>
+            <if test="isTop != null">
+                IS_TOP = #{isTop} ,
+            </if>
+            <if test="readingQuantity != null">
+                READING_QUANTITY = #{readingQuantity} ,
+            </if>
+            <if test="thumbsUp != null">
+                THUMBS_UP = #{thumbsUp} ,
+            </if>
+            <if test="createBy != null">
+                CREATE_BY = #{createBy} ,
+            </if>
+            <if test="createDate != null">
+                CREATE_DATE = #{createDate} ,
+            </if>
+            <if test="updateBy != null">
+                UPDATE_BY = #{updateBy} ,
+            </if>
+            <if test="updateDate != null">
+                UPDATE_DATE = #{updateDate} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO EXPRESS(
+            ID ,
+            TITLE ,
+            TYPE ,
+            SOURCE ,
+            SUMMARY ,
+            PICT_URL ,
+            CONTENT ,
+            LANG ,
+            STATUS ,
+            IS_TOP ,
+            READING_QUANTITY ,
+            THUMBS_UP ,
+            CREATE_BY ,
+            CREATE_DATE ,
+            UPDATE_BY ,
+            UPDATE_DATE 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.title} ,
+            #{item.type} ,
+            #{item.source} ,
+            #{item.summary} ,
+            #{item.pictUrl} ,
+            #{item.content} ,
+            #{item.lang} ,
+            #{item.status} ,
+            #{item.isTop} ,
+            #{item.readingQuantity} ,
+            #{item.thumbsUp} ,
+            #{item.createBy} ,
+            #{item.createDate} ,
+            #{item.updateBy} ,
+            #{item.updateDate} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE EXPRESS SET
+            TITLE = #{item.title} ,
+            TYPE = #{item.type} ,
+            SOURCE = #{item.source} ,
+            SUMMARY = #{item.summary} ,
+            PICT_URL = #{item.pictUrl} ,
+            CONTENT = #{item.content} ,
+            LANG = #{item.lang} ,
+            STATUS = #{item.status} ,
+            IS_TOP = #{item.isTop} ,
+            READING_QUANTITY = #{item.readingQuantity} ,
+            THUMBS_UP = #{item.thumbsUp} ,
+            CREATE_BY = #{item.createBy} ,
+            CREATE_DATE = #{item.createDate} ,
+            UPDATE_BY = #{item.updateBy} ,
+            UPDATE_DATE = #{item.updateDate} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.common.entity.Express">
+        UPDATE EXPRESS SET
+            TITLE = #{title} ,
+            TYPE = #{type} ,
+            SOURCE = #{source} ,
+            SUMMARY = #{summary} ,
+            PICT_URL = #{pictUrl} ,
+            CONTENT = #{content} ,
+            LANG = #{lang} ,
+            STATUS = #{status} ,
+            IS_TOP = #{isTop} ,
+            READING_QUANTITY = #{readingQuantity} ,
+            THUMBS_UP = #{thumbsUp} ,
+            CREATE_BY = #{createBy} ,
+            CREATE_DATE = #{createDate} ,
+            UPDATE_BY = #{updateBy} ,
+            UPDATE_DATE = #{updateDate} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.common.entity.Express">
+        SELECT <include refid="expressColumns"/> FROM EXPRESS a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.common.entity.Express">
+        SELECT
+        <include refid="expressColumns"/>
+        FROM EXPRESS a
+        LEFT JOIN USER_INFO b ON a.UPDATE_BY = b.ID
+        WHERE 1 = 1
+        <if test="title != null">
+            AND a.TITLE LIKE '%'||#{title}||'%'
+        </if>
+        <if test="type != null">
+            AND a.TYPE = #{type}
+        </if>
+        <if test="source != null">
+            AND a.SOURCE LIKE '%'||#{source}||'%'
+        </if>
+        <if test="summary != null">
+            AND a.SUMMARY LIKE '%'||#{summary}||'%'
+        </if>
+        <if test="pictUrl != null">
+            AND a.PICT_URL LIKE '%'||#{pictUrl}||'%'
+        </if>
+        <if test="content != null">
+            AND a.CONTENT LIKE '%'||#{content}||'%'
+        </if>
+        <if test="lang != null">
+            AND a.LANG  = #{lang}
+        </if>
+        <if test="status != null">
+            AND a.STATUS = #{status}
+        </if>
+        <if test="isTop != null">
+            AND a.IS_TOP = #{isTop}
+        </if>
+        <if test="readingQuantity != null">
+            AND a.READING_QUANTITY = #{readingQuantity}
+        </if>
+        <if test="thumbsUp != null">
+            AND a.THUMBS_UP = #{thumbsUp}
+        </if>
+        <if test="createBy != null">
+            AND a.CREATE_BY = #{createBy}
+        </if>
+        <if test="createDate != null">
+            AND a.CREATE_DATE = #{createDate}
+        </if>
+        <if test="updateBy != null">
+            AND a.UPDATE_BY = #{updateBy}
+        </if>
+        <if test="updateDate != null">
+            AND a.UPDATE_DATE = #{updateDate}
+        </if>
+        <if test="createDateStart != null and createDateEnd != null">
+            AND a.CREATE_DATE &gt;= #{createDateStart}
+            AND a.CREATE_DATE &lt;= #{createDateEnd}
+        </if>
+        ORDER BY a.IS_TOP desc,a.UPDATE_DATE desc
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.common.entity.Express">
+        SELECT
+        <include refid="expressColumns"/>
+        FROM EXPRESS a
+    </select>
+
+    <select id="detail" resultType="com.fintech.gams.common.entity.Express">
+        SELECT
+          <include refid="expressJoinColumns"/>
+        FROM EXPRESS a, USER_INFO b
+        WHERE a.CREATE_BY = b.ID AND a.ID = #{id}
+    </select>
+
+    <!-- 查询热门阅读的快讯信息 -->
+    <select id="hotReading" resultType="com.fintech.gams.common.entity.Express">
+        SELECT
+        <include refid="expressColumns"/>
+        FROM (SELECT
+        b.ID,
+        b.TITLE,
+        b.TYPE,
+        b.SOURCE,
+        b.SUMMARY,
+        b.PICT_URL,
+        b.CONTENT,
+        b.LANG,
+        b.STATUS,
+        b.IS_TOP,
+        b.READING_QUANTITY,
+        b.THUMBS_UP,
+        b.CREATE_BY,
+        b.CREATE_DATE,
+        b.UPDATE_BY,
+        b.UPDATE_DATE
+        FROM EXPRESS b
+        ORDER BY
+        b.READING_QUANTITY DESC,b.UPDATE_DATE DESC
+        ) a WHERE rownum &lt;= 5 and a.STATUS = 1 AND a.LANG = #{lang} AND a.CREATE_DATE &gt;= #{time}
+    </select>
+</mapper>
+

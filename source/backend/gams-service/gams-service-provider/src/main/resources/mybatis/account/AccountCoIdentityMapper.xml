@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.account.mapper.AccountCoIdentityMapper">
+    <!-- 基础列 -->
+    <sql id="accountCoIdentityColumns">
+        a.ID as id,
+        a.ACCOUNT_ID as accountId,
+        a.CO_PERSONAL_ID as coPersonalId,
+        a.ISSUING_COUNTRY as issuingCountry,
+        a.ID_CARD_TYPE as idCardType,
+        a.ID_NUMBER as idNumber,
+        a.CREATED_BY as createdBy,
+        a.CREATED_DATE as createdDate,
+        a.UPDATED_BY as updatedBy,
+        a.UPDATED_DATE as updatedDate
+    </sql>
+
+    <resultMap id="accountCoIdentityResultMap" type="com.fintech.gams.account.entity.AccountCoIdentity">
+        <id column="ID" property="id" />
+        <result column="ACCOUNT_ID" property="accountId"/>
+        <result column="CO_PERSONAL_ID" property="coPersonalId"/>
+        <result column="ISSUING_COUNTRY" property="issuingCountry"/>
+        <result column="ID_CARD_TYPE" property="idCardType"/>
+        <result column="ID_NUMBER" property="idNumber"/>
+        <result column="CREATED_BY" property="createdBy"/>
+        <result column="CREATED_DATE" property="createdDate"/>
+        <result column="UPDATED_BY" property="updatedBy"/>
+        <result column="UPDATED_DATE" property="updatedDate"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.account.entity.AccountCoIdentity">
+        INSERT INTO ACCOUNT_CO_IDENTITY(
+            ID ,
+            ACCOUNT_ID ,
+            CO_PERSONAL_ID ,
+            ISSUING_COUNTRY ,
+            ID_CARD_TYPE ,
+            ID_NUMBER ,
+            CREATED_BY ,
+            CREATED_DATE ,
+            UPDATED_BY ,
+            UPDATED_DATE 
+        ) VALUES (
+            #{id} ,
+            #{accountId} ,
+            #{coPersonalId} ,
+            #{issuingCountry} ,
+            #{idCardType} ,
+            #{idNumber} ,
+            #{createdBy} ,
+            #{createdDate} ,
+            #{updatedBy} ,
+            #{updatedDate} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM ACCOUNT_CO_IDENTITY WHERE ID = #{id}
+    </delete>
+
+    <!-- 根据主键逻辑删除 -->
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE ACCOUNT_CO_IDENTITY SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.account.entity.AccountCoIdentity">
+        INSERT INTO ACCOUNT_CO_IDENTITY
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="accountId != null">
+                ACCOUNT_ID ,
+        </if>
+        <if test="coPersonalId != null">
+                CO_PERSONAL_ID ,
+        </if>
+        <if test="issuingCountry != null">
+                ISSUING_COUNTRY ,
+        </if>
+        <if test="idCardType != null">
+                ID_CARD_TYPE ,
+        </if>
+        <if test="idNumber != null">
+                ID_NUMBER ,
+        </if>
+        <if test="createdBy != null">
+                CREATED_BY ,
+        </if>
+        <if test="createdDate != null">
+                CREATED_DATE ,
+        </if>
+        <if test="updatedBy != null">
+                UPDATED_BY ,
+        </if>
+        <if test="updatedDate != null">
+                UPDATED_DATE 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="accountId != null">
+                #{accountId} ,
+        </if>
+        <if test="coPersonalId != null">
+                #{coPersonalId} ,
+        </if>
+        <if test="issuingCountry != null">
+                #{issuingCountry} ,
+        </if>
+        <if test="idCardType != null">
+                #{idCardType} ,
+        </if>
+        <if test="idNumber != null">
+                #{idNumber} ,
+        </if>
+        <if test="createdBy != null">
+                #{createdBy} ,
+        </if>
+        <if test="createdDate != null">
+                #{createdDate} ,
+        </if>
+        <if test="updatedBy != null">
+                #{updatedBy} ,
+        </if>
+        <if test="updatedDate != null">
+                #{updatedDate} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.account.entity.AccountCoIdentity">
+        UPDATE ACCOUNT_CO_IDENTITY
+           <set>
+            <if test="accountId != null">
+                ACCOUNT_ID = #{accountId} ,
+            </if>
+            <if test="coPersonalId != null">
+                CO_PERSONAL_ID = #{coPersonalId} ,
+            </if>
+            <if test="issuingCountry != null">
+                ISSUING_COUNTRY = #{issuingCountry} ,
+            </if>
+            <if test="idCardType != null">
+                ID_CARD_TYPE = #{idCardType} ,
+            </if>
+            <if test="idNumber != null">
+                ID_NUMBER = #{idNumber} ,
+            </if>
+            <if test="createdBy != null">
+                CREATED_BY = #{createdBy} ,
+            </if>
+            <if test="createdDate != null">
+                CREATED_DATE = #{createdDate} ,
+            </if>
+            <if test="updatedBy != null">
+                UPDATED_BY = #{updatedBy} ,
+            </if>
+            <if test="updatedDate != null">
+                UPDATED_DATE = #{updatedDate} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO ACCOUNT_CO_IDENTITY(
+            ID ,
+            ACCOUNT_ID ,
+            CO_PERSONAL_ID,
+            ISSUING_COUNTRY ,
+            ID_CARD_TYPE ,
+            ID_NUMBER ,
+            CREATED_BY ,
+            CREATED_DATE ,
+            UPDATED_BY ,
+            UPDATED_DATE 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.accountId} ,
+            #{item.coPersonalId},
+            #{item.issuingCountry} ,
+            #{item.idCardType} ,
+            #{item.idNumber} ,
+            #{item.createdBy} ,
+            #{item.createdDate} ,
+            #{item.updatedBy} ,
+            #{item.updatedDate} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE ACCOUNT_CO_IDENTITY SET
+            ACCOUNT_ID = #{item.accountId} ,
+            CO_PERSONAL_ID = #{item.coPersonalId},
+            ISSUING_COUNTRY = #{item.issuingCountry} ,
+            ID_CARD_TYPE = #{item.idCardType} ,
+            ID_NUMBER = #{item.idNumber} ,
+            CREATED_BY = #{item.createdBy} ,
+            CREATED_DATE = #{item.createdDate} ,
+            UPDATED_BY = #{item.updatedBy} ,
+            UPDATED_DATE = #{item.updatedDate} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.account.entity.AccountCoIdentity">
+        UPDATE ACCOUNT_CO_IDENTITY SET
+            ACCOUNT_ID = #{accountId} ,
+            CO_PERSONAL_ID = #{coPersonalId},
+            ISSUING_COUNTRY = #{issuingCountry} ,
+            ID_CARD_TYPE = #{idCardType} ,
+            ID_NUMBER = #{idNumber} ,
+            CREATED_BY = #{createdBy} ,
+            CREATED_DATE = #{createdDate} ,
+            UPDATED_BY = #{updatedBy} ,
+            UPDATED_DATE = #{updatedDate} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.account.entity.AccountCoIdentity">
+        SELECT <include refid="accountCoIdentityColumns"/> FROM ACCOUNT_CO_IDENTITY a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.account.entity.AccountCoIdentity">
+        SELECT
+        <include refid="accountCoIdentityColumns"/>
+        FROM ACCOUNT_CO_IDENTITY a WHERE 1=1
+        <if test="accountId != null">
+            AND a.ACCOUNT_ID = #{accountId}
+        </if>
+        <if test="coPersonalId != null">
+            AND a.CO_PERSONAL_ID = #{coPersonalId}
+        </if>
+        <if test="issuingCountry != null">
+            AND a.ISSUING_COUNTRY LIKE '%'||#{issuingCountry}||'%'
+        </if>
+        <if test="idCardType != null">
+            AND a.ID_CARD_TYPE LIKE '%'||#{idCardType}||'%'
+        </if>
+        <if test="idNumber != null">
+            AND a.ID_NUMBER LIKE '%'||#{idNumber}||'%'
+        </if>
+        <if test="createdBy != null">
+            AND a.CREATED_BY = #{createdBy}
+        </if>
+        <if test="createdDate != null">
+            AND a.CREATED_DATE = #{createdDate}
+        </if>
+        <if test="updatedBy != null">
+            AND a.UPDATED_BY = #{updatedBy}
+        </if>
+        <if test="updatedDate != null">
+            AND a.UPDATED_DATE = #{updatedDate}
+        </if>
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.account.entity.AccountCoIdentity">
+        SELECT
+        <include refid="accountCoIdentityColumns"/>
+        FROM ACCOUNT_CO_IDENTITY a WHERE a.DEL_FLAG = 0
+    </select>
+
+    <!-- 根据accountId取数据 -->
+    <select id="findByAccountId"  parameterType="java.lang.Long" resultType="com.fintech.gams.account.entity.AccountCoIdentity">
+        SELECT <include refid="accountCoIdentityColumns"/> FROM ACCOUNT_CO_IDENTITY a WHERE a.ACCOUNT_ID = #{accountId}
+    </select>
+
+    <!-- 根据coPersonalId物理删除 -->
+    <delete id="removeByCoPersonalId" parameterType="java.lang.Long">
+        DELETE FROM ACCOUNT_CO_IDENTITY WHERE CO_PERSONAL_ID = #{coPersonalId}
+    </delete>
+</mapper>
+

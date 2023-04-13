@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.account.mapper.UploadFileTypeMapper">
+    <!-- 基础列 -->
+    <sql id="uploadFileTypeColumns">
+        a.ID as id,
+        a.CO_PERSONAL_ID as coPersonalId,
+        a.TYPE_KEY as typeKey,
+        a.TYPE as type,
+        a.LANG as lang,
+        a.CONTENT as content,
+        a.DEST as dest,
+        a.MORE_INFO_PDF as moreInfoPdf,
+        a.ACCOUNT_TYPE as accountType,
+        a.KIND as kind
+    </sql>
+
+    <resultMap id="uploadFileTypeResultMap" type="com.fintech.gams.account.entity.UploadFileType">
+        <id column="ID" property="id" />
+        <result column="CO_PERSONAL_ID" property="coPersonalId"/>
+        <result column="TYPE_KEY" property="typeKey"/>
+        <result column="TYPE" property="type"/>
+        <result column="LANG" property="lang"/>
+        <result column="CONTENT" property="content"/>
+        <result column="DEST" property="dest"/>
+        <result column="MORE_INFO_PDF" property="moreInfoPdf"/>
+        <result column="ACCOUNT_TYPE" property="accountType"/>
+        <result column="KIND" property="kind"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.account.entity.UploadFileType">
+        INSERT INTO UPLOAD_FILE_TYPE(
+            ID ,
+            CO_PERSONAL_ID ,
+            TYPE_KEY ,
+            TYPE ,
+            LANG ,
+            CONTENT ,
+            DEST ,
+            MORE_INFO_PDF ,
+            ACCOUNT_TYPE ,
+            KIND 
+        ) VALUES (
+            #{id} ,
+            #{coPersonalId} ,
+            #{typeKey} ,
+            #{type} ,
+            #{lang} ,
+            #{content} ,
+            #{dest} ,
+            #{moreInfoPdf} ,
+            #{accountType} ,
+            #{kind} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM UPLOAD_FILE_TYPE WHERE ID = #{id}
+    </delete>
+
+    <!-- 根据主键逻辑删除
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE UPLOAD_FILE_TYPE SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+    -->
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.account.entity.UploadFileType">
+        INSERT INTO UPLOAD_FILE_TYPE
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="coPersonalId != null">
+                CO_PERSONAL_ID ,
+        </if>
+        <if test="typeKey != null">
+                TYPE_KEY ,
+        </if>
+        <if test="type != null">
+                TYPE ,
+        </if>
+        <if test="lang != null">
+                LANG ,
+        </if>
+        <if test="content != null">
+                CONTENT ,
+        </if>
+        <if test="dest != null">
+                DEST ,
+        </if>
+        <if test="moreInfoPdf != null">
+                MORE_INFO_PDF ,
+        </if>
+        <if test="accountType != null">
+                ACCOUNT_TYPE ,
+        </if>
+        <if test="kind != null">
+                KIND 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="coPersonalId != null">
+                #{coPersonalId} ,
+        </if>
+        <if test="typeKey != null">
+                #{typeKey} ,
+        </if>
+        <if test="type != null">
+                #{type} ,
+        </if>
+        <if test="lang != null">
+                #{lang} ,
+        </if>
+        <if test="content != null">
+                #{content} ,
+        </if>
+        <if test="dest != null">
+                #{dest} ,
+        </if>
+        <if test="moreInfoPdf != null">
+                #{moreInfoPdf} ,
+        </if>
+        <if test="accountType != null">
+                #{accountType} ,
+        </if>
+        <if test="kind != null">
+                #{kind} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.account.entity.UploadFileType">
+        UPDATE UPLOAD_FILE_TYPE
+           <set>
+            <if test="coPersonalId != null">
+                CO_PERSONAL_ID = #{coPersonalId} ,
+            </if>
+            <if test="typeKey != null">
+                TYPE_KEY = #{typeKey} ,
+            </if>
+            <if test="type != null">
+                TYPE = #{type} ,
+            </if>
+            <if test="lang != null">
+                LANG = #{lang} ,
+            </if>
+            <if test="content != null">
+                CONTENT = #{content} ,
+            </if>
+            <if test="dest != null">
+                DEST = #{dest} ,
+            </if>
+            <if test="moreInfoPdf != null">
+                MORE_INFO_PDF = #{moreInfoPdf} ,
+            </if>
+            <if test="accountType != null">
+                ACCOUNT_TYPE = #{accountType} ,
+            </if>
+            <if test="kind != null">
+                KIND = #{kind} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO UPLOAD_FILE_TYPE(
+            ID ,
+            CO_PERSONAL_ID ,
+            TYPE_KEY ,
+            TYPE ,
+            LANG ,
+            CONTENT ,
+            DEST ,
+            MORE_INFO_PDF ,
+            ACCOUNT_TYPE ,
+            KIND 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.coPersonalId} ,
+            #{item.typeKey} ,
+            #{item.type} ,
+            #{item.lang} ,
+            #{item.content} ,
+            #{item.dest} ,
+            #{item.moreInfoPdf} ,
+            #{item.accountType} ,
+            #{item.kind} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE UPLOAD_FILE_TYPE SET
+            CO_PERSONAL_ID = #{item.coPersonalId} ,
+            TYPE_KEY = #{item.typeKey} ,
+            TYPE = #{item.type} ,
+            LANG = #{item.lang} ,
+            CONTENT = #{item.content} ,
+            DEST = #{item.dest} ,
+            MORE_INFO_PDF = #{item.moreInfoPdf} ,
+            ACCOUNT_TYPE = #{item.accountType} ,
+            KIND = #{item.kind} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.account.entity.UploadFileType">
+        UPDATE UPLOAD_FILE_TYPE SET
+            CO_PERSONAL_ID = #{coPersonalId} ,
+            TYPE_KEY = #{typeKey} ,
+            TYPE = #{type} ,
+            LANG = #{lang} ,
+            CONTENT = #{content} ,
+            DEST = #{dest} ,
+            MORE_INFO_PDF = #{moreInfoPdf} ,
+            ACCOUNT_TYPE = #{accountType} ,
+            KIND = #{kind} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.account.entity.UploadFileType">
+        SELECT <include refid="uploadFileTypeColumns"/> FROM UPLOAD_FILE_TYPE a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.account.entity.UploadFileType">
+        SELECT
+        <include refid="uploadFileTypeColumns"/>
+        FROM UPLOAD_FILE_TYPE a WHERE 1 = 1 <!-- and a.DEL_FLAG = 0-->
+        <if test="coPersonalId != null">
+            AND a.CO_PERSONAL_ID = #{coPersonalId}
+        </if>
+        <if test="typeKey != null">
+            AND a.TYPE_KEY LIKE '%'||#{typeKey}||'%'
+        </if>
+        <if test="type != null">
+            AND a.TYPE LIKE '%'||#{type}||'%'
+        </if>
+        <if test="lang != null">
+            AND a.LANG LIKE '%'||#{lang}||'%'
+        </if>
+        <if test="content != null">
+            AND a.CONTENT LIKE '%'||#{content}||'%'
+        </if>
+        <if test="dest != null">
+            AND a.DEST LIKE '%'||#{dest}||'%'
+        </if>
+        <if test="moreInfoPdf != null">
+            AND a.MORE_INFO_PDF LIKE '%'||#{moreInfoPdf}||'%'
+        </if>
+        <if test="accountType != null">
+            AND a.ACCOUNT_TYPE LIKE '%'||#{accountType}||'%'
+        </if>
+        <if test="kind != null">
+            AND a.KIND = #{kind}
+        </if>
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.account.entity.UploadFileType">
+        SELECT
+        <include refid="uploadFileTypeColumns"/>
+        FROM UPLOAD_FILE_TYPE a <!--WHERE a.DEL_FLAG = 0-->
+    </select>
+
+    <!-- 根据文件类型的种类 批量查询 -->
+    <select id="findByKindArr" resultType="com.fintech.gams.account.entity.UploadFileType">
+        SELECT
+        <include refid="uploadFileTypeColumns"/>
+        FROM UPLOAD_FILE_TYPE a
+        WHERE a.KIND IN
+        <foreach collection="kind" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        AND a.LANG = #{lang}
+        AND a.ACCOUNT_TYPE = #{accountType}
+    </select>
+</mapper>
+

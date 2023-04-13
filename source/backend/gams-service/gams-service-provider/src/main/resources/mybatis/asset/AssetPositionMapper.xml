@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.asset.mapper.AssetPositionMapper">
+    <!-- 基础列 -->
+    <sql id="assetPositionColumns">
+        a.ID as id,
+        a.ACCOUNT_ID as accountId,
+        a.STOCKINFO_ID as stockinfoId,
+        a.POSITION_DIRECTION as positionDirection,
+        a.OPEN_AVG_PRICE as openAvgPrice,
+        a.AMOUNT as amount,
+        a.FROZEN_AMOUNT as frozenAmount,
+        a.PERIOD_INIT_AMOUNT as periodInitAmount,
+        a.PERIOD_INFLOW_AMOUNT as periodInflowAmount,
+        a.PERIOD_OUTFLOW_AMOUNT as periodOutflowAmount,
+        a.REAL_PROFIT_LOSS as realProfitLoss,
+        a.UNREAL_PROFIT_LOSS as unrealProfitLoss,
+        a.LEVERAGE_MULTIPLES as leverageMultiples,
+        a.REMARK as remark,
+        a.UPDATE_DATE as updateDate
+    </sql>
+
+    <resultMap id="assetPositionResultMap" type="com.fintech.gams.asset.entity.AssetPosition">
+        <id column="ID" property="id" />
+        <result column="ACCOUNT_ID" property="accountId"/>
+        <result column="STOCKINFO_ID" property="stockinfoId"/>
+        <result column="POSITION_DIRECTION" property="positionDirection"/>
+        <result column="OPEN_AVG_PRICE" property="openAvgPrice"/>
+        <result column="AMOUNT" property="amount"/>
+        <result column="FROZEN_AMOUNT" property="frozenAmount"/>
+        <result column="PERIOD_INIT_AMOUNT" property="periodInitAmount"/>
+        <result column="PERIOD_INFLOW_AMOUNT" property="periodInflowAmount"/>
+        <result column="PERIOD_OUTFLOW_AMOUNT" property="periodOutflowAmount"/>
+        <result column="REAL_PROFIT_LOSS" property="realProfitLoss"/>
+        <result column="UNREAL_PROFIT_LOSS" property="unrealProfitLoss"/>
+        <result column="LEVERAGE_MULTIPLES" property="leverageMultiples"/>
+        <result column="REMARK" property="remark"/>
+        <result column="UPDATE_DATE" property="updateDate"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.asset.entity.AssetPosition">
+        INSERT INTO ASSET_POSITION(
+            ID ,
+            ACCOUNT_ID ,
+            STOCKINFO_ID ,
+            POSITION_DIRECTION ,
+            OPEN_AVG_PRICE ,
+            AMOUNT ,
+            FROZEN_AMOUNT ,
+            PERIOD_INIT_AMOUNT ,
+            PERIOD_INFLOW_AMOUNT ,
+            PERIOD_OUTFLOW_AMOUNT ,
+            REAL_PROFIT_LOSS ,
+            UNREAL_PROFIT_LOSS ,
+            LEVERAGE_MULTIPLES ,
+            REMARK ,
+            UPDATE_DATE 
+        ) VALUES (
+            #{id} ,
+            #{accountId} ,
+            #{stockinfoId} ,
+            #{positionDirection} ,
+            #{openAvgPrice} ,
+            #{amount} ,
+            #{frozenAmount} ,
+            #{periodInitAmount} ,
+            #{periodInflowAmount} ,
+            #{periodOutflowAmount} ,
+            #{realProfitLoss} ,
+            #{unrealProfitLoss} ,
+            #{leverageMultiples} ,
+            #{remark} ,
+            #{updateDate} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM ASSET_POSITION WHERE ID = #{id}
+    </delete>
+
+    <!-- 根据主键逻辑删除
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE ASSET_POSITION SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+    -->
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.asset.entity.AssetPosition">
+        INSERT INTO ASSET_POSITION
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="accountId != null">
+                ACCOUNT_ID ,
+        </if>
+        <if test="stockinfoId != null">
+                STOCKINFO_ID ,
+        </if>
+        <if test="positionDirection != null">
+                POSITION_DIRECTION ,
+        </if>
+        <if test="openAvgPrice != null">
+                OPEN_AVG_PRICE ,
+        </if>
+        <if test="amount != null">
+                AMOUNT ,
+        </if>
+        <if test="frozenAmount != null">
+                FROZEN_AMOUNT ,
+        </if>
+        <if test="periodInitAmount != null">
+                PERIOD_INIT_AMOUNT ,
+        </if>
+        <if test="periodInflowAmount != null">
+                PERIOD_INFLOW_AMOUNT ,
+        </if>
+        <if test="periodOutflowAmount != null">
+                PERIOD_OUTFLOW_AMOUNT ,
+        </if>
+        <if test="realProfitLoss != null">
+                REAL_PROFIT_LOSS ,
+        </if>
+        <if test="unrealProfitLoss != null">
+                UNREAL_PROFIT_LOSS ,
+        </if>
+        <if test="leverageMultiples != null">
+                LEVERAGE_MULTIPLES ,
+        </if>
+        <if test="remark != null">
+                REMARK ,
+        </if>
+        <if test="updateDate != null">
+                UPDATE_DATE 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="accountId != null">
+                #{accountId} ,
+        </if>
+        <if test="stockinfoId != null">
+                #{stockinfoId} ,
+        </if>
+        <if test="positionDirection != null">
+                #{positionDirection} ,
+        </if>
+        <if test="openAvgPrice != null">
+                #{openAvgPrice} ,
+        </if>
+        <if test="amount != null">
+                #{amount} ,
+        </if>
+        <if test="frozenAmount != null">
+                #{frozenAmount} ,
+        </if>
+        <if test="periodInitAmount != null">
+                #{periodInitAmount} ,
+        </if>
+        <if test="periodInflowAmount != null">
+                #{periodInflowAmount} ,
+        </if>
+        <if test="periodOutflowAmount != null">
+                #{periodOutflowAmount} ,
+        </if>
+        <if test="realProfitLoss != null">
+                #{realProfitLoss} ,
+        </if>
+        <if test="unrealProfitLoss != null">
+                #{unrealProfitLoss} ,
+        </if>
+        <if test="leverageMultiples != null">
+                #{leverageMultiples} ,
+        </if>
+        <if test="remark != null">
+                #{remark} ,
+        </if>
+        <if test="updateDate != null">
+                #{updateDate} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.asset.entity.AssetPosition">
+        UPDATE ASSET_POSITION
+           <set>
+            <if test="accountId != null">
+                ACCOUNT_ID = #{accountId} ,
+            </if>
+            <if test="stockinfoId != null">
+                STOCKINFO_ID = #{stockinfoId} ,
+            </if>
+            <if test="positionDirection != null">
+                POSITION_DIRECTION = #{positionDirection} ,
+            </if>
+            <if test="openAvgPrice != null">
+                OPEN_AVG_PRICE = #{openAvgPrice} ,
+            </if>
+            <if test="amount != null">
+                AMOUNT = #{amount} ,
+            </if>
+            <if test="frozenAmount != null">
+                FROZEN_AMOUNT = #{frozenAmount} ,
+            </if>
+            <if test="periodInitAmount != null">
+                PERIOD_INIT_AMOUNT = #{periodInitAmount} ,
+            </if>
+            <if test="periodInflowAmount != null">
+                PERIOD_INFLOW_AMOUNT = #{periodInflowAmount} ,
+            </if>
+            <if test="periodOutflowAmount != null">
+                PERIOD_OUTFLOW_AMOUNT = #{periodOutflowAmount} ,
+            </if>
+            <if test="realProfitLoss != null">
+                REAL_PROFIT_LOSS = #{realProfitLoss} ,
+            </if>
+            <if test="unrealProfitLoss != null">
+                UNREAL_PROFIT_LOSS = #{unrealProfitLoss} ,
+            </if>
+            <if test="leverageMultiples != null">
+                LEVERAGE_MULTIPLES = #{leverageMultiples} ,
+            </if>
+            <if test="remark != null">
+                REMARK = #{remark} ,
+            </if>
+            <if test="updateDate != null">
+                UPDATE_DATE = #{updateDate} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO ASSET_POSITION(
+            ID ,
+            ACCOUNT_ID ,
+            STOCKINFO_ID ,
+            POSITION_DIRECTION ,
+            OPEN_AVG_PRICE ,
+            AMOUNT ,
+            FROZEN_AMOUNT ,
+            PERIOD_INIT_AMOUNT ,
+            PERIOD_INFLOW_AMOUNT ,
+            PERIOD_OUTFLOW_AMOUNT ,
+            REAL_PROFIT_LOSS ,
+            UNREAL_PROFIT_LOSS ,
+            LEVERAGE_MULTIPLES ,
+            REMARK ,
+            UPDATE_DATE 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.accountId} ,
+            #{item.stockinfoId} ,
+            #{item.positionDirection} ,
+            #{item.openAvgPrice} ,
+            #{item.amount} ,
+            #{item.frozenAmount} ,
+            #{item.periodInitAmount} ,
+            #{item.periodInflowAmount} ,
+            #{item.periodOutflowAmount} ,
+            #{item.realProfitLoss} ,
+            #{item.unrealProfitLoss} ,
+            #{item.leverageMultiples} ,
+            #{item.remark} ,
+            #{item.updateDate} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE ASSET_POSITION SET
+            ACCOUNT_ID = #{item.accountId} ,
+            STOCKINFO_ID = #{item.stockinfoId} ,
+            POSITION_DIRECTION = #{item.positionDirection} ,
+            OPEN_AVG_PRICE = #{item.openAvgPrice} ,
+            AMOUNT = #{item.amount} ,
+            FROZEN_AMOUNT = #{item.frozenAmount} ,
+            PERIOD_INIT_AMOUNT = #{item.periodInitAmount} ,
+            PERIOD_INFLOW_AMOUNT = #{item.periodInflowAmount} ,
+            PERIOD_OUTFLOW_AMOUNT = #{item.periodOutflowAmount} ,
+            REAL_PROFIT_LOSS = #{item.realProfitLoss} ,
+            UNREAL_PROFIT_LOSS = #{item.unrealProfitLoss} ,
+            LEVERAGE_MULTIPLES = #{item.leverageMultiples} ,
+            REMARK = #{item.remark} ,
+            UPDATE_DATE = #{item.updateDate} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.asset.entity.AssetPosition">
+        UPDATE ASSET_POSITION SET
+            ACCOUNT_ID = #{accountId} ,
+            STOCKINFO_ID = #{stockinfoId} ,
+            POSITION_DIRECTION = #{positionDirection} ,
+            OPEN_AVG_PRICE = #{openAvgPrice} ,
+            AMOUNT = #{amount} ,
+            FROZEN_AMOUNT = #{frozenAmount} ,
+            PERIOD_INIT_AMOUNT = #{periodInitAmount} ,
+            PERIOD_INFLOW_AMOUNT = #{periodInflowAmount} ,
+            PERIOD_OUTFLOW_AMOUNT = #{periodOutflowAmount} ,
+            REAL_PROFIT_LOSS = #{realProfitLoss} ,
+            UNREAL_PROFIT_LOSS = #{unrealProfitLoss} ,
+            LEVERAGE_MULTIPLES = #{leverageMultiples} ,
+            REMARK = #{remark} ,
+            UPDATE_DATE = #{updateDate} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.asset.entity.AssetPosition">
+        SELECT <include refid="assetPositionColumns"/> FROM ASSET_POSITION a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.asset.entity.AssetPosition">
+        SELECT
+        <include refid="assetPositionColumns"/>
+        FROM ASSET_POSITION a WHERE 1 = 1 <!-- and a.DEL_FLAG = 0-->
+        <if test="accountId != null">
+            AND a.ACCOUNT_ID = #{accountId}
+        </if>
+        <if test="stockinfoId != null">
+            AND a.STOCKINFO_ID = #{stockinfoId}
+        </if>
+        <if test="positionDirection != null">
+            AND a.POSITION_DIRECTION LIKE '%'||#{positionDirection}||'%'
+        </if>
+        <if test="openAvgPrice != null">
+            AND a.OPEN_AVG_PRICE = #{openAvgPrice}
+        </if>
+        <if test="amount != null">
+            AND a.AMOUNT = #{amount}
+        </if>
+        <if test="frozenAmount != null">
+            AND a.FROZEN_AMOUNT = #{frozenAmount}
+        </if>
+        <if test="periodInitAmount != null">
+            AND a.PERIOD_INIT_AMOUNT = #{periodInitAmount}
+        </if>
+        <if test="periodInflowAmount != null">
+            AND a.PERIOD_INFLOW_AMOUNT = #{periodInflowAmount}
+        </if>
+        <if test="periodOutflowAmount != null">
+            AND a.PERIOD_OUTFLOW_AMOUNT = #{periodOutflowAmount}
+        </if>
+        <if test="realProfitLoss != null">
+            AND a.REAL_PROFIT_LOSS = #{realProfitLoss}
+        </if>
+        <if test="unrealProfitLoss != null">
+            AND a.UNREAL_PROFIT_LOSS = #{unrealProfitLoss}
+        </if>
+        <if test="leverageMultiples != null">
+            AND a.LEVERAGE_MULTIPLES = #{leverageMultiples}
+        </if>
+        <!-- 日期查询 -->
+        <if test="dateField != null">
+            <if test="dateField == 'updateDate'">
+                AND a.UPDATE_DATE between #{startDate} and #{endDate}
+            </if>
+        </if>
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.asset.entity.AssetPosition">
+        SELECT
+        <include refid="assetPositionColumns"/>
+        FROM ASSET_POSITION a <!--WHERE a.DEL_FLAG = 0-->
+    </select>
+
+
+</mapper>
+

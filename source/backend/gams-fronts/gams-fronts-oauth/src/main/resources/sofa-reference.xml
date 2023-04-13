@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sofa="http://sofastack.io/schema/sofaboot"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://sofastack.io/schema/sofaboot http://sofastack.io/schema/sofaboot.xsd">
+    <!-- OAUTH2.0 -->
+    <sofa:reference interface="com.fintech.gams.oauth2.service.OauthService" id="oauthService" jvm-first="false">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="30000" address-wait-time="30000"/>
+        </sofa:binding.bolt>
+    </sofa:reference>
+
+    <!-- 账户管理服务 -->
+    <sofa:reference id="accountService" interface="com.fintech.gams.account.service.AccountService" jvm-first="false">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="30000" address-wait-time="30000"/>
+        </sofa:binding.bolt>
+    </sofa:reference>
+    <!-- 帐户策略 -->
+    <sofa:reference id="accountPolicyService" interface="com.fintech.gams.account.service.AccountPolicyService" jvm-first="false">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="30000" address-wait-time="30000"/>
+        </sofa:binding.bolt>
+    </sofa:reference>
+    <!--参数配置-->
+    <sofa:reference id="parameterService" interface="com.fintech.gams.common.service.ParameterService" jvm-first="false">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="30000" address-wait-time="30000"/>
+        </sofa:binding.bolt>
+    </sofa:reference>
+    <!-- 帐户日志 -->
+    <sofa:reference id="accountLogService" interface="com.fintech.gams.account.service.AccountLogService" jvm-first="false">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="30000" address-wait-time="30000"/>
+        </sofa:binding.bolt>
+    </sofa:reference>
+    <!--数据字典-->
+    <sofa:reference id="dictionaryService" interface="com.fintech.gams.common.service.DictionaryService" jvm-first="false">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="30000" address-wait-time="30000"/>
+        </sofa:binding.bolt>
+    </sofa:reference>
+    <!--区域代码-->
+    <sofa:reference id="regionService" interface="com.fintech.gams.common.service.RegionService" jvm-first="false">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="30000" address-wait-time="30000"/>
+        </sofa:binding.bolt>
+    </sofa:reference>
+    <!--消息模版-->
+    <sofa:reference id="templateService" interface="com.fintech.gams.common.service.TemplateService" jvm-first="false">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="30000" address-wait-time="30000"/>
+        </sofa:binding.bolt>
+    </sofa:reference>
+    <!--消息日志-->
+    <sofa:reference id="msgLogService" interface="com.fintech.gams.common.service.MsgLogService" jvm-first="false">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="30000" address-wait-time="30000"/>
+        </sofa:binding.bolt>
+    </sofa:reference>
+</beans>

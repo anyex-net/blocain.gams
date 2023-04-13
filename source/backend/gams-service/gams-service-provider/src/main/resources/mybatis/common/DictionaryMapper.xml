@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.common.mapper.DictionaryMapper">
+    <!-- 基础列 -->
+    <sql id="dictionaryColumns">
+        a.ID as id,
+        a.DICT_CODE as dictCode,
+        a.DICT_NAME as dictName,
+        a.DICT_VALUE as dictValue,
+        a.DICT_DEST as dictDest,
+        a.LANG as lang,
+        a.SORT_NUM as sortNum,
+        a.CREATE_BY as createBy,
+        a.CREATE_DATE as createDate,
+        a.UPDATE_BY as updateBy,
+        a.UPDATE_DATE as updateDate
+    </sql>
+
+    <resultMap id="dictionaryResultMap" type="com.fintech.gams.common.entity.Dictionary">
+        <id column="ID" property="id" />
+        <result column="DICT_CODE" property="dictCode"/>
+        <result column="DICT_NAME" property="dictName"/>
+        <result column="DICT_VALUE" property="dictValue"/>
+        <result column="DICT_DEST" property="dictDest"/>
+        <result column="LANG" property="lang"/>
+        <result column="SORT_NUM" property="sortNum"/>
+        <result column="CREATE_BY" property="createBy"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="UPDATE_BY" property="updateBy"/>
+        <result column="UPDATE_DATE" property="updateDate"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.common.entity.Dictionary">
+        INSERT INTO DICTIONARY(
+            ID ,
+            DICT_CODE ,
+            DICT_NAME ,
+            DICT_VALUE ,
+            DICT_DEST ,
+            LANG ,
+            SORT_NUM ,
+            CREATE_BY ,
+            CREATE_DATE ,
+            UPDATE_BY ,
+            UPDATE_DATE
+        ) VALUES (
+            #{id} ,
+            #{dictCode} ,
+            #{dictName} ,
+            #{dictValue} ,
+            #{dictDest} ,
+            #{lang} ,
+            #{sortNum} ,
+            #{createBy} ,
+            #{createDate} ,
+            #{updateBy} ,
+            #{updateDate}
+        )
+    </insert>
+
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM DICTIONARY WHERE ID = #{id}
+    </delete>
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.common.entity.Dictionary">
+        INSERT INTO DICTIONARY
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="dictCode != null">
+                DICT_CODE ,
+        </if>
+        <if test="dictName != null">
+                DICT_NAME ,
+        </if>
+        <if test="dictValue != null">
+                DICT_VALUE ,
+        </if>
+        <if test="dictDest != null">
+                DICT_DEST ,
+        </if>
+        <if test="lang != null">
+                LANG ,
+        </if>
+        <if test="sortNum != null">
+            SORT_NUM ,
+        </if>
+        <if test="createBy != null">
+                CREATE_BY ,
+        </if>
+        <if test="createDate != null">
+                CREATE_DATE ,
+        </if>
+        <if test="updateBy != null">
+                UPDATE_BY ,
+        </if>
+        <if test="updateDate != null">
+                UPDATE_DATE ,
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="dictCode != null">
+                #{dictCode} ,
+        </if>
+        <if test="dictName != null">
+                #{dictName} ,
+        </if>
+        <if test="dictValue != null">
+                #{dictValue} ,
+        </if>
+        <if test="dictDest != null">
+                #{dictDest} ,
+        </if>
+        <if test="lang != null">
+                #{lang} ,
+        </if>
+        <if test="sortNum != null">
+            #{sortNum} ,
+        </if>
+        <if test="createBy != null">
+                #{createBy} ,
+        </if>
+        <if test="createDate != null">
+                #{createDate} ,
+        </if>
+        <if test="updateBy != null">
+                #{updateBy} ,
+        </if>
+        <if test="updateDate != null">
+                #{updateDate} ,
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.common.entity.Dictionary">
+        UPDATE DICTIONARY
+           <set>
+            <if test="dictCode != null">
+                DICT_CODE = #{dictCode} ,
+            </if>
+            <if test="dictName != null">
+                DICT_NAME = #{dictName} ,
+            </if>
+            <if test="dictValue != null">
+                DICT_VALUE = #{dictValue} ,
+            </if>
+            <if test="dictDest != null">
+                DICT_DEST = #{dictDest} ,
+            </if>
+            <if test="lang != null">
+                LANG = #{lang} ,
+            </if>
+           <if test="sortNum != null">
+               SORT_NUM = #{sortNum} ,
+           </if>
+            <if test="createBy != null">
+                CREATE_BY = #{createBy} ,
+            </if>
+            <if test="createDate != null">
+                CREATE_DATE = #{createDate} ,
+            </if>
+            <if test="updateBy != null">
+                UPDATE_BY = #{updateBy} ,
+            </if>
+            <if test="updateDate != null">
+                UPDATE_DATE = #{updateDate} ,
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO DICTIONARY(
+            ID ,
+            DICT_CODE ,
+            DICT_NAME ,
+            DICT_VALUE ,
+            DICT_DEST ,
+            LANG ,
+            SORT_NUM ,
+            CREATE_BY ,
+            CREATE_DATE ,
+            UPDATE_BY ,
+            UPDATE_DATE
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.dictCode} ,
+            #{item.dictName} ,
+            #{item.dictValue} ,
+            #{item.dictDest} ,
+            #{item.lang} ,
+            #{item.sortNum} ,
+            #{item.createBy} ,
+            #{item.createDate} ,
+            #{item.updateBy} ,
+            #{item.updateDate}
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE DICTIONARY SET
+            DICT_CODE = #{item.dictCode} ,
+            DICT_NAME = #{item.dictName} ,
+            DICT_VALUE = #{item.dictValue} ,
+            DICT_DEST = #{item.dictDest} ,
+            LANG = #{item.lang} ,
+            SORT_NUM = #{item.sortNum} ,
+            CREATE_BY = #{item.createBy} ,
+            CREATE_DATE = #{item.createDate} ,
+            UPDATE_BY = #{item.updateBy} ,
+            UPDATE_DATE = #{item.updateDate}
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.common.entity.Dictionary">
+        UPDATE DICTIONARY SET
+            DICT_CODE = #{dictCode} ,
+            DICT_NAME = #{dictName} ,
+            DICT_VALUE = #{dictValue} ,
+            DICT_DEST = #{dictDest} ,
+            LANG = #{lang} ,
+            SORT_NUM = #{sortNum} ,
+            CREATE_BY = #{createBy} ,
+            CREATE_DATE = #{createDate} ,
+            UPDATE_BY = #{updateBy} ,
+            UPDATE_DATE = #{updateDate}
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.common.entity.Dictionary">
+        SELECT <include refid="dictionaryColumns"/> FROM DICTIONARY a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.common.entity.Dictionary">
+        SELECT
+        <include refid="dictionaryColumns"/>
+        FROM DICTIONARY a WHERE 1 = 1
+        <if test="dictCode != null">
+            AND a.DICT_CODE LIKE '%'||#{dictCode}||'%'
+        </if>
+        <if test="dictName != null">
+            AND a.DICT_NAME LIKE '%'||#{dictName}||'%'
+        </if>
+        <if test="lang != null">
+            AND a.LANG LIKE '%'||#{lang}||'%'
+        </if>
+        <if test="createBy != null">
+            AND a.CREATE_BY = #{createBy}
+        </if>
+        <if test="updateBy != null">
+            AND a.UPDATE_BY = #{updateBy}
+        </if>
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.common.entity.Dictionary">
+        SELECT
+        <include refid="dictionaryColumns"/>
+        FROM DICTIONARY a
+    </select>
+
+    <select id="findByCode" resultType="com.fintech.gams.common.entity.Dictionary">
+        SELECT
+        <include refid="dictionaryColumns"/>
+        FROM DICTIONARY a
+        WHERE a.DICT_CODE = #{dictCode}
+        AND a.LANG = #{lang}
+        ORDER BY a.ID
+    </select>
+
+    <select id="findByValue" resultType="com.fintech.gams.common.entity.Dictionary">
+        SELECT
+        <include refid="dictionaryColumns"/>
+        FROM DICTIONARY a
+        WHERE a.DICT_VALUE = #{valueCode}
+        AND ROWNUM = 1
+    </select>
+
+    <select id="findByCodeArr" resultType="com.fintech.gams.common.entity.Dictionary">
+        SELECT
+        <include refid="dictionaryColumns"/>
+        FROM DICTIONARY a
+        WHERE a.DICT_VALUE IN
+        <foreach collection="dictCode" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        AND a.LANG = #{lang}
+    </select>
+
+    <select id="findDictionary" resultType="com.fintech.gams.common.entity.Dictionary">
+        SELECT
+        <include refid="dictionaryColumns"/>
+        FROM DICTIONARY a
+        WHERE a.DICT_VALUE = #{valueCode}
+        AND a.LANG = #{lang}
+        AND a.DICT_CODE = #{dictCode}
+        AND ROWNUM = 1
+    </select>
+
+    <select id="findByCodeAndTree" resultType="com.fintech.gams.common.model.HelpCenterTreeModel">
+        SELECT
+        <include refid="dictionaryColumns"/>
+        FROM DICTIONARY a
+        WHERE a.DICT_CODE = #{dictCode}
+        AND a.LANG = #{lang}
+    </select>
+
+    <select id="findByCodeAndValue" resultType="com.fintech.gams.common.model.HelpCenterTreeModel">
+        SELECT
+        <include refid="dictionaryColumns"/>
+        FROM DICTIONARY a
+        WHERE a.DICT_CODE = #{dictCode}
+        AND a.DICT_VALUE = #{dictValue}
+        AND a.LANG = #{lang}
+    </select>
+</mapper>
+

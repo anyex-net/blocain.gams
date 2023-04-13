@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.account.mapper.AccountCommonAgreementMapper">
+    <!-- 基础列 -->
+    <sql id="accountCommonAgreementColumns">
+        a.ID as id,
+        a.EN_NAME as enName,
+        a.PATH as path,
+        a.AGREEMENT_NUMBER as agreementNumber,
+        a.AGREEMENT_DESCRIPTION as agreementDescription,
+        a.CN_NAME as cnName
+    </sql>
+
+    <resultMap id="accountCommonAgreementResultMap" type="com.fintech.gams.account.entity.AccountCommonAgreement">
+        <id column="ID" property="id" />
+        <result column="EN_NAME" property="enName"/>
+        <result column="PATH" property="path"/>
+        <result column="AGREEMENT_NUMBER" property="agreementNumber"/>
+        <result column="AGREEMENT_DESCRIPTION" property="agreementDescription"/>
+        <result column="CN_NAME" property="cnName"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.account.entity.AccountCommonAgreement">
+        INSERT INTO ACCOUNT_COMMON_AGREEMENT(
+            ID ,
+            EN_NAME ,
+            PATH ,
+            AGREEMENT_NUMBER ,
+            AGREEMENT_DESCRIPTION ,
+            CN_NAME 
+        ) VALUES (
+            #{id} ,
+            #{enName} ,
+            #{path} ,
+            #{agreementNumber} ,
+            #{agreementDescription} ,
+            #{cnName} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM ACCOUNT_COMMON_AGREEMENT WHERE ID = #{id}
+    </delete>
+
+    <!-- 根据主键逻辑删除
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE ACCOUNT_COMMON_AGREEMENT SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+    -->
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.account.entity.AccountCommonAgreement">
+        INSERT INTO ACCOUNT_COMMON_AGREEMENT
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="enName != null">
+                EN_NAME ,
+        </if>
+        <if test="path != null">
+                PATH ,
+        </if>
+        <if test="agreementNumber != null">
+                AGREEMENT_NUMBER ,
+        </if>
+        <if test="agreementDescription != null">
+                AGREEMENT_DESCRIPTION ,
+        </if>
+        <if test="cnName != null">
+                CN_NAME 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="enName != null">
+                #{enName} ,
+        </if>
+        <if test="path != null">
+                #{path} ,
+        </if>
+        <if test="agreementNumber != null">
+                #{agreementNumber} ,
+        </if>
+        <if test="agreementDescription != null">
+                #{agreementDescription} ,
+        </if>
+        <if test="cnName != null">
+                #{cnName} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.account.entity.AccountCommonAgreement">
+        UPDATE ACCOUNT_COMMON_AGREEMENT
+           <set>
+            <if test="enName != null">
+                EN_NAME = #{enName} ,
+            </if>
+            <if test="path != null">
+                PATH = #{path} ,
+            </if>
+            <if test="agreementNumber != null">
+                AGREEMENT_NUMBER = #{agreementNumber} ,
+            </if>
+            <if test="agreementDescription != null">
+                AGREEMENT_DESCRIPTION = #{agreementDescription} ,
+            </if>
+            <if test="cnName != null">
+                CN_NAME = #{cnName} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO ACCOUNT_COMMON_AGREEMENT(
+            ID ,
+            EN_NAME ,
+            PATH ,
+            AGREEMENT_NUMBER ,
+            AGREEMENT_DESCRIPTION ,
+            CN_NAME 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.enName} ,
+            #{item.path} ,
+            #{item.agreementNumber} ,
+            #{item.agreementDescription} ,
+            #{item.cnName} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE ACCOUNT_COMMON_AGREEMENT SET
+            EN_NAME = #{item.enName} ,
+            PATH = #{item.path} ,
+            AGREEMENT_NUMBER = #{item.agreementNumber} ,
+            AGREEMENT_DESCRIPTION = #{item.agreementDescription} ,
+            CN_NAME = #{item.cnName} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.account.entity.AccountCommonAgreement">
+        UPDATE ACCOUNT_COMMON_AGREEMENT SET
+            EN_NAME = #{enName} ,
+            PATH = #{path} ,
+            AGREEMENT_NUMBER = #{agreementNumber} ,
+            AGREEMENT_DESCRIPTION = #{agreementDescription} ,
+            CN_NAME = #{cnName} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.account.entity.AccountCommonAgreement">
+        SELECT <include refid="accountCommonAgreementColumns"/> FROM ACCOUNT_COMMON_AGREEMENT a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.account.entity.AccountCommonAgreement">
+        SELECT
+        <include refid="accountCommonAgreementColumns"/>
+        FROM ACCOUNT_COMMON_AGREEMENT a WHERE 1 = 1 <!-- and a.DEL_FLAG = 0-->
+        <if test="enName != null">
+            AND a.EN_NAME LIKE '%'||#{enName}||'%'
+        </if>
+        <if test="path != null">
+            AND a.PATH LIKE '%'||#{path}||'%'
+        </if>
+        <if test="agreementNumber != null">
+            AND a.AGREEMENT_NUMBER LIKE '%'||#{agreementNumber}||'%'
+        </if>
+        <if test="agreementDescription != null">
+            AND a.AGREEMENT_DESCRIPTION LIKE '%'||#{agreementDescription}||'%'
+        </if>
+        <if test="cnName != null">
+            AND a.CN_NAME LIKE '%'||#{cnName}||'%'
+        </if>
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.account.entity.AccountCommonAgreement">
+        SELECT
+        <include refid="accountCommonAgreementColumns"/>
+        FROM ACCOUNT_COMMON_AGREEMENT a <!--WHERE a.DEL_FLAG = 0-->
+    </select>
+
+
+</mapper>
+

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>gams-commons</artifactId>
+        <groupId>com.fintech.gams</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>gams-commons-ibgateway</artifactId>
+    <description>Interactive Brokers API</description>
+
+    <build>
+        <plugins>
+            <!-- 把jar包拷贝到指定目录位置 -->
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>package</phase>
+                        <configuration>
+                            <tasks>
+                                <copy todir="${build.path}">
+                                    <fileset dir="${project.build.directory}">
+                                        <include name="${project.artifactId}-${project.version}.jar"/>
+                                        <include name="${project.artifactId}-${project.version}.war"/>
+                                    </fileset>
+                                </copy>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

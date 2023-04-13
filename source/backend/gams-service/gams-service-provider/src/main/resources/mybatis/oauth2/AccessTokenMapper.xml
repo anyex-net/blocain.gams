@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.oauth2.mapper.AccessTokenMapper">
+    <!-- 基础列 -->
+    <sql id="accessTokenColumns">
+        a.ID as id,
+        a.CREATE_TIME as createTime,
+        a.TOKEN_ID as tokenId,
+        a.TOKEN_EXPIRED_SECONDS as tokenExpiredSeconds,
+        a.AUTHENTICATION_ID as authenticationId,
+        a.USER_NAME as userName,
+        a.CLIENT_ID as clientId,
+        a.TOKEN_TYPE as tokenType,
+        a.REFRESH_TOKEN as refreshToken,
+        a.REFRESH_TOKEN_EXPIRED_SECONDS as refreshTokenExpiredSeconds
+    </sql>
+
+    <resultMap id="accessTokenResultMap" type="com.fintech.gams.oauth2.entity.AccessToken">
+        <id column="ID" property="id" />
+        <result column="CREATE_TIME" property="createTime"/>
+        <result column="TOKEN_ID" property="tokenId"/>
+        <result column="TOKEN_EXPIRED_SECONDS" property="tokenExpiredSeconds"/>
+        <result column="AUTHENTICATION_ID" property="authenticationId"/>
+        <result column="USER_NAME" property="userName"/>
+        <result column="CLIENT_ID" property="clientId"/>
+        <result column="TOKEN_TYPE" property="tokenType"/>
+        <result column="REFRESH_TOKEN" property="refreshToken"/>
+        <result column="REFRESH_TOKEN_EXPIRED_SECONDS" property="refreshTokenExpiredSeconds"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.oauth2.entity.AccessToken">
+        INSERT INTO OAUTH_ACCESS_TOKEN(
+            ID ,
+            CREATE_TIME ,
+            TOKEN_ID ,
+            TOKEN_EXPIRED_SECONDS ,
+            AUTHENTICATION_ID ,
+            USER_NAME ,
+            CLIENT_ID ,
+            TOKEN_TYPE ,
+            REFRESH_TOKEN ,
+            REFRESH_TOKEN_EXPIRED_SECONDS 
+        ) VALUES (
+            #{id} ,
+            #{createTime} ,
+            #{tokenId} ,
+            #{tokenExpiredSeconds} ,
+            #{authenticationId} ,
+            #{userName} ,
+            #{clientId} ,
+            #{tokenType} ,
+            #{refreshToken} ,
+            #{refreshTokenExpiredSeconds} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM OAUTH_ACCESS_TOKEN WHERE ID = #{id}
+    </delete>
+
+    <!-- 根据主键逻辑删除
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE OAUTH_ACCESS_TOKEN SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+    -->
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.oauth2.entity.AccessToken">
+        INSERT INTO OAUTH_ACCESS_TOKEN
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="createTime != null">
+                CREATE_TIME ,
+        </if>
+        <if test="tokenId != null">
+                TOKEN_ID ,
+        </if>
+        <if test="tokenExpiredSeconds != null">
+                TOKEN_EXPIRED_SECONDS ,
+        </if>
+        <if test="authenticationId != null">
+                AUTHENTICATION_ID ,
+        </if>
+        <if test="userName != null">
+                USER_NAME ,
+        </if>
+        <if test="clientId != null">
+                CLIENT_ID ,
+        </if>
+        <if test="tokenType != null">
+                TOKEN_TYPE ,
+        </if>
+        <if test="refreshToken != null">
+                REFRESH_TOKEN ,
+        </if>
+        <if test="refreshTokenExpiredSeconds != null">
+                REFRESH_TOKEN_EXPIRED_SECONDS 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="createTime != null">
+                #{createTime} ,
+        </if>
+        <if test="tokenId != null">
+                #{tokenId} ,
+        </if>
+        <if test="tokenExpiredSeconds != null">
+                #{tokenExpiredSeconds} ,
+        </if>
+        <if test="authenticationId != null">
+                #{authenticationId} ,
+        </if>
+        <if test="userName != null">
+                #{userName} ,
+        </if>
+        <if test="clientId != null">
+                #{clientId} ,
+        </if>
+        <if test="tokenType != null">
+                #{tokenType} ,
+        </if>
+        <if test="refreshToken != null">
+                #{refreshToken} ,
+        </if>
+        <if test="refreshTokenExpiredSeconds != null">
+                #{refreshTokenExpiredSeconds} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.oauth2.entity.AccessToken">
+        UPDATE OAUTH_ACCESS_TOKEN
+           <set>
+            <if test="createTime != null">
+                CREATE_TIME = #{createTime} ,
+            </if>
+            <if test="tokenId != null">
+                TOKEN_ID = #{tokenId} ,
+            </if>
+            <if test="tokenExpiredSeconds != null">
+                TOKEN_EXPIRED_SECONDS = #{tokenExpiredSeconds} ,
+            </if>
+            <if test="authenticationId != null">
+                AUTHENTICATION_ID = #{authenticationId} ,
+            </if>
+            <if test="userName != null">
+                USER_NAME = #{userName} ,
+            </if>
+            <if test="clientId != null">
+                CLIENT_ID = #{clientId} ,
+            </if>
+            <if test="tokenType != null">
+                TOKEN_TYPE = #{tokenType} ,
+            </if>
+            <if test="refreshToken != null">
+                REFRESH_TOKEN = #{refreshToken} ,
+            </if>
+            <if test="refreshTokenExpiredSeconds != null">
+                REFRESH_TOKEN_EXPIRED_SECONDS = #{refreshTokenExpiredSeconds} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO OAUTH_ACCESS_TOKEN(
+            ID ,
+            CREATE_TIME ,
+            TOKEN_ID ,
+            TOKEN_EXPIRED_SECONDS ,
+            AUTHENTICATION_ID ,
+            USER_NAME ,
+            CLIENT_ID ,
+            TOKEN_TYPE ,
+            REFRESH_TOKEN ,
+            REFRESH_TOKEN_EXPIRED_SECONDS 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.createTime} ,
+            #{item.tokenId} ,
+            #{item.tokenExpiredSeconds} ,
+            #{item.authenticationId} ,
+            #{item.userName} ,
+            #{item.clientId} ,
+            #{item.tokenType} ,
+            #{item.refreshToken} ,
+            #{item.refreshTokenExpiredSeconds} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE OAUTH_ACCESS_TOKEN SET
+            CREATE_TIME = #{item.createTime} ,
+            TOKEN_ID = #{item.tokenId} ,
+            TOKEN_EXPIRED_SECONDS = #{item.tokenExpiredSeconds} ,
+            AUTHENTICATION_ID = #{item.authenticationId} ,
+            USER_NAME = #{item.userName} ,
+            CLIENT_ID = #{item.clientId} ,
+            TOKEN_TYPE = #{item.tokenType} ,
+            REFRESH_TOKEN = #{item.refreshToken} ,
+            REFRESH_TOKEN_EXPIRED_SECONDS = #{item.refreshTokenExpiredSeconds} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.oauth2.entity.AccessToken">
+        UPDATE OAUTH_ACCESS_TOKEN SET
+            CREATE_TIME = #{createTime} ,
+            TOKEN_ID = #{tokenId} ,
+            TOKEN_EXPIRED_SECONDS = #{tokenExpiredSeconds} ,
+            AUTHENTICATION_ID = #{authenticationId} ,
+            USER_NAME = #{userName} ,
+            CLIENT_ID = #{clientId} ,
+            TOKEN_TYPE = #{tokenType} ,
+            REFRESH_TOKEN = #{refreshToken} ,
+            REFRESH_TOKEN_EXPIRED_SECONDS = #{refreshTokenExpiredSeconds} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.oauth2.entity.AccessToken">
+        SELECT <include refid="accessTokenColumns"/> FROM OAUTH_ACCESS_TOKEN a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.oauth2.entity.AccessToken">
+        SELECT
+        <include refid="accessTokenColumns"/>
+        FROM OAUTH_ACCESS_TOKEN a WHERE 1 = 1 <!-- and a.DEL_FLAG = 0-->
+        <if test="tokenId != null">
+            AND a.TOKEN_ID = #{tokenId}
+        </if>
+        <if test="authenticationId != null">
+            AND a.AUTHENTICATION_ID = #{authenticationId}
+        </if>
+        <if test="userName != null">
+            AND a.USER_NAME = #{userName}
+        </if>
+        <if test="clientId != null">
+            AND a.CLIENT_ID = #{clientId}
+        </if>
+        <if test="tokenType != null">
+            AND a.TOKEN_TYPE = #{tokenType}
+        </if>
+        <if test="refreshToken != null">
+            AND a.REFRESH_TOKEN = #{refreshToken}
+        </if>
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.oauth2.entity.AccessToken">
+        SELECT
+        <include refid="accessTokenColumns"/>
+        FROM OAUTH_ACCESS_TOKEN a <!--WHERE a.DEL_FLAG = 0-->
+    </select>
+
+    <select id="loadAccessTokenByRefreshToken" resultType="com.fintech.gams.oauth2.entity.AccessToken">
+        SELECT
+        <include refid="accessTokenColumns"/>
+        FROM OAUTH_ACCESS_TOKEN a
+        WHERE a.REFRESH_TOKEN = #{refreshToken}
+        AND a.CLIENT_ID = #{clientId}
+    </select>
+
+    <select id="findAccessToken" resultType="com.fintech.gams.oauth2.entity.AccessToken">
+        SELECT
+        <include refid="accessTokenColumns"/>
+        FROM OAUTH_ACCESS_TOKEN a
+        WHERE a.USER_NAME = #{userName}
+        AND a.CLIENT_ID = #{clientId}
+        AND a.AUTHENTICATION_ID = #{authenticationId}
+    </select>
+
+    <select id="loadAccessTokenByTokenId" resultType="com.fintech.gams.oauth2.entity.AccessToken">
+        SELECT
+        <include refid="accessTokenColumns"/>
+        FROM OAUTH_ACCESS_TOKEN a
+        WHERE a.TOKEN_ID = #{tokenId}
+    </select>
+
+    <select id="loadAccessTokenByUserName" resultType="java.lang.String">
+        SELECT distinct CLIENT_ID as clientId FROM OAUTH_ACCESS_TOKEN WHERE USER_NAME = #{userName}
+    </select>
+
+
+</mapper>
+

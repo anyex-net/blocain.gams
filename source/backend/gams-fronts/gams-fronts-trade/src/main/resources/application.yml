@@ -1,0 +1,78 @@
+server:
+  port: 8081
+  http2:
+    enabled: true
+  servlet:
+    context-path: /api
+spring:
+  application:
+    name: GamsTradeServer
+  redis:
+    cluster:
+      nodes: @cluster.nodes@
+      max-redirects: 3
+    host: @redis.host@
+    port: @redis.port@
+    password: @redis.password@
+    timeout: @redis.timeout@
+    conn-type: @redis.conntype@
+    lettuce:
+      pool:
+        # 连接池中的最小空闲连接
+        min-idle: 2
+        # 连接池中的最大空闲连接
+        max-idle: 500
+        # 连接池最大连接数（使用负值表示没有限制）
+        max-active: 2000
+        # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: 10000
+com:
+  gams:
+    open-log: true
+    project-name: trade
+    domain-name: @domain.name@
+    cookie-path: @cookie.path@
+    cookie-secure: @cookie.secure@
+    oauth2:
+      clientId: @trade.clientId@
+      clientSecret: @trade.clientSecret@
+      redirectUrl: @trade.redirectUrl@
+      successUrl: @trade.successUrl@ #登陆成功后的地址
+      failureUrl: @trade.failureUrl@ #登陆失败后的地址
+      userInfoUrl: @oauth2.userInfoUrl@
+      authorizeUrl: @oauth2.authorizeUrl@
+      accessTokenUrl: @oauth2.accessTokenUrl@
+      accessLogoutUrl: @oauth2.accessLogoutUrl@
+    aliyun:
+      app-key: @aliyun.afs.appkey@
+      access-key: @aliyun.access.key@
+      secret-key: @aliyun.access.secret@
+      end-point: @aliyun.oss.endpoint@
+#      bucket:
+#        release-name:
+#        release-url:
+#        temp-name:
+#        temp-url:
+    amazon:
+      access-key: @amazon.access.key@
+      secret-key: @amazon.access.secret@
+      bucket:
+        release-name: @amazon.bucket.release-name@
+        release-url: @amazon.bucket.release-url@
+        temp-name: @amazon.bucket.temp-name@
+        temp-url: @amazon.bucket.temp-url@
+  alipay:
+    sofa:
+      rpc:
+        registry-address: @zookeeper.address@
+logging:
+  path: logs/trade
+  level:
+    com.fintech: @gams.logger.level@
+    com.alipay: error
+    org.apache: error
+    springfox: error
+  pattern:
+    console: "[%d{yyyy-MM-dd HH:mm:ss:SSS}] [%p] - %pid - %l - %m%n"
+ses:
+  url: @trade.front.url@     # 账户发送邮件激活地址(前端ip地址)

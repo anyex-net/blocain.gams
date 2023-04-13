@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sofa="http://sofastack.io/schema/sofaboot"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://sofastack.io/schema/sofaboot http://sofastack.io/schema/sofaboot.xsd">
+
+    <!-- IB网关核心客户端请求服务 -->
+    <sofa:reference id="ibCoreRequestService" interface="com.fintech.gams.ib.service.IbCoreRequestService" jvm-first="false">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="60000" address-wait-time="30000"/>
+        </sofa:binding.bolt>
+    </sofa:reference>
+
+    <!--消息公告-->
+    <sofa:reference id="newsBulletinService" interface="com.fintech.gams.common.service.NewsBulletinService" jvm-first="false">
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="60000" address-wait-time="30000"/>
+        </sofa:binding.bolt>
+    </sofa:reference>
+
+</beans>

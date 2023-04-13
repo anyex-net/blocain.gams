@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.stock.mapper.StockExchangeMapper">
+    <!-- 基础列 -->
+    <sql id="stockExchangeColumns">
+        a.ID as id,
+        a.EXCHANGE_CODE as exchangeCode,
+        a.EXCHANGE_NAME as exchangeName,
+        a.REGION as region,
+        a.CONTINENT as continent,
+        a.BASE_CURRENCY as baseCurrency,
+        a.TRADE_DAY_TYPE as tradeDayType,
+        a.IS_OPENTRADE as isOpentrade,
+        a.CREATE_BY as createBy,
+        a.CREATE_DATE as createDate,
+        a.UPDATE_BY as updateBy,
+        a.UPDATE_DATE as updateDate
+    </sql>
+
+    <resultMap id="stockExchangeResultMap" type="com.fintech.gams.stock.entity.StockExchange">
+        <id column="ID" property="id" />
+        <result column="EXCHANGE_CODE" property="exchangeCode"/>
+        <result column="EXCHANGE_NAME" property="exchangeName"/>
+        <result column="REGION" property="region"/>
+        <result column="CONTINENT" property="continent"/>
+        <result column="BASE_CURRENCY" property="baseCurrency"/>
+        <result column="TRADE_DAY_TYPE" property="tradeDayType"/>
+        <result column="IS_OPENTRADE" property="isOpentrade"/>
+        <result column="CREATE_BY" property="createBy"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="UPDATE_BY" property="updateBy"/>
+        <result column="UPDATE_DATE" property="updateDate"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.stock.entity.StockExchange">
+        INSERT INTO STOCK_EXCHANGE(
+            ID ,
+            EXCHANGE_CODE ,
+            EXCHANGE_NAME ,
+            REGION ,
+            CONTINENT ,
+            BASE_CURRENCY ,
+            TRADE_DAY_TYPE ,
+            IS_OPENTRADE ,
+            CREATE_BY ,
+            CREATE_DATE ,
+            UPDATE_BY ,
+            UPDATE_DATE 
+        ) VALUES (
+            #{id} ,
+            #{exchangeCode} ,
+            #{exchangeName} ,
+            #{region} ,
+            #{continent} ,
+            #{baseCurrency} ,
+            #{tradeDayType} ,
+            #{isOpentrade} ,
+            #{createBy} ,
+            #{createDate} ,
+            #{updateBy} ,
+            #{updateDate} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM STOCK_EXCHANGE WHERE ID = #{id}
+    </delete>
+
+    <!-- 根据主键逻辑删除
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE STOCK_EXCHANGE SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+    -->
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.stock.entity.StockExchange">
+        INSERT INTO STOCK_EXCHANGE
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="exchangeCode != null">
+                EXCHANGE_CODE ,
+        </if>
+        <if test="exchangeName != null">
+                EXCHANGE_NAME ,
+        </if>
+        <if test="region != null">
+                REGION ,
+        </if>
+        <if test="continent != null">
+                CONTINENT ,
+        </if>
+        <if test="baseCurrency != null">
+                BASE_CURRENCY ,
+        </if>
+        <if test="tradeDayType != null">
+                TRADE_DAY_TYPE ,
+        </if>
+        <if test="isOpentrade != null">
+                IS_OPENTRADE ,
+        </if>
+        <if test="createBy != null">
+                CREATE_BY ,
+        </if>
+        <if test="createDate != null">
+                CREATE_DATE ,
+        </if>
+        <if test="updateBy != null">
+                UPDATE_BY ,
+        </if>
+        <if test="updateDate != null">
+                UPDATE_DATE 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="exchangeCode != null">
+                #{exchangeCode} ,
+        </if>
+        <if test="exchangeName != null">
+                #{exchangeName} ,
+        </if>
+        <if test="region != null">
+                #{region} ,
+        </if>
+        <if test="continent != null">
+                #{continent} ,
+        </if>
+        <if test="baseCurrency != null">
+                #{baseCurrency} ,
+        </if>
+        <if test="tradeDayType != null">
+                #{tradeDayType} ,
+        </if>
+        <if test="isOpentrade != null">
+                #{isOpentrade} ,
+        </if>
+        <if test="createBy != null">
+                #{createBy} ,
+        </if>
+        <if test="createDate != null">
+                #{createDate} ,
+        </if>
+        <if test="updateBy != null">
+                #{updateBy} ,
+        </if>
+        <if test="updateDate != null">
+                #{updateDate} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.stock.entity.StockExchange">
+        UPDATE STOCK_EXCHANGE
+           <set>
+            <if test="exchangeCode != null">
+                EXCHANGE_CODE = #{exchangeCode} ,
+            </if>
+            <if test="exchangeName != null">
+                EXCHANGE_NAME = #{exchangeName} ,
+            </if>
+            <if test="region != null">
+                REGION = #{region} ,
+            </if>
+            <if test="continent != null">
+                CONTINENT = #{continent} ,
+            </if>
+            <if test="baseCurrency != null">
+                BASE_CURRENCY = #{baseCurrency} ,
+            </if>
+            <if test="tradeDayType != null">
+                TRADE_DAY_TYPE = #{tradeDayType} ,
+            </if>
+            <if test="isOpentrade != null">
+                IS_OPENTRADE = #{isOpentrade} ,
+            </if>
+            <if test="createBy != null">
+                CREATE_BY = #{createBy} ,
+            </if>
+            <if test="createDate != null">
+                CREATE_DATE = #{createDate} ,
+            </if>
+            <if test="updateBy != null">
+                UPDATE_BY = #{updateBy} ,
+            </if>
+            <if test="updateDate != null">
+                UPDATE_DATE = #{updateDate} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO STOCK_EXCHANGE(
+            ID ,
+            EXCHANGE_CODE ,
+            EXCHANGE_NAME ,
+            REGION ,
+            CONTINENT ,
+            BASE_CURRENCY ,
+            TRADE_DAY_TYPE ,
+            IS_OPENTRADE ,
+            CREATE_BY ,
+            CREATE_DATE ,
+            UPDATE_BY ,
+            UPDATE_DATE 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.exchangeCode} ,
+            #{item.exchangeName} ,
+            #{item.region} ,
+            #{item.continent} ,
+            #{item.baseCurrency} ,
+            #{item.tradeDayType} ,
+            #{item.isOpentrade} ,
+            #{item.createBy} ,
+            #{item.createDate} ,
+            #{item.updateBy} ,
+            #{item.updateDate} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE STOCK_EXCHANGE SET
+            EXCHANGE_CODE = #{item.exchangeCode} ,
+            EXCHANGE_NAME = #{item.exchangeName} ,
+            REGION = #{item.region} ,
+            CONTINENT = #{item.continent} ,
+            BASE_CURRENCY = #{item.baseCurrency} ,
+            TRADE_DAY_TYPE = #{item.tradeDayType} ,
+            IS_OPENTRADE = #{item.isOpentrade} ,
+            CREATE_BY = #{item.createBy} ,
+            CREATE_DATE = #{item.createDate} ,
+            UPDATE_BY = #{item.updateBy} ,
+            UPDATE_DATE = #{item.updateDate} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.stock.entity.StockExchange">
+        UPDATE STOCK_EXCHANGE SET
+            EXCHANGE_CODE = #{exchangeCode} ,
+            EXCHANGE_NAME = #{exchangeName} ,
+            REGION = #{region} ,
+            CONTINENT = #{continent} ,
+            BASE_CURRENCY = #{baseCurrency} ,
+            TRADE_DAY_TYPE = #{tradeDayType} ,
+            IS_OPENTRADE = #{isOpentrade} ,
+            CREATE_BY = #{createBy} ,
+            CREATE_DATE = #{createDate} ,
+            UPDATE_BY = #{updateBy} ,
+            UPDATE_DATE = #{updateDate} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.stock.entity.StockExchange">
+        SELECT <include refid="stockExchangeColumns"/> FROM STOCK_EXCHANGE a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.stock.entity.StockExchange">
+        SELECT
+        <include refid="stockExchangeColumns"/>
+        FROM STOCK_EXCHANGE a WHERE 1 = 1 <!-- and a.DEL_FLAG = 0-->
+        <if test="exchangeCode != null">
+            AND a.EXCHANGE_CODE LIKE '%'||#{exchangeCode}||'%'
+        </if>
+        <if test="exchangeName != null">
+            AND a.EXCHANGE_NAME LIKE '%'||#{exchangeName}||'%'
+        </if>
+        <if test="region != null">
+            AND a.REGION LIKE '%'||#{region}||'%'
+        </if>
+        <if test="continent != null">
+            AND a.CONTINENT LIKE '%'||#{continent}||'%'
+        </if>
+        <if test="baseCurrency != null">
+            AND a.BASE_CURRENCY LIKE '%'||#{baseCurrency}||'%'
+        </if>
+        <if test="tradeDayType != null">
+            AND a.TRADE_DAY_TYPE LIKE '%'||#{tradeDayType}||'%'
+        </if>
+        <if test="isOpentrade != null">
+            AND a.IS_OPENTRADE = #{isOpentrade}
+        </if>
+        <if test="createBy != null">
+            AND a.CREATE_BY = #{createBy}
+        </if>
+        <if test="createDate != null">
+            AND a.CREATE_DATE = #{createDate}
+        </if>
+        <if test="updateBy != null">
+            AND a.UPDATE_BY = #{updateBy}
+        </if>
+        <if test="updateDate != null">
+            AND a.UPDATE_DATE = #{updateDate}
+        </if>
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.stock.entity.StockExchange">
+        SELECT
+        <include refid="stockExchangeColumns"/>
+        FROM STOCK_EXCHANGE a <!--WHERE a.DEL_FLAG = 0-->
+    </select>
+
+
+</mapper>
+

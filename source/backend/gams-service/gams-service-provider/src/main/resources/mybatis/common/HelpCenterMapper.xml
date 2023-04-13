@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.common.mapper.HelpCenterMapper">
+    <!-- 基础列 -->
+    <sql id="helpCenterColumns">
+        a.ID as id,
+        a.PROBLEM_LEVEL_ONE as problemLevelOne,
+        a.PROBLEM_LEVEL_TWO as problemLevelTwo,
+        a.PROBLEM_TYPE as problemType,
+        a.PROBLEM_SOLVING as problemSolving,
+        a.SEARCH_CONTENT as searchContent,
+        a.PICT_URL as pictUrl,
+        a.STATUS as status,
+        a.LANG as lang,
+        a.IS_HOT as isHot,
+        a.CREATE_BY as createBy,
+        a.CREATE_DATE as createDate,
+        a.UPDATE_BY as updateBy,
+        a.UPDATE_DATE as updateDate
+    </sql>
+
+    <resultMap id="helpCenterResultMap" type="com.fintech.gams.common.entity.HelpCenter">
+        <id column="ID" property="id" />
+        <result column="PROBLEM_LEVEL_ONE" property="problemLevelOne"/>
+        <result column="PROBLEM_LEVEL_TWO" property="problemLevelTwo"/>
+        <result column="PROBLEM_TYPE" property="problemType"/>
+        <result column="PROBLEM_SOLVING" property="problemSolving"/>
+        <result column="SEARCH_CONTENT" property="searchContent"/>
+        <result column="PICT_URL" property="pictUrl"/>
+        <result column="STATUS" property="status"/>
+        <result column="LANG" property="lang"/>
+        <result column="IS_HOT" property="isHot"/>
+        <result column="CREATE_BY" property="createBy"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="UPDATE_BY" property="updateBy"/>
+        <result column="UPDATE_DATE" property="updateDate"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.common.entity.HelpCenter">
+        INSERT INTO HELP_CENTER(
+            ID ,
+            PROBLEM_LEVEL_ONE ,
+            PROBLEM_LEVEL_TWO ,
+            PROBLEM_TYPE ,
+            PROBLEM_SOLVING ,
+            SEARCH_CONTENT ,
+            PICT_URL ,
+            STATUS ,
+            LANG ,
+            IS_HOT ,
+            CREATE_BY ,
+            CREATE_DATE ,
+            UPDATE_BY ,
+            UPDATE_DATE 
+        ) VALUES (
+            #{id} ,
+            #{problemLevelOne} ,
+            #{problemLevelTwo} ,
+            #{problemType} ,
+            #{problemSolving} ,
+            #{searchContent} ,
+            #{pictUrl} ,
+            #{status} ,
+            #{lang} ,
+            #{isHot} ,
+            #{createBy} ,
+            #{createDate} ,
+            #{updateBy} ,
+            #{updateDate} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM HELP_CENTER WHERE ID = #{id}
+    </delete>
+
+    <!-- 根据主键逻辑删除
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE HELP_CENTER SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+    -->
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.common.entity.HelpCenter">
+        INSERT INTO HELP_CENTER
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="problemLevelOne != null">
+                PROBLEM_LEVEL_ONE ,
+        </if>
+        <if test="problemLevelTwo != null">
+                PROBLEM_LEVEL_TWO ,
+        </if>
+        <if test="problemType != null">
+                PROBLEM_TYPE ,
+        </if>
+        <if test="problemSolving != null">
+                PROBLEM_SOLVING ,
+        </if>
+        <if test="searchContent != null">
+                SEARCH_CONTENT ,
+        </if>
+        <if test="pictUrl != null">
+                PICT_URL ,
+        </if>
+        <if test="status != null">
+                STATUS ,
+        </if>
+        <if test="lang != null">
+                LANG ,
+        </if>
+        <if test="isHot != null">
+                IS_HOT ,
+        </if>
+        <if test="createBy != null">
+                CREATE_BY ,
+        </if>
+        <if test="createDate != null">
+                CREATE_DATE ,
+        </if>
+        <if test="updateBy != null">
+                UPDATE_BY ,
+        </if>
+        <if test="updateDate != null">
+                UPDATE_DATE 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="problemLevelOne != null">
+                #{problemLevelOne} ,
+        </if>
+        <if test="problemLevelTwo != null">
+                #{problemLevelTwo} ,
+        </if>
+        <if test="problemType != null">
+                #{problemType} ,
+        </if>
+        <if test="problemSolving != null">
+                #{problemSolving} ,
+        </if>
+        <if test="searchContent != null">
+                #{searchContent} ,
+        </if>
+        <if test="pictUrl != null">
+                #{pictUrl} ,
+        </if>
+        <if test="status != null">
+                #{status} ,
+        </if>
+        <if test="lang != null">
+                #{lang} ,
+        </if>
+        <if test="isHot != null">
+                #{isHot} ,
+        </if>
+        <if test="createBy != null">
+                #{createBy} ,
+        </if>
+        <if test="createDate != null">
+                #{createDate} ,
+        </if>
+        <if test="updateBy != null">
+                #{updateBy} ,
+        </if>
+        <if test="updateDate != null">
+                #{updateDate} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.common.entity.HelpCenter">
+        UPDATE HELP_CENTER
+           <set>
+            <if test="problemLevelOne != null">
+                PROBLEM_LEVEL_ONE = #{problemLevelOne} ,
+            </if>
+            <if test="problemLevelTwo != null">
+                PROBLEM_LEVEL_TWO = #{problemLevelTwo} ,
+            </if>
+            <if test="problemType != null">
+                PROBLEM_TYPE = #{problemType} ,
+            </if>
+            <if test="problemSolving != null">
+                PROBLEM_SOLVING = #{problemSolving} ,
+            </if>
+            <if test="searchContent != null">
+                SEARCH_CONTENT = #{searchContent} ,
+            </if>
+            <if test="pictUrl != null">
+                PICT_URL = #{pictUrl} ,
+            </if>
+            <if test="status != null">
+                STATUS = #{status} ,
+            </if>
+            <if test="lang != null">
+                LANG = #{lang} ,
+            </if>
+            <if test="isHot != null">
+                IS_HOT = #{isHot} ,
+            </if>
+            <if test="createBy != null">
+                CREATE_BY = #{createBy} ,
+            </if>
+            <if test="createDate != null">
+                CREATE_DATE = #{createDate} ,
+            </if>
+            <if test="updateBy != null">
+                UPDATE_BY = #{updateBy} ,
+            </if>
+            <if test="updateDate != null">
+                UPDATE_DATE = #{updateDate} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO HELP_CENTER(
+            ID ,
+            PROBLEM_LEVEL_ONE ,
+            PROBLEM_LEVEL_TWO ,
+            PROBLEM_TYPE ,
+            PROBLEM_SOLVING ,
+            SEARCH_CONTENT ,
+            PICT_URL ,
+            STATUS ,
+            LANG ,
+            IS_HOT ,
+            CREATE_BY ,
+            CREATE_DATE ,
+            UPDATE_BY ,
+            UPDATE_DATE 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.problemLevelOne} ,
+            #{item.problemLevelTwo} ,
+            #{item.problemType} ,
+            #{item.problemSolving} ,
+            #{item.searchContent} ,
+            #{item.pictUrl} ,
+            #{item.status} ,
+            #{item.lang} ,
+            #{item.isHot} ,
+            #{item.createBy} ,
+            #{item.createDate} ,
+            #{item.updateBy} ,
+            #{item.updateDate} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE HELP_CENTER SET
+            PROBLEM_LEVEL_ONE = #{item.problemLevelOne} ,
+            PROBLEM_LEVEL_TWO = #{item.problemLevelTwo} ,
+            PROBLEM_TYPE = #{item.problemType} ,
+            PROBLEM_SOLVING = #{item.problemSolving} ,
+            SEARCH_CONTENT = #{item.searchContent} ,
+            PICT_URL = #{item.pictUrl} ,
+            STATUS = #{item.status} ,
+            LANG = #{item.lang} ,
+            IS_HOT = #{item.isHot} ,
+            CREATE_BY = #{item.createBy} ,
+            CREATE_DATE = #{item.createDate} ,
+            UPDATE_BY = #{item.updateBy} ,
+            UPDATE_DATE = #{item.updateDate} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.common.entity.HelpCenter">
+        UPDATE HELP_CENTER SET
+            PROBLEM_LEVEL_ONE = #{problemLevelOne} ,
+            PROBLEM_LEVEL_TWO = #{problemLevelTwo} ,
+            PROBLEM_TYPE = #{problemType} ,
+            PROBLEM_SOLVING = #{problemSolving} ,
+            SEARCH_CONTENT = #{searchContent} ,
+            PICT_URL = #{pictUrl} ,
+            STATUS = #{status} ,
+            LANG = #{lang} ,
+            IS_HOT = #{isHot} ,
+            CREATE_BY = #{createBy} ,
+            CREATE_DATE = #{createDate} ,
+            UPDATE_BY = #{updateBy} ,
+            UPDATE_DATE = #{updateDate} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.common.entity.HelpCenter">
+        SELECT <include refid="helpCenterColumns"/> FROM HELP_CENTER a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.common.entity.HelpCenter">
+        SELECT
+        <include refid="helpCenterColumns"/>
+        FROM HELP_CENTER a
+        LEFT JOIN USER_INFO b ON a.UPDATE_BY = b.ID
+        WHERE 1 = 1 <!-- and a.DEL_FLAG = 0-->
+        <if test="problemLevelOne != null">
+            AND a.PROBLEM_LEVEL_ONE LIKE '%'||#{problemLevelOne}||'%'
+        </if>
+        <if test="problemLevelTwo != null">
+            AND a.PROBLEM_LEVEL_TWO LIKE '%'||#{problemLevelTwo}||'%'
+        </if>
+        <if test="problemType != null">
+            AND a.PROBLEM_TYPE LIKE '%'||#{problemType}||'%'
+        </if>
+        <if test="problemSolving != null">
+            AND a.PROBLEM_SOLVING LIKE '%'||#{problemSolving}||'%'
+        </if>
+        <if test="searchContent != null">
+            AND a.SEARCH_CONTENT LIKE '%'||#{searchContent}||'%'
+        </if>
+        <if test="pictUrl != null">
+            AND a.PICT_URL LIKE '%'||#{pictUrl}||'%'
+        </if>
+        <if test="status != null">
+            AND a.STATUS = #{status}
+        </if>
+        <if test="lang != null">
+            AND a.LANG LIKE '%'||#{lang}||'%'
+        </if>
+        <if test="isHot != null">
+            AND a.IS_HOT = #{isHot}
+        </if>
+        <if test="createBy != null">
+            AND a.CREATE_BY = #{createBy}
+        </if>
+        <if test="createDate != null">
+            AND a.CREATE_DATE = #{createDate}
+        </if>
+        <if test="updateBy != null">
+            AND a.UPDATE_BY = #{updateBy}
+        </if>
+        <if test="updateDate != null">
+            AND a.UPDATE_DATE = #{updateDate}
+        </if>
+        <if test="createDateStart != null and createDateEnd != null">
+            AND a.CREATE_DATE &gt;= #{createDateStart}
+            AND a.CREATE_DATE &lt;= #{createDateEnd}
+        </if>
+        ORDER BY a.IS_HOT desc, a.UPDATE_DATE desc
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.common.entity.HelpCenter">
+        SELECT
+        <include refid="helpCenterColumns"/>
+        FROM HELP_CENTER a <!--WHERE a.DEL_FLAG = 0-->
+    </select>
+
+
+    <!--根据问题类型和问题（一级）查询列表-->
+    <select id="classifyInfo" resultType="com.fintech.gams.common.entity.HelpCenter">
+        SELECT
+        <include refid="helpCenterColumns"/>
+        FROM HELP_CENTER a
+        WHERE a.PROBLEM_TYPE = #{problemType}
+        AND a.PROBLEM_LEVEL_ONE = #{problemLevelOne}
+        AND a.LANG = #{lang}
+        AND a.STATUS = 1
+        ORDER BY a.IS_HOT desc, a.UPDATE_DATE desc
+    </select>
+
+    <!--搜索帮助中心-->
+    <select id="searchHelpCenter" resultType="com.fintech.gams.common.entity.HelpCenter">
+        SELECT
+        <include refid="helpCenterColumns"/>
+        FROM HELP_CENTER a
+        WHERE a.PROBLEM_LEVEL_TWO LIKE '%'||#{searchValue}||'%'
+        or a.SEARCH_CONTENT LIKE '%'||#{searchValue}||'%'
+        AND a.LANG = #{lang}
+        AND a.STATUS = 1
+        ORDER BY a.IS_HOT desc, a.UPDATE_DATE desc
+    </select>
+</mapper>
+

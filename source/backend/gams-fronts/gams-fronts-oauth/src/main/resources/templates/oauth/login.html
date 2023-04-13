@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Global Asset Management Services|MOF</title>
+    <link rel="icon" th:href="@{/images/favicon.ico}" />
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/index.css}" />
+    <script th:src="@{/js/jquery.js}"></script>
+    <style>
+      .non-empty-message {
+        color: #FF3E4D;
+        margin-bottom: 5px;
+        text-align: left;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -o-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+        box-sizing: border-box;
+        -webkit-transition: all 0.8s ease;
+        -moz-transition: all 0.8s ease;
+        -o-transition: all 0.8s ease;
+        transition: all 0.8s ease;
+        word-wrap: break-word;
+
+      }
+      .messageShow {
+        opacity: 1;
+        transition: all 1s linear;
+      }
+      .messageHide {
+        opacity: 0;
+        transition: all 1s linear;
+      }
+    </style>
+</head>
+<body>
+<div class="app-header">
+    <a class="link-index">
+        <img src="/images/logo.png" class="logo">
+    </a>
+    <div class="tab-wrapper">
+        <a class="register link-register">Open Account</a>
+        <span class="divide">|</span>
+        <a class="return link-index">Home</a>
+    </div>
+</div>
+<div class="app-container">
+    <div class="app-content">
+        <div class="left-wrapper">
+            <img src="/images/title_border.png" class="title-border">
+            <div class="left-txt">MOF Securities</div>
+            <div class="left-button">Realize your dream of wealth</div>
+        </div>
+        <div class="right-wrapper">
+            <div class="login-title">Login</div>
+            <form id="loginForm" th:action="@{/oauth/authorize}" method="post" class="login-form" onsubmit='return checkForm()'>
+                <div class="login-alert" th:text="${error}"></div>
+                <div class="non-empty-message"></div>
+                <input type="hidden" name="client_id" th:value="${param.client_id}"/>
+                <input type="hidden" name="scope" th:value="${param.scope}"/>
+                <input type="hidden" name="response_type" th:value="${param.response_type}"/>
+                <input type="hidden" name="redirect_uri" th:value="${param.redirect_uri}"/>
+                <input type="hidden" name="state" th:value="${param.state}"/>
+                <input type="hidden" name="client_secret" th:value="${param.client_secret}"/>
+                <input type="text" name="username" maxlength="16" onFocus="messageOut()" value="" class="form-control login-item username-input"
+                       placeholder="Account Name"/>
+                <input type="password" name="password" maxlength="16" onFocus="messageOut()" class="form-control login-item password-input"
+                       placeholder="Password"/>
+                <input class="login-submit" type="submit" value="Login"/>
+                <a class="forgetPwd-txt link-forget">Forgot Password？</a>
+            </form>
+        </div>
+    </div>
+    <div class="app-footer">
+        <div class="app-introduce">
+            Copyright © 2017-2019 MOF Securities Co Ltd. All rights reserved.
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    function messageShow() {
+        let message_dom = $(".non-empty-message");
+        message_dom.removeClass("messageHide").addClass("messageShow");
+    }
+
+    function messageHide() {
+        let message_dom = $(".non-empty-message");
+        message_dom.removeClass("messageShow").addClass("messageHide");
+    }
+
+    function messageOut() {
+        let message_dom = $(".non-empty-message");
+        message_dom.html("");
+        message_dom.css("display", "none");
+    }
+
+    let time1, time2, time3;
+
+    function message(str) {
+        let message_dom = $(".non-empty-message");
+        clearTimeout(time1);
+        clearTimeout(time2);
+        clearTimeout(time3);
+        message_dom.html(str);
+        message_dom.css("display", "block");
+        time1 = setTimeout("messageShow()", 80);
+        time2 = setTimeout("messageHide()", 2500);
+        time3 = setTimeout("messageOut()", 3000);
+    }
+    function checkForm() {
+        let start = true;
+        let username_input = $(".username-input");
+        let password_input = $(".password-input");
+        if(!username_input.val()) {
+          message("Please enter username");
+          start = false;
+        } else if(!password_input.val()) {
+          message("Please enter password");
+          start = false;
+        }
+        return start;
+    }
+
+    $(function(){
+        $(".link-index").each(function () {
+           $(this).attr("href", "http://" + window.location.hostname.replace('auth', 'www'));
+        });
+        $(".link-forget").each(function () {
+           $(this).attr("href", "http://" + window.location.hostname.replace('auth', 'www') + "/forgetPwd");
+        });
+        $(".link-register").each(function () {
+           $(this).attr("href", "http://" + window.location.hostname.replace('auth', 'www') + "/register");
+        });
+
+        $(".app-container").height(window.innerHeight - 58 + 'px');
+    });
+</script>
+</html>

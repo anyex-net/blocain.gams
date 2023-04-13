@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.account.mapper.AccountCommonFileMapper">
+    <!-- 基础列 -->
+    <sql id="accountCommonFileColumns">
+        a.ID as id,
+        a.FILE_NAME as fileName,
+        a.ACCOUNT_TYPE as accountType,
+        a.FILE_PATH as filePath,
+        a.DICT_VALUE as dictValue,
+        a.LANG as lang,
+        a.KIND as kind
+    </sql>
+
+    <resultMap id="accountCommonFileResultMap" type="com.fintech.gams.account.entity.AccountCommonFile">
+        <id column="ID" property="id" />
+        <result column="FILE_NAME" property="fileName"/>
+        <result column="ACCOUNT_TYPE" property="accountType"/>
+        <result column="FILE_PATH" property="filePath"/>
+        <result column="DICT_VALUE" property="dictValue"/>
+        <result column="LANG" property="lang"/>
+        <result column="KIND" property="kind"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.account.entity.AccountCommonFile">
+        INSERT INTO ACCOUNT_COMMON_FILE(
+            ID ,
+            FILE_NAME ,
+            ACCOUNT_TYPE ,
+            FILE_PATH ,
+            DICT_VALUE ,
+            LANG ,
+            KIND 
+        ) VALUES (
+            #{id} ,
+            #{fileName} ,
+            #{accountType} ,
+            #{filePath} ,
+            #{dictValue} ,
+            #{lang} ,
+            #{kind} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM ACCOUNT_COMMON_FILE WHERE ID = #{id}
+    </delete>
+
+    <!-- 根据主键逻辑删除
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE ACCOUNT_COMMON_FILE SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+    -->
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.account.entity.AccountCommonFile">
+        INSERT INTO ACCOUNT_COMMON_FILE
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="fileName != null">
+                FILE_NAME ,
+        </if>
+        <if test="accountType != null">
+                ACCOUNT_TYPE ,
+        </if>
+        <if test="filePath != null">
+                FILE_PATH ,
+        </if>
+        <if test="dictValue != null">
+                DICT_VALUE ,
+        </if>
+        <if test="lang != null">
+                LANG ,
+        </if>
+        <if test="kind != null">
+                KIND 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="fileName != null">
+                #{fileName} ,
+        </if>
+        <if test="accountType != null">
+                #{accountType} ,
+        </if>
+        <if test="filePath != null">
+                #{filePath} ,
+        </if>
+        <if test="dictValue != null">
+                #{dictValue} ,
+        </if>
+        <if test="lang != null">
+                #{lang} ,
+        </if>
+        <if test="kind != null">
+                #{kind} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.account.entity.AccountCommonFile">
+        UPDATE ACCOUNT_COMMON_FILE
+           <set>
+            <if test="fileName != null">
+                FILE_NAME = #{fileName} ,
+            </if>
+            <if test="accountType != null">
+                ACCOUNT_TYPE = #{accountType} ,
+            </if>
+            <if test="filePath != null">
+                FILE_PATH = #{filePath} ,
+            </if>
+            <if test="dictValue != null">
+                DICT_VALUE = #{dictValue} ,
+            </if>
+            <if test="lang != null">
+                LANG = #{lang} ,
+            </if>
+            <if test="kind != null">
+                KIND = #{kind} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO ACCOUNT_COMMON_FILE(
+            ID ,
+            FILE_NAME ,
+            ACCOUNT_TYPE ,
+            FILE_PATH ,
+            DICT_VALUE ,
+            LANG ,
+            KIND 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.fileName} ,
+            #{item.accountType} ,
+            #{item.filePath} ,
+            #{item.dictValue} ,
+            #{item.lang} ,
+            #{item.kind} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE ACCOUNT_COMMON_FILE SET
+            FILE_NAME = #{item.fileName} ,
+            ACCOUNT_TYPE = #{item.accountType} ,
+            FILE_PATH = #{item.filePath} ,
+            DICT_VALUE = #{item.dictValue} ,
+            LANG = #{item.lang} ,
+            KIND = #{item.kind} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.account.entity.AccountCommonFile">
+        UPDATE ACCOUNT_COMMON_FILE SET
+            FILE_NAME = #{fileName} ,
+            ACCOUNT_TYPE = #{accountType} ,
+            FILE_PATH = #{filePath} ,
+            DICT_VALUE = #{dictValue} ,
+            LANG = #{lang} ,
+            KIND = #{kind} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.account.entity.AccountCommonFile">
+        SELECT <include refid="accountCommonFileColumns"/> FROM ACCOUNT_COMMON_FILE a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.account.entity.AccountCommonFile">
+        SELECT
+        <include refid="accountCommonFileColumns"/>
+        FROM ACCOUNT_COMMON_FILE a WHERE 1 = 1 <!-- and a.DEL_FLAG = 0-->
+        <if test="fileName != null">
+            AND a.FILE_NAME LIKE '%'||#{fileName}||'%'
+        </if>
+        <if test="accountType != null">
+            AND a.ACCOUNT_TYPE LIKE '%'||#{accountType}||'%'
+        </if>
+        <if test="filePath != null">
+            AND a.FILE_PATH LIKE '%'||#{filePath}||'%'
+        </if>
+        <if test="dictValue != null">
+            AND a.DICT_VALUE LIKE '%'||#{dictValue}||'%'
+        </if>
+        <if test="lang != null">
+            AND a.LANG LIKE '%'||#{lang}||'%'
+        </if>
+        <if test="kind != null">
+            AND a.KIND = #{kind}
+        </if>
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.account.entity.AccountCommonFile">
+        SELECT
+        <include refid="accountCommonFileColumns"/>
+        FROM ACCOUNT_COMMON_FILE a <!--WHERE a.DEL_FLAG = 0-->
+    </select>
+
+    <!-- 批量查询-->
+    <select id="findByKindArr" resultType="com.fintech.gams.account.entity.AccountCommonFile">
+        SELECT
+        <include refid="accountCommonFileColumns"/>
+        FROM ACCOUNT_COMMON_FILE a
+        WHERE a.KIND IN
+        <foreach collection="kind" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        AND a.LANG = #{lang}
+    </select>
+
+</mapper>
+

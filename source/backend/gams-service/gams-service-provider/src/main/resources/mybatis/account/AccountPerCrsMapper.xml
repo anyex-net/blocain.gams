@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.account.mapper.AccountPerCrsMapper">
+    <!-- 基础列 -->
+    <sql id="accountPerCrsColumns">
+        a.ID as id,
+        a.ACCOUNT_ID as accountId,
+        a.OTHER_ADDRESSES as otherAddresses,
+        a.OTHER_CITY as otherCity,
+        a.OTHER_PROVINCE as otherProvince,
+        a.OTHER_COUNTRY as otherCountry,
+        a.OTHER_ZIP_CODE as otherZipCode,
+        a.YES_TAX_NUMBER as yesTaxNumber,
+        a.NO_TAX_NUMBER as noTaxNumber,
+        a.REASON as reason,
+        a.AUTHENTIC_DATA as authenticData,
+        a.AGREE_TAX_ORDINANCE as agreeTaxOrdinance,
+        a.PROVEN_ITSELF as provenItself,
+        a.CONSENT as consent,
+        a.SIGNATURE_DATE as signatureDate,
+        a.SIGNATURE as signature,
+        a.CREATED_BY as createdBy,
+        a.CREATED_DATE as createdDate,
+        a.UPDATED_BY as updatedBy,
+        a.UPDATED_DATE as updatedDate
+    </sql>
+
+    <resultMap id="accountPerCrsResultMap" type="com.fintech.gams.account.entity.AccountPerCrs">
+        <id column="ID" property="id" />
+        <result column="ACCOUNT_ID" property="accountId"/>
+        <result column="OTHER_ADDRESSES" property="otherAddresses"/>
+        <result column="OTHER_CITY" property="otherCity"/>
+        <result column="OTHER_PROVINCE" property="otherProvince"/>
+        <result column="OTHER_COUNTRY" property="otherCountry"/>
+        <result column="OTHER_ZIP_CODE" property="otherZipCode"/>
+        <result column="YES_TAX_NUMBER" property="yesTaxNumber"/>
+        <result column="NO_TAX_NUMBER" property="noTaxNumber"/>
+        <result column="REASON" property="reason"/>
+        <result column="AUTHENTIC_DATA" property="authenticData"/>
+        <result column="AGREE_TAX_ORDINANCE" property="agreeTaxOrdinance"/>
+        <result column="PROVEN_ITSELF" property="provenItself"/>
+        <result column="CONSENT" property="consent"/>
+        <result column="SIGNATURE_DATE" property="signatureDate"/>
+        <result column="SIGNATURE" property="signature"/>
+        <result column="CREATED_BY" property="createdBy"/>
+        <result column="CREATED_DATE" property="createdDate"/>
+        <result column="UPDATED_BY" property="updatedBy"/>
+        <result column="UPDATED_DATE" property="updatedDate"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.account.entity.AccountPerCrs">
+        INSERT INTO ACCOUNT_PER_CRS(
+            ID ,
+            ACCOUNT_ID ,
+            OTHER_ADDRESSES ,
+            OTHER_CITY ,
+            OTHER_PROVINCE ,
+            OTHER_COUNTRY ,
+            OTHER_ZIP_CODE ,
+            YES_TAX_NUMBER ,
+            NO_TAX_NUMBER ,
+            REASON ,
+            AUTHENTIC_DATA ,
+            AGREE_TAX_ORDINANCE ,
+            PROVEN_ITSELF ,
+            CONSENT ,
+            SIGNATURE_DATE ,
+            SIGNATURE ,
+            CREATED_BY ,
+            CREATED_DATE ,
+            UPDATED_BY ,
+            UPDATED_DATE 
+        ) VALUES (
+            #{id} ,
+            #{accountId} ,
+            #{otherAddresses} ,
+            #{otherCity} ,
+            #{otherProvince} ,
+            #{otherCountry} ,
+            #{otherZipCode} ,
+            #{yesTaxNumber} ,
+            #{noTaxNumber} ,
+            #{reason} ,
+            #{authenticData} ,
+            #{agreeTaxOrdinance} ,
+            #{provenItself} ,
+            #{consent} ,
+            #{signatureDate} ,
+            #{signature} ,
+            #{createdBy} ,
+            #{createdDate} ,
+            #{updatedBy} ,
+            #{updatedDate} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM ACCOUNT_PER_CRS WHERE ID = #{id}
+    </delete>
+
+    <!-- 根据主键逻辑删除
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE ACCOUNT_PER_CRS SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+    -->
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.account.entity.AccountPerCrs">
+        INSERT INTO ACCOUNT_PER_CRS
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="accountId != null">
+                ACCOUNT_ID ,
+        </if>
+        <if test="otherAddresses != null">
+                OTHER_ADDRESSES ,
+        </if>
+        <if test="otherCity != null">
+                OTHER_CITY ,
+        </if>
+        <if test="otherProvince != null">
+                OTHER_PROVINCE ,
+        </if>
+        <if test="otherCountry != null">
+                OTHER_COUNTRY ,
+        </if>
+        <if test="otherZipCode != null">
+                OTHER_ZIP_CODE ,
+        </if>
+        <if test="yesTaxNumber != null">
+                YES_TAX_NUMBER ,
+        </if>
+        <if test="noTaxNumber != null">
+                NO_TAX_NUMBER ,
+        </if>
+        <if test="reason != null">
+                REASON ,
+        </if>
+        <if test="authenticData != null">
+                AUTHENTIC_DATA ,
+        </if>
+        <if test="agreeTaxOrdinance != null">
+                AGREE_TAX_ORDINANCE ,
+        </if>
+        <if test="provenItself != null">
+                PROVEN_ITSELF ,
+        </if>
+        <if test="consent != null">
+                CONSENT ,
+        </if>
+        <if test="signatureDate != null">
+                SIGNATURE_DATE ,
+        </if>
+        <if test="signature != null">
+                SIGNATURE ,
+        </if>
+        <if test="createdBy != null">
+                CREATED_BY ,
+        </if>
+        <if test="createdDate != null">
+                CREATED_DATE ,
+        </if>
+        <if test="updatedBy != null">
+                UPDATED_BY ,
+        </if>
+        <if test="updatedDate != null">
+                UPDATED_DATE 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="accountId != null">
+                #{accountId} ,
+        </if>
+        <if test="otherAddresses != null">
+                #{otherAddresses} ,
+        </if>
+        <if test="otherCity != null">
+                #{otherCity} ,
+        </if>
+        <if test="otherProvince != null">
+                #{otherProvince} ,
+        </if>
+        <if test="otherCountry != null">
+                #{otherCountry} ,
+        </if>
+        <if test="otherZipCode != null">
+                #{otherZipCode} ,
+        </if>
+        <if test="yesTaxNumber != null">
+                #{yesTaxNumber} ,
+        </if>
+        <if test="noTaxNumber != null">
+                #{noTaxNumber} ,
+        </if>
+        <if test="reason != null">
+                #{reason} ,
+        </if>
+        <if test="authenticData != null">
+                #{authenticData} ,
+        </if>
+        <if test="agreeTaxOrdinance != null">
+                #{agreeTaxOrdinance} ,
+        </if>
+        <if test="provenItself != null">
+                #{provenItself} ,
+        </if>
+        <if test="consent != null">
+                #{consent} ,
+        </if>
+        <if test="signatureDate != null">
+                #{signatureDate} ,
+        </if>
+        <if test="signature != null">
+                #{signature} ,
+        </if>
+        <if test="createdBy != null">
+                #{createdBy} ,
+        </if>
+        <if test="createdDate != null">
+                #{createdDate} ,
+        </if>
+        <if test="updatedBy != null">
+                #{updatedBy} ,
+        </if>
+        <if test="updatedDate != null">
+                #{updatedDate} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.account.entity.AccountPerCrs">
+        UPDATE ACCOUNT_PER_CRS
+           <set>
+            <if test="accountId != null">
+                ACCOUNT_ID = #{accountId} ,
+            </if>
+            <if test="otherAddresses != null">
+                OTHER_ADDRESSES = #{otherAddresses} ,
+            </if>
+            <if test="otherCity != null">
+                OTHER_CITY = #{otherCity} ,
+            </if>
+            <if test="otherProvince != null">
+                OTHER_PROVINCE = #{otherProvince} ,
+            </if>
+            <if test="otherCountry != null">
+                OTHER_COUNTRY = #{otherCountry} ,
+            </if>
+            <if test="otherZipCode != null">
+                OTHER_ZIP_CODE = #{otherZipCode} ,
+            </if>
+            <if test="yesTaxNumber != null">
+                YES_TAX_NUMBER = #{yesTaxNumber} ,
+            </if>
+            <if test="noTaxNumber != null">
+                NO_TAX_NUMBER = #{noTaxNumber} ,
+            </if>
+            <if test="reason != null">
+                REASON = #{reason} ,
+            </if>
+            <if test="authenticData != null">
+                AUTHENTIC_DATA = #{authenticData} ,
+            </if>
+            <if test="agreeTaxOrdinance != null">
+                AGREE_TAX_ORDINANCE = #{agreeTaxOrdinance} ,
+            </if>
+            <if test="provenItself != null">
+                PROVEN_ITSELF = #{provenItself} ,
+            </if>
+            <if test="consent != null">
+                CONSENT = #{consent} ,
+            </if>
+            <if test="signatureDate != null">
+                SIGNATURE_DATE = #{signatureDate} ,
+            </if>
+            <if test="signature != null">
+                SIGNATURE = #{signature} ,
+            </if>
+            <if test="createdBy != null">
+                CREATED_BY = #{createdBy} ,
+            </if>
+            <if test="createdDate != null">
+                CREATED_DATE = #{createdDate} ,
+            </if>
+            <if test="updatedBy != null">
+                UPDATED_BY = #{updatedBy} ,
+            </if>
+            <if test="updatedDate != null">
+                UPDATED_DATE = #{updatedDate} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO ACCOUNT_PER_CRS(
+            ID ,
+            ACCOUNT_ID ,
+            OTHER_ADDRESSES ,
+            OTHER_CITY ,
+            OTHER_PROVINCE ,
+            OTHER_COUNTRY ,
+            OTHER_ZIP_CODE ,
+            YES_TAX_NUMBER ,
+            NO_TAX_NUMBER ,
+            REASON ,
+            AUTHENTIC_DATA ,
+            AGREE_TAX_ORDINANCE ,
+            PROVEN_ITSELF ,
+            CONSENT ,
+            SIGNATURE_DATE ,
+            SIGNATURE ,
+            CREATED_BY ,
+            CREATED_DATE ,
+            UPDATED_BY ,
+            UPDATED_DATE 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.accountId} ,
+            #{item.otherAddresses} ,
+            #{item.otherCity} ,
+            #{item.otherProvince} ,
+            #{item.otherCountry} ,
+            #{item.otherZipCode} ,
+            #{item.yesTaxNumber} ,
+            #{item.noTaxNumber} ,
+            #{item.reason} ,
+            #{item.authenticData} ,
+            #{item.agreeTaxOrdinance} ,
+            #{item.provenItself} ,
+            #{item.consent} ,
+            #{item.signatureDate} ,
+            #{item.signature} ,
+            #{item.createdBy} ,
+            #{item.createdDate} ,
+            #{item.updatedBy} ,
+            #{item.updatedDate} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE ACCOUNT_PER_CRS SET
+            ACCOUNT_ID = #{item.accountId} ,
+            OTHER_ADDRESSES = #{item.otherAddresses} ,
+            OTHER_CITY = #{item.otherCity} ,
+            OTHER_PROVINCE = #{item.otherProvince} ,
+            OTHER_COUNTRY = #{item.otherCountry} ,
+            OTHER_ZIP_CODE = #{item.otherZipCode} ,
+            YES_TAX_NUMBER = #{item.yesTaxNumber} ,
+            NO_TAX_NUMBER = #{item.noTaxNumber} ,
+            REASON = #{item.reason} ,
+            AUTHENTIC_DATA = #{item.authenticData} ,
+            AGREE_TAX_ORDINANCE = #{item.agreeTaxOrdinance} ,
+            PROVEN_ITSELF = #{item.provenItself} ,
+            CONSENT = #{item.consent} ,
+            SIGNATURE_DATE = #{item.signatureDate} ,
+            SIGNATURE = #{item.signature} ,
+            CREATED_BY = #{item.createdBy} ,
+            CREATED_DATE = #{item.createdDate} ,
+            UPDATED_BY = #{item.updatedBy} ,
+            UPDATED_DATE = #{item.updatedDate} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.account.entity.AccountPerCrs">
+        UPDATE ACCOUNT_PER_CRS SET
+            ACCOUNT_ID = #{accountId} ,
+            OTHER_ADDRESSES = #{otherAddresses} ,
+            OTHER_CITY = #{otherCity} ,
+            OTHER_PROVINCE = #{otherProvince} ,
+            OTHER_COUNTRY = #{otherCountry} ,
+            OTHER_ZIP_CODE = #{otherZipCode} ,
+            YES_TAX_NUMBER = #{yesTaxNumber} ,
+            NO_TAX_NUMBER = #{noTaxNumber} ,
+            REASON = #{reason} ,
+            AUTHENTIC_DATA = #{authenticData} ,
+            AGREE_TAX_ORDINANCE = #{agreeTaxOrdinance} ,
+            PROVEN_ITSELF = #{provenItself} ,
+            CONSENT = #{consent} ,
+            SIGNATURE_DATE = #{signatureDate} ,
+            SIGNATURE = #{signature} ,
+            CREATED_BY = #{createdBy} ,
+            CREATED_DATE = #{createdDate} ,
+            UPDATED_BY = #{updatedBy} ,
+            UPDATED_DATE = #{updatedDate} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.account.entity.AccountPerCrs">
+        SELECT <include refid="accountPerCrsColumns"/> FROM ACCOUNT_PER_CRS a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.account.entity.AccountPerCrs">
+        SELECT
+        <include refid="accountPerCrsColumns"/>
+        FROM ACCOUNT_PER_CRS a WHERE 1 = 1 <!-- and a.DEL_FLAG = 0-->
+        <if test="accountId != null">
+            AND a.ACCOUNT_ID = #{accountId}
+        </if>
+        <if test="otherAddresses != null">
+            AND a.OTHER_ADDRESSES LIKE '%'||#{otherAddresses}||'%'
+        </if>
+        <if test="otherCity != null">
+            AND a.OTHER_CITY LIKE '%'||#{otherCity}||'%'
+        </if>
+        <if test="otherProvince != null">
+            AND a.OTHER_PROVINCE LIKE '%'||#{otherProvince}||'%'
+        </if>
+        <if test="otherCountry != null">
+            AND a.OTHER_COUNTRY LIKE '%'||#{otherCountry}||'%'
+        </if>
+        <if test="otherZipCode != null">
+            AND a.OTHER_ZIP_CODE LIKE '%'||#{otherZipCode}||'%'
+        </if>
+        <if test="yesTaxNumber != null">
+            AND a.YES_TAX_NUMBER LIKE '%'||#{yesTaxNumber}||'%'
+        </if>
+        <if test="noTaxNumber != null">
+            AND a.NO_TAX_NUMBER LIKE '%'||#{noTaxNumber}||'%'
+        </if>
+        <if test="reason != null">
+            AND a.REASON LIKE '%'||#{reason}||'%'
+        </if>
+        <if test="authenticData != null">
+            AND a.AUTHENTIC_DATA = #{authenticData}
+        </if>
+        <if test="agreeTaxOrdinance != null">
+            AND a.AGREE_TAX_ORDINANCE = #{agreeTaxOrdinance}
+        </if>
+        <if test="provenItself != null">
+            AND a.PROVEN_ITSELF = #{provenItself}
+        </if>
+        <if test="consent != null">
+            AND a.CONSENT = #{consent}
+        </if>
+        <if test="signatureDate != null">
+            AND a.SIGNATURE_DATE = #{signatureDate}
+        </if>
+        <if test="signature != null">
+            AND a.SIGNATURE LIKE '%'||#{signature}||'%'
+        </if>
+        <if test="createdBy != null">
+            AND a.CREATED_BY = #{createdBy}
+        </if>
+        <if test="createdDate != null">
+            AND a.CREATED_DATE = #{createdDate}
+        </if>
+        <if test="updatedBy != null">
+            AND a.UPDATED_BY = #{updatedBy}
+        </if>
+        <if test="updatedDate != null">
+            AND a.UPDATED_DATE = #{updatedDate}
+        </if>
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.account.entity.AccountPerCrs">
+        SELECT
+        <include refid="accountPerCrsColumns"/>
+        FROM ACCOUNT_PER_CRS a <!--WHERE a.DEL_FLAG = 0-->
+    </select>
+
+
+</mapper>
+

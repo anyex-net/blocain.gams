@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.account.mapper.AccountParCrsControlNumMapper">
+    <!-- 基础列 -->
+    <sql id="accountParCrsControlNumColumns">
+        a.ID as id,
+        a.ACCOUNT_ID as accountId,
+        a.ENTITY_NUMBER as entityNumber,
+        a.ENTITY_CATEGORY as entityCategory,
+        a.CONTROL_CATEGORY as controlCategory,
+        a.ENTITY_ACCOUNT_NAME as entityAccountName,
+        a.PAR_CRS_ENTITY_CONTR_ID as parCrsEntityContrId
+    </sql>
+
+    <resultMap id="accountParCrsControlNumResultMap" type="com.fintech.gams.account.entity.AccountParCrsControlNum">
+        <id column="ID" property="id" />
+        <result column="ACCOUNT_ID" property="accountId"/>
+        <result column="ENTITY_NUMBER" property="entityNumber"/>
+        <result column="ENTITY_CATEGORY" property="entityCategory"/>
+        <result column="CONTROL_CATEGORY" property="controlCategory"/>
+        <result column="ENTITY_ACCOUNT_NAME" property="entityAccountName"/>
+        <result column="PAR_CRS_ENTITY_CONTR_ID" property="parCrsEntityContrId"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.account.entity.AccountParCrsControlNum">
+        INSERT INTO ACCOUNT_PAR_CRS_CONTROL_NUM(
+            ID ,
+            ACCOUNT_ID ,
+            ENTITY_NUMBER ,
+            ENTITY_CATEGORY ,
+            CONTROL_CATEGORY ,
+            ENTITY_ACCOUNT_NAME ,
+            PAR_CRS_ENTITY_CONTR_ID 
+        ) VALUES (
+            #{id} ,
+            #{accountId} ,
+            #{entityNumber} ,
+            #{entityCategory} ,
+            #{controlCategory} ,
+            #{entityAccountName} ,
+            #{parCrsEntityContrId} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM ACCOUNT_PAR_CRS_CONTROL_NUM WHERE ID = #{id}
+    </delete>
+
+    <!-- 根据主键逻辑删除
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE ACCOUNT_PAR_CRS_CONTROL_NUM SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+    -->
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.account.entity.AccountParCrsControlNum">
+        INSERT INTO ACCOUNT_PAR_CRS_CONTROL_NUM
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="accountId != null">
+                ACCOUNT_ID ,
+        </if>
+        <if test="entityNumber != null">
+                ENTITY_NUMBER ,
+        </if>
+        <if test="entityCategory != null">
+                ENTITY_CATEGORY ,
+        </if>
+        <if test="controlCategory != null">
+                CONTROL_CATEGORY ,
+        </if>
+        <if test="entityAccountName != null">
+                ENTITY_ACCOUNT_NAME ,
+        </if>
+        <if test="parCrsEntityContrId != null">
+                PAR_CRS_ENTITY_CONTR_ID 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="accountId != null">
+                #{accountId} ,
+        </if>
+        <if test="entityNumber != null">
+                #{entityNumber} ,
+        </if>
+        <if test="entityCategory != null">
+                #{entityCategory} ,
+        </if>
+        <if test="controlCategory != null">
+                #{controlCategory} ,
+        </if>
+        <if test="entityAccountName != null">
+                #{entityAccountName} ,
+        </if>
+        <if test="parCrsEntityContrId != null">
+                #{parCrsEntityContrId} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.account.entity.AccountParCrsControlNum">
+        UPDATE ACCOUNT_PAR_CRS_CONTROL_NUM
+           <set>
+            <if test="accountId != null">
+                ACCOUNT_ID = #{accountId} ,
+            </if>
+            <if test="entityNumber != null">
+                ENTITY_NUMBER = #{entityNumber} ,
+            </if>
+            <if test="entityCategory != null">
+                ENTITY_CATEGORY = #{entityCategory} ,
+            </if>
+            <if test="controlCategory != null">
+                CONTROL_CATEGORY = #{controlCategory} ,
+            </if>
+            <if test="entityAccountName != null">
+                ENTITY_ACCOUNT_NAME = #{entityAccountName} ,
+            </if>
+            <if test="parCrsEntityContrId != null">
+                PAR_CRS_ENTITY_CONTR_ID = #{parCrsEntityContrId} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO ACCOUNT_PAR_CRS_CONTROL_NUM(
+            ID ,
+            ACCOUNT_ID ,
+            ENTITY_NUMBER ,
+            ENTITY_CATEGORY ,
+            CONTROL_CATEGORY ,
+            ENTITY_ACCOUNT_NAME ,
+            PAR_CRS_ENTITY_CONTR_ID 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.accountId} ,
+            #{item.entityNumber} ,
+            #{item.entityCategory} ,
+            #{item.controlCategory} ,
+            #{item.entityAccountName} ,
+            #{item.parCrsEntityContrId} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE ACCOUNT_PAR_CRS_CONTROL_NUM SET
+            ACCOUNT_ID = #{item.accountId} ,
+            ENTITY_NUMBER = #{item.entityNumber} ,
+            ENTITY_CATEGORY = #{item.entityCategory} ,
+            CONTROL_CATEGORY = #{item.controlCategory} ,
+            ENTITY_ACCOUNT_NAME = #{item.entityAccountName} ,
+            PAR_CRS_ENTITY_CONTR_ID = #{item.parCrsEntityContrId} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.account.entity.AccountParCrsControlNum">
+        UPDATE ACCOUNT_PAR_CRS_CONTROL_NUM SET
+            ACCOUNT_ID = #{accountId} ,
+            ENTITY_NUMBER = #{entityNumber} ,
+            ENTITY_CATEGORY = #{entityCategory} ,
+            CONTROL_CATEGORY = #{controlCategory} ,
+            ENTITY_ACCOUNT_NAME = #{entityAccountName} ,
+            PAR_CRS_ENTITY_CONTR_ID = #{parCrsEntityContrId} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.account.entity.AccountParCrsControlNum">
+        SELECT <include refid="accountParCrsControlNumColumns"/> FROM ACCOUNT_PAR_CRS_CONTROL_NUM a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.account.entity.AccountParCrsControlNum">
+        SELECT
+        <include refid="accountParCrsControlNumColumns"/>
+        FROM ACCOUNT_PAR_CRS_CONTROL_NUM a WHERE 1 = 1 <!-- and a.DEL_FLAG = 0-->
+        <if test="accountId != null">
+            AND a.ACCOUNT_ID = #{accountId}
+        </if>
+        <if test="entityNumber != null">
+            AND a.ENTITY_NUMBER LIKE '%'||#{entityNumber}||'%'
+        </if>
+        <if test="entityCategory != null">
+            AND a.ENTITY_CATEGORY LIKE '%'||#{entityCategory}||'%'
+        </if>
+        <if test="controlCategory != null">
+            AND a.CONTROL_CATEGORY LIKE '%'||#{controlCategory}||'%'
+        </if>
+        <if test="entityAccountName != null">
+            AND a.ENTITY_ACCOUNT_NAME LIKE '%'||#{entityAccountName}||'%'
+        </if>
+        <if test="parCrsEntityContrId != null">
+            AND a.PAR_CRS_ENTITY_CONTR_ID = #{parCrsEntityContrId}
+        </if>
+        ORDER BY a.ID
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.account.entity.AccountParCrsControlNum">
+        SELECT
+        <include refid="accountParCrsControlNumColumns"/>
+        FROM ACCOUNT_PAR_CRS_CONTROL_NUM a <!--WHERE a.DEL_FLAG = 0-->
+    </select>
+
+    <!-- 删除合伙企业CRS控权人自我证明控权人编号 通过 parrCrsEntityContrId -->
+    <delete id="removeByParCrsEntityContrId" parameterType="java.lang.Long">
+        DELETE FROM ACCOUNT_PAR_CRS_CONTROL_NUM WHERE PAR_CRS_ENTITY_CONTR_ID = #{parrCrsEntityContrId}
+    </delete>
+
+</mapper>
+

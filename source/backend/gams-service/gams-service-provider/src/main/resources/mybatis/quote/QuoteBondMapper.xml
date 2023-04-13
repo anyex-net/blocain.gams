@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.quote.mapper.QuoteBondMapper">
+    <!-- 基础列 -->
+    <sql id="quoteBondColumns">
+        a.ID as id,
+        a.STOCKINFO_ID as stockinfoId,
+        a.STOCK_CODE as stockCode,
+        a.EXCHANGE_ID as exchangeId,
+        a.QUOTE_DATE as quoteDate,
+        a.PREV_CLOSE as prevClose,
+        a.LAST as last,
+        a.OPEN as open,
+        a.HIGH as high,
+        a.LOW as low,
+        a.CHG as chg,
+        a.CHANGE as change,
+        a.VOLUME as volume,
+        a.TURNOVER as turnover,
+        a.COMMITTEE_THAN as committeeThan,
+        a.QUANTITY_RELATIVE as quantityRelative,
+        a.TURNOVER_RATE as turnoverRate,
+        a.BID as bid,
+        a.ASK as ask,
+        a.BID_SIZE as bidSize,
+        a.ASK_SIZE as askSize,
+        a.CREATE_BY as createBy,
+        a.CREATE_DATE as createDate,
+        a.UPDATE_BY as updateBy,
+        a.UPDATE_DATE as updateDate
+    </sql>
+
+    <!-- 关联查询列 -->
+    <sql id="quoteBondJoinColumns">
+        a.ID as id,
+        a.STOCKINFO_ID as stockinfoId,
+        a.STOCK_CODE as stockCode,
+        a.EXCHANGE_ID as exchangeId,
+        a.QUOTE_DATE as quoteDate,
+        a.PREV_CLOSE as prevClose,
+        a.LAST as last,
+        a.OPEN as open,
+        a.HIGH as high,
+        a.LOW as low,
+        a.CHG as chg,
+        a.CHANGE as change,
+        a.VOLUME as volume,
+        a.TURNOVER as turnover,
+        a.COMMITTEE_THAN as committeeThan,
+        a.QUANTITY_RELATIVE as quantityRelative,
+        a.TURNOVER_RATE as turnoverRate,
+        a.BID as bid,
+        a.ASK as ask,
+        a.BID_SIZE as bidSize,
+        a.ASK_SIZE as askSize,
+        a.CREATE_BY as createBy,
+        a.CREATE_DATE as createDate,
+        a.UPDATE_BY as updateBy,
+        a.UPDATE_DATE as updateDate ,
+        b.ID AS E_ID,
+        b.EXCHANGE_CODE,
+        b.EXCHANGE_NAME,
+        c.ID AS C_ID,
+        c.USER_NAME AS C_USER_NAME,
+        c.TRUE_NAME AS C_TRUE_NAME,
+        d.ID AS U_ID,
+        d.USER_NAME AS U_USER_NAME,
+        d.TRUE_NAME AS U_TRUE_NAME
+    </sql>
+
+    <resultMap id="quoteBondResultMap" type="com.fintech.gams.quote.entity.QuoteBond">
+        <id column="ID" property="id" />
+        <result column="STOCKINFO_ID" property="stockinfoId"/>
+        <result column="STOCK_CODE" property="stockCode"/>
+        <result column="EXCHANGE_ID" property="exchangeId"/>
+        <result column="QUOTE_DATE" property="quoteDate"/>
+        <result column="PREV_CLOSE" property="prevClose"/>
+        <result column="LAST" property="last"/>
+        <result column="OPEN" property="open"/>
+        <result column="HIGH" property="high"/>
+        <result column="LOW" property="low"/>
+        <result column="CHG" property="chg"/>
+        <result column="CHANGE" property="change"/>
+        <result column="VOLUME" property="volume"/>
+        <result column="TURNOVER" property="turnover"/>
+        <result column="COMMITTEE_THAN" property="committeeThan"/>
+        <result column="QUANTITY_RELATIVE" property="quantityRelative"/>
+        <result column="TURNOVER_RATE" property="turnoverRate"/>
+        <result column="BID" property="bid"/>
+        <result column="ASK" property="ask"/>
+        <result column="BID_SIZE" property="bidSize"/>
+        <result column="ASK_SIZE" property="askSize"/>
+        <result column="CREATE_BY" property="createBy"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="UPDATE_BY" property="updateBy"/>
+        <result column="UPDATE_DATE" property="updateDate"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.quote.entity.QuoteBond">
+        INSERT INTO QUOTE_BOND(
+            ID ,
+            STOCKINFO_ID ,
+            STOCK_CODE ,
+            EXCHANGE_ID ,
+            QUOTE_DATE ,
+            PREV_CLOSE ,
+            LAST ,
+            OPEN ,
+            HIGH ,
+            LOW ,
+            CHG ,
+            CHANGE ,
+            VOLUME ,
+            TURNOVER ,
+            COMMITTEE_THAN ,
+            QUANTITY_RELATIVE ,
+            TURNOVER_RATE ,
+            BID ,
+            ASK ,
+            BID_SIZE ,
+            ASK_SIZE ,
+            CREATE_BY ,
+            CREATE_DATE ,
+            UPDATE_BY ,
+            UPDATE_DATE 
+        ) VALUES (
+            #{id} ,
+            #{stockinfoId} ,
+            #{stockCode} ,
+            #{exchangeId} ,
+            #{quoteDate} ,
+            #{prevClose} ,
+            #{last} ,
+            #{open} ,
+            #{high} ,
+            #{low} ,
+            #{chg} ,
+            #{change} ,
+            #{volume} ,
+            #{turnover} ,
+            #{committeeThan} ,
+            #{quantityRelative} ,
+            #{turnoverRate} ,
+            #{bid} ,
+            #{ask} ,
+            #{bidSize} ,
+            #{askSize} ,
+            #{createBy} ,
+            #{createDate} ,
+            #{updateBy} ,
+            #{updateDate} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM QUOTE_BOND WHERE ID = #{id}
+    </delete>
+
+    <!-- 根据主键逻辑删除
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE QUOTE_BOND SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+    -->
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.quote.entity.QuoteBond">
+        INSERT INTO QUOTE_BOND
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="stockinfoId != null">
+                STOCKINFO_ID ,
+        </if>
+        <if test="stockCode != null">
+                STOCK_CODE ,
+        </if>
+        <if test="exchangeId != null">
+                EXCHANGE_ID ,
+        </if>
+        <if test="quoteDate != null">
+                QUOTE_DATE ,
+        </if>
+        <if test="prevClose != null">
+                PREV_CLOSE ,
+        </if>
+        <if test="last != null">
+                LAST ,
+        </if>
+        <if test="open != null">
+                OPEN ,
+        </if>
+        <if test="high != null">
+                HIGH ,
+        </if>
+        <if test="low != null">
+                LOW ,
+        </if>
+        <if test="chg != null">
+                CHG ,
+        </if>
+        <if test="change != null">
+                CHANGE ,
+        </if>
+        <if test="volume != null">
+                VOLUME ,
+        </if>
+        <if test="turnover != null">
+                TURNOVER ,
+        </if>
+        <if test="committeeThan != null">
+                COMMITTEE_THAN ,
+        </if>
+        <if test="quantityRelative != null">
+                QUANTITY_RELATIVE ,
+        </if>
+        <if test="turnoverRate != null">
+                TURNOVER_RATE ,
+        </if>
+        <if test="bid != null">
+                BID ,
+        </if>
+        <if test="ask != null">
+                ASK ,
+        </if>
+        <if test="bidSize != null">
+            BID_SIZE ,
+        </if>
+        <if test="askSize != null">
+            ASK_SIZE ,
+        </if>
+        <if test="createBy != null">
+                CREATE_BY ,
+        </if>
+        <if test="createDate != null">
+                CREATE_DATE ,
+        </if>
+        <if test="updateBy != null">
+                UPDATE_BY ,
+        </if>
+        <if test="updateDate != null">
+                UPDATE_DATE 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="stockinfoId != null">
+                #{stockinfoId} ,
+        </if>
+        <if test="stockCode != null">
+                #{stockCode} ,
+        </if>
+        <if test="exchangeId != null">
+                #{exchangeId} ,
+        </if>
+        <if test="quoteDate != null">
+                #{quoteDate} ,
+        </if>
+        <if test="prevClose != null">
+                #{prevClose} ,
+        </if>
+        <if test="last != null">
+                #{last} ,
+        </if>
+        <if test="open != null">
+                #{open} ,
+        </if>
+        <if test="high != null">
+                #{high} ,
+        </if>
+        <if test="low != null">
+                #{low} ,
+        </if>
+        <if test="chg != null">
+                #{chg} ,
+        </if>
+        <if test="change != null">
+                #{change} ,
+        </if>
+        <if test="volume != null">
+                #{volume} ,
+        </if>
+        <if test="turnover != null">
+                #{turnover} ,
+        </if>
+        <if test="committeeThan != null">
+                #{committeeThan} ,
+        </if>
+        <if test="quantityRelative != null">
+                #{quantityRelative} ,
+        </if>
+        <if test="turnoverRate != null">
+                #{turnoverRate} ,
+        </if>
+        <if test="bid != null">
+                #{bid} ,
+        </if>
+        <if test="ask != null">
+                #{ask} ,
+        </if>
+        <if test="bidSize != null">
+            #{bidSize} ,
+        </if>
+        <if test="askSize != null">
+            #{askSize} ,
+        </if>
+        <if test="createBy != null">
+                #{createBy} ,
+        </if>
+        <if test="createDate != null">
+                #{createDate} ,
+        </if>
+        <if test="updateBy != null">
+                #{updateBy} ,
+        </if>
+        <if test="updateDate != null">
+                #{updateDate} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.quote.entity.QuoteBond">
+        UPDATE QUOTE_BOND
+           <set>
+            <if test="stockinfoId != null">
+                STOCKINFO_ID = #{stockinfoId} ,
+            </if>
+            <if test="stockCode != null">
+                STOCK_CODE = #{stockCode} ,
+            </if>
+            <if test="exchangeId != null">
+                EXCHANGE_ID = #{exchangeId} ,
+            </if>
+            <if test="quoteDate != null">
+                QUOTE_DATE = #{quoteDate} ,
+            </if>
+            <if test="prevClose != null">
+                PREV_CLOSE = #{prevClose} ,
+            </if>
+            <if test="last != null">
+                LAST = #{last} ,
+            </if>
+            <if test="open != null">
+                OPEN = #{open} ,
+            </if>
+            <if test="high != null">
+                HIGH = #{high} ,
+            </if>
+            <if test="low != null">
+                LOW = #{low} ,
+            </if>
+            <if test="chg != null">
+                CHG = #{chg} ,
+            </if>
+            <if test="change != null">
+                CHANGE = #{change} ,
+            </if>
+            <if test="volume != null">
+                VOLUME = #{volume} ,
+            </if>
+            <if test="turnover != null">
+                TURNOVER = #{turnover} ,
+            </if>
+            <if test="committeeThan != null">
+                COMMITTEE_THAN = #{committeeThan} ,
+            </if>
+            <if test="quantityRelative != null">
+                QUANTITY_RELATIVE = #{quantityRelative} ,
+            </if>
+            <if test="turnoverRate != null">
+                TURNOVER_RATE = #{turnoverRate} ,
+            </if>
+            <if test="bid != null">
+                BID = #{bid} ,
+            </if>
+            <if test="ask != null">
+                ASK = #{ask} ,
+            </if>
+            <if test="bidSize != null">
+                BID_SIZE = #{bidSize} ,
+            </if>
+            <if test="askSize != null">
+                ASK_SIZE = #{askSize} ,
+            </if>
+            <if test="createBy != null">
+                CREATE_BY = #{createBy} ,
+            </if>
+            <if test="createDate != null">
+                CREATE_DATE = #{createDate} ,
+            </if>
+            <if test="updateBy != null">
+                UPDATE_BY = #{updateBy} ,
+            </if>
+            <if test="updateDate != null">
+                UPDATE_DATE = #{updateDate} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO QUOTE_BOND(
+            ID ,
+            STOCKINFO_ID ,
+            STOCK_CODE ,
+            EXCHANGE_ID ,
+            QUOTE_DATE ,
+            PREV_CLOSE ,
+            LAST ,
+            OPEN ,
+            HIGH ,
+            LOW ,
+            CHG ,
+            CHANGE ,
+            VOLUME ,
+            TURNOVER ,
+            COMMITTEE_THAN ,
+            QUANTITY_RELATIVE ,
+            TURNOVER_RATE ,
+            BID ,
+            ASK ,
+            BID_SIZE ,
+            ASK_SIZE ,
+            CREATE_BY ,
+            CREATE_DATE ,
+            UPDATE_BY ,
+            UPDATE_DATE 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.stockinfoId} ,
+            #{item.stockCode} ,
+            #{item.exchangeId} ,
+            #{item.quoteDate} ,
+            #{item.prevClose} ,
+            #{item.last} ,
+            #{item.open} ,
+            #{item.high} ,
+            #{item.low} ,
+            #{item.chg} ,
+            #{item.change} ,
+            #{item.volume} ,
+            #{item.turnover} ,
+            #{item.committeeThan} ,
+            #{item.quantityRelative} ,
+            #{item.turnoverRate} ,
+            #{item.bid} ,
+            #{item.ask} ,
+            #{item.bidSize} ,
+            #{item.askSize} ,
+            #{item.createBy} ,
+            #{item.createDate} ,
+            #{item.updateBy} ,
+            #{item.updateDate} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE QUOTE_BOND SET
+            STOCKINFO_ID = #{item.stockinfoId} ,
+            STOCK_CODE = #{item.stockCode} ,
+            EXCHANGE_ID = #{item.exchangeId} ,
+            QUOTE_DATE = #{item.quoteDate} ,
+            PREV_CLOSE = #{item.prevClose} ,
+            LAST = #{item.last} ,
+            OPEN = #{item.open} ,
+            HIGH = #{item.high} ,
+            LOW = #{item.low} ,
+            CHG = #{item.chg} ,
+            CHANGE = #{item.change} ,
+            VOLUME = #{item.volume} ,
+            TURNOVER = #{item.turnover} ,
+            COMMITTEE_THAN = #{item.committeeThan} ,
+            QUANTITY_RELATIVE = #{item.quantityRelative} ,
+            TURNOVER_RATE = #{item.turnoverRate} ,
+            BID = #{item.bid} ,
+            ASK = #{item.ask} ,
+            BID_SIZE = #{item.bidSize} ,
+            ASK_SIZE = #{item.askSize} ,
+            CREATE_BY = #{item.createBy} ,
+            CREATE_DATE = #{item.createDate} ,
+            UPDATE_BY = #{item.updateBy} ,
+            UPDATE_DATE = #{item.updateDate} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.quote.entity.QuoteBond">
+        UPDATE QUOTE_BOND SET
+            STOCKINFO_ID = #{stockinfoId} ,
+            STOCK_CODE = #{stockCode} ,
+            EXCHANGE_ID = #{exchangeId} ,
+            QUOTE_DATE = #{quoteDate} ,
+            PREV_CLOSE = #{prevClose} ,
+            LAST = #{last} ,
+            OPEN = #{open} ,
+            HIGH = #{high} ,
+            LOW = #{low} ,
+            CHG = #{chg} ,
+            CHANGE = #{change} ,
+            VOLUME = #{volume} ,
+            TURNOVER = #{turnover} ,
+            COMMITTEE_THAN = #{committeeThan} ,
+            QUANTITY_RELATIVE = #{quantityRelative} ,
+            TURNOVER_RATE = #{turnoverRate} ,
+            BID = #{bid} ,
+            ASK = #{ask} ,
+            BID_SIZE = #{bidSize} ,
+            ASK_SIZE = #{askSize} ,
+            CREATE_BY = #{createBy} ,
+            CREATE_DATE = #{createDate} ,
+            UPDATE_BY = #{updateBy} ,
+            UPDATE_DATE = #{updateDate} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.quote.entity.QuoteBond">
+        SELECT <include refid="quoteBondColumns"/> FROM QUOTE_BOND a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 根据证券编码和时间取数据 -->
+    <select id="selectQuoteByStockCodeAndQuoteDate" resultType="com.fintech.gams.quote.entity.QuoteBond">
+        SELECT <include refid="quoteBondColumns"/> FROM QUOTE_BOND a
+        WHERE a.STOCK_CODE = #{stockCode}
+        AND ( TO_CHAR( (a.QUOTE_DATE - 13 * 60 * 60 * 1000) / (1000 * 60 * 60 * 24) + TO_DATE('1970-01-01 08:00:00', 'YYYY/MM/DD HH:MI:SS'), 'YYYYMMDD') = #{quoteDate}
+              OR a.QUOTE_DATE = #{quoteDate} )
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.quote.entity.QuoteBond">
+        SELECT
+        <include refid="quoteBondJoinColumns"/>
+        FROM QUOTE_BOND a
+        INNER JOIN STOCK_EXCHANGE b ON a.EXCHANGE_ID = b.ID
+        LEFT JOIN USER_INFO c ON a.UPDATE_BY = c.ID
+        LEFT JOIN USER_INFO d ON a.UPDATE_BY = d.ID
+        WHERE 1 = 1
+        <if test="exchangeName != null">
+            AND b.EXCHANGE_NAME LIKE '%'||#{exchangeName}||'%'
+        </if>
+        <if test="stockinfoId != null">
+            AND a.STOCKINFO_ID = #{stockinfoId}
+        </if>
+        <if test="stockCode != null">
+            AND a.STOCK_CODE LIKE '%'||#{stockCode}||'%'
+        </if>
+        <if test="exchangeId != null">
+            AND a.EXCHANGE_ID = #{exchangeId}
+        </if>
+        <if test="quoteDate != null">
+            AND a.QUOTE_DATE = #{quoteDate}
+        </if>
+        <if test="prevClose != null">
+            AND a.PREV_CLOSE = #{prevClose}
+        </if>
+        <if test="last != null">
+            AND a.LAST = #{last}
+        </if>
+        <if test="open != null">
+            AND a.OPEN = #{open}
+        </if>
+        <if test="high != null">
+            AND a.HIGH = #{high}
+        </if>
+        <if test="low != null">
+            AND a.LOW = #{low}
+        </if>
+        <if test="chg != null">
+            AND a.CHG = #{chg}
+        </if>
+        <if test="change != null">
+            AND a.CHANGE = #{change}
+        </if>
+        <if test="volume != null">
+            AND a.VOLUME = #{volume}
+        </if>
+        <if test="turnover != null">
+            AND a.TURNOVER = #{turnover}
+        </if>
+        <if test="committeeThan != null">
+            AND a.COMMITTEE_THAN = #{committeeThan}
+        </if>
+        <if test="quantityRelative != null">
+            AND a.QUANTITY_RELATIVE = #{quantityRelative}
+        </if>
+        <if test="turnoverRate != null">
+            AND a.TURNOVER_RATE = #{turnoverRate}
+        </if>
+        <if test="bid != null">
+            AND a.BID = #{bid}
+        </if>
+        <if test="ask != null">
+            AND a.ASK = #{ask}
+        </if>
+        <if test="bidSize != null">
+            AND a.BID_SIZE = #{bidSize}
+        </if>
+        <if test="askSize != null">
+            AND a.ASK_SIZE = #{askSize}
+        </if>
+        <if test="createBy != null">
+            AND a.CREATE_BY = #{createBy}
+        </if>
+        <if test="createDate != null">
+            AND a.CREATE_DATE = #{createDate}
+        </if>
+        <if test="updateBy != null">
+            AND a.UPDATE_BY = #{updateBy}
+        </if>
+        <if test="updateDate != null">
+            AND a.UPDATE_DATE = #{updateDate}
+        </if>
+        ORDER BY a.STOCK_CODE, a.QUOTE_DATE DESC
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.quote.entity.QuoteBond">
+        SELECT
+        <include refid="quoteBondColumns"/>
+        FROM QUOTE_BOND a <!--WHERE a.DEL_FLAG = 0-->
+    </select>
+
+</mapper>
+

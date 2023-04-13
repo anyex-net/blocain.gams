@@ -1,0 +1,583 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.account.mapper.AccountCoPersonalMapper">
+    <!-- 基础列 -->
+    <sql id="accountCoPersonalColumns">
+        a.ID as id,
+        a.ACCOUNT_ID as accountId,
+        a.APPELLATION as appellation,
+        a.LAST_NAME as lastName,
+        a.MIDDLE_NAME as middleName,
+        a.FIRST_NAME as firstName,
+        a.SUFFIX as suffix,
+        a.POSITION as position,
+        a.BIRTHDAY as birthday,
+        a.EMAIL as email,
+        a.PRCENTAGE_OF_OWNERSHIP as prcentageOfOwnership,
+        a.NATIONALITY as nationality,
+        a.BIRTH_COUNTRY as birthCountry,
+        a.PERSONAL_TYPE as personalType,
+        a.IS_BUSINESS_MANAGER as isBusinessManager,
+        a.IS_AMERICAN_TAXPAYER as isAmericanTaxpayer,
+        a.USER_NAME as userName,
+        a.PASSWORD as password,
+        a.ENTITY_NAME as entityName,
+        a.COMPANY_POSITION as companyPosition,
+        a.PERSONAL_TYPE_TWO as personalTypeTwo,
+        a.CREATED_BY as createdBy,
+        a.CREATED_DATE as createdDate,
+        a.UPDATED_BY as updatedBy,
+        a.UPDATED_DATE as updatedDate
+    </sql>
+
+    <resultMap id="accountCoPersonalResultMap" type="com.fintech.gams.account.entity.AccountCoPersonal">
+        <id column="ID" property="id" />
+        <result column="ACCOUNT_ID" property="accountId"/>
+        <result column="APPELLATION" property="appellation"/>
+        <result column="LAST_NAME" property="lastName"/>
+        <result column="MIDDLE_NAME" property="middleName"/>
+        <result column="FIRST_NAME" property="firstName"/>
+        <result column="SUFFIX" property="suffix"/>
+        <result column="POSITION" property="position"/>
+        <result column="BIRTHDAY" property="birthday"/>
+        <result column="EMAIL" property="email"/>
+        <result column="PRCENTAGE_OF_OWNERSHIP" property="prcentageOfOwnership"/>
+        <result column="NATIONALITY" property="nationality"/>
+        <result column="BIRTH_COUNTRY" property="birthCountry"/>
+        <result column="PERSONAL_TYPE" property="personalType"/>
+        <result column="IS_BUSINESS_MANAGER" property="isBusinessManager"/>
+        <result column="IS_AMERICAN_TAXPAYER" property="isAmericanTaxpayer"/>
+        <result column="USER_NAME" property="userName"/>
+        <result column="PASSWORD" property="password"/>
+        <result column="ENTITY_NAME" property="entityName"/>
+        <result column="COMPANY_POSITION" property="companyPosition"/>
+        <result column="PERSONAL_TYPE_TWO" property="personalTypeTwo"/>
+        <result column="CREATED_BY" property="createdBy"/>
+        <result column="CREATED_DATE" property="createdDate"/>
+        <result column="UPDATED_BY" property="updatedBy"/>
+        <result column="UPDATED_DATE" property="updatedDate"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.account.entity.AccountCoPersonal">
+        INSERT INTO ACCOUNT_CO_PERSONAL(
+            ID ,
+            ACCOUNT_ID ,
+            APPELLATION ,
+            LAST_NAME ,
+            MIDDLE_NAME ,
+            FIRST_NAME ,
+            SUFFIX ,
+            POSITION ,
+            BIRTHDAY ,
+            EMAIL ,
+            PRCENTAGE_OF_OWNERSHIP ,
+            NATIONALITY ,
+            BIRTH_COUNTRY ,
+            PERSONAL_TYPE ,
+            IS_BUSINESS_MANAGER ,
+            IS_AMERICAN_TAXPAYER ,
+            USER_NAME ,
+            PASSWORD ,
+            ENTITY_NAME ,
+            COMPANY_POSITION ,
+            PERSONAL_TYPE_TWO ,
+            CREATED_BY ,
+            CREATED_DATE ,
+            UPDATED_BY ,
+            UPDATED_DATE 
+        ) VALUES (
+            #{id} ,
+            #{accountId} ,
+            #{appellation} ,
+            #{lastName} ,
+            #{middleName} ,
+            #{firstName} ,
+            #{suffix} ,
+            #{position} ,
+            #{birthday} ,
+            #{email} ,
+            #{prcentageOfOwnership} ,
+            #{nationality} ,
+            #{birthCountry} ,
+            #{personalType} ,
+            #{isBusinessManager} ,
+            #{isAmericanTaxpayer} ,
+            #{userName} ,
+            #{password} ,
+            #{entityName} ,
+            #{companyPosition} ,
+            #{personalTypeTwo} ,
+            #{createdBy} ,
+            #{createdDate} ,
+            #{updatedBy} ,
+            #{updatedDate} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM ACCOUNT_CO_PERSONAL WHERE ID = #{id}
+    </delete>
+
+    <!-- 根据主键逻辑删除
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE ACCOUNT_CO_PERSONAL SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+    -->
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.account.entity.AccountCoPersonal">
+        INSERT INTO ACCOUNT_CO_PERSONAL
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="accountId != null">
+                ACCOUNT_ID ,
+        </if>
+        <if test="appellation != null">
+                APPELLATION ,
+        </if>
+        <if test="lastName != null">
+                LAST_NAME ,
+        </if>
+        <if test="middleName != null">
+                MIDDLE_NAME ,
+        </if>
+        <if test="firstName != null">
+                FIRST_NAME ,
+        </if>
+        <if test="suffix != null">
+                SUFFIX ,
+        </if>
+        <if test="position != null">
+                POSITION ,
+        </if>
+        <if test="birthday != null">
+                BIRTHDAY ,
+        </if>
+        <if test="email != null">
+                EMAIL ,
+        </if>
+        <if test="prcentageOfOwnership != null">
+                PRCENTAGE_OF_OWNERSHIP ,
+        </if>
+        <if test="nationality != null">
+                NATIONALITY ,
+        </if>
+        <if test="birthCountry != null">
+                BIRTH_COUNTRY ,
+        </if>
+        <if test="personalType != null">
+                PERSONAL_TYPE ,
+        </if>
+        <if test="isBusinessManager != null">
+                IS_BUSINESS_MANAGER ,
+        </if>
+        <if test="isAmericanTaxpayer != null">
+                IS_AMERICAN_TAXPAYER ,
+        </if>
+        <if test="userName != null">
+                USER_NAME ,
+        </if>
+        <if test="password != null">
+                PASSWORD ,
+        </if>
+        <if test="entityName != null">
+                ENTITY_NAME ,
+        </if>
+        <if test="companyPosition != null">
+                COMPANY_POSITION ,
+        </if>
+        <if test="personalTypeTwo != null">
+                PERSONAL_TYPE_TWO ,
+        </if>
+        <if test="createdBy != null">
+                CREATED_BY ,
+        </if>
+        <if test="createdDate != null">
+                CREATED_DATE ,
+        </if>
+        <if test="updatedBy != null">
+                UPDATED_BY ,
+        </if>
+        <if test="updatedDate != null">
+                UPDATED_DATE 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="accountId != null">
+                #{accountId} ,
+        </if>
+        <if test="appellation != null">
+                #{appellation} ,
+        </if>
+        <if test="lastName != null">
+                #{lastName} ,
+        </if>
+        <if test="middleName != null">
+                #{middleName} ,
+        </if>
+        <if test="firstName != null">
+                #{firstName} ,
+        </if>
+        <if test="suffix != null">
+                #{suffix} ,
+        </if>
+        <if test="position != null">
+                #{position} ,
+        </if>
+        <if test="birthday != null">
+                #{birthday} ,
+        </if>
+        <if test="email != null">
+                #{email} ,
+        </if>
+        <if test="prcentageOfOwnership != null">
+                #{prcentageOfOwnership} ,
+        </if>
+        <if test="nationality != null">
+                #{nationality} ,
+        </if>
+        <if test="birthCountry != null">
+                #{birthCountry} ,
+        </if>
+        <if test="personalType != null">
+                #{personalType} ,
+        </if>
+        <if test="isBusinessManager != null">
+                #{isBusinessManager} ,
+        </if>
+        <if test="isAmericanTaxpayer != null">
+                #{isAmericanTaxpayer} ,
+        </if>
+        <if test="userName != null">
+                #{userName} ,
+        </if>
+        <if test="password != null">
+                #{password} ,
+        </if>
+        <if test="entityName != null">
+                #{entityName} ,
+        </if>
+        <if test="companyPosition != null">
+                #{companyPosition} ,
+        </if>
+        <if test="personalTypeTwo != null">
+                #{personalTypeTwo} ,
+        </if>
+        <if test="createdBy != null">
+                #{createdBy} ,
+        </if>
+        <if test="createdDate != null">
+                #{createdDate} ,
+        </if>
+        <if test="updatedBy != null">
+                #{updatedBy} ,
+        </if>
+        <if test="updatedDate != null">
+                #{updatedDate} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.account.entity.AccountCoPersonal">
+        UPDATE ACCOUNT_CO_PERSONAL
+           <set>
+            <if test="accountId != null">
+                ACCOUNT_ID = #{accountId} ,
+            </if>
+            <if test="appellation != null">
+                APPELLATION = #{appellation} ,
+            </if>
+            <if test="lastName != null">
+                LAST_NAME = #{lastName} ,
+            </if>
+            <if test="middleName != null">
+                MIDDLE_NAME = #{middleName} ,
+            </if>
+            <if test="firstName != null">
+                FIRST_NAME = #{firstName} ,
+            </if>
+            <if test="suffix != null">
+                SUFFIX = #{suffix} ,
+            </if>
+            <if test="position != null">
+                POSITION = #{position} ,
+            </if>
+            <if test="birthday != null">
+                BIRTHDAY = #{birthday} ,
+            </if>
+            <if test="email != null">
+                EMAIL = #{email} ,
+            </if>
+            <if test="prcentageOfOwnership != null">
+                PRCENTAGE_OF_OWNERSHIP = #{prcentageOfOwnership} ,
+            </if>
+            <if test="nationality != null">
+                NATIONALITY = #{nationality} ,
+            </if>
+            <if test="birthCountry != null">
+                BIRTH_COUNTRY = #{birthCountry} ,
+            </if>
+            <if test="personalType != null">
+                PERSONAL_TYPE = #{personalType} ,
+            </if>
+            <if test="isBusinessManager != null">
+                IS_BUSINESS_MANAGER = #{isBusinessManager} ,
+            </if>
+            <if test="isAmericanTaxpayer != null">
+                IS_AMERICAN_TAXPAYER = #{isAmericanTaxpayer} ,
+            </if>
+            <if test="userName != null">
+                USER_NAME = #{userName} ,
+            </if>
+            <if test="password != null">
+                PASSWORD = #{password} ,
+            </if>
+            <if test="entityName != null">
+                ENTITY_NAME = #{entityName} ,
+            </if>
+            <if test="companyPosition != null">
+                COMPANY_POSITION = #{companyPosition} ,
+            </if>
+            <if test="personalTypeTwo != null">
+                PERSONAL_TYPE_TWO = #{personalTypeTwo} ,
+            </if>
+            <if test="createdBy != null">
+                CREATED_BY = #{createdBy} ,
+            </if>
+            <if test="createdDate != null">
+                CREATED_DATE = #{createdDate} ,
+            </if>
+            <if test="updatedBy != null">
+                UPDATED_BY = #{updatedBy} ,
+            </if>
+            <if test="updatedDate != null">
+                UPDATED_DATE = #{updatedDate} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO ACCOUNT_CO_PERSONAL(
+            ID ,
+            ACCOUNT_ID ,
+            APPELLATION ,
+            LAST_NAME ,
+            MIDDLE_NAME ,
+            FIRST_NAME ,
+            SUFFIX ,
+            POSITION ,
+            BIRTHDAY ,
+            EMAIL ,
+            PRCENTAGE_OF_OWNERSHIP ,
+            NATIONALITY ,
+            BIRTH_COUNTRY ,
+            PERSONAL_TYPE ,
+            IS_BUSINESS_MANAGER ,
+            IS_AMERICAN_TAXPAYER ,
+            USER_NAME ,
+            PASSWORD ,
+            ENTITY_NAME ,
+            COMPANY_POSITION ,
+            PERSONAL_TYPE_TWO ,
+            CREATED_BY ,
+            CREATED_DATE ,
+            UPDATED_BY ,
+            UPDATED_DATE 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.accountId} ,
+            #{item.appellation} ,
+            #{item.lastName} ,
+            #{item.middleName} ,
+            #{item.firstName} ,
+            #{item.suffix} ,
+            #{item.position} ,
+            #{item.birthday} ,
+            #{item.email} ,
+            #{item.prcentageOfOwnership} ,
+            #{item.nationality} ,
+            #{item.birthCountry} ,
+            #{item.personalType} ,
+            #{item.isBusinessManager} ,
+            #{item.isAmericanTaxpayer} ,
+            #{item.userName} ,
+            #{item.password} ,
+            #{item.entityName} ,
+            #{item.companyPosition} ,
+            #{item.personalTypeTwo} ,
+            #{item.createdBy} ,
+            #{item.createdDate} ,
+            #{item.updatedBy} ,
+            #{item.updatedDate} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE ACCOUNT_CO_PERSONAL SET
+            ACCOUNT_ID = #{item.accountId} ,
+            APPELLATION = #{item.appellation} ,
+            LAST_NAME = #{item.lastName} ,
+            MIDDLE_NAME = #{item.middleName} ,
+            FIRST_NAME = #{item.firstName} ,
+            SUFFIX = #{item.suffix} ,
+            POSITION = #{item.position} ,
+            BIRTHDAY = #{item.birthday} ,
+            EMAIL = #{item.email} ,
+            PRCENTAGE_OF_OWNERSHIP = #{item.prcentageOfOwnership} ,
+            NATIONALITY = #{item.nationality} ,
+            BIRTH_COUNTRY = #{item.birthCountry} ,
+            PERSONAL_TYPE = #{item.personalType} ,
+            IS_BUSINESS_MANAGER = #{item.isBusinessManager} ,
+            IS_AMERICAN_TAXPAYER = #{item.isAmericanTaxpayer} ,
+            USER_NAME = #{item.userName} ,
+            PASSWORD = #{item.password} ,
+            ENTITY_NAME = #{item.entityName} ,
+            COMPANY_POSITION = #{item.companyPosition} ,
+            PERSONAL_TYPE_TWO = #{item.personalTypeTwo} ,
+            CREATED_BY = #{item.createdBy} ,
+            CREATED_DATE = #{item.createdDate} ,
+            UPDATED_BY = #{item.updatedBy} ,
+            UPDATED_DATE = #{item.updatedDate} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.account.entity.AccountCoPersonal">
+        UPDATE ACCOUNT_CO_PERSONAL SET
+            ACCOUNT_ID = #{accountId} ,
+            APPELLATION = #{appellation} ,
+            LAST_NAME = #{lastName} ,
+            MIDDLE_NAME = #{middleName} ,
+            FIRST_NAME = #{firstName} ,
+            SUFFIX = #{suffix} ,
+            POSITION = #{position} ,
+            BIRTHDAY = #{birthday} ,
+            EMAIL = #{email} ,
+            PRCENTAGE_OF_OWNERSHIP = #{prcentageOfOwnership} ,
+            NATIONALITY = #{nationality} ,
+            BIRTH_COUNTRY = #{birthCountry} ,
+            PERSONAL_TYPE = #{personalType} ,
+            IS_BUSINESS_MANAGER = #{isBusinessManager} ,
+            IS_AMERICAN_TAXPAYER = #{isAmericanTaxpayer} ,
+            USER_NAME = #{userName} ,
+            PASSWORD = #{password} ,
+            ENTITY_NAME = #{entityName} ,
+            COMPANY_POSITION = #{companyPosition} ,
+            PERSONAL_TYPE_TWO = #{personalTypeTwo} ,
+            CREATED_BY = #{createdBy} ,
+            CREATED_DATE = #{createdDate} ,
+            UPDATED_BY = #{updatedBy} ,
+            UPDATED_DATE = #{updatedDate} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.account.entity.AccountCoPersonal">
+        SELECT <include refid="accountCoPersonalColumns"/> FROM ACCOUNT_CO_PERSONAL a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.account.entity.AccountCoPersonal">
+        SELECT
+        <include refid="accountCoPersonalColumns"/>
+        FROM ACCOUNT_CO_PERSONAL a WHERE 1 = 1 <!-- and a.DEL_FLAG = 0-->
+        <if test="accountId != null">
+            AND a.ACCOUNT_ID = #{accountId}
+        </if>
+        <if test="appellation != null">
+            AND a.APPELLATION LIKE '%'||#{appellation}||'%'
+        </if>
+        <if test="lastName != null">
+            AND a.LAST_NAME LIKE '%'||#{lastName}||'%'
+        </if>
+        <if test="middleName != null">
+            AND a.MIDDLE_NAME LIKE '%'||#{middleName}||'%'
+        </if>
+        <if test="firstName != null">
+            AND a.FIRST_NAME LIKE '%'||#{firstName}||'%'
+        </if>
+        <if test="suffix != null">
+            AND a.SUFFIX LIKE '%'||#{suffix}||'%'
+        </if>
+        <if test="position != null">
+            AND a.POSITION LIKE '%'||#{position}||'%'
+        </if>
+        <if test="birthday != null">
+            AND a.BIRTHDAY = #{birthday}
+        </if>
+        <if test="email != null">
+            AND a.EMAIL LIKE '%'||#{email}||'%'
+        </if>
+        <if test="prcentageOfOwnership != null">
+            AND a.PRCENTAGE_OF_OWNERSHIP = #{prcentageOfOwnership}
+        </if>
+        <if test="nationality != null">
+            AND a.NATIONALITY LIKE '%'||#{nationality}||'%'
+        </if>
+        <if test="birthCountry != null">
+            AND a.BIRTH_COUNTRY LIKE '%'||#{birthCountry}||'%'
+        </if>
+        <if test="personalType != null">
+            AND a.PERSONAL_TYPE = #{personalType}
+        </if>
+        <if test="isBusinessManager != null">
+            AND a.IS_BUSINESS_MANAGER = #{isBusinessManager}
+        </if>
+        <if test="isAmericanTaxpayer != null">
+            AND a.IS_AMERICAN_TAXPAYER = #{isAmericanTaxpayer}
+        </if>
+        <if test="userName != null">
+            AND a.USER_NAME LIKE '%'||#{userName}||'%'
+        </if>
+        <if test="password != null">
+            AND a.PASSWORD LIKE '%'||#{password}||'%'
+        </if>
+        <if test="entityName != null">
+            AND a.ENTITY_NAME LIKE '%'||#{entityName}||'%'
+        </if>
+        <if test="companyPosition != null">
+            AND a.COMPANY_POSITION LIKE '%'||#{companyPosition}||'%'
+        </if>
+        <if test="personalTypeTwo != null">
+            AND a.PERSONAL_TYPE_TWO = #{personalTypeTwo}
+        </if>
+        <if test="createdBy != null">
+            AND a.CREATED_BY = #{createdBy}
+        </if>
+        <if test="createdDate != null">
+            AND a.CREATED_DATE = #{createdDate}
+        </if>
+        <if test="updatedBy != null">
+            AND a.UPDATED_BY = #{updatedBy}
+        </if>
+        <if test="updatedDate != null">
+            AND a.UPDATED_DATE = #{updatedDate}
+        </if>
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.account.entity.AccountCoPersonal">
+        SELECT
+        <include refid="accountCoPersonalColumns"/>
+        FROM ACCOUNT_CO_PERSONAL a <!--WHERE a.DEL_FLAG = 0-->
+    </select>
+
+
+
+</mapper>
+

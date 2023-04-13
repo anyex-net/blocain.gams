@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.common.mapper.TemplateMapper">
+    <!-- 基础列 -->
+    <sql id="templateColumns">
+        a.ID as id,
+        a.TPL_KEY as tplKey,
+        a.LANG as lang,
+        a.TYPE as type,
+        a.TITLE as title,
+        a.CONTENT as content,
+        a.DEST as dest,
+        a.CREATE_BY as createBy,
+        a.CREATE_DATE as createDate
+    </sql>
+
+    <resultMap id="templateResultMap" type="com.fintech.gams.common.entity.Template">
+        <id column="ID" property="id" />
+        <result column="TPL_KEY" property="tplKey"/>
+        <result column="LANG" property="lang"/>
+        <result column="TYPE" property="type"/>
+        <result column="TITLE" property="title"/>
+        <result column="CONTENT" property="content"/>
+        <result column="DEST" property="dest"/>
+        <result column="CREATE_BY" property="createBy"/>
+        <result column="CREATE_DATE" property="createDate"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.common.entity.Template">
+        INSERT INTO TEMPLATE(
+            ID ,
+            TPL_KEY ,
+            LANG ,
+            TYPE ,
+            TITLE ,
+            CONTENT ,
+            DEST ,
+            CREATE_BY ,
+            CREATE_DATE
+        ) VALUES (
+            #{id} ,
+            #{tplKey} ,
+            #{lang} ,
+            #{type} ,
+            #{title} ,
+            #{content} ,
+            #{dest} ,
+            #{createBy} ,
+            #{createDate}
+        )
+    </insert>
+
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM TEMPLATE WHERE ID = #{id}
+    </delete>
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.common.entity.Template">
+        INSERT INTO TEMPLATE
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="tplKey != null">
+                TPL_KEY ,
+        </if>
+        <if test="lang != null">
+                LANG ,
+        </if>
+        <if test="type != null">
+                TYPE ,
+        </if>
+        <if test="title != null">
+                TITLE ,
+        </if>
+        <if test="content != null">
+                CONTENT ,
+        </if>
+        <if test="dest != null">
+                DEST ,
+        </if>
+        <if test="createBy != null">
+                CREATE_BY ,
+        </if>
+        <if test="createDate != null">
+                CREATE_DATE ,
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="tplKey != null">
+                #{tplKey} ,
+        </if>
+        <if test="lang != null">
+                #{lang} ,
+        </if>
+        <if test="type != null">
+                #{type} ,
+        </if>
+        <if test="title != null">
+                #{title} ,
+        </if>
+        <if test="content != null">
+                #{content} ,
+        </if>
+        <if test="dest != null">
+                #{dest} ,
+        </if>
+        <if test="createBy != null">
+                #{createBy} ,
+        </if>
+        <if test="createDate != null">
+                #{createDate} ,
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.common.entity.Template">
+        UPDATE TEMPLATE
+           <set>
+            <if test="tplKey != null">
+                TPL_KEY = #{tplKey} ,
+            </if>
+            <if test="lang != null">
+                LANG = #{lang} ,
+            </if>
+            <if test="type != null">
+                TYPE = #{type} ,
+            </if>
+            <if test="title != null">
+                TITLE = #{title} ,
+            </if>
+            <if test="content != null">
+                CONTENT = #{content} ,
+            </if>
+            <if test="dest != null">
+                DEST = #{dest} ,
+            </if>
+            <if test="createBy != null">
+                CREATE_BY = #{createBy} ,
+            </if>
+            <if test="createDate != null">
+                CREATE_DATE = #{createDate} ,
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO TEMPLATE(
+            ID ,
+            TPL_KEY ,
+            LANG ,
+            TYPE ,
+            TITLE ,
+            CONTENT ,
+            DEST ,
+            CREATE_BY ,
+            CREATE_DATE
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.tplKey} ,
+            #{item.lang} ,
+            #{item.type} ,
+            #{item.title} ,
+            #{item.content} ,
+            #{item.dest} ,
+            #{item.createBy} ,
+            #{item.createDate}
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE TEMPLATE SET
+            TPL_KEY = #{item.tplKey} ,
+            LANG = #{item.lang} ,
+            TYPE = #{item.type} ,
+            TITLE = #{item.title} ,
+            CONTENT = #{item.content} ,
+            DEST = #{item.dest} ,
+            CREATE_BY = #{item.createBy} ,
+            CREATE_DATE = #{item.createDate}
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.common.entity.Template">
+        UPDATE TEMPLATE SET
+            TPL_KEY = #{tplKey} ,
+            LANG = #{lang} ,
+            TYPE = #{type} ,
+            TITLE = #{title} ,
+            CONTENT = #{content} ,
+            DEST = #{dest} ,
+            CREATE_BY = #{createBy} ,
+            CREATE_DATE = #{createDate}
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.common.entity.Template">
+        SELECT <include refid="templateColumns"/> FROM TEMPLATE a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.common.entity.Template">
+        SELECT
+        <include refid="templateColumns"/>
+        FROM TEMPLATE a WHERE 1 = 1
+        <if test="tplKey != null">
+            AND a.TPL_KEY LIKE '%'||#{tplKey}||'%'
+        </if>
+        <if test="lang != null">
+            AND a.LANG LIKE '%'||#{lang}||'%'
+        </if>
+        <if test="type != null">
+            AND a.TYPE LIKE '%'||#{type}||'%'
+        </if>
+        <if test="title != null">
+            AND a.TITLE LIKE '%'||#{title}||'%'
+        </if>
+        <if test="content != null">
+            AND a.CONTENT LIKE '%'||#{content}||'%'
+        </if>
+        <if test="dest != null">
+            AND a.DEST LIKE '%'||#{dest}||'%'
+        </if>
+        <if test="createBy != null">
+            AND a.CREATE_BY = #{createBy}
+        </if>
+        <if test="createDate != null">
+            AND a.CREATE_DATE = #{createDate}
+        </if>
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.common.entity.Template">
+        SELECT
+        <include refid="templateColumns"/>
+        FROM TEMPLATE a
+    </select>
+
+    <select id="findByKeyAndLang" resultType="com.fintech.gams.common.entity.Template">
+        SELECT
+        <include refid="templateColumns"/>
+        FROM TEMPLATE a
+        WHERE a.TPL_KEY = #{tplKey}
+        AND a.LANG = #{lang}
+        AND a.TYPE = #{type}
+    </select>
+
+</mapper>
+

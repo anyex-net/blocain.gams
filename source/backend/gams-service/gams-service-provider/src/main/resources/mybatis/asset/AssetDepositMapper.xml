@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.asset.mapper.AssetDepositMapper">
+    <!-- 基础列 -->
+    <sql id="assetDepositColumns">
+        a.ID as id,
+        a.ACCOUNT_ID as accountId,
+        a.CURRENCY as currency,
+        a.REMITTING_BANK as remittingBank,
+        a.ACCOUNT_NUMBER as accountNumber,
+        a.AMOUNT as amount,
+        a.FEE as fee,
+        a.transfer_type as transferType,
+        a.SWIFT_CODE as swiftCode,
+        a.TRANSACTION_ID as transactionId,
+        a.STATUS as status,
+        a.DEPOSIT_DATE as depositDate,
+        a.DEPOSIT_CONFIRM_DATE as depositConfirmDate,
+        a.REMARK as remark,
+        a.UPDATE_BY as updateBy,
+        a.UPDATE_DATE as updateDate
+    </sql>
+
+    <resultMap id="assetDepositResultMap" type="com.fintech.gams.asset.entity.AssetDeposit">
+        <id column="ID" property="id" />
+        <result column="ACCOUNT_ID" property="accountId"/>
+        <result column="CURRENCY" property="currency"/>
+        <result column="REMITTING_BANK" property="remittingBank"/>
+        <result column="ACCOUNT_NUMBER" property="accountNumber"/>
+        <result column="AMOUNT" property="amount"/>
+        <result column="FEE" property="fee"/>
+        <result column="transfer_type" property="transferType"/>
+        <result column="SWIFT_CODE" property="swiftCode"/>
+        <result column="TRANSACTION_ID" property="transactionId"/>
+        <result column="STATUS" property="status"/>
+        <result column="DEPOSIT_DATE" property="depositDate"/>
+        <result column="DEPOSIT_CONFIRM_DATE" property="depositConfirmDate"/>
+        <result column="REMARK" property="remark"/>
+        <result column="UPDATE_BY" property="updateBy"/>
+        <result column="UPDATE_DATE" property="updateDate"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.asset.entity.AssetDeposit">
+        INSERT INTO ASSET_DEPOSIT(
+            ID ,
+            ACCOUNT_ID ,
+            CURRENCY ,
+            REMITTING_BANK ,
+            ACCOUNT_NUMBER ,
+            AMOUNT ,
+            FEE ,
+            transfer_type ,
+            SWIFT_CODE ,
+            TRANSACTION_ID ,
+            STATUS ,
+            DEPOSIT_DATE ,
+            DEPOSIT_CONFIRM_DATE ,
+            REMARK ,
+            UPDATE_BY ,
+            UPDATE_DATE 
+        ) VALUES (
+            #{id} ,
+            #{accountId} ,
+            #{currency} ,
+            #{remittingBank} ,
+            #{accountNumber} ,
+            #{amount} ,
+            #{fee} ,
+            #{transferType} ,
+            #{swiftCode} ,
+            #{transactionId} ,
+            #{status} ,
+            #{depositDate} ,
+            #{depositConfirmDate} ,
+            #{remark} ,
+            #{updateBy} ,
+            #{updateDate} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM ASSET_DEPOSIT WHERE ID = #{id}
+    </delete>
+
+    <!-- 根据主键逻辑删除
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE ASSET_DEPOSIT SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+    -->
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.asset.entity.AssetDeposit">
+        INSERT INTO ASSET_DEPOSIT
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="accountId != null">
+                ACCOUNT_ID ,
+        </if>
+        <if test="currency != null">
+                CURRENCY ,
+        </if>
+        <if test="remittingBank != null">
+                REMITTING_BANK ,
+        </if>
+        <if test="accountNumber != null">
+                ACCOUNT_NUMBER ,
+        </if>
+        <if test="amount != null">
+                AMOUNT ,
+        </if>
+        <if test="fee != null">
+                FEE ,
+        </if>
+        <if test="transferType != null">
+                transfer_type ,
+        </if>
+        <if test="swiftCode != null">
+                SWIFT_CODE ,
+        </if>
+        <if test="transactionId != null">
+                TRANSACTION_ID ,
+        </if>
+        <if test="status != null">
+                STATUS ,
+        </if>
+        <if test="depositDate != null">
+                DEPOSIT_DATE ,
+        </if>
+        <if test="depositConfirmDate != null">
+                DEPOSIT_CONFIRM_DATE ,
+        </if>
+        <if test="remark != null">
+                REMARK ,
+        </if>
+        <if test="updateBy != null">
+                UPDATE_BY ,
+        </if>
+        <if test="updateDate != null">
+                UPDATE_DATE 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="accountId != null">
+                #{accountId} ,
+        </if>
+        <if test="currency != null">
+                #{currency} ,
+        </if>
+        <if test="remittingBank != null">
+                #{remittingBank} ,
+        </if>
+        <if test="accountNumber != null">
+                #{accountNumber} ,
+        </if>
+        <if test="amount != null">
+                #{amount} ,
+        </if>
+        <if test="fee != null">
+                #{fee} ,
+        </if>
+        <if test="transferType != null">
+                #{transferType} ,
+        </if>
+        <if test="swiftCode != null">
+                #{swiftCode} ,
+        </if>
+        <if test="transactionId != null">
+                #{transactionId} ,
+        </if>
+        <if test="status != null">
+                #{status} ,
+        </if>
+        <if test="depositDate != null">
+                #{depositDate} ,
+        </if>
+        <if test="depositConfirmDate != null">
+                #{depositConfirmDate} ,
+        </if>
+        <if test="remark != null">
+                #{remark} ,
+        </if>
+        <if test="updateBy != null">
+                #{updateBy} ,
+        </if>
+        <if test="updateDate != null">
+                #{updateDate} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.asset.entity.AssetDeposit">
+        UPDATE ASSET_DEPOSIT
+           <set>
+            <if test="accountId != null">
+                ACCOUNT_ID = #{accountId} ,
+            </if>
+            <if test="currency != null">
+                CURRENCY = #{currency} ,
+            </if>
+            <if test="remittingBank != null">
+                REMITTING_BANK = #{remittingBank} ,
+            </if>
+            <if test="accountNumber != null">
+                ACCOUNT_NUMBER = #{accountNumber} ,
+            </if>
+            <if test="amount != null">
+                AMOUNT = #{amount} ,
+            </if>
+            <if test="fee != null">
+                FEE = #{fee} ,
+            </if>
+            <if test="transferType != null">
+                transfer_type = #{transferType} ,
+            </if>
+            <if test="swiftCode != null">
+                SWIFT_CODE = #{swiftCode} ,
+            </if>
+            <if test="transactionId != null">
+                TRANSACTION_ID = #{transactionId} ,
+            </if>
+            <if test="status != null">
+                STATUS = #{status} ,
+            </if>
+            <if test="depositDate != null">
+                DEPOSIT_DATE = #{depositDate} ,
+            </if>
+            <if test="depositConfirmDate != null">
+                DEPOSIT_CONFIRM_DATE = #{depositConfirmDate} ,
+            </if>
+            <if test="remark != null">
+                REMARK = #{remark} ,
+            </if>
+            <if test="updateBy != null">
+                UPDATE_BY = #{updateBy} ,
+            </if>
+            <if test="updateDate != null">
+                UPDATE_DATE = #{updateDate} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO ASSET_DEPOSIT(
+            ID ,
+            ACCOUNT_ID ,
+            CURRENCY ,
+            REMITTING_BANK ,
+            ACCOUNT_NUMBER ,
+            AMOUNT ,
+            FEE ,
+            transfer_type ,
+            SWIFT_CODE ,
+            TRANSACTION_ID ,
+            STATUS ,
+            DEPOSIT_DATE ,
+            DEPOSIT_CONFIRM_DATE ,
+            REMARK ,
+            UPDATE_BY ,
+            UPDATE_DATE 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.accountId} ,
+            #{item.currency} ,
+            #{item.remittingBank} ,
+            #{item.accountNumber} ,
+            #{item.amount} ,
+            #{item.fee} ,
+            #{item.transferType} ,
+            #{item.swiftCode} ,
+            #{item.transactionId} ,
+            #{item.status} ,
+            #{item.depositDate} ,
+            #{item.depositConfirmDate} ,
+            #{item.remark} ,
+            #{item.updateBy} ,
+            #{item.updateDate} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE ASSET_DEPOSIT SET
+            ACCOUNT_ID = #{item.accountId} ,
+            CURRENCY = #{item.currency} ,
+            REMITTING_BANK = #{item.remittingBank} ,
+            ACCOUNT_NUMBER = #{item.accountNumber} ,
+            AMOUNT = #{item.amount} ,
+            FEE = #{item.fee} ,
+            transfer_type = #{item.transferType} ,
+            SWIFT_CODE = #{item.swiftCode} ,
+            TRANSACTION_ID = #{item.transactionId} ,
+            STATUS = #{item.status} ,
+            DEPOSIT_DATE = #{item.depositDate} ,
+            DEPOSIT_CONFIRM_DATE = #{item.depositConfirmDate} ,
+            REMARK = #{item.remark} ,
+            UPDATE_BY = #{item.updateBy} ,
+            UPDATE_DATE = #{item.updateDate} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.asset.entity.AssetDeposit">
+        UPDATE ASSET_DEPOSIT SET
+            ACCOUNT_ID = #{accountId} ,
+            CURRENCY = #{currency} ,
+            REMITTING_BANK = #{remittingBank} ,
+            ACCOUNT_NUMBER = #{accountNumber} ,
+            AMOUNT = #{amount} ,
+            FEE = #{fee} ,
+            transfer_type = #{transferType} ,
+            SWIFT_CODE = #{swiftCode} ,
+            TRANSACTION_ID = #{transactionId} ,
+            STATUS = #{status} ,
+            DEPOSIT_DATE = #{depositDate} ,
+            DEPOSIT_CONFIRM_DATE = #{depositConfirmDate} ,
+            REMARK = #{remark} ,
+            UPDATE_BY = #{updateBy} ,
+            UPDATE_DATE = #{updateDate} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.asset.entity.AssetDeposit">
+        SELECT <include refid="assetDepositColumns"/> FROM ASSET_DEPOSIT a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.asset.entity.AssetDeposit">
+        SELECT
+        <include refid="assetDepositColumns"/>, b.ACCOUNT_NAME as accountName
+        FROM ASSET_DEPOSIT a
+        LEFT JOIN ACCOUNT b ON a.ACCOUNT_ID = b.ID
+        WHERE 1 = 1<!-- and a.DEL_FLAG = 0-->
+        <if test="accountId != null">
+            AND a.ACCOUNT_ID = #{accountId}
+        </if>
+        <if test="currency != null">
+            AND a.CURRENCY LIKE '%'||#{currency}||'%'
+        </if>
+        <if test="remittingBank != null">
+            AND a.REMITTING_BANK LIKE '%'||#{remittingBank}||'%'
+        </if>
+        <if test="accountNumber != null">
+            AND a.ACCOUNT_NUMBER LIKE '%'||#{accountNumber}||'%'
+        </if>
+        <if test="amount != null">
+            AND a.AMOUNT = #{amount}
+        </if>
+        <if test="fee != null">
+            AND a.FEE = #{fee}
+        </if>
+        <if test="transferType != null">
+            AND a.transfer_type = #{transferType}
+        </if>
+        <if test="swiftCode != null">
+            AND a.SWIFT_CODE LIKE '%'||#{swiftCode}||'%'
+        </if>
+        <if test="transactionId != null">
+            AND a.TRANSACTION_ID LIKE '%'||#{transactionId}||'%'
+        </if>
+        <if test="status != null">
+            AND a.STATUS LIKE '%'||#{status}||'%'
+        </if>
+        <if test="updateBy != null">
+            AND a.UPDATE_BY = #{updateBy}
+        </if>
+        <!-- 日期查询 -->
+        <if test="dateField != null">
+            <if test="dateField =='depositDate'">
+                AND a.DEPOSIT_DATE between #{startDate} and #{endDate}
+            </if>
+            <if test="dateField == 'depositConfirmDate'">
+                AND a.DEPOSIT_CONFIRM_DATE  between #{startDate} and #{endDate}
+            </if>
+            <if test="dateField == 'updateDate'">
+                AND a.UPDATE_DATE between #{startDate} and #{endDate}
+            </if>
+        </if>
+        ORDER BY a.DEPOSIT_DATE DESC
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.asset.entity.AssetDeposit">
+        SELECT
+        <include refid="assetDepositColumns"/>
+        FROM ASSET_DEPOSIT a <!--WHERE a.DEL_FLAG = 0-->
+    </select>
+
+</mapper>
+

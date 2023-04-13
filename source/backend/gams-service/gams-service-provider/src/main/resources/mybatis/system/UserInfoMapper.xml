@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.system.mapper.UserInfoMapper">
+    <!-- 基础列 -->
+    <sql id="userInfoColumns">
+        a.ID as id,
+        a.USER_NAME as userName,
+        a.TRUE_NAME as trueName,
+        a.PASSWORD as password,
+        a.GENDER as gender,
+        a.ACTIVE as active,
+        a.ID_CARD as idCard,
+        a.LOGO as logo,
+        a.DEST as dest,
+        a.JOB_TITLE as jobTitle,
+        a.ADDRESS as address,
+        a.SIGN as sign,
+        a.RANDOM_KEY as randomKey,
+        a.AUTH_KEY as authKey,
+        a.CREATE_DATE as createDate,
+        a.UPDATE_DATE as updateDate,
+        a.DEL_FLAG as delFlag
+    </sql>
+
+    <resultMap id="userInfoResultMap" type="com.fintech.gams.system.entity.UserInfo">
+        <id column="ID" property="id" />
+        <result column="USER_NAME" property="userName"/>
+        <result column="TRUE_NAME" property="trueName"/>
+        <result column="PASSWORD" property="password"/>
+        <result column="GENDER" property="gender"/>
+        <result column="ACTIVE" property="active"/>
+        <result column="ID_CARD" property="idCard"/>
+        <result column="LOGO" property="logo"/>
+        <result column="DEST" property="dest"/>
+        <result column="JOB_TITLE" property="jobTitle"/>
+        <result column="ADDRESS" property="address"/>
+        <result column="SIGN" property="sign"/>
+        <result column="RANDOM_KEY" property="randomKey"/>
+        <result column="AUTH_KEY" property="authKey"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="UPDATE_DATE" property="updateDate"/>
+        <result column="DEL_FLAG" property="delFlag"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.system.entity.UserInfo">
+        INSERT INTO USER_INFO(
+            ID ,
+            USER_NAME ,
+            TRUE_NAME ,
+            PASSWORD ,
+            GENDER ,
+            ACTIVE ,
+            ID_CARD ,
+            LOGO ,
+            DEST ,
+            JOB_TITLE ,
+            ADDRESS ,
+            SIGN ,
+            RANDOM_KEY ,
+            AUTH_KEY ,
+            CREATE_DATE ,
+            UPDATE_DATE ,
+            DEL_FLAG
+        ) VALUES (
+            #{id} ,
+            #{userName} ,
+            #{trueName} ,
+            #{password} ,
+            #{gender} ,
+            #{active} ,
+            #{idCard} ,
+            #{logo} ,
+            #{dest} ,
+            #{jobTitle} ,
+            #{address} ,
+            #{sign} ,
+            #{randomKey} ,
+            #{authKey} ,
+            #{createDate} ,
+            #{updateDate} ,
+            #{delFlag}
+        )
+    </insert>
+
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM USER_INFO WHERE ID = #{id}
+    </delete>
+
+    <!-- 根据主键逻辑删除 -->
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE USER_INFO SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.system.entity.UserInfo">
+        INSERT INTO USER_INFO
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="userName != null">
+                USER_NAME ,
+        </if>
+        <if test="trueName != null">
+                TRUE_NAME ,
+        </if>
+        <if test="password != null">
+                PASSWORD ,
+        </if>
+        <if test="gender != null">
+                GENDER ,
+        </if>
+        <if test="active != null">
+                ACTIVE ,
+        </if>
+        <if test="idCard != null">
+                ID_CARD ,
+        </if>
+        <if test="logo != null">
+                LOGO ,
+        </if>
+        <if test="dest != null">
+                DEST ,
+        </if>
+        <if test="jobTitle != null">
+                JOB_TITLE ,
+        </if>
+        <if test="address != null">
+                ADDRESS ,
+        </if>
+        <if test="sign != null">
+                SIGN ,
+        </if>
+        <if test="randomKey != null">
+                RANDOM_KEY ,
+        </if>
+        <if test="authKey != null">
+                AUTH_KEY ,
+        </if>
+        <if test="createDate != null">
+                CREATE_DATE ,
+        </if>
+        <if test="updateDate != null">
+                UPDATE_DATE ,
+        </if>
+        <if test="delFlag != null">
+                DEL_FLAG
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="userName != null">
+                #{userName} ,
+        </if>
+        <if test="trueName != null">
+                #{trueName} ,
+        </if>
+        <if test="password != null">
+                #{password} ,
+        </if>
+        <if test="gender != null">
+                #{gender} ,
+        </if>
+        <if test="active != null">
+                #{active} ,
+        </if>
+        <if test="idCard != null">
+                #{idCard} ,
+        </if>
+        <if test="logo != null">
+                #{logo} ,
+        </if>
+        <if test="dest != null">
+                #{dest} ,
+        </if>
+        <if test="jobTitle != null">
+                #{jobTitle} ,
+        </if>
+        <if test="address != null">
+                #{address} ,
+        </if>
+        <if test="sign != null">
+            #{sign} ,
+        </if>
+        <if test="randomKey != null">
+            #{randomKey} ,
+        </if>
+        <if test="authKey != null">
+            #{authKey} ,
+        </if>
+        <if test="createDate != null">
+                #{createDate} ,
+        </if>
+        <if test="updateDate != null">
+                #{updateDate} ,
+        </if>
+        <if test="delFlag != null">
+                #{delFlag}
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.system.entity.UserInfo">
+        UPDATE USER_INFO
+           <set>
+            <if test="userName != null">
+                USER_NAME = #{userName} ,
+            </if>
+            <if test="trueName != null">
+                TRUE_NAME = #{trueName} ,
+            </if>
+            <if test="password != null">
+                PASSWORD = #{password} ,
+            </if>
+            <if test="gender != null">
+                GENDER = #{gender} ,
+            </if>
+            <if test="active != null">
+                ACTIVE = #{active} ,
+            </if>
+            <if test="idCard != null">
+                ID_CARD = #{idCard} ,
+            </if>
+            <if test="logo != null">
+                LOGO = #{logo} ,
+            </if>
+            <if test="dest != null">
+                DEST = #{dest} ,
+            </if>
+            <if test="jobTitle != null">
+                JOB_TITLE = #{jobTitle} ,
+            </if>
+            <if test="address != null">
+                ADDRESS = #{address} ,
+            </if>
+            <if test="sign != null">
+                SIGN = #{sign} ,
+            </if>
+            <if test="randomKey != null">
+                RANDOM_KEY = #{randomKey} ,
+            </if>
+            <if test="authKey != null">
+                AUTH_KEY = #{authKey} ,
+            </if>
+            <if test="createDate != null">
+                CREATE_DATE = #{createDate} ,
+            </if>
+            <if test="updateDate != null">
+                UPDATE_DATE = #{updateDate} ,
+            </if>
+            <if test="delFlag != null">
+                DEL_FLAG = #{delFlag}
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO USER_INFO(
+            ID ,
+            USER_NAME ,
+            TRUE_NAME ,
+            PASSWORD ,
+            GENDER ,
+            ACTIVE ,
+            ID_CARD ,
+            LOGO ,
+            DEST ,
+            JOB_TITLE ,
+            ADDRESS ,
+            SIGN ,
+            RANDOM_KEY ,
+            AUTH_KEY ,
+            CREATE_DATE ,
+            UPDATE_DATE ,
+            DEL_FLAG
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.userName} ,
+            #{item.trueName} ,
+            #{item.password} ,
+            #{item.gender} ,
+            #{item.active} ,
+            #{item.idCard} ,
+            #{item.logo} ,
+            #{item.dest} ,
+            #{item.jobTitle} ,
+            #{item.address} ,
+            #{item.sign} ,
+            #{item.randomKey} ,
+            #{item.authKey} ,
+            #{item.createDate} ,
+            #{item.updateDate} ,
+            #{item.delFlag}
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE USER_INFO SET
+            USER_NAME = #{item.userName} ,
+            TRUE_NAME = #{item.trueName} ,
+            PASSWORD = #{item.password} ,
+            GENDER = #{item.gender} ,
+            ACTIVE = #{item.active} ,
+            ID_CARD = #{item.idCard} ,
+            LOGO = #{item.logo} ,
+            DEST = #{item.dest} ,
+            JOB_TITLE = #{item.jobTitle} ,
+            ADDRESS = #{item.address} ,
+            SIGN = #{item.sign} ,
+            RANDOM_KEY = #{item.randomKey} ,
+            AUTH_KEY = #{item.authKey} ,
+            CREATE_DATE = #{item.createDate} ,
+            UPDATE_DATE = #{item.updateDate} ,
+            DEL_FLAG = #{item.delFlag}
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.system.entity.UserInfo">
+        UPDATE USER_INFO SET
+            USER_NAME = #{userName} ,
+            TRUE_NAME = #{trueName} ,
+            PASSWORD = #{password} ,
+            GENDER = #{gender} ,
+            ACTIVE = #{active} ,
+            ID_CARD = #{idCard} ,
+            LOGO = #{logo} ,
+            DEST = #{dest} ,
+            JOB_TITLE = #{jobTitle} ,
+            ADDRESS = #{address} ,
+            SIGN = #{sign} ,
+            RANDOM_KEY = #{randomKey} ,
+            AUTH_KEY = #{authKey} ,
+            CREATE_DATE = #{createDate} ,
+            UPDATE_DATE = #{updateDate} ,
+            DEL_FLAG = #{delFlag}
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.system.entity.UserInfo">
+        SELECT <include refid="userInfoColumns"/> FROM USER_INFO a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.system.entity.UserInfo">
+        SELECT
+        <include refid="userInfoColumns"/>
+        FROM USER_INFO a WHERE a.DEL_FLAG = 0
+        <if test="userName != null">
+            AND a.USER_NAME LIKE '%'||#{userName}||'%'
+        </if>
+        <if test="trueName != null">
+            AND a.TRUE_NAME LIKE '%'||#{trueName}||'%'
+        </if>
+        <if test="gender != null">
+            AND a.GENDER = #{gender}
+        </if>
+        <if test="active != null">
+            AND a.ACTIVE = #{active}
+        </if>
+        <if test="idCard != null">
+            AND a.ID_CARD LIKE '%'||#{idCard}||'%'
+        </if>
+        <if test="jobTitle != null">
+            AND a.JOB_TITLE LIKE '%'||#{jobTitle}||'%'
+        </if>
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.system.entity.UserInfo">
+        SELECT
+        <include refid="userInfoColumns"/>
+        FROM USER_INFO a WHERE a.DEL_FLAG = 0
+    </select>
+
+    <select id="findByUserName" resultType="com.fintech.gams.system.entity.UserInfo">
+        SELECT
+        <include refid="userInfoColumns"/>
+        FROM USER_INFO a WHERE a.DEL_FLAG = 0
+        AND a.USER_NAME = #{userName}
+    </select>
+
+</mapper>
+

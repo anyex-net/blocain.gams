@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.stock.mapper.StockFundMapper">
+    <!-- 基础列 -->
+    <sql id="stockFundColumns">
+        a.ID as id,
+        a.STOCKINFO_ID as stockinfoId,
+        a.MANAGER_ORG_CODE as managerOrgCode,
+        a.MANAGER_ORG_NAME as managerOrgName,
+        a.TRUST_ORG_CODE as trustOrgCode,
+        a.TRUST_ORG_NAME as trustOrgName,
+        a.FUND_SIZE as fundSize,
+        a.ESTABLISHMENT_DATE as establishmentDate,
+        a.LIST_DATE as listDate,
+        a.EXPIRE_DATE as expireDate,
+        a.FUND_OPERATE as fundOperate,
+        a.FUND_TYPE as fundType,
+        a.FUND_INVEST_AREA as fundInvestArea,
+        a.FUND_INVEST_STYLE as fundInvestStyle,
+        a.SHARE_TRANSFER as shareTransfer,
+        a.RISK_LEVEL as riskLevel,
+        a.DIVIDEND_POLICY as dividendPolicy,
+        a.CREATE_BY as createBy,
+        a.CREATE_DATE as createDate,
+        a.UPDATE_BY as updateBy,
+        a.UPDATE_DATE as updateDate
+    </sql>
+
+    <resultMap id="stockFundResultMap" type="com.fintech.gams.stock.entity.StockFund">
+        <id column="ID" property="id" />
+        <result column="STOCKINFO_ID" property="stockinfoId"/>
+        <result column="MANAGER_ORG_CODE" property="managerOrgCode"/>
+        <result column="MANAGER_ORG_NAME" property="managerOrgName"/>
+        <result column="TRUST_ORG_CODE" property="trustOrgCode"/>
+        <result column="TRUST_ORG_NAME" property="trustOrgName"/>
+        <result column="FUND_SIZE" property="fundSize"/>
+        <result column="ESTABLISHMENT_DATE" property="establishmentDate"/>
+        <result column="LIST_DATE" property="listDate"/>
+        <result column="EXPIRE_DATE" property="expireDate"/>
+        <result column="FUND_OPERATE" property="fundOperate"/>
+        <result column="FUND_TYPE" property="fundType"/>
+        <result column="FUND_INVEST_AREA" property="fundInvestArea"/>
+        <result column="FUND_INVEST_STYLE" property="fundInvestStyle"/>
+        <result column="SHARE_TRANSFER" property="shareTransfer"/>
+        <result column="RISK_LEVEL" property="riskLevel"/>
+        <result column="DIVIDEND_POLICY" property="dividendPolicy"/>
+        <result column="CREATE_BY" property="createBy"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="UPDATE_BY" property="updateBy"/>
+        <result column="UPDATE_DATE" property="updateDate"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.stock.entity.StockFund">
+        INSERT INTO STOCK_FUND(
+            ID ,
+            STOCKINFO_ID ,
+            MANAGER_ORG_CODE ,
+            MANAGER_ORG_NAME ,
+            TRUST_ORG_CODE ,
+            TRUST_ORG_NAME ,
+            FUND_SIZE ,
+            ESTABLISHMENT_DATE ,
+            LIST_DATE ,
+            EXPIRE_DATE ,
+            FUND_OPERATE ,
+            FUND_TYPE ,
+            FUND_INVEST_AREA ,
+            FUND_INVEST_STYLE ,
+            SHARE_TRANSFER ,
+            RISK_LEVEL ,
+            DIVIDEND_POLICY ,
+            CREATE_BY ,
+            CREATE_DATE ,
+            UPDATE_BY ,
+            UPDATE_DATE 
+        ) VALUES (
+            #{id} ,
+            #{stockinfoId} ,
+            #{managerOrgCode} ,
+            #{managerOrgName} ,
+            #{trustOrgCode} ,
+            #{trustOrgName} ,
+            #{fundSize} ,
+            #{establishmentDate} ,
+            #{listDate} ,
+            #{expireDate} ,
+            #{fundOperate} ,
+            #{fundType} ,
+            #{fundInvestArea} ,
+            #{fundInvestStyle} ,
+            #{shareTransfer} ,
+            #{riskLevel} ,
+            #{dividendPolicy} ,
+            #{createBy} ,
+            #{createDate} ,
+            #{updateBy} ,
+            #{updateDate} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM STOCK_FUND WHERE ID = #{id}
+    </delete>
+
+    <!-- 根据主键逻辑删除
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE STOCK_FUND SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+    -->
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.stock.entity.StockFund">
+        INSERT INTO STOCK_FUND
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="stockinfoId != null">
+                STOCKINFO_ID ,
+        </if>
+        <if test="managerOrgCode != null">
+                MANAGER_ORG_CODE ,
+        </if>
+        <if test="managerOrgName != null">
+                MANAGER_ORG_NAME ,
+        </if>
+        <if test="trustOrgCode != null">
+                TRUST_ORG_CODE ,
+        </if>
+        <if test="trustOrgName != null">
+                TRUST_ORG_NAME ,
+        </if>
+        <if test="fundSize != null">
+                FUND_SIZE ,
+        </if>
+        <if test="establishmentDate != null">
+                ESTABLISHMENT_DATE ,
+        </if>
+        <if test="listDate != null">
+                LIST_DATE ,
+        </if>
+        <if test="expireDate != null">
+                EXPIRE_DATE ,
+        </if>
+        <if test="fundOperate != null">
+                FUND_OPERATE ,
+        </if>
+        <if test="fundType != null">
+                FUND_TYPE ,
+        </if>
+        <if test="fundInvestArea != null">
+                FUND_INVEST_AREA ,
+        </if>
+        <if test="fundInvestStyle != null">
+                FUND_INVEST_STYLE ,
+        </if>
+        <if test="shareTransfer != null">
+                SHARE_TRANSFER ,
+        </if>
+        <if test="riskLevel != null">
+                RISK_LEVEL ,
+        </if>
+        <if test="dividendPolicy != null">
+                DIVIDEND_POLICY ,
+        </if>
+        <if test="createBy != null">
+                CREATE_BY ,
+        </if>
+        <if test="createDate != null">
+                CREATE_DATE ,
+        </if>
+        <if test="updateBy != null">
+                UPDATE_BY ,
+        </if>
+        <if test="updateDate != null">
+                UPDATE_DATE 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="stockinfoId != null">
+                #{stockinfoId} ,
+        </if>
+        <if test="managerOrgCode != null">
+                #{managerOrgCode} ,
+        </if>
+        <if test="managerOrgName != null">
+                #{managerOrgName} ,
+        </if>
+        <if test="trustOrgCode != null">
+                #{trustOrgCode} ,
+        </if>
+        <if test="trustOrgName != null">
+                #{trustOrgName} ,
+        </if>
+        <if test="fundSize != null">
+                #{fundSize} ,
+        </if>
+        <if test="establishmentDate != null">
+                #{establishmentDate} ,
+        </if>
+        <if test="listDate != null">
+                #{listDate} ,
+        </if>
+        <if test="expireDate != null">
+                #{expireDate} ,
+        </if>
+        <if test="fundOperate != null">
+                #{fundOperate} ,
+        </if>
+        <if test="fundType != null">
+                #{fundType} ,
+        </if>
+        <if test="fundInvestArea != null">
+                #{fundInvestArea} ,
+        </if>
+        <if test="fundInvestStyle != null">
+                #{fundInvestStyle} ,
+        </if>
+        <if test="shareTransfer != null">
+                #{shareTransfer} ,
+        </if>
+        <if test="riskLevel != null">
+                #{riskLevel} ,
+        </if>
+        <if test="dividendPolicy != null">
+                #{dividendPolicy} ,
+        </if>
+        <if test="createBy != null">
+                #{createBy} ,
+        </if>
+        <if test="createDate != null">
+                #{createDate} ,
+        </if>
+        <if test="updateBy != null">
+                #{updateBy} ,
+        </if>
+        <if test="updateDate != null">
+                #{updateDate} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.stock.entity.StockFund">
+        UPDATE STOCK_FUND
+           <set>
+            <if test="stockinfoId != null">
+                STOCKINFO_ID = #{stockinfoId} ,
+            </if>
+            <if test="managerOrgCode != null">
+                MANAGER_ORG_CODE = #{managerOrgCode} ,
+            </if>
+            <if test="managerOrgName != null">
+                MANAGER_ORG_NAME = #{managerOrgName} ,
+            </if>
+            <if test="trustOrgCode != null">
+                TRUST_ORG_CODE = #{trustOrgCode} ,
+            </if>
+            <if test="trustOrgName != null">
+                TRUST_ORG_NAME = #{trustOrgName} ,
+            </if>
+            <if test="fundSize != null">
+                FUND_SIZE = #{fundSize} ,
+            </if>
+            <if test="establishmentDate != null">
+                ESTABLISHMENT_DATE = #{establishmentDate} ,
+            </if>
+            <if test="listDate != null">
+                LIST_DATE = #{listDate} ,
+            </if>
+            <if test="expireDate != null">
+                EXPIRE_DATE = #{expireDate} ,
+            </if>
+            <if test="fundOperate != null">
+                FUND_OPERATE = #{fundOperate} ,
+            </if>
+            <if test="fundType != null">
+                FUND_TYPE = #{fundType} ,
+            </if>
+            <if test="fundInvestArea != null">
+                FUND_INVEST_AREA = #{fundInvestArea} ,
+            </if>
+            <if test="fundInvestStyle != null">
+                FUND_INVEST_STYLE = #{fundInvestStyle} ,
+            </if>
+            <if test="shareTransfer != null">
+                SHARE_TRANSFER = #{shareTransfer} ,
+            </if>
+            <if test="riskLevel != null">
+                RISK_LEVEL = #{riskLevel} ,
+            </if>
+            <if test="dividendPolicy != null">
+                DIVIDEND_POLICY = #{dividendPolicy} ,
+            </if>
+            <if test="createBy != null">
+                CREATE_BY = #{createBy} ,
+            </if>
+            <if test="createDate != null">
+                CREATE_DATE = #{createDate} ,
+            </if>
+            <if test="updateBy != null">
+                UPDATE_BY = #{updateBy} ,
+            </if>
+            <if test="updateDate != null">
+                UPDATE_DATE = #{updateDate} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO STOCK_FUND(
+            ID ,
+            STOCKINFO_ID ,
+            MANAGER_ORG_CODE ,
+            MANAGER_ORG_NAME ,
+            TRUST_ORG_CODE ,
+            TRUST_ORG_NAME ,
+            FUND_SIZE ,
+            ESTABLISHMENT_DATE ,
+            LIST_DATE ,
+            EXPIRE_DATE ,
+            FUND_OPERATE ,
+            FUND_TYPE ,
+            FUND_INVEST_AREA ,
+            FUND_INVEST_STYLE ,
+            SHARE_TRANSFER ,
+            RISK_LEVEL ,
+            DIVIDEND_POLICY ,
+            CREATE_BY ,
+            CREATE_DATE ,
+            UPDATE_BY ,
+            UPDATE_DATE 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.stockinfoId} ,
+            #{item.managerOrgCode} ,
+            #{item.managerOrgName} ,
+            #{item.trustOrgCode} ,
+            #{item.trustOrgName} ,
+            #{item.fundSize} ,
+            #{item.establishmentDate} ,
+            #{item.listDate} ,
+            #{item.expireDate} ,
+            #{item.fundOperate} ,
+            #{item.fundType} ,
+            #{item.fundInvestArea} ,
+            #{item.fundInvestStyle} ,
+            #{item.shareTransfer} ,
+            #{item.riskLevel} ,
+            #{item.dividendPolicy} ,
+            #{item.createBy} ,
+            #{item.createDate} ,
+            #{item.updateBy} ,
+            #{item.updateDate} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE STOCK_FUND SET
+            STOCKINFO_ID = #{item.stockinfoId} ,
+            MANAGER_ORG_CODE = #{item.managerOrgCode} ,
+            MANAGER_ORG_NAME = #{item.managerOrgName} ,
+            TRUST_ORG_CODE = #{item.trustOrgCode} ,
+            TRUST_ORG_NAME = #{item.trustOrgName} ,
+            FUND_SIZE = #{item.fundSize} ,
+            ESTABLISHMENT_DATE = #{item.establishmentDate} ,
+            LIST_DATE = #{item.listDate} ,
+            EXPIRE_DATE = #{item.expireDate} ,
+            FUND_OPERATE = #{item.fundOperate} ,
+            FUND_TYPE = #{item.fundType} ,
+            FUND_INVEST_AREA = #{item.fundInvestArea} ,
+            FUND_INVEST_STYLE = #{item.fundInvestStyle} ,
+            SHARE_TRANSFER = #{item.shareTransfer} ,
+            RISK_LEVEL = #{item.riskLevel} ,
+            DIVIDEND_POLICY = #{item.dividendPolicy} ,
+            CREATE_BY = #{item.createBy} ,
+            CREATE_DATE = #{item.createDate} ,
+            UPDATE_BY = #{item.updateBy} ,
+            UPDATE_DATE = #{item.updateDate} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.stock.entity.StockFund">
+        UPDATE STOCK_FUND SET
+            STOCKINFO_ID = #{stockinfoId} ,
+            MANAGER_ORG_CODE = #{managerOrgCode} ,
+            MANAGER_ORG_NAME = #{managerOrgName} ,
+            TRUST_ORG_CODE = #{trustOrgCode} ,
+            TRUST_ORG_NAME = #{trustOrgName} ,
+            FUND_SIZE = #{fundSize} ,
+            ESTABLISHMENT_DATE = #{establishmentDate} ,
+            LIST_DATE = #{listDate} ,
+            EXPIRE_DATE = #{expireDate} ,
+            FUND_OPERATE = #{fundOperate} ,
+            FUND_TYPE = #{fundType} ,
+            FUND_INVEST_AREA = #{fundInvestArea} ,
+            FUND_INVEST_STYLE = #{fundInvestStyle} ,
+            SHARE_TRANSFER = #{shareTransfer} ,
+            RISK_LEVEL = #{riskLevel} ,
+            DIVIDEND_POLICY = #{dividendPolicy} ,
+            CREATE_BY = #{createBy} ,
+            CREATE_DATE = #{createDate} ,
+            UPDATE_BY = #{updateBy} ,
+            UPDATE_DATE = #{updateDate} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.stock.entity.StockFund">
+        SELECT <include refid="stockFundColumns"/> FROM STOCK_FUND a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.stock.entity.StockFund">
+        SELECT
+        <include refid="stockFundColumns"/>
+        FROM STOCK_FUND a WHERE 1 = 1 <!-- and a.DEL_FLAG = 0-->
+        <if test="stockinfoId != null">
+            AND a.STOCKINFO_ID = #{stockinfoId}
+        </if>
+        <if test="managerOrgCode != null">
+            AND a.MANAGER_ORG_CODE LIKE '%'||#{managerOrgCode}||'%'
+        </if>
+        <if test="managerOrgName != null">
+            AND a.MANAGER_ORG_NAME LIKE '%'||#{managerOrgName}||'%'
+        </if>
+        <if test="trustOrgCode != null">
+            AND a.TRUST_ORG_CODE LIKE '%'||#{trustOrgCode}||'%'
+        </if>
+        <if test="trustOrgName != null">
+            AND a.TRUST_ORG_NAME LIKE '%'||#{trustOrgName}||'%'
+        </if>
+        <if test="fundSize != null">
+            AND a.FUND_SIZE = #{fundSize}
+        </if>
+        <if test="establishmentDate != null">
+            AND a.ESTABLISHMENT_DATE = #{establishmentDate}
+        </if>
+        <if test="listDate != null">
+            AND a.LIST_DATE = #{listDate}
+        </if>
+        <if test="expireDate != null">
+            AND a.EXPIRE_DATE = #{expireDate}
+        </if>
+        <if test="fundOperate != null">
+            AND a.FUND_OPERATE LIKE '%'||#{fundOperate}||'%'
+        </if>
+        <if test="fundType != null">
+            AND a.FUND_TYPE LIKE '%'||#{fundType}||'%'
+        </if>
+        <if test="fundInvestArea != null">
+            AND a.FUND_INVEST_AREA LIKE '%'||#{fundInvestArea}||'%'
+        </if>
+        <if test="fundInvestStyle != null">
+            AND a.FUND_INVEST_STYLE LIKE '%'||#{fundInvestStyle}||'%'
+        </if>
+        <if test="shareTransfer != null">
+            AND a.SHARE_TRANSFER LIKE '%'||#{shareTransfer}||'%'
+        </if>
+        <if test="riskLevel != null">
+            AND a.RISK_LEVEL LIKE '%'||#{riskLevel}||'%'
+        </if>
+        <if test="dividendPolicy != null">
+            AND a.DIVIDEND_POLICY LIKE '%'||#{dividendPolicy}||'%'
+        </if>
+        <if test="createBy != null">
+            AND a.CREATE_BY = #{createBy}
+        </if>
+        <if test="createDate != null">
+            AND a.CREATE_DATE = #{createDate}
+        </if>
+        <if test="updateBy != null">
+            AND a.UPDATE_BY = #{updateBy}
+        </if>
+        <if test="updateDate != null">
+            AND a.UPDATE_DATE = #{updateDate}
+        </if>
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.stock.entity.StockFund">
+        SELECT
+        <include refid="stockFundColumns"/>
+        FROM STOCK_FUND a <!--WHERE a.DEL_FLAG = 0-->
+    </select>
+
+
+</mapper>
+

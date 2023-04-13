@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.common.mapper.ParameterMapper">
+    <!-- 基础列 -->
+    <sql id="parameterColumns">
+        a.ID as id,
+        a.SYSTEM_NAME as systemName,
+        a.PARAMETER_NAME as parameterName,
+        a.DESCRIBE as describe,
+        a.DIVISION as division,
+        a.TYPE as type,
+        a.VALUE_BOUND as valueBound,
+        a.VALUE as value,
+        a.REMARK as remark,
+        a.CREATE_BY as createBy,
+        a.CREATE_DATE as createDate,
+        a.UPDATE_BY as updateBy,
+        a.UPDATE_DATE as updateDate
+    </sql>
+
+    <resultMap id="parameterResultMap" type="com.fintech.gams.common.entity.Parameter">
+        <id column="ID" property="id" />
+        <result column="SYSTEM_NAME" property="systemName"/>
+        <result column="PARAMETER_NAME" property="parameterName"/>
+        <result column="DESCRIBE" property="describe"/>
+        <result column="DIVISION" property="division"/>
+        <result column="TYPE" property="type"/>
+        <result column="VALUE_BOUND" property="valueBound"/>
+        <result column="VALUE" property="value"/>
+        <result column="REMARK" property="remark"/>
+        <result column="CREATE_BY" property="createBy"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="UPDATE_BY" property="updateBy"/>
+        <result column="UPDATE_DATE" property="updateDate"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.common.entity.Parameter">
+        INSERT INTO PARAMETER(
+            ID ,
+            SYSTEM_NAME ,
+            PARAMETER_NAME ,
+            DESCRIBE ,
+            DIVISION ,
+            TYPE ,
+            VALUE_BOUND ,
+            VALUE ,
+            REMARK ,
+            CREATE_BY ,
+            CREATE_DATE ,
+            UPDATE_BY ,
+            UPDATE_DATE 
+        ) VALUES (
+            #{id} ,
+            #{systemName} ,
+            #{parameterName} ,
+            #{describe} ,
+            #{division} ,
+            #{type} ,
+            #{valueBound} ,
+            #{value} ,
+            #{remark} ,
+            #{createBy} ,
+            #{createDate} ,
+            #{updateBy} ,
+            #{updateDate} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM PARAMETER WHERE ID = #{id}
+    </delete>
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.common.entity.Parameter">
+        INSERT INTO PARAMETER
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="systemName != null">
+                SYSTEM_NAME ,
+        </if>
+        <if test="parameterName != null">
+                PARAMETER_NAME ,
+        </if>
+        <if test="describe != null">
+                DESCRIBE ,
+        </if>
+        <if test="division != null">
+                DIVISION ,
+        </if>
+        <if test="type != null">
+                TYPE ,
+        </if>
+        <if test="valueBound != null">
+                VALUE_BOUND ,
+        </if>
+        <if test="value != null">
+                VALUE ,
+        </if>
+        <if test="remark != null">
+                REMARK ,
+        </if>
+        <if test="createBy != null">
+                CREATE_BY ,
+        </if>
+        <if test="createDate != null">
+                CREATE_DATE ,
+        </if>
+        <if test="updateBy != null">
+                UPDATE_BY ,
+        </if>
+        <if test="updateDate != null">
+                UPDATE_DATE 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="systemName != null">
+                #{systemName} ,
+        </if>
+        <if test="parameterName != null">
+                #{parameterName} ,
+        </if>
+        <if test="describe != null">
+                #{describe} ,
+        </if>
+        <if test="division != null">
+                #{division} ,
+        </if>
+        <if test="type != null">
+                #{type} ,
+        </if>
+        <if test="valueBound != null">
+                #{valueBound} ,
+        </if>
+        <if test="value != null">
+                #{value} ,
+        </if>
+        <if test="remark != null">
+                #{remark} ,
+        </if>
+        <if test="createBy != null">
+                #{createBy} ,
+        </if>
+        <if test="createDate != null">
+                #{createDate} ,
+        </if>
+        <if test="updateBy != null">
+                #{updateBy} ,
+        </if>
+        <if test="updateDate != null">
+                #{updateDate} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.common.entity.Parameter">
+        UPDATE PARAMETER
+           <set>
+            <if test="systemName != null">
+                SYSTEM_NAME = #{systemName} ,
+            </if>
+            <if test="parameterName != null">
+                PARAMETER_NAME = #{parameterName} ,
+            </if>
+            <if test="describe != null">
+                DESCRIBE = #{describe} ,
+            </if>
+            <if test="division != null">
+                DIVISION = #{division} ,
+            </if>
+            <if test="type != null">
+                TYPE = #{type} ,
+            </if>
+            <if test="valueBound != null">
+                VALUE_BOUND = #{valueBound} ,
+            </if>
+            <if test="value != null">
+                VALUE = #{value} ,
+            </if>
+            <if test="remark != null">
+                REMARK = #{remark} ,
+            </if>
+            <if test="createBy != null">
+                CREATE_BY = #{createBy} ,
+            </if>
+            <if test="createDate != null">
+                CREATE_DATE = #{createDate} ,
+            </if>
+            <if test="updateBy != null">
+                UPDATE_BY = #{updateBy} ,
+            </if>
+            <if test="updateDate != null">
+                UPDATE_DATE = #{updateDate} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO PARAMETER(
+            ID ,
+            SYSTEM_NAME ,
+            PARAMETER_NAME ,
+            DESCRIBE ,
+            DIVISION ,
+            TYPE ,
+            VALUE_BOUND ,
+            VALUE ,
+            REMARK ,
+            CREATE_BY ,
+            CREATE_DATE ,
+            UPDATE_BY ,
+            UPDATE_DATE 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.systemName} ,
+            #{item.parameterName} ,
+            #{item.describe} ,
+            #{item.division} ,
+            #{item.type} ,
+            #{item.valueBound} ,
+            #{item.value} ,
+            #{item.remark} ,
+            #{item.createBy} ,
+            #{item.createDate} ,
+            #{item.updateBy} ,
+            #{item.updateDate} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE PARAMETER SET
+            SYSTEM_NAME = #{item.systemName} ,
+            PARAMETER_NAME = #{item.parameterName} ,
+            DESCRIBE = #{item.describe} ,
+            DIVISION = #{item.division} ,
+            TYPE = #{item.type} ,
+            VALUE_BOUND = #{item.valueBound} ,
+            VALUE = #{item.value} ,
+            REMARK = #{item.remark} ,
+            CREATE_BY = #{item.createBy} ,
+            CREATE_DATE = #{item.createDate} ,
+            UPDATE_BY = #{item.updateBy} ,
+            UPDATE_DATE = #{item.updateDate} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.common.entity.Parameter">
+        UPDATE PARAMETER SET
+            SYSTEM_NAME = #{systemName} ,
+            PARAMETER_NAME = #{parameterName} ,
+            DESCRIBE = #{describe} ,
+            DIVISION = #{division} ,
+            TYPE = #{type} ,
+            VALUE_BOUND = #{valueBound} ,
+            VALUE = #{value} ,
+            REMARK = #{remark} ,
+            CREATE_BY = #{createBy} ,
+            CREATE_DATE = #{createDate} ,
+            UPDATE_BY = #{updateBy} ,
+            UPDATE_DATE = #{updateDate} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.common.entity.Parameter">
+        SELECT <include refid="parameterColumns"/> FROM PARAMETER a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.common.entity.Parameter">
+        SELECT
+        <include refid="parameterColumns"/>
+        FROM PARAMETER a WHERE 1 = 1
+        <if test="systemName != null">
+            AND a.SYSTEM_NAME LIKE '%'||#{systemName}||'%'
+        </if>
+        <if test="parameterName != null">
+            AND a.PARAMETER_NAME LIKE '%'||#{parameterName}||'%'
+        </if>
+        <if test="describe != null">
+            AND a.DESCRIBE LIKE '%'||#{describe}||'%'
+        </if>
+        <if test="division != null">
+            AND a.DIVISION LIKE '%'||#{division}||'%'
+        </if>
+        <if test="type != null">
+            AND a.TYPE LIKE '%'||#{type}||'%'
+        </if>
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.common.entity.Parameter">
+        SELECT
+        <include refid="parameterColumns"/>
+        FROM PARAMETER a
+    </select>
+
+</mapper>
+

@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.common.mapper.NewsBulletinMapper">
+    <!-- 基础列 -->
+    <sql id="newsBulletinColumns">
+        a.ID as id,
+        a.TITLE as title,
+        a.TYPE as type,
+        a.CONTENT as content,
+        a.LANG as lang,
+        a.STATUS as status,
+        a.IS_TIMED_JOB as isTimedJob,
+        a.CREATE_BY as createBy,
+        a.CREATE_DATE as createDate,
+        a.UPDATE_BY as updateBy,
+        a.UPDATE_DATE as updateDate,
+        a.CRON as cron,
+        a.CLIENT_TYPE as clientType,
+        a.RELEASE_DATE as releaseDate
+    </sql>
+
+    <resultMap id="newsBulletinResultMap" type="com.fintech.gams.common.entity.NewsBulletin">
+        <id column="ID" property="id" />
+        <result column="TITLE" property="title"/>
+        <result column="TYPE" property="type"/>
+        <result column="CONTENT" property="content"/>
+        <result column="LANG" property="lang"/>
+        <result column="STATUS" property="status"/>
+        <result column="IS_TIMED_JOB" property="isTimedJob"/>
+        <result column="CREATE_BY" property="createBy"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="UPDATE_BY" property="updateBy"/>
+        <result column="UPDATE_DATE" property="updateDate"/>
+        <result column="CRON" property="cron"/>
+        <result column="CLIENT_TYPE" property="clientType"/>
+        <result column="RELEASE_DATE" property="releaseDate"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.common.entity.NewsBulletin">
+        INSERT INTO NEWS_BULLETIN(
+            ID ,
+            TITLE ,
+            TYPE ,
+            CONTENT ,
+            LANG ,
+            STATUS ,
+            IS_TIMED_JOB ,
+            CREATE_BY ,
+            CREATE_DATE ,
+            UPDATE_BY ,
+            UPDATE_DATE ,
+            CRON ,
+            CLIENT_TYPE ,
+            RELEASE_DATE 
+        ) VALUES (
+            #{id} ,
+            #{title} ,
+            #{type} ,
+            #{content} ,
+            #{lang} ,
+            #{status} ,
+            #{isTimedJob} ,
+            #{createBy} ,
+            #{createDate} ,
+            #{updateBy} ,
+            #{updateDate} ,
+            #{cron} ,
+            #{clientType} ,
+            #{releaseDate} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM NEWS_BULLETIN WHERE ID = #{id}
+    </delete>
+
+    <!-- 根据主键逻辑删除
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE NEWS_BULLETIN SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+    -->
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.common.entity.NewsBulletin">
+        INSERT INTO NEWS_BULLETIN
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="title != null">
+                TITLE ,
+        </if>
+        <if test="type != null">
+                TYPE ,
+        </if>
+        <if test="content != null">
+                CONTENT ,
+        </if>
+        <if test="lang != null">
+                LANG ,
+        </if>
+        <if test="status != null">
+                STATUS ,
+        </if>
+        <if test="isTimedJob != null">
+                IS_TIMED_JOB ,
+        </if>
+        <if test="createBy != null">
+                CREATE_BY ,
+        </if>
+        <if test="createDate != null">
+                CREATE_DATE ,
+        </if>
+        <if test="updateBy != null">
+                UPDATE_BY ,
+        </if>
+        <if test="updateDate != null">
+                UPDATE_DATE ,
+        </if>
+        <if test="cron != null">
+                CRON ,
+        </if>
+        <if test="clientType != null">
+                CLIENT_TYPE ,
+        </if>
+        <if test="releaseDate != null">
+                RELEASE_DATE 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="title != null">
+                #{title} ,
+        </if>
+        <if test="type != null">
+                #{type} ,
+        </if>
+        <if test="content != null">
+                #{content} ,
+        </if>
+        <if test="lang != null">
+                #{lang} ,
+        </if>
+        <if test="status != null">
+                #{status} ,
+        </if>
+        <if test="isTimedJob != null">
+                #{isTimedJob} ,
+        </if>
+        <if test="createBy != null">
+                #{createBy} ,
+        </if>
+        <if test="createDate != null">
+                #{createDate} ,
+        </if>
+        <if test="updateBy != null">
+                #{updateBy} ,
+        </if>
+        <if test="updateDate != null">
+                #{updateDate} ,
+        </if>
+        <if test="cron != null">
+                #{cron} ,
+        </if>
+        <if test="clientType != null">
+                #{clientType} ,
+        </if>
+        <if test="releaseDate != null">
+                #{releaseDate} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.common.entity.NewsBulletin">
+        UPDATE NEWS_BULLETIN
+           <set>
+            <if test="title != null">
+                TITLE = #{title} ,
+            </if>
+            <if test="type != null">
+                TYPE = #{type} ,
+            </if>
+            <if test="content != null">
+                CONTENT = #{content} ,
+            </if>
+            <if test="lang != null">
+                LANG = #{lang} ,
+            </if>
+            <if test="status != null">
+                STATUS = #{status} ,
+            </if>
+            <if test="isTimedJob != null">
+                IS_TIMED_JOB = #{isTimedJob} ,
+            </if>
+            <if test="createBy != null">
+                CREATE_BY = #{createBy} ,
+            </if>
+            <if test="createDate != null">
+                CREATE_DATE = #{createDate} ,
+            </if>
+            <if test="updateBy != null">
+                UPDATE_BY = #{updateBy} ,
+            </if>
+            <if test="updateDate != null">
+                UPDATE_DATE = #{updateDate} ,
+            </if>
+            <if test="cron != null">
+                CRON = #{cron} ,
+            </if>
+            <if test="clientType != null">
+                CLIENT_TYPE = #{clientType} ,
+            </if>
+            <if test="releaseDate != null">
+                RELEASE_DATE = #{releaseDate} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO NEWS_BULLETIN(
+            ID ,
+            TITLE ,
+            TYPE ,
+            CONTENT ,
+            LANG ,
+            STATUS ,
+            IS_TIMED_JOB ,
+            CREATE_BY ,
+            CREATE_DATE ,
+            UPDATE_BY ,
+            UPDATE_DATE ,
+            CRON ,
+            CLIENT_TYPE ,
+            RELEASE_DATE 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.title} ,
+            #{item.type} ,
+            #{item.content} ,
+            #{item.lang} ,
+            #{item.status} ,
+            #{item.isTimedJob} ,
+            #{item.createBy} ,
+            #{item.createDate} ,
+            #{item.updateBy} ,
+            #{item.updateDate} ,
+            #{item.cron} ,
+            #{item.clientType} ,
+            #{item.releaseDate} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE NEWS_BULLETIN SET
+            TITLE = #{item.title} ,
+            TYPE = #{item.type} ,
+            CONTENT = #{item.content} ,
+            LANG = #{item.lang} ,
+            STATUS = #{item.status} ,
+            IS_TIMED_JOB = #{item.isTimedJob} ,
+            CREATE_BY = #{item.createBy} ,
+            CREATE_DATE = #{item.createDate} ,
+            UPDATE_BY = #{item.updateBy} ,
+            UPDATE_DATE = #{item.updateDate} ,
+            CRON = #{item.cron} ,
+            CLIENT_TYPE = #{item.clientType} ,
+            RELEASE_DATE = #{item.releaseDate} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.common.entity.NewsBulletin">
+        UPDATE NEWS_BULLETIN SET
+            TITLE = #{title} ,
+            TYPE = #{type} ,
+            CONTENT = #{content} ,
+            LANG = #{lang} ,
+            STATUS = #{status} ,
+            IS_TIMED_JOB = #{isTimedJob} ,
+            CREATE_BY = #{createBy} ,
+            CREATE_DATE = #{createDate} ,
+            UPDATE_BY = #{updateBy} ,
+            UPDATE_DATE = #{updateDate} ,
+            CRON = #{cron} ,
+            CLIENT_TYPE = #{clientType} ,
+            RELEASE_DATE = #{releaseDate} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.common.entity.NewsBulletin">
+        SELECT <include refid="newsBulletinColumns"/> FROM NEWS_BULLETIN a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.common.entity.NewsBulletin">
+        SELECT
+        <include refid="newsBulletinColumns"/>
+        FROM NEWS_BULLETIN a WHERE 1 = 1 <!-- and a.DEL_FLAG = 0-->
+        <if test="title != null">
+            AND a.TITLE LIKE '%'||#{title}||'%'
+        </if>
+        <if test="type != null">
+            AND a.TYPE LIKE '%'||#{type}||'%'
+        </if>
+        <if test="content != null">
+            AND a.CONTENT LIKE '%'||#{content}||'%'
+        </if>
+        <if test="lang != null">
+            AND a.LANG LIKE '%'||#{lang}||'%'
+        </if>
+        <if test="status != null">
+            AND a.STATUS = #{status}
+        </if>
+        <if test="isTimedJob != null">
+            AND a.IS_TIMED_JOB = #{isTimedJob}
+        </if>
+        <if test="createBy != null">
+            AND a.CREATE_BY = #{createBy}
+        </if>
+        <if test="createDate != null">
+            AND a.CREATE_DATE = #{createDate}
+        </if>
+        <if test="updateBy != null">
+            AND a.UPDATE_BY = #{updateBy}
+        </if>
+        <if test="updateDate != null">
+            AND a.UPDATE_DATE = #{updateDate}
+        </if>
+        <if test="cron != null">
+            AND a.CRON LIKE '%'||#{cron}||'%'
+        </if>
+        <if test="clientType != null">
+            AND a.CLIENT_TYPE LIKE '%'||#{clientType}||'%'
+        </if>
+        <if test="releaseDate != null">
+            AND a.RELEASE_DATE = #{releaseDate}
+        </if>
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.common.entity.NewsBulletin">
+        SELECT
+        <include refid="newsBulletinColumns"/>
+        FROM NEWS_BULLETIN a <!--WHERE a.DEL_FLAG = 0-->
+    </select>
+
+    <!-- 根据更新时间排序 -->
+    <select id="findOrderyUpdateDate" resultType="com.fintech.gams.common.entity.NewsBulletin">
+        SELECT
+        <include refid="newsBulletinColumns"/>
+        FROM NEWS_BULLETIN a WHERE 1 = 1 <!-- and a.DEL_FLAG = 0-->
+        <if test="model.type != null">
+            AND a.TYPE = #{model.type}
+        </if>
+        <if test="model.lang != null">
+            AND a.LANG = #{model.lang}
+        </if>
+        <if test="model.status != null">
+            AND a.STATUS = #{model.status}
+        </if>
+        <if test="model.clientType != null">
+            AND a.CLIENT_TYPE LIKE '%'||#{model.clientType}||'%'
+        </if>
+        <if test="model.startDate != null and model.endDate != null">
+            AND a.CREATE_DATE &gt;= #{model.startDate}
+            AND a.CREATE_DATE &lt;= #{model.endDate}
+        </if>
+        ORDER BY a.UPDATE_DATE DESC NULLS LAST
+    </select>
+
+    <!-- 根据发布时间排序 -->
+    <select id="findOrderyReleaseDate" resultType="com.fintech.gams.common.entity.NewsBulletin">
+        SELECT
+        <include refid="newsBulletinColumns"/>
+        FROM NEWS_BULLETIN a WHERE 1 = 1 <!-- and a.DEL_FLAG = 0-->
+        <if test="model.type != null">
+            AND a.TYPE = #{model.type}
+        </if>
+        <if test="model.lang != null">
+            AND a.LANG = #{model.lang}
+        </if>
+        <if test="model.status != null">
+            AND a.STATUS = #{model.status}
+        </if>
+        <if test="model.clientType != null">
+            AND a.CLIENT_TYPE LIKE '%'||#{model.clientType}||'%'
+        </if>
+        <if test="model.startDate != null and model.endDate != null">
+            AND a.CREATE_DATE &gt;= #{model.startDate}
+            AND a.CREATE_DATE &lt;= #{model.endDate}
+        </if>
+        ORDER BY a.RELEASE_DATE DESC NULLS LAST
+    </select>
+
+    <!-- 查询定时任务列表信息 -->
+    <select id="scheduleReleaseInfo" resultType="com.fintech.gams.common.entity.NewsBulletin">
+        SELECT
+        <include refid="newsBulletinColumns"/>
+        FROM NEWS_BULLETIN a WHERE  <!-- and a.DEL_FLAG = 0-->
+             a.STATUS = 0
+            AND a.IS_TIMED_JOB = 1
+    </select>
+
+
+</mapper>
+

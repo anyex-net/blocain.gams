@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.account.mapper.AccountCommonAgreementTypeMapper">
+    <!-- 基础列 -->
+    <sql id="accountCommonAgreementTypeColumns">
+        a.ID as id,
+        a.AGREEMENT_TYPE as agreementType,
+        a.ACCOUNT_TYPE as accountType,
+        a.AGREEMENT_NUMBER as agreementNumber,
+        a.AGREEMENT_LOCATION as agreementLocation,
+        a.ACCOUNT_PORTFOLIO_TYPE as accountPortfolioType
+    </sql>
+
+    <resultMap id="accountCommonAgreementTypeResultMap" type="com.fintech.gams.account.entity.AccountCommonAgreementType">
+        <id column="ID" property="id" />
+        <result column="AGREEMENT_TYPE" property="agreementType"/>
+        <result column="ACCOUNT_TYPE" property="accountType"/>
+        <result column="AGREEMENT_NUMBER" property="agreementNumber"/>
+        <result column="AGREEMENT_LOCATION" property="agreementLocation"/>
+        <result column="ACCOUNT_PORTFOLIO_TYPE" property="accountPortfolioType"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.account.entity.AccountCommonAgreementType">
+        INSERT INTO ACCOUNT_COMMON_AGREEMENT_TYPE(
+            ID ,
+            AGREEMENT_TYPE ,
+            ACCOUNT_TYPE ,
+            AGREEMENT_NUMBER ,
+            AGREEMENT_LOCATION ,
+            ACCOUNT_PORTFOLIO_TYPE 
+        ) VALUES (
+            #{id} ,
+            #{agreementType} ,
+            #{accountType} ,
+            #{agreementNumber} ,
+            #{agreementLocation} ,
+            #{accountPortfolioType} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM ACCOUNT_COMMON_AGREEMENT_TYPE WHERE ID = #{id}
+    </delete>
+
+    <!-- 根据主键逻辑删除
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE ACCOUNT_COMMON_AGREEMENT_TYPE SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+    -->
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.account.entity.AccountCommonAgreementType">
+        INSERT INTO ACCOUNT_COMMON_AGREEMENT_TYPE
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="agreementType != null">
+                AGREEMENT_TYPE ,
+        </if>
+        <if test="accountType != null">
+                ACCOUNT_TYPE ,
+        </if>
+        <if test="agreementNumber != null">
+                AGREEMENT_NUMBER ,
+        </if>
+        <if test="agreementLocation != null">
+                AGREEMENT_LOCATION ,
+        </if>
+        <if test="accountPortfolioType != null">
+                ACCOUNT_PORTFOLIO_TYPE 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="agreementType != null">
+                #{agreementType} ,
+        </if>
+        <if test="accountType != null">
+                #{accountType} ,
+        </if>
+        <if test="agreementNumber != null">
+                #{agreementNumber} ,
+        </if>
+        <if test="agreementLocation != null">
+                #{agreementLocation} ,
+        </if>
+        <if test="accountPortfolioType != null">
+                #{accountPortfolioType} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.account.entity.AccountCommonAgreementType">
+        UPDATE ACCOUNT_COMMON_AGREEMENT_TYPE
+           <set>
+            <if test="agreementType != null">
+                AGREEMENT_TYPE = #{agreementType} ,
+            </if>
+            <if test="accountType != null">
+                ACCOUNT_TYPE = #{accountType} ,
+            </if>
+            <if test="agreementNumber != null">
+                AGREEMENT_NUMBER = #{agreementNumber} ,
+            </if>
+            <if test="agreementLocation != null">
+                AGREEMENT_LOCATION = #{agreementLocation} ,
+            </if>
+            <if test="accountPortfolioType != null">
+                ACCOUNT_PORTFOLIO_TYPE = #{accountPortfolioType} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO ACCOUNT_COMMON_AGREEMENT_TYPE(
+            ID ,
+            AGREEMENT_TYPE ,
+            ACCOUNT_TYPE ,
+            AGREEMENT_NUMBER ,
+            AGREEMENT_LOCATION ,
+            ACCOUNT_PORTFOLIO_TYPE 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.agreementType} ,
+            #{item.accountType} ,
+            #{item.agreementNumber} ,
+            #{item.agreementLocation} ,
+            #{item.accountPortfolioType} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE ACCOUNT_COMMON_AGREEMENT_TYPE SET
+            AGREEMENT_TYPE = #{item.agreementType} ,
+            ACCOUNT_TYPE = #{item.accountType} ,
+            AGREEMENT_NUMBER = #{item.agreementNumber} ,
+            AGREEMENT_LOCATION = #{item.agreementLocation} ,
+            ACCOUNT_PORTFOLIO_TYPE = #{item.accountPortfolioType} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.account.entity.AccountCommonAgreementType">
+        UPDATE ACCOUNT_COMMON_AGREEMENT_TYPE SET
+            AGREEMENT_TYPE = #{agreementType} ,
+            ACCOUNT_TYPE = #{accountType} ,
+            AGREEMENT_NUMBER = #{agreementNumber} ,
+            AGREEMENT_LOCATION = #{agreementLocation} ,
+            ACCOUNT_PORTFOLIO_TYPE = #{accountPortfolioType} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.account.entity.AccountCommonAgreementType">
+        SELECT <include refid="accountCommonAgreementTypeColumns"/> FROM ACCOUNT_COMMON_AGREEMENT_TYPE a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.account.entity.AccountCommonAgreementType">
+        SELECT
+        <include refid="accountCommonAgreementTypeColumns"/>
+        FROM ACCOUNT_COMMON_AGREEMENT_TYPE a WHERE 1 = 1 <!-- and a.DEL_FLAG = 0-->
+        <if test="agreementType != null">
+            AND a.AGREEMENT_TYPE LIKE '%'||#{agreementType}||'%'
+        </if>
+        <if test="accountType != null">
+            AND a.ACCOUNT_TYPE LIKE '%'||#{accountType}||'%'
+        </if>
+        <if test="agreementNumber != null">
+            AND a.AGREEMENT_NUMBER LIKE '%'||#{agreementNumber}||'%'
+        </if>
+        <if test="agreementLocation != null">
+            AND a.AGREEMENT_LOCATION LIKE '%'||#{agreementLocation}||'%'
+        </if>
+        <if test="accountPortfolioType != null">
+            AND a.ACCOUNT_PORTFOLIO_TYPE LIKE '%'||#{accountPortfolioType}||'%'
+        </if>
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.account.entity.AccountCommonAgreementType">
+        SELECT
+        <include refid="accountCommonAgreementTypeColumns"/>
+        FROM ACCOUNT_COMMON_AGREEMENT_TYPE a <!--WHERE a.DEL_FLAG = 0-->
+    </select>
+
+
+</mapper>
+

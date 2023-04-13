@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.asset.mapper.AssetCurrentMapper">
+    <!-- 基础列 -->
+    <sql id="assetCurrentColumns">
+        a.ID as id,
+        a.ACCOUNT_ID as accountId,
+        a.CURRENT_TIMESTAMP as currentTimestamp,
+        a.BUSINESS_FLAG as businessFlag,
+        a.STOCKINFO_ID as stockinfoId,
+        a.OCCUR_DIRECT as occurDirect,
+        a.ORIGINAL_AMOUNT as originalAmount,
+        a.OCCUR_AMOUNT as occurAmount,
+        a.LAST_AMOUNT as lastAmount,
+        a.FORZEN_ORIGINAL_AMOUNT as forzenOriginalAmount,
+        a.OCCUR_FORZEN_AMOUNT as occurForzenAmount,
+        a.FORZEN_LAST_AMOUNT as forzenLastAmount,
+        a.TRANSACTION_ID as transactionId,
+        a.DEPOSIT_ACCOUNT as depositAccount,
+        a.WITHDRAW_ACCOUNT as withdrawAccount,
+        a.FEE as fee,
+        a.NETFEE as netfee,
+        a.STATUS as status,
+        a.ORIGINAL_BUSINESS_ID as originalBusinessId,
+        a.REMARK as remark
+    </sql>
+
+    <resultMap id="assetCurrentResultMap" type="com.fintech.gams.asset.entity.AssetCurrent">
+        <id column="ID" property="id" />
+        <result column="ACCOUNT_ID" property="accountId"/>
+        <result column="CURRENT_TIMESTAMP" property="currentTimestamp"/>
+        <result column="BUSINESS_FLAG" property="businessFlag"/>
+        <result column="STOCKINFO_ID" property="stockinfoId"/>
+        <result column="OCCUR_DIRECT" property="occurDirect"/>
+        <result column="ORIGINAL_AMOUNT" property="originalAmount"/>
+        <result column="OCCUR_AMOUNT" property="occurAmount"/>
+        <result column="LAST_AMOUNT" property="lastAmount"/>
+        <result column="FORZEN_ORIGINAL_AMOUNT" property="forzenOriginalAmount"/>
+        <result column="OCCUR_FORZEN_AMOUNT" property="occurForzenAmount"/>
+        <result column="FORZEN_LAST_AMOUNT" property="forzenLastAmount"/>
+        <result column="TRANSACTION_ID" property="transactionId"/>
+        <result column="DEPOSIT_ACCOUNT" property="depositAccount"/>
+        <result column="WITHDRAW_ACCOUNT" property="withdrawAccount"/>
+        <result column="FEE" property="fee"/>
+        <result column="NETFEE" property="netfee"/>
+        <result column="STATUS" property="status"/>
+        <result column="ORIGINAL_BUSINESS_ID" property="originalBusinessId"/>
+        <result column="REMARK" property="remark"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.asset.entity.AssetCurrent">
+        INSERT INTO ASSET_CURRENT(
+            ID ,
+            ACCOUNT_ID ,
+            CURRENT_TIMESTAMP ,
+            BUSINESS_FLAG ,
+            STOCKINFO_ID ,
+            OCCUR_DIRECT ,
+            ORIGINAL_AMOUNT ,
+            OCCUR_AMOUNT ,
+            LAST_AMOUNT ,
+            FORZEN_ORIGINAL_AMOUNT ,
+            OCCUR_FORZEN_AMOUNT ,
+            FORZEN_LAST_AMOUNT ,
+            TRANSACTION_ID ,
+            DEPOSIT_ACCOUNT ,
+            WITHDRAW_ACCOUNT ,
+            FEE ,
+            NETFEE ,
+            STATUS ,
+            ORIGINAL_BUSINESS_ID ,
+            REMARK 
+        ) VALUES (
+            #{id} ,
+            #{accountId} ,
+            #{currentTimestamp} ,
+            #{businessFlag} ,
+            #{stockinfoId} ,
+            #{occurDirect} ,
+            #{originalAmount} ,
+            #{occurAmount} ,
+            #{lastAmount} ,
+            #{forzenOriginalAmount} ,
+            #{occurForzenAmount} ,
+            #{forzenLastAmount} ,
+            #{transactionId} ,
+            #{depositAccount} ,
+            #{withdrawAccount} ,
+            #{fee} ,
+            #{netfee} ,
+            #{status} ,
+            #{originalBusinessId} ,
+            #{remark} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM ASSET_CURRENT WHERE ID = #{id}
+    </delete>
+
+    <!-- 根据主键逻辑删除
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE ASSET_CURRENT SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+    -->
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.asset.entity.AssetCurrent">
+        INSERT INTO ASSET_CURRENT
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="accountId != null">
+                ACCOUNT_ID ,
+        </if>
+        <if test="currentTimestamp != null">
+                CURRENT_TIMESTAMP ,
+        </if>
+        <if test="businessFlag != null">
+                BUSINESS_FLAG ,
+        </if>
+        <if test="stockinfoId != null">
+                STOCKINFO_ID ,
+        </if>
+        <if test="occurDirect != null">
+                OCCUR_DIRECT ,
+        </if>
+        <if test="originalAmount != null">
+                ORIGINAL_AMOUNT ,
+        </if>
+        <if test="occurAmount != null">
+                OCCUR_AMOUNT ,
+        </if>
+        <if test="lastAmount != null">
+                LAST_AMOUNT ,
+        </if>
+        <if test="forzenOriginalAmount != null">
+                FORZEN_ORIGINAL_AMOUNT ,
+        </if>
+        <if test="occurForzenAmount != null">
+                OCCUR_FORZEN_AMOUNT ,
+        </if>
+        <if test="forzenLastAmount != null">
+                FORZEN_LAST_AMOUNT ,
+        </if>
+        <if test="transactionId != null">
+                TRANSACTION_ID ,
+        </if>
+        <if test="depositAccount != null">
+                DEPOSIT_ACCOUNT ,
+        </if>
+        <if test="withdrawAccount != null">
+                WITHDRAW_ACCOUNT ,
+        </if>
+        <if test="fee != null">
+                FEE ,
+        </if>
+        <if test="netfee != null">
+                NETFEE ,
+        </if>
+        <if test="status != null">
+                STATUS ,
+        </if>
+        <if test="originalBusinessId != null">
+                ORIGINAL_BUSINESS_ID ,
+        </if>
+        <if test="remark != null">
+                REMARK 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="accountId != null">
+                #{accountId} ,
+        </if>
+        <if test="currentTimestamp != null">
+                #{currentTimestamp} ,
+        </if>
+        <if test="businessFlag != null">
+                #{businessFlag} ,
+        </if>
+        <if test="stockinfoId != null">
+                #{stockinfoId} ,
+        </if>
+        <if test="occurDirect != null">
+                #{occurDirect} ,
+        </if>
+        <if test="originalAmount != null">
+                #{originalAmount} ,
+        </if>
+        <if test="occurAmount != null">
+                #{occurAmount} ,
+        </if>
+        <if test="lastAmount != null">
+                #{lastAmount} ,
+        </if>
+        <if test="forzenOriginalAmount != null">
+                #{forzenOriginalAmount} ,
+        </if>
+        <if test="occurForzenAmount != null">
+                #{occurForzenAmount} ,
+        </if>
+        <if test="forzenLastAmount != null">
+                #{forzenLastAmount} ,
+        </if>
+        <if test="transactionId != null">
+                #{transactionId} ,
+        </if>
+        <if test="depositAccount != null">
+                #{depositAccount} ,
+        </if>
+        <if test="withdrawAccount != null">
+                #{withdrawAccount} ,
+        </if>
+        <if test="fee != null">
+                #{fee} ,
+        </if>
+        <if test="netfee != null">
+                #{netfee} ,
+        </if>
+        <if test="status != null">
+                #{status} ,
+        </if>
+        <if test="originalBusinessId != null">
+                #{originalBusinessId} ,
+        </if>
+        <if test="remark != null">
+                #{remark} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.asset.entity.AssetCurrent">
+        UPDATE ASSET_CURRENT
+           <set>
+            <if test="accountId != null">
+                ACCOUNT_ID = #{accountId} ,
+            </if>
+            <if test="currentTimestamp != null">
+                CURRENT_TIMESTAMP = #{currentTimestamp} ,
+            </if>
+            <if test="businessFlag != null">
+                BUSINESS_FLAG = #{businessFlag} ,
+            </if>
+            <if test="stockinfoId != null">
+                STOCKINFO_ID = #{stockinfoId} ,
+            </if>
+            <if test="occurDirect != null">
+                OCCUR_DIRECT = #{occurDirect} ,
+            </if>
+            <if test="originalAmount != null">
+                ORIGINAL_AMOUNT = #{originalAmount} ,
+            </if>
+            <if test="occurAmount != null">
+                OCCUR_AMOUNT = #{occurAmount} ,
+            </if>
+            <if test="lastAmount != null">
+                LAST_AMOUNT = #{lastAmount} ,
+            </if>
+            <if test="forzenOriginalAmount != null">
+                FORZEN_ORIGINAL_AMOUNT = #{forzenOriginalAmount} ,
+            </if>
+            <if test="occurForzenAmount != null">
+                OCCUR_FORZEN_AMOUNT = #{occurForzenAmount} ,
+            </if>
+            <if test="forzenLastAmount != null">
+                FORZEN_LAST_AMOUNT = #{forzenLastAmount} ,
+            </if>
+            <if test="transactionId != null">
+                TRANSACTION_ID = #{transactionId} ,
+            </if>
+            <if test="depositAccount != null">
+                DEPOSIT_ACCOUNT = #{depositAccount} ,
+            </if>
+            <if test="withdrawAccount != null">
+                WITHDRAW_ACCOUNT = #{withdrawAccount} ,
+            </if>
+            <if test="fee != null">
+                FEE = #{fee} ,
+            </if>
+            <if test="netfee != null">
+                NETFEE = #{netfee} ,
+            </if>
+            <if test="status != null">
+                STATUS = #{status} ,
+            </if>
+            <if test="originalBusinessId != null">
+                ORIGINAL_BUSINESS_ID = #{originalBusinessId} ,
+            </if>
+            <if test="remark != null">
+                REMARK = #{remark} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO ASSET_CURRENT(
+            ID ,
+            ACCOUNT_ID ,
+            CURRENT_TIMESTAMP ,
+            BUSINESS_FLAG ,
+            STOCKINFO_ID ,
+            OCCUR_DIRECT ,
+            ORIGINAL_AMOUNT ,
+            OCCUR_AMOUNT ,
+            LAST_AMOUNT ,
+            FORZEN_ORIGINAL_AMOUNT ,
+            OCCUR_FORZEN_AMOUNT ,
+            FORZEN_LAST_AMOUNT ,
+            TRANSACTION_ID ,
+            DEPOSIT_ACCOUNT ,
+            WITHDRAW_ACCOUNT ,
+            FEE ,
+            NETFEE ,
+            STATUS ,
+            ORIGINAL_BUSINESS_ID ,
+            REMARK 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.accountId} ,
+            #{item.currentTimestamp} ,
+            #{item.businessFlag} ,
+            #{item.stockinfoId} ,
+            #{item.occurDirect} ,
+            #{item.originalAmount} ,
+            #{item.occurAmount} ,
+            #{item.lastAmount} ,
+            #{item.forzenOriginalAmount} ,
+            #{item.occurForzenAmount} ,
+            #{item.forzenLastAmount} ,
+            #{item.transactionId} ,
+            #{item.depositAccount} ,
+            #{item.withdrawAccount} ,
+            #{item.fee} ,
+            #{item.netfee} ,
+            #{item.status} ,
+            #{item.originalBusinessId} ,
+            #{item.remark} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE ASSET_CURRENT SET
+            ACCOUNT_ID = #{item.accountId} ,
+            CURRENT_TIMESTAMP = #{item.currentTimestamp} ,
+            BUSINESS_FLAG = #{item.businessFlag} ,
+            STOCKINFO_ID = #{item.stockinfoId} ,
+            OCCUR_DIRECT = #{item.occurDirect} ,
+            ORIGINAL_AMOUNT = #{item.originalAmount} ,
+            OCCUR_AMOUNT = #{item.occurAmount} ,
+            LAST_AMOUNT = #{item.lastAmount} ,
+            FORZEN_ORIGINAL_AMOUNT = #{item.forzenOriginalAmount} ,
+            OCCUR_FORZEN_AMOUNT = #{item.occurForzenAmount} ,
+            FORZEN_LAST_AMOUNT = #{item.forzenLastAmount} ,
+            TRANSACTION_ID = #{item.transactionId} ,
+            DEPOSIT_ACCOUNT = #{item.depositAccount} ,
+            WITHDRAW_ACCOUNT = #{item.withdrawAccount} ,
+            FEE = #{item.fee} ,
+            NETFEE = #{item.netfee} ,
+            STATUS = #{item.status} ,
+            ORIGINAL_BUSINESS_ID = #{item.originalBusinessId} ,
+            REMARK = #{item.remark} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.asset.entity.AssetCurrent">
+        UPDATE ASSET_CURRENT SET
+            ACCOUNT_ID = #{accountId} ,
+            CURRENT_TIMESTAMP = #{currentTimestamp} ,
+            BUSINESS_FLAG = #{businessFlag} ,
+            STOCKINFO_ID = #{stockinfoId} ,
+            OCCUR_DIRECT = #{occurDirect} ,
+            ORIGINAL_AMOUNT = #{originalAmount} ,
+            OCCUR_AMOUNT = #{occurAmount} ,
+            LAST_AMOUNT = #{lastAmount} ,
+            FORZEN_ORIGINAL_AMOUNT = #{forzenOriginalAmount} ,
+            OCCUR_FORZEN_AMOUNT = #{occurForzenAmount} ,
+            FORZEN_LAST_AMOUNT = #{forzenLastAmount} ,
+            TRANSACTION_ID = #{transactionId} ,
+            DEPOSIT_ACCOUNT = #{depositAccount} ,
+            WITHDRAW_ACCOUNT = #{withdrawAccount} ,
+            FEE = #{fee} ,
+            NETFEE = #{netfee} ,
+            STATUS = #{status} ,
+            ORIGINAL_BUSINESS_ID = #{originalBusinessId} ,
+            REMARK = #{remark} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.asset.entity.AssetCurrent">
+        SELECT <include refid="assetCurrentColumns"/> FROM ASSET_CURRENT a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.asset.entity.AssetCurrent">
+        SELECT
+        <include refid="assetCurrentColumns"/>
+        FROM ASSET_CURRENT a WHERE 1 = 1 <!-- and a.DEL_FLAG = 0-->
+        <if test="accountId != null">
+            AND a.ACCOUNT_ID = #{accountId}
+        </if>
+        <if test="currentTimestamp != null">
+            AND a.CURRENT_TIMESTAMP = #{currentTimestamp}
+        </if>
+        <if test="businessFlag != null">
+            AND a.BUSINESS_FLAG LIKE '%'||#{businessFlag}||'%'
+        </if>
+        <if test="stockinfoId != null">
+            AND a.STOCKINFO_ID = #{stockinfoId}
+        </if>
+        <if test="occurDirect != null">
+            AND a.OCCUR_DIRECT LIKE '%'||#{occurDirect}||'%'
+        </if>
+        <if test="originalAmount != null">
+            AND a.ORIGINAL_AMOUNT = #{originalAmount}
+        </if>
+        <if test="occurAmount != null">
+            AND a.OCCUR_AMOUNT = #{occurAmount}
+        </if>
+        <if test="lastAmount != null">
+            AND a.LAST_AMOUNT = #{lastAmount}
+        </if>
+        <if test="forzenOriginalAmount != null">
+            AND a.FORZEN_ORIGINAL_AMOUNT = #{forzenOriginalAmount}
+        </if>
+        <if test="occurForzenAmount != null">
+            AND a.OCCUR_FORZEN_AMOUNT = #{occurForzenAmount}
+        </if>
+        <if test="forzenLastAmount != null">
+            AND a.FORZEN_LAST_AMOUNT = #{forzenLastAmount}
+        </if>
+        <if test="transactionId != null">
+            AND a.TRANSACTION_ID LIKE '%'||#{transactionId}||'%'
+        </if>
+        <if test="depositAccount != null">
+            AND a.DEPOSIT_ACCOUNT LIKE '%'||#{depositAccount}||'%'
+        </if>
+        <if test="withdrawAccount != null">
+            AND a.WITHDRAW_ACCOUNT LIKE '%'||#{withdrawAccount}||'%'
+        </if>
+        <if test="fee != null">
+            AND a.FEE = #{fee}
+        </if>
+        <if test="netfee != null">
+            AND a.NETFEE = #{netfee}
+        </if>
+        <if test="status != null">
+            AND a.STATUS = #{status}
+        </if>
+        <if test="originalBusinessId != null">
+            AND a.ORIGINAL_BUSINESS_ID = #{originalBusinessId}
+        </if>
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.asset.entity.AssetCurrent">
+        SELECT
+        <include refid="assetCurrentColumns"/>
+        FROM ASSET_CURRENT a <!--WHERE a.DEL_FLAG = 0-->
+    </select>
+
+
+</mapper>
+

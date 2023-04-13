@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.account.mapper.AccountParTradeExperienceMapper">
+    <!-- 基础列 -->
+    <sql id="accountParTradeExperienceColumns">
+        a.ID as id,
+        a.ACCOUNT_ID as accountId,
+        a.TRADE_EXPERIENCE as tradeExperience,
+        a.YEAR_TRANSACTIONS_PER_NUMBER as yearTransactionsPerNumber,
+        a.TRANSACTIONS_TOTAL_NUMBER as transactionsTotalNumber,
+        a.KNOWLEDGE_LEVEL as knowledgeLevel,
+        a.TRADING_LOCATION as tradingLocation,
+        a.TANSACTION_TYPE as tansactionType,
+        a.TRANSACTION_AUTHORITY as transactionAuthority,
+        a.CREATED_BY as createdBy,
+        a.CREATED_DATE as createdDate,
+        a.UPDATED_BY as updatedBy,
+        a.UPDATED_DATE as updatedDate
+    </sql>
+
+    <resultMap id="accountParTradeExperienceResultMap" type="com.fintech.gams.account.entity.AccountParTradeExperience">
+        <id column="ID" property="id" />
+        <result column="ACCOUNT_ID" property="accountId"/>
+        <result column="TRADE_EXPERIENCE" property="tradeExperience"/>
+        <result column="YEAR_TRANSACTIONS_PER_NUMBER" property="yearTransactionsPerNumber"/>
+        <result column="TRANSACTIONS_TOTAL_NUMBER" property="transactionsTotalNumber"/>
+        <result column="KNOWLEDGE_LEVEL" property="knowledgeLevel"/>
+        <result column="TRADING_LOCATION" property="tradingLocation"/>
+        <result column="TANSACTION_TYPE" property="tansactionType"/>
+        <result column="TRANSACTION_AUTHORITY" property="transactionAuthority"/>
+        <result column="CREATED_BY" property="createdBy"/>
+        <result column="CREATED_DATE" property="createdDate"/>
+        <result column="UPDATED_BY" property="updatedBy"/>
+        <result column="UPDATED_DATE" property="updatedDate"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.account.entity.AccountParTradeExperience">
+        INSERT INTO ACCOUNT_PAR_TRADE_EXPERIENCE(
+            ID ,
+            ACCOUNT_ID ,
+            TRADE_EXPERIENCE ,
+            YEAR_TRANSACTIONS_PER_NUMBER ,
+            TRANSACTIONS_TOTAL_NUMBER ,
+            KNOWLEDGE_LEVEL ,
+            TRADING_LOCATION ,
+            TANSACTION_TYPE ,
+            TRANSACTION_AUTHORITY ,
+            CREATED_BY ,
+            CREATED_DATE ,
+            UPDATED_BY ,
+            UPDATED_DATE 
+        ) VALUES (
+            #{id} ,
+            #{accountId} ,
+            #{tradeExperience} ,
+            #{yearTransactionsPerNumber} ,
+            #{transactionsTotalNumber} ,
+            #{knowledgeLevel} ,
+            #{tradingLocation} ,
+            #{tansactionType} ,
+            #{transactionAuthority} ,
+            #{createdBy} ,
+            #{createdDate} ,
+            #{updatedBy} ,
+            #{updatedDate} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM ACCOUNT_PAR_TRADE_EXPERIENCE WHERE ID = #{id}
+    </delete>
+
+    <!-- 根据主键逻辑删除
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE ACCOUNT_PAR_TRADE_EXPERIENCE SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+    -->
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.account.entity.AccountParTradeExperience">
+        INSERT INTO ACCOUNT_PAR_TRADE_EXPERIENCE
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="accountId != null">
+                ACCOUNT_ID ,
+        </if>
+        <if test="tradeExperience != null">
+                TRADE_EXPERIENCE ,
+        </if>
+        <if test="yearTransactionsPerNumber != null">
+                YEAR_TRANSACTIONS_PER_NUMBER ,
+        </if>
+        <if test="transactionsTotalNumber != null">
+                TRANSACTIONS_TOTAL_NUMBER ,
+        </if>
+        <if test="knowledgeLevel != null">
+                KNOWLEDGE_LEVEL ,
+        </if>
+        <if test="tradingLocation != null">
+                TRADING_LOCATION ,
+        </if>
+        <if test="tansactionType != null">
+                TANSACTION_TYPE ,
+        </if>
+        <if test="transactionAuthority != null">
+                TRANSACTION_AUTHORITY ,
+        </if>
+        <if test="createdBy != null">
+                CREATED_BY ,
+        </if>
+        <if test="createdDate != null">
+                CREATED_DATE ,
+        </if>
+        <if test="updatedBy != null">
+                UPDATED_BY ,
+        </if>
+        <if test="updatedDate != null">
+                UPDATED_DATE 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="accountId != null">
+                #{accountId} ,
+        </if>
+        <if test="tradeExperience != null">
+                #{tradeExperience} ,
+        </if>
+        <if test="yearTransactionsPerNumber != null">
+                #{yearTransactionsPerNumber} ,
+        </if>
+        <if test="transactionsTotalNumber != null">
+                #{transactionsTotalNumber} ,
+        </if>
+        <if test="knowledgeLevel != null">
+                #{knowledgeLevel} ,
+        </if>
+        <if test="tradingLocation != null">
+                #{tradingLocation} ,
+        </if>
+        <if test="tansactionType != null">
+                #{tansactionType} ,
+        </if>
+        <if test="transactionAuthority != null">
+                #{transactionAuthority} ,
+        </if>
+        <if test="createdBy != null">
+                #{createdBy} ,
+        </if>
+        <if test="createdDate != null">
+                #{createdDate} ,
+        </if>
+        <if test="updatedBy != null">
+                #{updatedBy} ,
+        </if>
+        <if test="updatedDate != null">
+                #{updatedDate} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.account.entity.AccountParTradeExperience">
+        UPDATE ACCOUNT_PAR_TRADE_EXPERIENCE
+           <set>
+            <if test="accountId != null">
+                ACCOUNT_ID = #{accountId} ,
+            </if>
+            <if test="tradeExperience != null">
+                TRADE_EXPERIENCE = #{tradeExperience} ,
+            </if>
+            <if test="yearTransactionsPerNumber != null">
+                YEAR_TRANSACTIONS_PER_NUMBER = #{yearTransactionsPerNumber} ,
+            </if>
+            <if test="transactionsTotalNumber != null">
+                TRANSACTIONS_TOTAL_NUMBER = #{transactionsTotalNumber} ,
+            </if>
+            <if test="knowledgeLevel != null">
+                KNOWLEDGE_LEVEL = #{knowledgeLevel} ,
+            </if>
+            <if test="tradingLocation != null">
+                TRADING_LOCATION = #{tradingLocation} ,
+            </if>
+            <if test="tansactionType != null">
+                TANSACTION_TYPE = #{tansactionType} ,
+            </if>
+            <if test="transactionAuthority != null">
+                TRANSACTION_AUTHORITY = #{transactionAuthority} ,
+            </if>
+            <if test="createdBy != null">
+                CREATED_BY = #{createdBy} ,
+            </if>
+            <if test="createdDate != null">
+                CREATED_DATE = #{createdDate} ,
+            </if>
+            <if test="updatedBy != null">
+                UPDATED_BY = #{updatedBy} ,
+            </if>
+            <if test="updatedDate != null">
+                UPDATED_DATE = #{updatedDate} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO ACCOUNT_PAR_TRADE_EXPERIENCE(
+            ID ,
+            ACCOUNT_ID ,
+            TRADE_EXPERIENCE ,
+            YEAR_TRANSACTIONS_PER_NUMBER ,
+            TRANSACTIONS_TOTAL_NUMBER ,
+            KNOWLEDGE_LEVEL ,
+            TRADING_LOCATION ,
+            TANSACTION_TYPE ,
+            TRANSACTION_AUTHORITY ,
+            CREATED_BY ,
+            CREATED_DATE ,
+            UPDATED_BY ,
+            UPDATED_DATE 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.accountId} ,
+            #{item.tradeExperience} ,
+            #{item.yearTransactionsPerNumber} ,
+            #{item.transactionsTotalNumber} ,
+            #{item.knowledgeLevel} ,
+            #{item.tradingLocation} ,
+            #{item.tansactionType} ,
+            #{item.transactionAuthority} ,
+            #{item.createdBy} ,
+            #{item.createdDate} ,
+            #{item.updatedBy} ,
+            #{item.updatedDate} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE ACCOUNT_PAR_TRADE_EXPERIENCE SET
+            ACCOUNT_ID = #{item.accountId} ,
+            TRADE_EXPERIENCE = #{item.tradeExperience} ,
+            YEAR_TRANSACTIONS_PER_NUMBER = #{item.yearTransactionsPerNumber} ,
+            TRANSACTIONS_TOTAL_NUMBER = #{item.transactionsTotalNumber} ,
+            KNOWLEDGE_LEVEL = #{item.knowledgeLevel} ,
+            TRADING_LOCATION = #{item.tradingLocation} ,
+            TANSACTION_TYPE = #{item.tansactionType} ,
+            TRANSACTION_AUTHORITY = #{item.transactionAuthority} ,
+            CREATED_BY = #{item.createdBy} ,
+            CREATED_DATE = #{item.createdDate} ,
+            UPDATED_BY = #{item.updatedBy} ,
+            UPDATED_DATE = #{item.updatedDate} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.account.entity.AccountParTradeExperience">
+        UPDATE ACCOUNT_PAR_TRADE_EXPERIENCE SET
+            ACCOUNT_ID = #{accountId} ,
+            TRADE_EXPERIENCE = #{tradeExperience} ,
+            YEAR_TRANSACTIONS_PER_NUMBER = #{yearTransactionsPerNumber} ,
+            TRANSACTIONS_TOTAL_NUMBER = #{transactionsTotalNumber} ,
+            KNOWLEDGE_LEVEL = #{knowledgeLevel} ,
+            TRADING_LOCATION = #{tradingLocation} ,
+            TANSACTION_TYPE = #{tansactionType} ,
+            TRANSACTION_AUTHORITY = #{transactionAuthority} ,
+            CREATED_BY = #{createdBy} ,
+            CREATED_DATE = #{createdDate} ,
+            UPDATED_BY = #{updatedBy} ,
+            UPDATED_DATE = #{updatedDate} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.account.entity.AccountParTradeExperience">
+        SELECT <include refid="accountParTradeExperienceColumns"/> FROM ACCOUNT_PAR_TRADE_EXPERIENCE a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.account.entity.AccountParTradeExperience">
+        SELECT
+        <include refid="accountParTradeExperienceColumns"/>
+        FROM ACCOUNT_PAR_TRADE_EXPERIENCE a WHERE 1 = 1 <!-- and a.DEL_FLAG = 0-->
+        <if test="accountId != null">
+            AND a.ACCOUNT_ID = #{accountId}
+        </if>
+        <if test="tradeExperience != null">
+            AND a.TRADE_EXPERIENCE LIKE '%'||#{tradeExperience}||'%'
+        </if>
+        <if test="yearTransactionsPerNumber != null">
+            AND a.YEAR_TRANSACTIONS_PER_NUMBER LIKE '%'||#{yearTransactionsPerNumber}||'%'
+        </if>
+        <if test="transactionsTotalNumber != null">
+            AND a.TRANSACTIONS_TOTAL_NUMBER LIKE '%'||#{transactionsTotalNumber}||'%'
+        </if>
+        <if test="knowledgeLevel != null">
+            AND a.KNOWLEDGE_LEVEL LIKE '%'||#{knowledgeLevel}||'%'
+        </if>
+        <if test="tradingLocation != null">
+            AND a.TRADING_LOCATION LIKE '%'||#{tradingLocation}||'%'
+        </if>
+        <if test="tansactionType != null">
+            AND a.TANSACTION_TYPE LIKE '%'||#{tansactionType}||'%'
+        </if>
+        <if test="transactionAuthority != null">
+            AND a.TRANSACTION_AUTHORITY = #{transactionAuthority}
+        </if>
+        <if test="createdBy != null">
+            AND a.CREATED_BY = #{createdBy}
+        </if>
+        <if test="createdDate != null">
+            AND a.CREATED_DATE = #{createdDate}
+        </if>
+        <if test="updatedBy != null">
+            AND a.UPDATED_BY = #{updatedBy}
+        </if>
+        <if test="updatedDate != null">
+            AND a.UPDATED_DATE = #{updatedDate}
+        </if>
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.account.entity.AccountParTradeExperience">
+        SELECT
+        <include refid="accountParTradeExperienceColumns"/>
+        FROM ACCOUNT_PAR_TRADE_EXPERIENCE a <!--WHERE a.DEL_FLAG = 0-->
+    </select>
+
+
+</mapper>
+

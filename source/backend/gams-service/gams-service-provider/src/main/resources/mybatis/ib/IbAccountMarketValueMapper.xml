@@ -1,0 +1,692 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fintech.gams.ib.mapper.IbAccountMarketValueMapper">
+    <!-- 基础列 -->
+    <sql id="ibAccountMarketValueColumns">
+        a.ID as id,
+        a.ACCOUNT_ID as accountId,
+        a.ACCOUNT_CODE as accountCode,
+        a.CURRENCY as currency,
+        a.TOTAL_CASH_BALANCE as totalCashBalance,
+        a.CASH_BALANCE as cashBalance,
+        a.ACCRUED_CASH as accruedCash,
+        a.STOCK_MARKET_VALUE as stockMarketValue,
+        a.OPTION_MARKET_VALUE as optionMarketValue,
+        a.FUTURE_OPTION_VALUE as futureOptionValue,
+        a.FUTURES_PNL as futuresPnl,
+        a.NET_LIQUIDATION_BY_CURRENCY as netLiquidationByCurrency,
+        a.FUND_VALUE as fundValue,
+        a.NET_DIVIDEND as netDividend,
+        a.MUTUAL_FUND_VALUE as mutualFundValue,
+        a.MONEY_MARKET_FUND_VALUE as moneyMarketFundValue,
+        a.CORPORATE_BOND_VALUE as corporateBondValue,
+        a.T_BOND_VALUE as tBondValue,
+        a.T_BILL_VALUE as tBillValue,
+        a.WARRANT_VALUE as warrantValue,
+        a.FX_CASH_BALANCE as fxCashBalance,
+        a.ACCOUNT_OR_GROUP as accountOrGroup,
+        a.REAL_CURRENCY as realCurrency,
+        a.ISSUER_OPTION_VALUE as issuerOptionValue,
+        a.UNREALIZED_PNL as unrealizedPnl,
+        a.REALIZED_PNL as realizedPnl,
+        a.EXCHANGE_RATE as exchangeRate,
+        a.REMARK as remark,
+        a.CREATE_DATE as createDate,
+        a.UPDATE_DATE as updateDate
+    </sql>
+
+    <resultMap id="ibAccountMarketValueResultMap" type="com.fintech.gams.ib.entity.IbAccountMarketValue">
+        <id column="ID" property="id" />
+        <result column="ACCOUNT_ID" property="accountId"/>
+        <result column="ACCOUNT_CODE" property="accountCode"/>
+        <result column="CURRENCY" property="currency"/>
+        <result column="TOTAL_CASH_BALANCE" property="totalCashBalance"/>
+        <result column="CASH_BALANCE" property="cashBalance"/>
+        <result column="ACCRUED_CASH" property="accruedCash"/>
+        <result column="STOCK_MARKET_VALUE" property="stockMarketValue"/>
+        <result column="OPTION_MARKET_VALUE" property="optionMarketValue"/>
+        <result column="FUTURE_OPTION_VALUE" property="futureOptionValue"/>
+        <result column="FUTURES_PNL" property="futuresPnl"/>
+        <result column="NET_LIQUIDATION_BY_CURRENCY" property="netLiquidationByCurrency"/>
+        <result column="FUND_VALUE" property="fundValue"/>
+        <result column="NET_DIVIDEND" property="netDividend"/>
+        <result column="MUTUAL_FUND_VALUE" property="mutualFundValue"/>
+        <result column="MONEY_MARKET_FUND_VALUE" property="moneyMarketFundValue"/>
+        <result column="CORPORATE_BOND_VALUE" property="corporateBondValue"/>
+        <result column="T_BOND_VALUE" property="tBondValue"/>
+        <result column="T_BILL_VALUE" property="tBillValue"/>
+        <result column="WARRANT_VALUE" property="warrantValue"/>
+        <result column="FX_CASH_BALANCE" property="fxCashBalance"/>
+        <result column="ACCOUNT_OR_GROUP" property="accountOrGroup"/>
+        <result column="REAL_CURRENCY" property="realCurrency"/>
+        <result column="ISSUER_OPTION_VALUE" property="issuerOptionValue"/>
+        <result column="UNREALIZED_PNL" property="unrealizedPnl"/>
+        <result column="REALIZED_PNL" property="realizedPnl"/>
+        <result column="EXCHANGE_RATE" property="exchangeRate"/>
+        <result column="REMARK" property="remark"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="UPDATE_DATE" property="updateDate"/>
+    </resultMap>
+
+    <!-- 普通插入 -->
+    <insert id="insert" parameterType="com.fintech.gams.ib.entity.IbAccountMarketValue">
+        INSERT INTO IB_ACCOUNT_MARKET_VALUE(
+            ID ,
+            ACCOUNT_ID ,
+            ACCOUNT_CODE ,
+            CURRENCY ,
+            TOTAL_CASH_BALANCE ,
+            CASH_BALANCE ,
+            ACCRUED_CASH ,
+            STOCK_MARKET_VALUE ,
+            OPTION_MARKET_VALUE ,
+            FUTURE_OPTION_VALUE ,
+            FUTURES_PNL ,
+            NET_LIQUIDATION_BY_CURRENCY ,
+            FUND_VALUE ,
+            NET_DIVIDEND ,
+            MUTUAL_FUND_VALUE ,
+            MONEY_MARKET_FUND_VALUE ,
+            CORPORATE_BOND_VALUE ,
+            T_BOND_VALUE ,
+            T_BILL_VALUE ,
+            WARRANT_VALUE ,
+            FX_CASH_BALANCE ,
+            ACCOUNT_OR_GROUP ,
+            REAL_CURRENCY ,
+            ISSUER_OPTION_VALUE ,
+            UNREALIZED_PNL ,
+            REALIZED_PNL ,
+            EXCHANGE_RATE ,
+            REMARK ,
+            CREATE_DATE ,
+            UPDATE_DATE 
+        ) VALUES (
+            #{id} ,
+            #{accountId} ,
+            #{accountCode} ,
+            #{currency} ,
+            #{totalCashBalance} ,
+            #{cashBalance} ,
+            #{accruedCash} ,
+            #{stockMarketValue} ,
+            #{optionMarketValue} ,
+            #{futureOptionValue} ,
+            #{futuresPnl} ,
+            #{netLiquidationByCurrency} ,
+            #{fundValue} ,
+            #{netDividend} ,
+            #{mutualFundValue} ,
+            #{moneyMarketFundValue} ,
+            #{corporateBondValue} ,
+            #{tBondValue} ,
+            #{tBillValue} ,
+            #{warrantValue} ,
+            #{fxCashBalance} ,
+            #{accountOrGroup} ,
+            #{realCurrency} ,
+            #{issuerOptionValue} ,
+            #{unrealizedPnl} ,
+            #{realizedPnl} ,
+            #{exchangeRate} ,
+            #{remark} ,
+            #{createDate} ,
+            #{updateDate} 
+        )
+    </insert>
+    <!-- 根据主键物理删除 -->
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM IB_ACCOUNT_MARKET_VALUE WHERE ID = #{id}
+    </delete>
+
+    <!-- 根据主键逻辑删除
+    <update id="delete" parameterType="java.lang.Long">
+        UPDATE IB_ACCOUNT_MARKET_VALUE SET DEL_FLAG = 1 WHERE ID = #{id}
+    </update>
+    -->
+
+    <!--根据条件是否插入数据 -->
+    <insert id="insertSelective" parameterType="com.fintech.gams.ib.entity.IbAccountMarketValue">
+        INSERT INTO IB_ACCOUNT_MARKET_VALUE
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                ID ,
+        </if>
+        <if test="accountId != null">
+                ACCOUNT_ID ,
+        </if>
+        <if test="accountCode != null">
+                ACCOUNT_CODE ,
+        </if>
+        <if test="currency != null">
+                CURRENCY ,
+        </if>
+        <if test="totalCashBalance != null">
+                TOTAL_CASH_BALANCE ,
+        </if>
+        <if test="cashBalance != null">
+                CASH_BALANCE ,
+        </if>
+        <if test="accruedCash != null">
+                ACCRUED_CASH ,
+        </if>
+        <if test="stockMarketValue != null">
+                STOCK_MARKET_VALUE ,
+        </if>
+        <if test="optionMarketValue != null">
+                OPTION_MARKET_VALUE ,
+        </if>
+        <if test="futureOptionValue != null">
+                FUTURE_OPTION_VALUE ,
+        </if>
+        <if test="futuresPnl != null">
+                FUTURES_PNL ,
+        </if>
+        <if test="netLiquidationByCurrency != null">
+                NET_LIQUIDATION_BY_CURRENCY ,
+        </if>
+        <if test="fundValue != null">
+                FUND_VALUE ,
+        </if>
+        <if test="netDividend != null">
+                NET_DIVIDEND ,
+        </if>
+        <if test="mutualFundValue != null">
+                MUTUAL_FUND_VALUE ,
+        </if>
+        <if test="moneyMarketFundValue != null">
+                MONEY_MARKET_FUND_VALUE ,
+        </if>
+        <if test="corporateBondValue != null">
+                CORPORATE_BOND_VALUE ,
+        </if>
+        <if test="tBondValue != null">
+                T_BOND_VALUE ,
+        </if>
+        <if test="tBillValue != null">
+                T_BILL_VALUE ,
+        </if>
+        <if test="warrantValue != null">
+                WARRANT_VALUE ,
+        </if>
+        <if test="fxCashBalance != null">
+                FX_CASH_BALANCE ,
+        </if>
+        <if test="accountOrGroup != null">
+                ACCOUNT_OR_GROUP ,
+        </if>
+        <if test="realCurrency != null">
+                REAL_CURRENCY ,
+        </if>
+        <if test="issuerOptionValue != null">
+                ISSUER_OPTION_VALUE ,
+        </if>
+        <if test="unrealizedPnl != null">
+                UNREALIZED_PNL ,
+        </if>
+        <if test="realizedPnl != null">
+                REALIZED_PNL ,
+        </if>
+        <if test="exchangeRate != null">
+                EXCHANGE_RATE ,
+        </if>
+        <if test="remark != null">
+                REMARK ,
+        </if>
+        <if test="createDate != null">
+                CREATE_DATE ,
+        </if>
+        <if test="updateDate != null">
+                UPDATE_DATE 
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+                #{id} ,
+        </if>
+        <if test="accountId != null">
+                #{accountId} ,
+        </if>
+        <if test="accountCode != null">
+                #{accountCode} ,
+        </if>
+        <if test="currency != null">
+                #{currency} ,
+        </if>
+        <if test="totalCashBalance != null">
+                #{totalCashBalance} ,
+        </if>
+        <if test="cashBalance != null">
+                #{cashBalance} ,
+        </if>
+        <if test="accruedCash != null">
+                #{accruedCash} ,
+        </if>
+        <if test="stockMarketValue != null">
+                #{stockMarketValue} ,
+        </if>
+        <if test="optionMarketValue != null">
+                #{optionMarketValue} ,
+        </if>
+        <if test="futureOptionValue != null">
+                #{futureOptionValue} ,
+        </if>
+        <if test="futuresPnl != null">
+                #{futuresPnl} ,
+        </if>
+        <if test="netLiquidationByCurrency != null">
+                #{netLiquidationByCurrency} ,
+        </if>
+        <if test="fundValue != null">
+                #{fundValue} ,
+        </if>
+        <if test="netDividend != null">
+                #{netDividend} ,
+        </if>
+        <if test="mutualFundValue != null">
+                #{mutualFundValue} ,
+        </if>
+        <if test="moneyMarketFundValue != null">
+                #{moneyMarketFundValue} ,
+        </if>
+        <if test="corporateBondValue != null">
+                #{corporateBondValue} ,
+        </if>
+        <if test="tBondValue != null">
+                #{tBondValue} ,
+        </if>
+        <if test="tBillValue != null">
+                #{tBillValue} ,
+        </if>
+        <if test="warrantValue != null">
+                #{warrantValue} ,
+        </if>
+        <if test="fxCashBalance != null">
+                #{fxCashBalance} ,
+        </if>
+        <if test="accountOrGroup != null">
+                #{accountOrGroup} ,
+        </if>
+        <if test="realCurrency != null">
+                #{realCurrency} ,
+        </if>
+        <if test="issuerOptionValue != null">
+                #{issuerOptionValue} ,
+        </if>
+        <if test="unrealizedPnl != null">
+                #{unrealizedPnl} ,
+        </if>
+        <if test="realizedPnl != null">
+                #{realizedPnl} ,
+        </if>
+        <if test="exchangeRate != null">
+                #{exchangeRate} ,
+        </if>
+        <if test="remark != null">
+                #{remark} ,
+        </if>
+        <if test="createDate != null">
+                #{createDate} ,
+        </if>
+        <if test="updateDate != null">
+                #{updateDate} 
+        </if>
+        </trim>
+    </insert>
+
+    <!-- 选择性更新数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.fintech.gams.ib.entity.IbAccountMarketValue">
+        UPDATE IB_ACCOUNT_MARKET_VALUE
+           <set>
+            <if test="accountId != null">
+                ACCOUNT_ID = #{accountId} ,
+            </if>
+            <if test="accountCode != null">
+                ACCOUNT_CODE = #{accountCode} ,
+            </if>
+            <if test="currency != null">
+                CURRENCY = #{currency} ,
+            </if>
+            <if test="totalCashBalance != null">
+                TOTAL_CASH_BALANCE = #{totalCashBalance} ,
+            </if>
+            <if test="cashBalance != null">
+                CASH_BALANCE = #{cashBalance} ,
+            </if>
+            <if test="accruedCash != null">
+                ACCRUED_CASH = #{accruedCash} ,
+            </if>
+            <if test="stockMarketValue != null">
+                STOCK_MARKET_VALUE = #{stockMarketValue} ,
+            </if>
+            <if test="optionMarketValue != null">
+                OPTION_MARKET_VALUE = #{optionMarketValue} ,
+            </if>
+            <if test="futureOptionValue != null">
+                FUTURE_OPTION_VALUE = #{futureOptionValue} ,
+            </if>
+            <if test="futuresPnl != null">
+                FUTURES_PNL = #{futuresPnl} ,
+            </if>
+            <if test="netLiquidationByCurrency != null">
+                NET_LIQUIDATION_BY_CURRENCY = #{netLiquidationByCurrency} ,
+            </if>
+            <if test="fundValue != null">
+                FUND_VALUE = #{fundValue} ,
+            </if>
+            <if test="netDividend != null">
+                NET_DIVIDEND = #{netDividend} ,
+            </if>
+            <if test="mutualFundValue != null">
+                MUTUAL_FUND_VALUE = #{mutualFundValue} ,
+            </if>
+            <if test="moneyMarketFundValue != null">
+                MONEY_MARKET_FUND_VALUE = #{moneyMarketFundValue} ,
+            </if>
+            <if test="corporateBondValue != null">
+                CORPORATE_BOND_VALUE = #{corporateBondValue} ,
+            </if>
+            <if test="tBondValue != null">
+                T_BOND_VALUE = #{tBondValue} ,
+            </if>
+            <if test="tBillValue != null">
+                T_BILL_VALUE = #{tBillValue} ,
+            </if>
+            <if test="warrantValue != null">
+                WARRANT_VALUE = #{warrantValue} ,
+            </if>
+            <if test="fxCashBalance != null">
+                FX_CASH_BALANCE = #{fxCashBalance} ,
+            </if>
+            <if test="accountOrGroup != null">
+                ACCOUNT_OR_GROUP = #{accountOrGroup} ,
+            </if>
+            <if test="realCurrency != null">
+                REAL_CURRENCY = #{realCurrency} ,
+            </if>
+            <if test="issuerOptionValue != null">
+                ISSUER_OPTION_VALUE = #{issuerOptionValue} ,
+            </if>
+            <if test="unrealizedPnl != null">
+                UNREALIZED_PNL = #{unrealizedPnl} ,
+            </if>
+            <if test="realizedPnl != null">
+                REALIZED_PNL = #{realizedPnl} ,
+            </if>
+            <if test="exchangeRate != null">
+                EXCHANGE_RATE = #{exchangeRate} ,
+            </if>
+            <if test="remark != null">
+                REMARK = #{remark} ,
+            </if>
+            <if test="createDate != null">
+                CREATE_DATE = #{createDate} ,
+            </if>
+            <if test="updateDate != null">
+                UPDATE_DATE = #{updateDate} 
+            </if>
+           </set>
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO IB_ACCOUNT_MARKET_VALUE(
+            ID ,
+            ACCOUNT_ID ,
+            ACCOUNT_CODE ,
+            CURRENCY ,
+            TOTAL_CASH_BALANCE ,
+            CASH_BALANCE ,
+            ACCRUED_CASH ,
+            STOCK_MARKET_VALUE ,
+            OPTION_MARKET_VALUE ,
+            FUTURE_OPTION_VALUE ,
+            FUTURES_PNL ,
+            NET_LIQUIDATION_BY_CURRENCY ,
+            FUND_VALUE ,
+            NET_DIVIDEND ,
+            MUTUAL_FUND_VALUE ,
+            MONEY_MARKET_FUND_VALUE ,
+            CORPORATE_BOND_VALUE ,
+            T_BOND_VALUE ,
+            T_BILL_VALUE ,
+            WARRANT_VALUE ,
+            FX_CASH_BALANCE ,
+            ACCOUNT_OR_GROUP ,
+            REAL_CURRENCY ,
+            ISSUER_OPTION_VALUE ,
+            UNREALIZED_PNL ,
+            REALIZED_PNL ,
+            EXCHANGE_RATE ,
+            REMARK ,
+            CREATE_DATE ,
+            UPDATE_DATE 
+        )
+        <foreach close=")" collection="list" item="item" index="index" open="(" separator="union">
+            SELECT
+            #{item.id} ,
+            #{item.accountId} ,
+            #{item.accountCode} ,
+            #{item.currency} ,
+            #{item.totalCashBalance} ,
+            #{item.cashBalance} ,
+            #{item.accruedCash} ,
+            #{item.stockMarketValue} ,
+            #{item.optionMarketValue} ,
+            #{item.futureOptionValue} ,
+            #{item.futuresPnl} ,
+            #{item.netLiquidationByCurrency} ,
+            #{item.fundValue} ,
+            #{item.netDividend} ,
+            #{item.mutualFundValue} ,
+            #{item.moneyMarketFundValue} ,
+            #{item.corporateBondValue} ,
+            #{item.tBondValue} ,
+            #{item.tBillValue} ,
+            #{item.warrantValue} ,
+            #{item.fxCashBalance} ,
+            #{item.accountOrGroup} ,
+            #{item.realCurrency} ,
+            #{item.issuerOptionValue} ,
+            #{item.unrealizedPnl} ,
+            #{item.realizedPnl} ,
+            #{item.exchangeRate} ,
+            #{item.remark} ,
+            #{item.createDate} ,
+            #{item.updateDate} 
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <!-- 批量修改 -->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE IB_ACCOUNT_MARKET_VALUE SET
+            ACCOUNT_ID = #{item.accountId} ,
+            ACCOUNT_CODE = #{item.accountCode} ,
+            CURRENCY = #{item.currency} ,
+            TOTAL_CASH_BALANCE = #{item.totalCashBalance} ,
+            CASH_BALANCE = #{item.cashBalance} ,
+            ACCRUED_CASH = #{item.accruedCash} ,
+            STOCK_MARKET_VALUE = #{item.stockMarketValue} ,
+            OPTION_MARKET_VALUE = #{item.optionMarketValue} ,
+            FUTURE_OPTION_VALUE = #{item.futureOptionValue} ,
+            FUTURES_PNL = #{item.futuresPnl} ,
+            NET_LIQUIDATION_BY_CURRENCY = #{item.netLiquidationByCurrency} ,
+            FUND_VALUE = #{item.fundValue} ,
+            NET_DIVIDEND = #{item.netDividend} ,
+            MUTUAL_FUND_VALUE = #{item.mutualFundValue} ,
+            MONEY_MARKET_FUND_VALUE = #{item.moneyMarketFundValue} ,
+            CORPORATE_BOND_VALUE = #{item.corporateBondValue} ,
+            T_BOND_VALUE = #{item.tBondValue} ,
+            T_BILL_VALUE = #{item.tBillValue} ,
+            WARRANT_VALUE = #{item.warrantValue} ,
+            FX_CASH_BALANCE = #{item.fxCashBalance} ,
+            ACCOUNT_OR_GROUP = #{item.accountOrGroup} ,
+            REAL_CURRENCY = #{item.realCurrency} ,
+            ISSUER_OPTION_VALUE = #{item.issuerOptionValue} ,
+            UNREALIZED_PNL = #{item.unrealizedPnl} ,
+            REALIZED_PNL = #{item.realizedPnl} ,
+            EXCHANGE_RATE = #{item.exchangeRate} ,
+            REMARK = #{item.remark} ,
+            CREATE_DATE = #{item.createDate} ,
+            UPDATE_DATE = #{item.updateDate} 
+            WHERE ID = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据主键更新一条信息所有数据 -->
+    <update id="updateByPrimaryKey" parameterType="com.fintech.gams.ib.entity.IbAccountMarketValue">
+        UPDATE IB_ACCOUNT_MARKET_VALUE SET
+            ACCOUNT_ID = #{accountId} ,
+            ACCOUNT_CODE = #{accountCode} ,
+            CURRENCY = #{currency} ,
+            TOTAL_CASH_BALANCE = #{totalCashBalance} ,
+            CASH_BALANCE = #{cashBalance} ,
+            ACCRUED_CASH = #{accruedCash} ,
+            STOCK_MARKET_VALUE = #{stockMarketValue} ,
+            OPTION_MARKET_VALUE = #{optionMarketValue} ,
+            FUTURE_OPTION_VALUE = #{futureOptionValue} ,
+            FUTURES_PNL = #{futuresPnl} ,
+            NET_LIQUIDATION_BY_CURRENCY = #{netLiquidationByCurrency} ,
+            FUND_VALUE = #{fundValue} ,
+            NET_DIVIDEND = #{netDividend} ,
+            MUTUAL_FUND_VALUE = #{mutualFundValue} ,
+            MONEY_MARKET_FUND_VALUE = #{moneyMarketFundValue} ,
+            CORPORATE_BOND_VALUE = #{corporateBondValue} ,
+            T_BOND_VALUE = #{tBondValue} ,
+            T_BILL_VALUE = #{tBillValue} ,
+            WARRANT_VALUE = #{warrantValue} ,
+            FX_CASH_BALANCE = #{fxCashBalance} ,
+            ACCOUNT_OR_GROUP = #{accountOrGroup} ,
+            REAL_CURRENCY = #{realCurrency} ,
+            ISSUER_OPTION_VALUE = #{issuerOptionValue} ,
+            UNREALIZED_PNL = #{unrealizedPnl} ,
+            REALIZED_PNL = #{realizedPnl} ,
+            EXCHANGE_RATE = #{exchangeRate} ,
+            REMARK = #{remark} ,
+            CREATE_DATE = #{createDate} ,
+            UPDATE_DATE = #{updateDate} 
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 根据主键取数据 -->
+    <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultType="com.fintech.gams.ib.entity.IbAccountMarketValue">
+        SELECT <include refid="ibAccountMarketValueColumns"/> FROM IB_ACCOUNT_MARKET_VALUE a WHERE a.ID = #{id}
+    </select>
+
+    <!-- 可分页的对象查询 -->
+    <select id="findList" resultType="com.fintech.gams.ib.entity.IbAccountMarketValue">
+        SELECT <include refid="ibAccountMarketValueColumns"/>, b.ACCOUNT_NAME as accountName
+        FROM IB_ACCOUNT_MARKET_VALUE a
+        LEFT JOIN ACCOUNT b ON a.ACCOUNT_ID = b.ID
+        WHERE 1 = 1
+        <if test="accountId != null">
+            AND a.ACCOUNT_ID = #{accountId}
+        </if>
+        <if test="accountCode != null">
+            AND a.ACCOUNT_CODE LIKE '%'||#{accountCode}||'%'
+        </if>
+        <if test="currency != null">
+            AND a.CURRENCY LIKE '%'||#{currency}||'%'
+        </if>
+        <if test="totalCashBalance != null">
+            AND a.TOTAL_CASH_BALANCE = #{totalCashBalance}
+        </if>
+        <if test="cashBalance != null">
+            AND a.CASH_BALANCE = #{cashBalance}
+        </if>
+        <if test="accruedCash != null">
+            AND a.ACCRUED_CASH = #{accruedCash}
+        </if>
+        <if test="stockMarketValue != null">
+            AND a.STOCK_MARKET_VALUE = #{stockMarketValue}
+        </if>
+        <if test="optionMarketValue != null">
+            AND a.OPTION_MARKET_VALUE = #{optionMarketValue}
+        </if>
+        <if test="futureOptionValue != null">
+            AND a.FUTURE_OPTION_VALUE = #{futureOptionValue}
+        </if>
+        <if test="futuresPnl != null">
+            AND a.FUTURES_PNL = #{futuresPnl}
+        </if>
+        <if test="netLiquidationByCurrency != null">
+            AND a.NET_LIQUIDATION_BY_CURRENCY = #{netLiquidationByCurrency}
+        </if>
+        <if test="fundValue != null">
+            AND a.FUND_VALUE = #{fundValue}
+        </if>
+        <if test="netDividend != null">
+            AND a.NET_DIVIDEND = #{netDividend}
+        </if>
+        <if test="mutualFundValue != null">
+            AND a.MUTUAL_FUND_VALUE = #{mutualFundValue}
+        </if>
+        <if test="moneyMarketFundValue != null">
+            AND a.MONEY_MARKET_FUND_VALUE = #{moneyMarketFundValue}
+        </if>
+        <if test="corporateBondValue != null">
+            AND a.CORPORATE_BOND_VALUE = #{corporateBondValue}
+        </if>
+        <if test="tBondValue != null">
+            AND a.T_BOND_VALUE = #{tBondValue}
+        </if>
+        <if test="tBillValue != null">
+            AND a.T_BILL_VALUE = #{tBillValue}
+        </if>
+        <if test="warrantValue != null">
+            AND a.WARRANT_VALUE = #{warrantValue}
+        </if>
+        <if test="fxCashBalance != null">
+            AND a.FX_CASH_BALANCE = #{fxCashBalance}
+        </if>
+        <if test="accountOrGroup != null">
+            AND a.ACCOUNT_OR_GROUP LIKE '%'||#{accountOrGroup}||'%'
+        </if>
+        <if test="realCurrency != null">
+            AND a.REAL_CURRENCY LIKE '%'||#{realCurrency}||'%'
+        </if>
+        <if test="issuerOptionValue != null">
+            AND a.ISSUER_OPTION_VALUE = #{issuerOptionValue}
+        </if>
+        <if test="unrealizedPnl != null">
+            AND a.UNREALIZED_PNL = #{unrealizedPnl}
+        </if>
+        <if test="realizedPnl != null">
+            AND a.REALIZED_PNL = #{realizedPnl}
+        </if>
+        <if test="exchangeRate != null">
+            AND a.EXCHANGE_RATE = #{exchangeRate}
+        </if>
+        <if test="remark != null">
+            AND a.REMARK LIKE '%'||#{remark}||'%'
+        </if>
+        <if test="createDate != null">
+            AND a.CREATE_DATE = #{createDate}
+        </if>
+        <if test="updateDate != null">
+            AND a.UPDATE_DATE = #{updateDate}
+        </if>
+    </select>
+
+    <!-- 查询汇率 -->
+    <select id="findExchangeRateList" parameterType="java.lang.Long" resultType="com.fintech.gams.ib.entity.IbAccountMarketValue">
+        SELECT a.CURRENCY as currency , b.base_currency as baseCurrency, a.EXCHANGE_RATE as exchangeRate
+        FROM IB_Account_Market_Value a, IB_ACCOUNT_FAMILY b
+          WHERE a.ACCOUNT_CODE = b.IB_ACCOUNT_CODE
+            AND a.ACCOUNT_ID = #{accountId}
+            AND a.CURRENCY != b.base_currency
+            AND a.CURRENCY != 'BASE'
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="com.fintech.gams.ib.entity.IbAccountMarketValue">
+        SELECT
+        <include refid="ibAccountMarketValueColumns"/>
+        FROM IB_ACCOUNT_MARKET_VALUE a <!--WHERE a.DEL_FLAG = 0-->
+    </select>
+
+</mapper>
+

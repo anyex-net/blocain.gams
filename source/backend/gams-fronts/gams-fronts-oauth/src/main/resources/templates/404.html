@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Global Asset Management Services|MOF</title>
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}" />
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/index.css}" />
+    <script th:src="@{/js/jquery.js}"></script>
+</head>
+<body>
+    <div class="error-content">
+        <img class="error-img" src="/images/error_404.png" alt="" />
+        <div class="error-txt">Please check that the URL you entered is correct.</div>
+        <a class="error-btn link-index" href="/">Back to home</a>
+    </div>
+</body>
+<script>
+    $(function(){
+        $(".link-index").each(function () {
+            $(this).attr("href", "http://" + window.location.hostname.replace('auth', 'www'));
+        });
+    });
+</script>
+</html>
