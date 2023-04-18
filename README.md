@@ -1,2 +1,3 @@
 # blocain.gams
-gams asset ib
+global asset management system 
+Interactive Brokers
