@@ -1,3 +1,3 @@
 # blocain.gams
-GlobalAssetManagementSystem   
-InteractiveBrokersAPI
+Global Asset Management System   
+InteractiveBrokers API
